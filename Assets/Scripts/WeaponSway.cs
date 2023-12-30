@@ -65,13 +65,13 @@ public class WeaponSway : MonoBehaviour
         float tiltY = Mathf.Clamp(inputY * rotationAmount * pb.currentAimEffectMultiplier, -maxRotationAmount, maxRotationAmount);
 
         // Calculate target rotation
-        Quaternion rotX = rotationX ? Quaternion.AngleAxis(tiltY, Vector3.right) : Quaternion.identity;
+        Quaternion rotX = rotationX ? Quaternion.AngleAxis(tiltY, Vector3.forward) : Quaternion.identity;
         Quaternion rotY = rotationY ? Quaternion.AngleAxis(-tiltX, Vector3.up) : Quaternion.identity;
-        Quaternion rotZ = rotationZ ? Quaternion.AngleAxis(-tiltX, Vector3.forward) : Quaternion.identity;
+        Quaternion rotZ = rotationZ ? Quaternion.AngleAxis(tiltX, Vector3.right) : Quaternion.identity;
 
-        Quaternion finalPosition = initialRotation * rotX * rotY * rotZ;
+        Quaternion finalRotation = initialRotation * rotX * rotY * rotZ;
 
         // Rotate towards target rotation
-        transform.localRotation = Quaternion.Slerp(transform.localRotation, finalPosition, smoothRotation * Time.deltaTime);
+        transform.localRotation = Quaternion.Slerp(transform.localRotation, finalRotation, smoothRotation * Time.deltaTime);
     }
 }

@@ -178,7 +178,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 62627543}
-  m_LocalRotation: {x: 0.037647292, y: 0.718354, z: 0.03635557, w: 0.6937064}
+  m_LocalRotation: {x: 0.052327927, y: 0.017428532, z: -0.00091338967, w: 0.99847746}
   m_LocalPosition: {x: 0.1957, y: -0.2716, z: 0.3329}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -186,7 +186,7 @@ Transform:
   - {fileID: 533850540257584165}
   m_Father: {fileID: 343588691}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 92, z: 6}
+  m_LocalEulerAnglesHint: {x: 6, y: 2, z: 0}
 --- !u!114 &62627545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,7 +200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aimPosition: {x: 0.001, y: -0.185, z: 0.166}
-  aimRotation: {x: 0, y: 90, z: 0}
+  aimRotation: {x: 0, y: 0, z: 0}
   smoothTime: 0.1
   smoothRotation: 6
   pb: {fileID: 1854642269}
@@ -694,7 +694,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 343588691}
-  - component: {fileID: 343588693}
   - component: {fileID: 343588692}
   m_Layer: 0
   m_Name: WeaponEffect
@@ -736,28 +735,6 @@ MonoBehaviour:
   effectSpeed: 9
   effectSpeedIdle: 0.5
   smoothTime: 0.1
-  pb: {fileID: 1854642269}
---- !u!114 &343588693
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 343588690}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7638f464bb3e4fe4db78f3b31f672574, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  amount: 0.02
-  maxAmount: 0.06
-  smoothAmount: 6
-  rotationAmount: 4
-  maxRotationAmount: 5
-  smoothRotation: 12
-  rotationX: 1
-  rotationY: 0
-  rotationZ: 1
   pb: {fileID: 1854642269}
 --- !u!1 &350247763
 GameObject:
@@ -3065,6 +3042,28 @@ MonoBehaviour:
   bulletHoleGraphic: {fileID: 6764976601818281297, guid: 4384ebb8a06194b43a3c5ce845fdef82,
     type: 3}
   cameraRecoil: {fileID: 1199068714}
+--- !u!114 &533850540257584174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 751120566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7638f464bb3e4fe4db78f3b31f672574, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amount: 0.02
+  maxAmount: 0.06
+  smoothAmount: 6
+  rotationAmount: 4
+  maxRotationAmount: 5
+  smoothRotation: 12
+  rotationX: 1
+  rotationY: 0
+  rotationZ: 1
+  pb: {fileID: 1854642269}
 --- !u!1001 &3588053618370024955
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3110,7 +3109,7 @@ PrefabInstance:
     - target: {fileID: 3937216988064264670, guid: 582091a46cd99f74f9645b8f02dcb6b3,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 3937216988064264670, guid: 582091a46cd99f74f9645b8f02dcb6b3,
         type: 3}
@@ -3120,7 +3119,7 @@ PrefabInstance:
     - target: {fileID: 3937216988064264670, guid: 582091a46cd99f74f9645b8f02dcb6b3,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 3937216988064264670, guid: 582091a46cd99f74f9645b8f02dcb6b3,
         type: 3}
@@ -3135,7 +3134,7 @@ PrefabInstance:
     - target: {fileID: 3937216988064264670, guid: 582091a46cd99f74f9645b8f02dcb6b3,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 3937216988064264670, guid: 582091a46cd99f74f9645b8f02dcb6b3,
         type: 3}
