@@ -27,7 +27,7 @@ public class CameraRecoil : MonoBehaviour
         transform.localRotation = Quaternion.Euler(rot);
     }
 
-    public void Shake()
+    public void Fire()
     {
         if (pb.isAiming)
         {

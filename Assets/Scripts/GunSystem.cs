@@ -25,6 +25,7 @@ public class GunSystem : MonoBehaviour
     // Graphics
     public GameObject muzzleFlash, bulletHoleGraphic;
     public CameraRecoil cameraRecoil;
+    public WeaponRecoil weaponRecoil;
 
     private void Start()
     {
@@ -73,7 +74,9 @@ public class GunSystem : MonoBehaviour
             Instantiate(bulletHoleGraphic, rayHit.point, Quaternion.FromToRotation(Vector3.forward, rayHit.normal));
         }
 
-        cameraRecoil.Shake();
+        //Recoil
+        cameraRecoil.Fire();
+        weaponRecoil.Fire();
 
         //Graphics
         Instantiate(muzzleFlash, muzzlePoint.position, fpsCam.transform.rotation,muzzlePoint);
