@@ -14,6 +14,7 @@ public class WeaponBobbing : MonoBehaviour
     private Vector3 originalPosition;
     private float sinTime;
     private Vector3 velocity = Vector3.zero;
+    private float effectIntensityAiming;
 
     private void Start()
     {
@@ -34,10 +35,14 @@ public class WeaponBobbing : MonoBehaviour
             sinTime += Time.deltaTime * effectSpeedIdle;
         }
 
+        // Disable bobbing when idle aiming
+        if (pb.isAiming && inputVector.magnitude <= 0f) effectIntensityAiming = 0f;
+        else effectIntensityAiming = pb.currentAimBobbingMultiplier;
+
         // Calculate bobbing position 
-        float sinAmountY = -Mathf.Abs(Mathf.Sin(sinTime) * effectIntensity * pb.currentAimEffectMultiplier);
+        float sinAmountY = -Mathf.Abs(Mathf.Sin(sinTime) * effectIntensity * effectIntensityAiming);
         // Change horizontal bobbing with movement
-        float sinAmountX = Mathf.Cos(sinTime) * (inputVector.magnitude > 0f ? effectIntensityX * pb.currentAimEffectMultiplier : 0f);
+        float sinAmountX = Mathf.Cos(sinTime) * (inputVector.magnitude > 0f ? effectIntensityX * effectIntensityAiming : 0f);
 
         Vector3 finalPosition = originalPosition + Vector3.up * sinAmountY + Vector3.right * sinAmountX;
 

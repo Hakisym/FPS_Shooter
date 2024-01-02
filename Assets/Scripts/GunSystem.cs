@@ -71,7 +71,7 @@ public class GunSystem : MonoBehaviour
                 rayHit.collider.GetComponent<IDamageable>().TakeDamage(damage);
 
             //bullet impact
-            Instantiate(bulletHoleGraphic, rayHit.point, Quaternion.FromToRotation(Vector3.forward, rayHit.normal));
+            Instantiate(bulletHoleGraphic, rayHit.point, Quaternion.LookRotation(rayHit.normal));
         }
 
         //Recoil

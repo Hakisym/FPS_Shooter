@@ -28,6 +28,7 @@ public class WeaponAiming : MonoBehaviour
         Vector3 finalPosition;
         Quaternion finalRotation;
 
+        //Update transform to aim position & rotation
         if (isAiming)
         {
             finalPosition = aimPosition;
@@ -41,6 +42,7 @@ public class WeaponAiming : MonoBehaviour
             pb.isAiming = false;
         }
 
+        //Smooth interpolate
         transform.localPosition = Vector3.SmoothDamp(transform.localPosition, finalPosition, ref velocity, smoothTime);
         transform.localRotation = Quaternion.Slerp(transform.localRotation, finalRotation, Time.deltaTime * smoothRotation);
 

@@ -51,8 +51,8 @@ public class WeaponSway : MonoBehaviour
     private void UpdatePositionsway()
     {
         // Smooth position sway
-        float moveX = Mathf.Clamp(inputX * amount * pb.currentAimEffectMultiplier, -maxAmount, maxAmount);
-        float moveY = Mathf.Clamp(inputY * amount * pb.currentAimEffectMultiplier, -maxAmount, maxAmount);
+        float moveX = Mathf.Clamp(inputX * amount * pb.currentAimSwayMultiplier, -maxAmount, maxAmount);
+        float moveY = Mathf.Clamp(inputY * amount * pb.currentAimSwayMultiplier, -maxAmount, maxAmount);
 
         Vector3 finalPosition = initialPosition + new Vector3(moveX, moveY, 0);
 
@@ -61,8 +61,8 @@ public class WeaponSway : MonoBehaviour
 
     private void UpdateRotationSway()
     {
-        float tiltX = Mathf.Clamp(inputX * rotationAmount * pb.currentAimEffectMultiplier, -maxRotationAmount, maxRotationAmount);
-        float tiltY = Mathf.Clamp(inputY * rotationAmount * pb.currentAimEffectMultiplier, -maxRotationAmount, maxRotationAmount);
+        float tiltX = Mathf.Clamp(inputX * rotationAmount * pb.currentAimSwayMultiplier, -maxRotationAmount, maxRotationAmount);
+        float tiltY = Mathf.Clamp(inputY * rotationAmount * pb.currentAimSwayMultiplier, -maxRotationAmount, maxRotationAmount);
 
         // Calculate target rotation
         Quaternion rotX = rotationX ? Quaternion.AngleAxis(tiltY, Vector3.forward) : Quaternion.identity;

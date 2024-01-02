@@ -1103,6 +1103,7 @@ MonoBehaviour:
   effectSpeed: 9
   effectSpeedIdle: 0.5
   smoothTime: 0.1
+  aimBobbingMultiplier: 0
   pb: {fileID: 1854642269}
 --- !u!1 &350247763
 GameObject:
@@ -5227,7 +5228,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAiming: 0
-  aimEffectMultiplier: 0.2
+  aimEffectMultiplier: 0.1
   currentAimEffectMultiplier: 0
 --- !u!1001 &1926810894
 PrefabInstance:
@@ -7155,6 +7156,12 @@ PrefabInstance:
       propertyPath: weaponRecoil
       value: 
       objectReference: {fileID: 428910818}
+    - target: {fileID: 533850540257584171, guid: 582091a46cd99f74f9645b8f02dcb6b3,
+        type: 3}
+      propertyPath: bulletHoleGraphic
+      value: 
+      objectReference: {fileID: 1709698631529194, guid: 72b8f08b2b4dbbc439ccbb6402928ad1,
+        type: 3}
     - target: {fileID: 533850540257584174, guid: 582091a46cd99f74f9645b8f02dcb6b3,
         type: 3}
       propertyPath: pb

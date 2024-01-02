@@ -29,16 +29,20 @@ public class WeaponRecoil : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //Return interpolation
         rotationalRecoil = Vector3.Lerp(rotationalRecoil, Vector3.zero, rotationalReturnSpeed * Time.deltaTime);
         positionalRecoil = Vector3.Lerp(positionalRecoil, Vector3.zero, positionalReturnSpeed * Time.deltaTime);
 
+        //Smooth lerp to current position
         recoilPosition.localPosition = Vector3.Slerp(recoilPosition.localPosition, positionalRecoil, positionalRecoilSpeed * Time.fixedDeltaTime);
+        //Smooth rotate to current rotation
         rot = Vector3.Slerp(rot, rotationalRecoil, rotationalRecoilSpeed * Time.fixedDeltaTime);
         rotationPoint.localRotation = Quaternion.Euler(rot);
     }
 
     public void Fire()
     {
+        //Add random offset to current position & rotation when firing
         if (pb.isAiming)
         {
             rotationalRecoil += new Vector3(-recoilRotationAim.x, Random.Range(-recoilRotationAim.y, recoilRotationAim.y), Random.Range(-recoilRotationAim.z, recoilRotationAim.z));

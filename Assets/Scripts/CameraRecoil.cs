@@ -22,13 +22,19 @@ public class CameraRecoil : MonoBehaviour
 
     private void FixedUpdate()
     {
-        currentRotation = Vector3.Lerp(currentRotation, Vector3.zero, returnSpeed * Time.deltaTime);
+        //Return to (0,0,0) after continuous fire
+        Vector3 returnPoint = Input.GetMouseButton(0) ? new Vector3(currentRotation.x, 0f, 0f) : Vector3.zero;
+
+        //Return interpolation
+        currentRotation = Vector3.Lerp(currentRotation, returnPoint, returnSpeed * Time.deltaTime);
+        //Smooth rotate to current rotation
         rot = Vector3.Slerp(rot, currentRotation, rotationSpeed * Time.fixedDeltaTime);
         transform.localRotation = Quaternion.Euler(rot);
     }
 
     public void Fire()
     {
+        //Add random offset to current rotation when firing
         if (pb.isAiming)
         {
             currentRotation += new Vector3(-recoilRotationAiming.x, Random.Range(-recoilRotationAiming.y, recoilRotationAiming.y), Random.Range(-recoilRotationAiming.z, recoilRotationAiming.z));
