@@ -5,17 +5,34 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public CharacterController controller;
-
-    public float speed = 12f;
+    [Space]
+    public float walkSpeed = 8f;
+    public float sprintSpeed = 12f;
+    public float crouchSpeed = 4f;
     public float gravity = -9.81f;
     public float jumpHeight = 3f;
-
+    [Space]
     public Transform groundCheck;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
-
+    [Space]
     public Vector3 velocity;
-    public bool isGrounded { get; private set; }
+    public bool isGrounded;
+    public bool isSprinting;
+    public bool isCrouching;
+    [Space]
+    public Transform cameraHolder;
+    public float crouchHeight;
+    private float originalHeight;
+
+    private float speed;
+    private float mouseX;
+    private float mouseY;
+
+    private void Start()
+    {
+        originalHeight = controller.height;
+    }
 
     private void Update()
     {
@@ -27,12 +44,29 @@ public class PlayerMovement : MonoBehaviour
             velocity.y = -2f;
         }
 
-        // Move player
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
+        CheckInput();
 
-        Vector3 movement = transform.right * x + transform.forward * z;
+        Crouch();
+        
+        // Check velocity
+        if (isSprinting)
+        {
+            speed = sprintSpeed;
+        }
+        else if (isCrouching)
+        {
+            speed = crouchSpeed;
+        }
+        else
+        {
+            speed = walkSpeed;
+        }
 
+        // Clamp movement
+        Vector3 movement = transform.right * mouseX + transform.forward * mouseY;
+        movement = Vector3.ClampMagnitude(movement, 1f);
+
+        // Move
         controller.Move(movement * speed * Time.deltaTime);
 
         // Jump
@@ -45,5 +79,35 @@ public class PlayerMovement : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
+    }
+
+    void CheckInput()
+    {
+        // Move input
+        mouseX = Input.GetAxis("Horizontal");
+        mouseY = Input.GetAxis("Vertical");
+
+        // Sprint input
+        if (Input.GetKeyDown(KeyCode.LeftShift) && isGrounded && !isCrouching)
+        {
+            isSprinting = !isSprinting;
+        }
+
+        // Crouch input
+        if (Input.GetKeyDown(KeyCode.LeftControl) && isGrounded && !isSprinting)
+        {
+            isCrouching = !isCrouching;
+        }
+    }
+
+    void Crouch()
+    {
+        // Camera crouch
+        Vector3 finalPosition = (controller.height * 0.75f - originalHeight/2f) * Vector3.up;
+        cameraHolder.localPosition = Vector3.Lerp(cameraHolder.localPosition, finalPosition, Time.deltaTime * 10f);
+
+        // Character collider crouch
+        controller.height = isCrouching ? crouchHeight : originalHeight;
+        controller.center = (controller.height - originalHeight) / 2f * Vector3.up;
     }
 }

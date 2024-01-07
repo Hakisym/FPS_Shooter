@@ -1103,7 +1103,6 @@ MonoBehaviour:
   effectSpeed: 9
   effectSpeedIdle: 0.5
   smoothTime: 0.1
-  aimBobbingMultiplier: 0
   pb: {fileID: 1854642269}
 --- !u!1 &350247763
 GameObject:
@@ -5165,7 +5164,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1854642265}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.7700005, z: 0}
+  m_LocalPosition: {x: 0, y: 1.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5206,7 +5205,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 1854642267}
-  speed: 8
+  walkSpeed: 8
+  sprintSpeed: 12
+  crouchSpeed: 4
   gravity: -19.62
   jumpHeight: 1.5
   groundCheck: {fileID: 350247764}
@@ -5215,6 +5216,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   velocity: {x: 0, y: 0, z: 0}
+  isGrounded: 0
+  isSprinting: 0
+  isCrouching: 0
+  cameraHolder: {fileID: 1538711210}
+  crouchHeight: 2
 --- !u!114 &1854642269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5228,8 +5234,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAiming: 0
-  aimEffectMultiplier: 0.1
-  currentAimEffectMultiplier: 0
+  aimSwayMultiplier: 0.2
+  aimBobbingMultiplier: 0.1
+  currentAimSwayMultiplier: 0
+  currentAimBobbingMultiplier: 0
 --- !u!1001 &1926810894
 PrefabInstance:
   m_ObjectHideFlags: 0
