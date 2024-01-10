@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 3937216988061971262}
   - component: {fileID: 533850540257584171}
   - component: {fileID: 533850540257584174}
+  - component: {fileID: 533850540257584170}
   m_Layer: 9
   m_Name: AssaultRifle6_04
   m_TagString: Untagged
@@ -137,9 +138,9 @@ MonoBehaviour:
   timeBetweenShooting: 0.1
   spread: 0.02
   range: 100
-  reloadTime: 1
+  reloadTime: 2
   timeBetweenShots: 0
-  magazineSize: 999
+  magazineSize: 30
   bulletsPerTap: 1
   allowButtonHold: 1
   fpsCam: {fileID: 0}
@@ -147,11 +148,13 @@ MonoBehaviour:
   whatIsShootable:
     serializedVersion: 2
     m_Bits: 64
+  animator: {fileID: 533850540257584170}
   muzzleFlash: {fileID: 1336949550903370, guid: 679d294f11bff5d49b2fc3da2db6c3b7,
     type: 3}
-  bulletHoleGraphic: {fileID: 6764976601818281297, guid: 4384ebb8a06194b43a3c5ce845fdef82,
+  bulletHoleGraphic: {fileID: 1709698631529194, guid: 72b8f08b2b4dbbc439ccbb6402928ad1,
     type: 3}
   cameraRecoil: {fileID: 0}
+  weaponRecoil: {fileID: 0}
 --- !u!114 &533850540257584174
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,6 +177,26 @@ MonoBehaviour:
   rotationY: 0
   rotationZ: 1
   pb: {fileID: 0}
+--- !u!95 &533850540257584170
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3937216988064230910}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: dcc975bfe35ec904e8846c29c8e7acec, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &2713154493271817387
 PrefabInstance:
   m_ObjectHideFlags: 0

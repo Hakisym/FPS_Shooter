@@ -28,7 +28,7 @@ public class WeaponBobbing : MonoBehaviour
         sinTime += Time.deltaTime * bobbingSpeed;
 
         // Movement multiplier
-        float idleMultiplier = inputVector.magnitude > 0f ? 1f : 0f;
+        float idleMultiplier = inputVector.sqrMagnitude > 0f ? 1f : 0f;
 
         // Calculate bobbing position with a Mobius pattern
         float sinAmountY = Mathf.Sin(sinTime) * effectIntensity * pb.currentAimBobbingMultiplier * idleMultiplier;

@@ -21,6 +21,7 @@ public class GunSystem : MonoBehaviour
     public Transform muzzlePoint;
     public RaycastHit rayHit;
     public LayerMask whatIsShootable;
+    public Animator animator;
 
     // Graphics
     public GameObject muzzleFlash, bulletHoleGraphic;
@@ -98,6 +99,7 @@ public class GunSystem : MonoBehaviour
     private void Reload()
     {
         reloading = true;
+        animator.Play("Reload");
         Invoke("ReloadFinished", reloadTime);
     }
 
