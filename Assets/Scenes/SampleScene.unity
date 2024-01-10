@@ -1098,9 +1098,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d2aee9cf5fec041b28c2e6e97de8b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectIntensity: 0.05
+  effectIntensity: 0.02
   effectIntensityX: 0.02
-  effectSpeed: 9
+  effectSpeed: 18
+  effectSpeedAiming: 9
   effectSpeedIdle: 0.5
   smoothTime: 0.1
   pb: {fileID: 1854642269}
@@ -5235,7 +5236,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAiming: 0
   aimSwayMultiplier: 0.2
-  aimBobbingMultiplier: 0.1
+  aimBobbingMultiplier: 0.2
   currentAimSwayMultiplier: 0
   currentAimBobbingMultiplier: 0
 --- !u!1001 &1926810894
