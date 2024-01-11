@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class GunSystem : MonoBehaviour
+public class WeaponSystem : MonoBehaviour
 {
     [Header("Gun stats")]
     public int damage;
@@ -14,7 +14,7 @@ public class GunSystem : MonoBehaviour
     int bulletsLeft, bulletsShot;
 
     //bools
-    bool shooting, readyToShoot, reloading;
+    public bool shooting, readyToShoot, reloading;
 
     [Header("Reference")]
     public Camera fpsCam;
@@ -99,7 +99,7 @@ public class GunSystem : MonoBehaviour
     private void Reload()
     {
         reloading = true;
-        animator.Play("Reload");
+        animator.SetTrigger("reloading");
         Invoke("ReloadFinished", reloadTime);
     }
 

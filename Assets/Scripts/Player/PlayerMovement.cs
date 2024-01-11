@@ -29,6 +29,10 @@ public class PlayerMovement : MonoBehaviour
     public Transform cameraHolder;
     public float crouchHeight;
     [Space]
+    [Header("Sprint")]
+    public float cameraFovSprinting = 70f;
+    public float cameraFovSmoothing = 5f;
+    [Space]
     [Header("Sounds")]
     public AudioSource audioSource;
     public AudioClip walkSound;
@@ -36,6 +40,8 @@ public class PlayerMovement : MonoBehaviour
     [Space]
     [Header("Reference")]
     public PlayerBehaviour pb;
+    public Animator animator;
+    public WeaponSystem ws;
 
     private Vector3 moveDirection;
     private float originalHeight;
@@ -69,69 +75,10 @@ public class PlayerMovement : MonoBehaviour
         HandleSFX();
     }
 
-    private void Sprint()
-    {
-        if (moveDirection.sqrMagnitude <= 0 || pb.isAiming)
-        {
-            isSprinting = false;
-        }
-    }
-
-    private void HandleSFX()
-    {
-        if (isGrounded&& moveDirection.sqrMagnitude > 0)
-        {
-            audioSource.clip = isSprinting ? runSound : walkSound;
-            if (!audioSource.isPlaying)
-            {
-                audioSource.Play();
-            }
-        }
-        else
-        {
-            audioSource.Pause();
-        }
-    }
-
     private void CheckGround()
     {
         // Chech ground
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-    }
-
-    private void Jump()
-    {
-        // Jump
-        if (Input.GetButtonDown("Jump") && isGrounded)
-        {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-        }
-    }
-
-    private void Move()
-    {
-        // Clamp movement
-        Vector3 movement = Vector3.ClampMagnitude(moveDirection, 1f);
-
-        // Move
-        controller.Move(movement * speed * Time.deltaTime);
-    }
-
-    private void HandleVelocity()
-    {
-        // Check velocity
-        if (isSprinting)
-        {
-            speed = sprintSpeed;
-        }
-        else if (isCrouching || pb.isAiming)
-        {
-            speed = crouchSpeed;
-        }
-        else
-        {
-            speed = walkSpeed;
-        }
     }
 
     private void HandleGravity()
@@ -156,7 +103,7 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = transform.right * mouseX + transform.forward * mouseY;
 
         // Sprint input
-        if (Input.GetKeyDown(KeyCode.LeftShift) && isGrounded && moveDirection.sqrMagnitude>0 && !pb.isAiming)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && isGrounded && moveDirection.sqrMagnitude > 0 && !pb.isAiming && !ws.shooting)
         {
             isSprinting = !isSprinting;
         }
@@ -176,11 +123,84 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Camera crouch
-        Vector3 finalPosition = (controller.height * 0.75f - originalHeight/2f) * Vector3.up;
+        Vector3 finalPosition = (controller.height * 0.75f - originalHeight / 2f) * Vector3.up;
         cameraHolder.localPosition = Vector3.Lerp(cameraHolder.localPosition, finalPosition, Time.deltaTime * 10f);
 
         // Character collider crouch
         controller.height = isCrouching ? crouchHeight : originalHeight;
         controller.center = (controller.height - originalHeight) / 2f * Vector3.up;
+    }
+
+    private void Sprint()
+    {
+        if (moveDirection.sqrMagnitude <= 0 || pb.isAiming || ws.shooting)
+        {
+            isSprinting = false;
+        }
+
+        // Camera fov
+        float cameraFov = isSprinting ? cameraFovSprinting : 60;
+        Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, cameraFov, Time.deltaTime * 5f);
+
+        if (isSprinting)
+        {
+            animator.SetBool("sprinting", true);
+        }
+        else
+        {
+            animator.SetBool("sprinting", false);
+        }
+    }
+
+    private void HandleVelocity()
+    {
+        // Check velocity
+        if (isSprinting)
+        {
+            speed = sprintSpeed;
+        }
+        else if (isCrouching || pb.isAiming)
+        {
+            speed = crouchSpeed;
+        }
+        else
+        {
+            speed = walkSpeed;
+        }
+    }
+
+    private void Move()
+    {
+        // Clamp movement
+        Vector3 movement = Vector3.ClampMagnitude(moveDirection, 1f);
+
+        // Move
+        controller.Move(movement * speed * Time.deltaTime);
+    }
+
+    private void Jump()
+    {
+        // Jump
+        if (Input.GetButtonDown("Jump") && isGrounded)
+        {
+            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+        }
+    }
+
+    private void HandleSFX()
+    {
+        // Play foot sound
+        if (isGrounded && moveDirection.sqrMagnitude > 0)
+        {
+            audioSource.clip = isSprinting ? runSound : walkSound;
+            if (!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
+        }
+        else
+        {
+            audioSource.Pause();
+        }
     }
 }

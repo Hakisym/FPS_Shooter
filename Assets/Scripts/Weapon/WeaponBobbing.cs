@@ -5,14 +5,16 @@ using UnityEngine;
 public class WeaponBobbing : MonoBehaviour
 {
     public float effectIntensity = 0.02f;
-    public float effectIntensityX = 0.02f;
     public float effectSpeed = 18f;
     public float smoothTime = 0.1f;
     public PlayerBehaviour pb;
+    public PlayerMovement pm;
 
     private Vector3 originalPosition;
     private float sinTime;
     private Vector3 velocity = Vector3.zero;
+    private float bobbingSpeed;
+    private float bobbingIntensity;
 
     private void Start()
     {
@@ -23,16 +25,28 @@ public class WeaponBobbing : MonoBehaviour
     {
         Vector3 inputVector = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
 
-        // Change bobbing speed with aiming
-        float bobbingSpeed = pb.isAiming ? effectSpeed / 2 : effectSpeed;
+        bobbingIntensity = effectIntensity;
+        // Change bobbing speed with aiming & moving
+        if (pm.isSprinting)
+        {
+            bobbingIntensity = effectIntensity + 0.01f;
+        }
+        else if (pm.isCrouching || pb.isAiming)
+        {
+            bobbingSpeed = effectSpeed * 0.5f;
+        }
+        else
+        {
+            bobbingSpeed = effectSpeed;
+        }
         sinTime += Time.deltaTime * bobbingSpeed;
 
-        // Movement multiplier
+        // Movement multiplier for return animation
         float idleMultiplier = inputVector.sqrMagnitude > 0f ? 1f : 0f;
 
         // Calculate bobbing position with a Mobius pattern
-        float sinAmountY = Mathf.Sin(sinTime) * effectIntensity * pb.currentAimBobbingMultiplier * idleMultiplier;
-        float sinAmountX = Mathf.Sin(sinTime/2) * effectIntensityX * pb.currentAimBobbingMultiplier * idleMultiplier;
+        float sinAmountY = Mathf.Sin(sinTime) * bobbingIntensity * pb.currentAimBobbingMultiplier * idleMultiplier;
+        float sinAmountX = Mathf.Sin(sinTime/2) * bobbingIntensity * pb.currentAimBobbingMultiplier * idleMultiplier;
 
         Vector3 finalPosition = originalPosition + Vector3.up * sinAmountY + Vector3.right * sinAmountX;
 
