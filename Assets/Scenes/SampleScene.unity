@@ -3375,7 +3375,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationSpeed: 6
   returnSpeed: 6
-  recoilRotation: {x: 2, y: 2, z: 2}
+  recoilRotation: {x: 0.5, y: 0.5, z: 1.5}
   recoilRotationAiming: {x: 0.5, y: 0.5, z: 1.5}
   pb: {fileID: 1854642269}
 --- !u!1001 &1223042279
