@@ -13,7 +13,7 @@ public class WeaponSystem : MonoBehaviour
     public bool allowButtonHold;
     int bulletsLeft, bulletsShot;
 
-    //bools
+    [Header("Gun states")]
     public bool shooting, readyToShoot, reloading;
 
     [Header("Reference")]
@@ -22,11 +22,16 @@ public class WeaponSystem : MonoBehaviour
     public RaycastHit rayHit;
     public LayerMask whatIsShootable;
     public Animator animator;
-
-    // Graphics
-    public GameObject muzzleFlash, bulletHoleGraphic;
     public CameraRecoil cameraRecoil;
     public WeaponRecoil weaponRecoil;
+    public Inventory inventory;
+
+    [Header("Visuals")]
+    public GameObject muzzleFlash, bulletHoleGraphic;
+
+    [Header("Sounds")]
+    public AudioClip shootSound;
+    public AudioSource audioSource;
 
     private void Start()
     {
@@ -44,9 +49,9 @@ public class WeaponSystem : MonoBehaviour
         if(allowButtonHold) shooting = Input.GetKey(KeyCode.Mouse0);
         else shooting = Input.GetKeyDown(KeyCode.Mouse0);
 
-        if (Input.GetKeyDown(KeyCode.R) && !reloading && bulletsLeft < magazineSize) Reload();
+        if (Input.GetKeyDown(KeyCode.R) && !reloading && bulletsLeft < magazineSize && !inventory.switching) Reload();
 
-        if (readyToShoot && shooting && !reloading && bulletsLeft > 0)
+        if (readyToShoot && shooting && !reloading && bulletsLeft > 0 && !inventory.switching)
         {
             bulletsShot = bulletsPerTap;
             Shoot();
@@ -81,6 +86,9 @@ public class WeaponSystem : MonoBehaviour
 
         //Graphics
         Instantiate(muzzleFlash, muzzlePoint.position, fpsCam.transform.rotation,muzzlePoint);
+
+        //Sounds
+        audioSource.PlayOneShot(shootSound);
 
         bulletsLeft--;
         bulletsShot--;
