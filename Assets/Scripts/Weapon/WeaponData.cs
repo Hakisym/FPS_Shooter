@@ -1,0 +1,52 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "WeaponData_", menuName = "ScriptableObjects/WeaponData")]
+public class WeaponData : ScriptableObject
+{
+    [Header("Weapon Recoil Settings")]
+    public WeaponRecoilParameters weaponRecoilParameters;
+
+    [Header("Camera Recoil Settings")]
+    public CameraRecoilParameters cameraRecoilParameters;
+
+    [Header("Aim Settings")]
+    public AimParameters aimParameters;
+}
+
+[System.Serializable]
+public struct WeaponRecoilParameters
+{
+    //hipfire
+    public Vector3 recoilRotation;
+    public Vector3 recoilKickback;
+    //aiming
+    public Vector3 recoilRotationAim;
+    public Vector3 recoilKickbackAim;
+    //speed
+    public float positionalRecoilSpeed;
+    public float rotationalRecoilSpeed;
+
+    public float positionalReturnSpeed;
+    public float rotationalReturnSpeed;
+}
+
+[System.Serializable]
+public struct CameraRecoilParameters
+{
+    public Vector3 RecoilRotation; //hipfire
+    public Vector3 RecoilRotationAiming; //aiming
+    //speed
+    public float rotationSpeed;
+    public float returnSpeed;
+}
+
+[System.Serializable]
+public struct AimParameters
+{
+    public Vector3 aimPosition;
+    public Vector3 aimRotation;
+    public float smoothTime;
+    public float smoothRotation;
+}

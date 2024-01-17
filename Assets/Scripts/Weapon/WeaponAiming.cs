@@ -4,11 +4,8 @@ using UnityEngine;
 
 public class WeaponAiming : MonoBehaviour
 {
-    public Vector3 aimPosition;
-    public Vector3 aimRotation;
-    public float smoothTime;
-    public float smoothRotation;
     public PlayerBehaviour pb;
+    public Inventory inventory;
 
     private Vector3 originalPosition;
     private Quaternion originalRotation;
@@ -31,8 +28,8 @@ public class WeaponAiming : MonoBehaviour
         //Update transform to aim position & rotation
         if (isAiming)
         {
-            finalPosition = aimPosition;
-            finalRotation = Quaternion.Euler(aimRotation);
+            finalPosition = inventory.currentWeapon.wd.aimParameters.aimPosition;
+            finalRotation = Quaternion.Euler(inventory.currentWeapon.wd.aimParameters.aimRotation);
             pb.isAiming = true;
         }
         else
@@ -43,8 +40,8 @@ public class WeaponAiming : MonoBehaviour
         }
 
         //Smooth interpolate
-        transform.localPosition = Vector3.SmoothDamp(transform.localPosition, finalPosition, ref velocity, smoothTime);
-        transform.localRotation = Quaternion.Slerp(transform.localRotation, finalRotation, Time.deltaTime * smoothRotation);
+        transform.localPosition = Vector3.SmoothDamp(transform.localPosition, finalPosition, ref velocity, inventory.currentWeapon.wd.aimParameters.smoothTime);
+        transform.localRotation = Quaternion.Slerp(transform.localRotation, finalRotation, Time.deltaTime * inventory.currentWeapon.wd.aimParameters.smoothRotation);
 
     }
 }

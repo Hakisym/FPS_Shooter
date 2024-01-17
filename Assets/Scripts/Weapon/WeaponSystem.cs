@@ -33,6 +33,9 @@ public class WeaponSystem : MonoBehaviour
     public AudioClip shootSound;
     public AudioSource audioSource;
 
+    [Header("WeaponData")]
+    public WeaponData wd;
+
     private void Start()
     {
         bulletsLeft = magazineSize;

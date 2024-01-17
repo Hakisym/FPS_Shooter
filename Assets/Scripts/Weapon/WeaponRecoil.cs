@@ -8,20 +8,7 @@ public class WeaponRecoil : MonoBehaviour
     public Transform recoilPosition;
     public Transform rotationPoint;
     public PlayerBehaviour pb;
-
-    [Header("Speed Settings")]
-    public float positionalRecoilSpeed = 8f;
-    public float rotationalRecoilSpeed = 8f;
-
-    public float positionalReturnSpeed = 18f;
-    public float rotationalReturnSpeed = 38f;
-
-    [Header("Amount Settings")]
-    public Vector3 recoilRotation = new Vector3(10f, 5f, 7f);
-    public Vector3 recoilKickback = new Vector3(0.015f, 0f, -0.2f);
-
-    public Vector3 recoilRotationAim = new Vector3(10f, 4f, 6f);
-    public Vector3 recoilKickbackAim = new Vector3(0.015f, 0f, -0.2f);
+    public Inventory inventory;
 
     private Vector3 rotationalRecoil;
     private Vector3 positionalRecoil;
@@ -30,13 +17,13 @@ public class WeaponRecoil : MonoBehaviour
     private void FixedUpdate()
     {
         //Return interpolation
-        rotationalRecoil = Vector3.Lerp(rotationalRecoil, Vector3.zero, rotationalReturnSpeed * Time.deltaTime);
-        positionalRecoil = Vector3.Lerp(positionalRecoil, Vector3.zero, positionalReturnSpeed * Time.deltaTime);
+        rotationalRecoil = Vector3.Lerp(rotationalRecoil, Vector3.zero, inventory.currentWeapon.wd.weaponRecoilParameters.rotationalReturnSpeed * Time.deltaTime);
+        positionalRecoil = Vector3.Lerp(positionalRecoil, Vector3.zero, inventory.currentWeapon.wd.weaponRecoilParameters.positionalReturnSpeed * Time.deltaTime);
 
         //Smooth lerp to current position
-        recoilPosition.localPosition = Vector3.Slerp(recoilPosition.localPosition, positionalRecoil, positionalRecoilSpeed * Time.fixedDeltaTime);
+        recoilPosition.localPosition = Vector3.Slerp(recoilPosition.localPosition, positionalRecoil, inventory.currentWeapon.wd.weaponRecoilParameters.positionalRecoilSpeed * Time.fixedDeltaTime);
         //Smooth rotate to current rotation
-        rot = Vector3.Slerp(rot, rotationalRecoil, rotationalRecoilSpeed * Time.fixedDeltaTime);
+        rot = Vector3.Slerp(rot, rotationalRecoil, inventory.currentWeapon.wd.weaponRecoilParameters.rotationalRecoilSpeed * Time.fixedDeltaTime);
         rotationPoint.localRotation = Quaternion.Euler(rot);
     }
 
@@ -45,13 +32,23 @@ public class WeaponRecoil : MonoBehaviour
         //Add random offset to current position & rotation when firing
         if (pb.isAiming)
         {
-            rotationalRecoil += new Vector3(-recoilRotationAim.x, Random.Range(-recoilRotationAim.y, recoilRotationAim.y), Random.Range(-recoilRotationAim.z, recoilRotationAim.z));
-            positionalRecoil += new Vector3(Random.Range(-recoilKickbackAim.x, recoilKickbackAim.x), Random.Range(-recoilKickbackAim.y, recoilKickbackAim.y), recoilKickbackAim.z);
+            rotationalRecoil += new Vector3(-inventory.currentWeapon.wd.weaponRecoilParameters.recoilRotationAim.x, 
+                Random.Range(-inventory.currentWeapon.wd.weaponRecoilParameters.recoilRotationAim.y, inventory.currentWeapon.wd.weaponRecoilParameters.recoilRotationAim.y), 
+                Random.Range(-inventory.currentWeapon.wd.weaponRecoilParameters.recoilRotationAim.z, inventory.currentWeapon.wd.weaponRecoilParameters.recoilRotationAim.z));
+
+            positionalRecoil += new Vector3(Random.Range(-inventory.currentWeapon.wd.weaponRecoilParameters.recoilKickbackAim.x, inventory.currentWeapon.wd.weaponRecoilParameters.recoilKickbackAim.x), 
+                Random.Range(-inventory.currentWeapon.wd.weaponRecoilParameters.recoilKickbackAim.y, inventory.currentWeapon.wd.weaponRecoilParameters.recoilKickbackAim.y),
+                inventory.currentWeapon.wd.weaponRecoilParameters.recoilKickbackAim.z);
         }
         else
         {
-            rotationalRecoil += new Vector3(-recoilRotation.x, Random.Range(-recoilRotation.y, recoilRotation.y), Random.Range(-recoilRotation.z, recoilRotation.z));
-            positionalRecoil += new Vector3(Random.Range(-recoilKickback.x, recoilKickback.x), Random.Range(-recoilKickback.y, recoilKickback.y), recoilKickback.z);
+            rotationalRecoil += new Vector3(-inventory.currentWeapon.wd.weaponRecoilParameters.recoilRotation.x, 
+                Random.Range(-inventory.currentWeapon.wd.weaponRecoilParameters.recoilRotation.y, inventory.currentWeapon.wd.weaponRecoilParameters.recoilRotation.y), 
+                Random.Range(-inventory.currentWeapon.wd.weaponRecoilParameters.recoilRotation.z, inventory.currentWeapon.wd.weaponRecoilParameters.recoilRotation.z));
+
+            positionalRecoil += new Vector3(Random.Range(-inventory.currentWeapon.wd.weaponRecoilParameters.recoilKickback.x, inventory.currentWeapon.wd.weaponRecoilParameters.recoilKickback.x), 
+                Random.Range(-inventory.currentWeapon.wd.weaponRecoilParameters.recoilKickback.y, inventory.currentWeapon.wd.weaponRecoilParameters.recoilKickback.y),
+                inventory.currentWeapon.wd.weaponRecoilParameters.recoilKickback.z);
         }
     }
 }

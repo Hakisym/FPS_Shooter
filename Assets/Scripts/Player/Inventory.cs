@@ -19,15 +19,18 @@ public class Inventory : MonoBehaviour
     private void Start()
     {
         weapons = GetComponentsInChildren<WeaponSystem>(true);
-        foreach (var weapon in weapons)
+
+        // equip at start
+        for (int i = 0; i < weapons.Length; i++)
         {
-            if (weapon.gameObject.activeSelf && currentWeapon==null)
+            if (weapons[i].gameObject.activeSelf && currentWeapon == null)
             {
-                currentWeapon = weapon;
+                currentWeapon = weapons[i];
+                weaponIndex = i;
             }
             else
             {
-                weapon.gameObject.SetActive(false);
+                weapons[i].gameObject.SetActive(false);
             }
         }
     }
@@ -54,19 +57,19 @@ public class Inventory : MonoBehaviour
 
     public void Equip(int index)
     {
+        //state check
         if (switching) return;
-
         if (currentWeapon != null && (currentWeapon.reloading || currentWeapon.shooting))
         {
             Debug.Log("Can't switch when reloading and shooting!");
             return;
         }
 
+        //wheel inventory
         if (index > weapons.Length - 1)
         {
             index = 0;
         }
-
         if (index < 0)
         {
             index = weapons.Length - 1;
@@ -74,22 +77,26 @@ public class Inventory : MonoBehaviour
 
         switching = true;
 
+        //hoster old weapon
         weaponIndex = index;
         animator.SetTrigger("hoster");
     }
 
+    //animation event trigger
     public void FinishedHostered()
     {
+        //disable old weapon
         if (currentWeapon != null)
         {
             currentWeapon.gameObject.SetActive(false);
         }
 
+        //enable new weapon when unhostering
         currentWeapon = weapons[weaponIndex];
         currentWeapon.gameObject.SetActive(true);
-        // Set up recoil and aim offset
     }
 
+    //animation event trigger
     public void ResetEquip()
     {
         switching = false;
