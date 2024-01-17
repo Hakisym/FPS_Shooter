@@ -45,9 +45,10 @@ public class Inventory : MonoBehaviour
             // Check if enough time has passed since the last switch
             if (Time.time - lastSwitchTime >= switchDelay)
             {
+                int index = weaponIndex;
                 // Switch weapon
-                if(scrollValue>0) Equip(++weaponIndex);
-                else Equip(--weaponIndex);
+                if(scrollValue>0) Equip(index + 1);
+                else Equip(index - 1);
 
                 // Update the last switch time
                 lastSwitchTime = Time.time;
