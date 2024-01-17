@@ -13,8 +13,11 @@ public class CameraRecoil : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //Return to (0,0,0) after continuous fire
+        Vector3 returnPoint = Input.GetMouseButton(0) ? new Vector3(currentRotation.x, 0f, 0f) : Vector3.zero;
+
         //Return interpolation
-        currentRotation = Vector3.Lerp(currentRotation, new Vector3(currentRotation.x, 0f, 0f), inventory.currentWeapon.wd.cameraRecoilParameters.returnSpeed * Time.deltaTime);
+        currentRotation = Vector3.Lerp(currentRotation, returnPoint, inventory.currentWeapon.wd.cameraRecoilParameters.returnSpeed * Time.deltaTime);
 
         //Smooth rotate to current rotation
         rot = Vector3.Slerp(rot, currentRotation, inventory.currentWeapon.wd.cameraRecoilParameters.rotationSpeed * Time.fixedDeltaTime);

@@ -199,11 +199,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 944370ce18279b44fae005f28f8af3e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aimPosition: {x: 0.001, y: -0.185, z: 0.166}
-  aimRotation: {x: 0, y: 0, z: 0}
-  smoothTime: 0.1
-  smoothRotation: 6
   pb: {fileID: 1854642269}
+  inventory: {fileID: 629880969}
 --- !u!1001 &119107681
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1397,14 +1394,7 @@ MonoBehaviour:
   recoilPosition: {fileID: 428910817}
   rotationPoint: {fileID: 428910817}
   pb: {fileID: 1854642269}
-  positionalRecoilSpeed: 8
-  rotationalRecoilSpeed: 8
-  positionalReturnSpeed: 18
-  rotationalReturnSpeed: 38
-  recoilRotation: {x: 10, y: 5, z: 7}
-  recoilKickback: {x: 0.015, y: 0, z: -0.2}
-  recoilRotationAim: {x: 10, y: 4, z: 6}
-  recoilKickbackAim: {x: 0.015, y: 0, z: -0.2}
+  inventory: {fileID: 629880969}
 --- !u!1001 &442656296
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1563,7 +1553,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3439,11 +3429,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8a58112c0ae02d48915177596b1a630, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 6
-  returnSpeed: 6
-  recoilRotation: {x: 0.5, y: 0.5, z: 1.5}
-  recoilRotationAiming: {x: 0.5, y: 0.5, z: 1.5}
   pb: {fileID: 1854642269}
+  inventory: {fileID: 629880969}
 --- !u!1001 &1223042279
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3562,7 +3549,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1225612007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5295,6 +5282,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3862400414544029896, guid: 227d7ff9054d3e442837531179690484,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3862400414544029896, guid: 227d7ff9054d3e442837531179690484,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3862400414544029896, guid: 227d7ff9054d3e442837531179690484,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 3862400414544029896, guid: 227d7ff9054d3e442837531179690484,
         type: 3}
@@ -7541,6 +7543,12 @@ PrefabInstance:
       objectReference: {fileID: 1854642269}
     - target: {fileID: 3626746352910567548, guid: 59dd0607036752d488f35cd7c65e3b1d,
         type: 3}
+      propertyPath: wd
+      value: 
+      objectReference: {fileID: 11400000, guid: 7a7dcc522ac3544448973d2ed5ab109f,
+        type: 2}
+    - target: {fileID: 3626746352910567548, guid: 59dd0607036752d488f35cd7c65e3b1d,
+        type: 3}
       propertyPath: fpsCam
       value: 
       objectReference: {fileID: 330585545}
@@ -7679,6 +7687,7 @@ MonoBehaviour:
     type: 3}
   shootSound: {fileID: 8300000, guid: c2763216fc6f5a24897c6f5f499a3955, type: 3}
   audioSource: {fileID: 7634211229448447873}
+  wd: {fileID: 11400000, guid: c48904e4f596248469951dee6222fe6f, type: 2}
 --- !u!4 &6604212458577283156
 Transform:
   m_ObjectHideFlags: 0
