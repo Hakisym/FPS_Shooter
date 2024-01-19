@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 45301583487791572}
   m_LocalRotation: {x: 0.00000001053671, y: 0.00000017881389, z: -0.00000002107342,
     w: 1}
-  m_LocalPosition: {x: -0.6579, y: 0.0556, z: -0}
+  m_LocalPosition: {x: -0.787, y: 0.072, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -58,7 +58,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6558949359568507349}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -100,7 +100,7 @@ MonoBehaviour:
   cameraRecoil: {fileID: 0}
   weaponRecoil: {fileID: 0}
   inventory: {fileID: 0}
-  muzzleFlash: {fileID: 1336949550903370, guid: 679d294f11bff5d49b2fc3da2db6c3b7,
+  muzzleFlash: {fileID: 1336949550903370, guid: c2b87e79bcb20534389bd58abbe4e933,
     type: 3}
   bulletHoleGraphic: {fileID: 1709698631529194, guid: 72b8f08b2b4dbbc439ccbb6402928ad1,
     type: 3}

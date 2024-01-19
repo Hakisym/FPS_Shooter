@@ -31,3 +31,18 @@ MonoBehaviour:
     aimRotation: {x: 0, y: 0, z: 0}
     smoothTime: 0.1
     smoothRotation: 6
+  gunName: AK
+  gunPrefab: {fileID: 6558949359568507349, guid: e95d4ed863853b64699b10c14100b0c2,
+    type: 3}
+  pickUpGraphics: {fileID: 3862400414543541480, guid: 227d7ff9054d3e442837531179690484,
+    type: 3}
+  gunStats:
+    damage: 27
+    timeBetweenShooting: 0.1
+    spread: 0.01
+    range: 50
+    reloadTime: 2
+    timeBetweenShots: 0
+    magazineSize: 30
+    bulletsPerTap: 1
+    allowButtonHold: 1

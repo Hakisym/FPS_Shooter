@@ -6,12 +6,8 @@ using Random = UnityEngine.Random;
 
 public class WeaponSystem : MonoBehaviour
 {
-    [Header("Gun stats")]
-    public int damage;
-    public float timeBetweenShooting, spread, range, reloadTime, timeBetweenShots;
-    public int magazineSize, bulletsPerTap;
-    public bool allowButtonHold;
-    int bulletsLeft, bulletsShot;
+    [Header("WeaponData")]
+    public WeaponData wd;
 
     [Header("Gun states")]
     public bool shooting, readyToShoot, reloading;
@@ -33,13 +29,13 @@ public class WeaponSystem : MonoBehaviour
     public AudioClip shootSound;
     public AudioSource audioSource;
 
-    [Header("WeaponData")]
-    public WeaponData wd;
+    int bulletsLeft, bulletsShot;
 
     private void Start()
     {
-        bulletsLeft = magazineSize;
+        bulletsLeft = wd.gunStats.magazineSize;
         readyToShoot = true;
+        InitialSettings();
     }
 
     private void Update()
@@ -49,14 +45,14 @@ public class WeaponSystem : MonoBehaviour
 
     void MyInput()
     {
-        if(allowButtonHold) shooting = Input.GetKey(KeyCode.Mouse0);
+        if(wd.gunStats.allowButtonHold) shooting = Input.GetKey(KeyCode.Mouse0);
         else shooting = Input.GetKeyDown(KeyCode.Mouse0);
 
-        if (Input.GetKeyDown(KeyCode.R) && !reloading && bulletsLeft < magazineSize && !inventory.switching) Reload();
+        if (Input.GetKeyDown(KeyCode.R) && !reloading && bulletsLeft < wd.gunStats.magazineSize && !inventory.switching) Reload();
 
         if (readyToShoot && shooting && !reloading && bulletsLeft > 0 && !inventory.switching)
         {
-            bulletsShot = bulletsPerTap;
+            bulletsShot = wd.gunStats.bulletsPerTap;
             Shoot();
         }
     }
@@ -66,18 +62,18 @@ public class WeaponSystem : MonoBehaviour
         readyToShoot = false;
 
         //Spread
-        float x = Random.Range(-spread, spread);
-        float y = Random.Range(-spread, spread);
+        float x = Random.Range(-wd.gunStats.spread, wd.gunStats.spread);
+        float y = Random.Range(-wd.gunStats.spread, wd.gunStats.spread);
 
         //Calculate direction with spread
         Vector3 direction = fpsCam.transform.forward + new Vector3(x, y, 0f);
 
         //Raycast
-        if(Physics.Raycast(fpsCam.transform.position, direction, out rayHit, range, whatIsShootable))
+        if(Physics.Raycast(fpsCam.transform.position, direction, out rayHit, wd.gunStats.range, whatIsShootable))
         {
             Debug.DrawLine(fpsCam.transform.position, rayHit.point);
             if (rayHit.collider.CompareTag("Enemy"))
-                rayHit.collider.GetComponent<IDamageable>().TakeDamage(damage);
+                rayHit.collider.GetComponent<IDamageable>().TakeDamage(wd.gunStats.damage);
 
             //bullet impact
             Instantiate(bulletHoleGraphic, rayHit.point, Quaternion.LookRotation(rayHit.normal));
@@ -96,10 +92,10 @@ public class WeaponSystem : MonoBehaviour
         bulletsLeft--;
         bulletsShot--;
 
-        Invoke("ResetShoot", timeBetweenShooting);
+        Invoke("ResetShoot", wd.gunStats.timeBetweenShooting);
 
         if (bulletsShot > 0 && bulletsLeft > 0)
-            Invoke("Shoot", timeBetweenShots);
+            Invoke("Shoot", wd.gunStats.timeBetweenShots);
     }
 
     void ResetShoot()
@@ -111,13 +107,23 @@ public class WeaponSystem : MonoBehaviour
     {
         reloading = true;
         animator.SetTrigger("reloading");
-        Invoke("ReloadFinished", reloadTime);
+        Invoke("ReloadFinished", wd.gunStats.reloadTime);
     }
 
     void ReloadFinished()
     {
-        bulletsLeft = magazineSize;
+        bulletsLeft = wd.gunStats.magazineSize;
 
         reloading = false;
+    }
+
+    private void InitialSettings()
+    {
+        fpsCam = Camera.main;
+        animator = GetComponentInParent<Animator>();
+        inventory = GetComponentInParent<Inventory>();
+        var player = GameObject.FindGameObjectWithTag("Player");
+        cameraRecoil = player.GetComponentInChildren<CameraRecoil>();
+        weaponRecoil = player.GetComponentInChildren<WeaponRecoil>();
     }
 }

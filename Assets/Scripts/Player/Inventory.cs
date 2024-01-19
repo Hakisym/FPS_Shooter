@@ -6,6 +6,8 @@ public class Inventory : MonoBehaviour
 {
     public WeaponSystem[] weapons;
     public WeaponSystem currentWeapon;
+    public int inventorySize;
+    public int initialWeapon = 0;
     private int weaponIndex = -1;
 
     public bool switching;
@@ -13,26 +15,27 @@ public class Inventory : MonoBehaviour
     public float switchDelay = 1.0f;  // Adjust the delay time as needed
     private float lastSwitchTime;
 
-    //animation
     public Animator animator;
+    public GameObject pickupPrefab;
+    public static Inventory instance;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     private void Start()
     {
+        weapons = new WeaponSystem[inventorySize];
+
         weapons = GetComponentsInChildren<WeaponSystem>(true);
 
         // equip at start
-        for (int i = 0; i < weapons.Length; i++)
+        foreach (var weapon in weapons)
         {
-            if (weapons[i].gameObject.activeSelf && currentWeapon == null)
-            {
-                currentWeapon = weapons[i];
-                weaponIndex = i;
-            }
-            else
-            {
-                weapons[i].gameObject.SetActive(false);
-            }
+            weapon.gameObject.SetActive(false);
         }
+        Equip(initialWeapon);
     }
 
     private void Update()
@@ -78,9 +81,19 @@ public class Inventory : MonoBehaviour
 
         switching = true;
 
-        //hoster old weapon
         weaponIndex = index;
-        animator.SetTrigger("hoster");
+        if (currentWeapon != null)
+        {
+            //hoster old weapon
+            animator.SetTrigger("hoster");
+        }
+        else
+        {
+            FinishedHostered();
+            //simply unhoster new weapon
+            animator.SetTrigger("unhoster");
+        }
+        
     }
 
     //animation event trigger
@@ -101,5 +114,26 @@ public class Inventory : MonoBehaviour
     public void ResetEquip()
     {
         switching = false;
+    }
+
+    public bool SwapWeapon(WeaponData weaponSO)
+    {
+        if (switching) return false;
+        //create new gun
+        var weaponGO = Instantiate(weaponSO.gunPrefab, this.transform);
+        var newWeapon = weaponGO.GetComponent<WeaponSystem>();
+
+        weapons[weaponIndex] = newWeapon;
+
+        //drop old gun
+        var pickupGO = Instantiate(pickupPrefab);
+        pickupGO.GetComponent<WeaponPickable>().weaponData = currentWeapon.wd;
+
+        //clean up
+        Destroy(currentWeapon.gameObject);
+        currentWeapon = null;
+        
+        Equip(weaponIndex);
+        return true;
     }
 }

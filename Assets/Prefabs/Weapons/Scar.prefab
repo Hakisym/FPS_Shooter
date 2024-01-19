@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 261095900588556057}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.7072, y: 0.092, z: -0}
+  m_LocalPosition: {x: -0.779, y: 0.092, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -209,13 +209,13 @@ GameObject:
   - component: {fileID: 3626746352910567548}
   - component: {fileID: 3626746352910567547}
   - component: {fileID: 1854564268}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Scar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3626746352910567545
 Transform:
   m_ObjectHideFlags: 0
@@ -264,12 +264,14 @@ MonoBehaviour:
   animator: {fileID: 0}
   cameraRecoil: {fileID: 0}
   weaponRecoil: {fileID: 0}
-  muzzleFlash: {fileID: 1336949550903370, guid: 679d294f11bff5d49b2fc3da2db6c3b7,
+  inventory: {fileID: 0}
+  muzzleFlash: {fileID: 1336949550903370, guid: c2b87e79bcb20534389bd58abbe4e933,
     type: 3}
   bulletHoleGraphic: {fileID: 1709698631529194, guid: 72b8f08b2b4dbbc439ccbb6402928ad1,
     type: 3}
   shootSound: {fileID: 8300000, guid: 4c22c9d7cc76c414995201a6fb37b0c3, type: 3}
   audioSource: {fileID: 1854564268}
+  wd: {fileID: 11400000, guid: 7a7dcc522ac3544448973d2ed5ab109f, type: 2}
 --- !u!114 &3626746352910567547
 MonoBehaviour:
   m_ObjectHideFlags: 0

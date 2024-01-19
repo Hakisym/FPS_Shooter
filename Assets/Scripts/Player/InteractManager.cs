@@ -10,19 +10,24 @@ public class InteractManager : MonoBehaviour
 
     private void Update()
     {
+        //cast ray
         RaycastHit raycastHit;
         if(Physics.Raycast(playerCam.transform.position,playerCam.transform.forward,out raycastHit,detectDistance, whatIsInteractable))
         {
+            //show object UI
             var weaponPickable = raycastHit.transform.GetComponent<WeaponPickable>();
             UIManager.instance.InteractUI.gameObject.SetActive(true);
-            UIManager.instance.interactionName.text = weaponPickable.weaponName;
+            UIManager.instance.interactionName.text = weaponPickable.weaponData.gunName;
+
+            //interact
             if (Input.GetKeyDown(KeyCode.E))
             {
-                weaponPickable.AddWeapon();
+                weaponPickable.Interact();
             }
         }
         else
         {
+            //hide object UI
             UIManager.instance.InteractUI.gameObject.SetActive(false);
         }
     }

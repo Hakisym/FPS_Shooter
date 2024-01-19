@@ -13,6 +13,12 @@ public class WeaponData : ScriptableObject
 
     [Header("Aim Settings")]
     public AimParameters aimParameters;
+
+    [Header("Gun stats")]
+    public string gunName;
+    public GameObject gunPrefab;
+    public GameObject pickUpGraphics;
+    public GunStats gunStats;
 }
 
 [System.Serializable]
@@ -49,4 +55,13 @@ public struct AimParameters
     public Vector3 aimRotation;
     public float smoothTime;
     public float smoothRotation;
+}
+
+[System.Serializable]
+public struct GunStats
+{
+    public int damage;
+    public float timeBetweenShooting, spread, range, reloadTime, timeBetweenShots;
+    public int magazineSize, bulletsPerTap;
+    public bool allowButtonHold;
 }
