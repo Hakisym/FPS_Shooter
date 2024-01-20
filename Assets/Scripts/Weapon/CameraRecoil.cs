@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraRecoil : MonoBehaviour
 {
     [Header("Reference")]
-    public PlayerBehaviour pb;
+    public WeaponController wc;
     public Inventory inventory;
 
     private Vector3 currentRotation;
@@ -27,7 +27,7 @@ public class CameraRecoil : MonoBehaviour
     public void Fire()
     {
         //Add random offset to current rotation when firing
-        if (pb.isAiming)
+        if (wc.aiming)
         {
             currentRotation += new Vector3(-inventory.currentWeapon.wd.cameraRecoilParameters.RecoilRotationAiming.x, 
                 Random.Range(-inventory.currentWeapon.wd.cameraRecoilParameters.RecoilRotationAiming.y, inventory.currentWeapon.wd.cameraRecoilParameters.RecoilRotationAiming.y), 

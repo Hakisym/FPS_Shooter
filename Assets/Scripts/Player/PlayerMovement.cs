@@ -39,7 +39,6 @@ public class PlayerMovement : MonoBehaviour
     public AudioClip runSound;
     [Space]
     [Header("Reference")]
-    public PlayerBehaviour pb;
     public Animator animator;
     public WeaponController wc;
 
@@ -103,7 +102,7 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = transform.right * mouseX + transform.forward * mouseY;
 
         // Sprint input
-        if (Input.GetKeyDown(KeyCode.LeftShift) && isGrounded && moveDirection.sqrMagnitude > 0 && !pb.isAiming && !wc.shooting)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && isGrounded && moveDirection.sqrMagnitude > 0 && !wc.aiming && !wc.shooting)
         {
             isSprinting = !isSprinting;
         }
@@ -133,7 +132,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Sprint()
     {
-        if (moveDirection.sqrMagnitude <= 0 || pb.isAiming || wc.shooting)
+        if (moveDirection.sqrMagnitude <= 0 || wc.aiming || wc.shooting)
         {
             isSprinting = false;
         }
@@ -159,7 +158,7 @@ public class PlayerMovement : MonoBehaviour
         {
             speed = sprintSpeed;
         }
-        else if (isCrouching || pb.isAiming)
+        else if (isCrouching || wc.aiming)
         {
             speed = crouchSpeed;
         }

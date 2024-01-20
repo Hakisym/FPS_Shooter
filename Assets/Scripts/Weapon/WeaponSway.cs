@@ -19,8 +19,9 @@ public class WeaponSway : MonoBehaviour
     public bool rotationX = true;
     public bool rotationY = true;
     public bool rotationZ = true;
-    public PlayerBehaviour pb;
-
+    public WeaponController wc;
+    public float aimMultiplier = 0.2f;
+    private float currentAimMultiplier;
 
     private Vector3 initialPosition;
     private Quaternion initialRotation;
@@ -32,11 +33,13 @@ public class WeaponSway : MonoBehaviour
     {
         initialPosition = transform.localPosition;
         initialRotation = transform.localRotation;
-        pb = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerBehaviour>();
+        wc = GameObject.FindGameObjectWithTag("Player").GetComponent<WeaponController>();
     }
 
     private void Update()
     {
+        currentAimMultiplier = wc.aiming ? aimMultiplier : 1f;
+
         CheckInput();
         UpdatePositionsway();
         UpdateRotationSway();
@@ -52,8 +55,8 @@ public class WeaponSway : MonoBehaviour
     private void UpdatePositionsway()
     {
         // Smooth position sway
-        float moveX = Mathf.Clamp(inputX * amount * pb.currentAimSwayMultiplier, -maxAmount, maxAmount);
-        float moveY = Mathf.Clamp(inputY * amount * pb.currentAimSwayMultiplier, -maxAmount, maxAmount);
+        float moveX = Mathf.Clamp(inputX * amount * currentAimMultiplier, -maxAmount, maxAmount);
+        float moveY = Mathf.Clamp(inputY * amount * currentAimMultiplier, -maxAmount, maxAmount);
 
         Vector3 finalPosition = initialPosition + new Vector3(moveX, moveY, 0);
 
@@ -62,8 +65,8 @@ public class WeaponSway : MonoBehaviour
 
     private void UpdateRotationSway()
     {
-        float tiltX = Mathf.Clamp(inputX * rotationAmount * pb.currentAimSwayMultiplier, -maxRotationAmount, maxRotationAmount);
-        float tiltY = Mathf.Clamp(inputY * rotationAmount * pb.currentAimSwayMultiplier, -maxRotationAmount, maxRotationAmount);
+        float tiltX = Mathf.Clamp(inputX * rotationAmount * currentAimMultiplier, -maxRotationAmount, maxRotationAmount);
+        float tiltY = Mathf.Clamp(inputY * rotationAmount * currentAimMultiplier, -maxRotationAmount, maxRotationAmount);
 
         // Calculate target rotation
         Quaternion rotX = rotationX ? Quaternion.AngleAxis(tiltY, Vector3.right) : Quaternion.identity;

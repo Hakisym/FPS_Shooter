@@ -10,7 +10,8 @@ public class WeaponController : MonoBehaviour
     public WeaponData wd;
 
     [Header("Gun states")]
-    public bool shooting, readyToShoot, reloading;
+    public bool shooting, reloading, aiming;
+    private bool readyToShoot;
 
     [Header("Reference")]
     public Camera playerCam;

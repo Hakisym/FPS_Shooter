@@ -199,7 +199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 944370ce18279b44fae005f28f8af3e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pb: {fileID: 1854642269}
+  wc: {fileID: 1854642272}
   inventory: {fileID: 629880969}
 --- !u!1001 &119107681
 PrefabInstance:
@@ -1098,7 +1098,8 @@ MonoBehaviour:
   effectIntensity: 0.02
   effectSpeed: 18
   smoothTime: 0.1
-  pb: {fileID: 1854642269}
+  aimMultiplier: 0.1
+  wc: {fileID: 1854642272}
   pm: {fileID: 1854642268}
 --- !u!1 &350247763
 GameObject:
@@ -1393,7 +1394,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recoilPosition: {fileID: 428910817}
   rotationPoint: {fileID: 428910817}
-  pb: {fileID: 1854642269}
+  wc: {fileID: 1854642272}
   inventory: {fileID: 629880969}
 --- !u!1001 &442656296
 PrefabInstance:
@@ -3633,7 +3634,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8a58112c0ae02d48915177596b1a630, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pb: {fileID: 1854642269}
+  wc: {fileID: 1854642272}
   inventory: {fileID: 629880969}
 --- !u!1001 &1223042279
 PrefabInstance:
@@ -4675,7 +4676,7 @@ MonoBehaviour:
   smoothTime: 12
   animationSpeed: 12
   pm: {fileID: 1854642268}
-  pb: {fileID: 1854642269}
+  wc: {fileID: 1854642272}
 --- !u!1001 &1547118426
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5760,7 +5761,6 @@ GameObject:
   - component: {fileID: 1854642272}
   - component: {fileID: 1854642268}
   - component: {fileID: 1854642271}
-  - component: {fileID: 1854642269}
   - component: {fileID: 1854642270}
   - component: {fileID: 1854642273}
   m_Layer: 8
@@ -5840,26 +5840,8 @@ MonoBehaviour:
   audioSource: {fileID: 1854642270}
   walkSound: {fileID: 8300000, guid: 3eb58928c5e8f9245bfa577344469d1a, type: 3}
   runSound: {fileID: 8300000, guid: 15d2b028de199834e9cbb463b99d4aaf, type: 3}
-  pb: {fileID: 1854642269}
   animator: {fileID: 629880968}
   wc: {fileID: 1854642272}
---- !u!114 &1854642269
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1854642265}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 738411153539d404cab1529cfda80583, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isAiming: 0
-  aimSwayMultiplier: 0.2
-  aimBobbingMultiplier: 0.2
-  currentAimSwayMultiplier: 0
-  currentAimBobbingMultiplier: 0
 --- !u!82 &1854642270
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5987,8 +5969,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wd: {fileID: 11400000, guid: 7a7dcc522ac3544448973d2ed5ab109f, type: 2}
   shooting: 0
-  readyToShoot: 0
   reloading: 0
+  aiming: 0
   playerCam: {fileID: 0}
   muzzlePoint: {fileID: 2017285019}
   whatIsShootable:
@@ -6002,7 +5984,6 @@ MonoBehaviour:
     type: 3}
   bulletHoleGraphic: {fileID: 1709698631529194, guid: 72b8f08b2b4dbbc439ccbb6402928ad1,
     type: 3}
-  shootSound: {fileID: 8300000, guid: 4c22c9d7cc76c414995201a6fb37b0c3, type: 3}
   audioSource: {fileID: 1854642273}
 --- !u!82 &1854642273
 AudioSource:
@@ -6862,7 +6843,7 @@ MonoBehaviour:
   smoothTime: 12
   animationSpeed: 18
   pm: {fileID: 1854642268}
-  pb: {fileID: 1854642269}
+  wc: {fileID: 1854642272}
 --- !u!1001 &2083636761
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7260,13 +7241,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: AK
       objectReference: {fileID: 0}
-    - target: {fileID: 6558949359568507350, guid: e95d4ed863853b64699b10c14100b0c2,
-        type: 3}
-      propertyPath: pb
-      value: 
-      objectReference: {fileID: 1854642269}
-    m_RemovedComponents:
-    - {fileID: 7589369281783840257, guid: e95d4ed863853b64699b10c14100b0c2, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e95d4ed863853b64699b10c14100b0c2, type: 3}
 --- !u!1001 &184356860246079463
 PrefabInstance:
@@ -8146,13 +8121,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3626746352910567547, guid: 59dd0607036752d488f35cd7c65e3b1d,
-        type: 3}
-      propertyPath: pb
-      value: 
-      objectReference: {fileID: 1854642269}
-    m_RemovedComponents:
-    - {fileID: 1854564268, guid: 59dd0607036752d488f35cd7c65e3b1d, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 59dd0607036752d488f35cd7c65e3b1d, type: 3}
 --- !u!1001 &3999213930365480574
 PrefabInstance:

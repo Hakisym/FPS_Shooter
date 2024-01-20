@@ -7,7 +7,7 @@ public class WeaponRecoil : MonoBehaviour
     [Header("Reference")]
     public Transform recoilPosition;
     public Transform rotationPoint;
-    public PlayerBehaviour pb;
+    public WeaponController wc;
     public Inventory inventory;
 
     private Vector3 rotationalRecoil;
@@ -30,7 +30,7 @@ public class WeaponRecoil : MonoBehaviour
     public void Fire()
     {
         //Add random offset to current position & rotation when firing
-        if (pb.isAiming)
+        if (wc.aiming)
         {
             rotationalRecoil += new Vector3(-inventory.currentWeapon.wd.weaponRecoilParameters.recoilRotationAim.x, 
                 Random.Range(-inventory.currentWeapon.wd.weaponRecoilParameters.recoilRotationAim.y, inventory.currentWeapon.wd.weaponRecoilParameters.recoilRotationAim.y), 

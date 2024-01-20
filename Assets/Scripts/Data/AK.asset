@@ -46,3 +46,10 @@ MonoBehaviour:
     magazineSize: 30
     bulletsPerTap: 1
     allowButtonHold: 1
+  audioSFX:
+    firing: {fileID: 8300000, guid: c2763216fc6f5a24897c6f5f499a3955, type: 3}
+    hoster: {fileID: 0}
+    unhoster: {fileID: 0}
+    reload: {fileID: 0}
+    emptyMagReload: {fileID: 0}
+    emptyMagShoot: {fileID: 0}

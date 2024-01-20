@@ -10,7 +10,7 @@ public class WeaponAirControl : MonoBehaviour
     public float animationSpeed = 18f;
     [Space]
     public PlayerMovement pm;
-    public PlayerBehaviour pb;
+    public WeaponController wc;
 
     private Quaternion originalRotation;
     private float shakeAmount;
@@ -28,7 +28,7 @@ public class WeaponAirControl : MonoBehaviour
         if (!wasGrounded && pm.isGrounded)
         {
             // Set the jump intensity
-            shakeAmount = pb.isAiming ? effectIntensityAiming : effectIntensity;
+            shakeAmount = wc.aiming ? effectIntensityAiming : effectIntensity;
         }
 
         // Gradually decrease jumpAmount over time for a smoother animation

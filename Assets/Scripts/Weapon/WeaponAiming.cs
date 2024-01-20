@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WeaponAiming : MonoBehaviour
 {
-    public PlayerBehaviour pb;
+    public WeaponController wc;
     public Inventory inventory;
 
     private Vector3 originalPosition;
@@ -30,13 +30,13 @@ public class WeaponAiming : MonoBehaviour
         {
             finalPosition = inventory.currentWeapon.wd.aimParameters.aimPosition;
             finalRotation = Quaternion.Euler(inventory.currentWeapon.wd.aimParameters.aimRotation);
-            pb.isAiming = true;
+            wc.aiming = true;
         }
         else
         {
             finalPosition = originalPosition;
             finalRotation = originalRotation;
-            pb.isAiming = false;
+            wc.aiming = false;
         }
 
         //Smooth interpolate

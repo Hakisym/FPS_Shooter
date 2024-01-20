@@ -7,7 +7,8 @@ public class WeaponBobbing : MonoBehaviour
     public float effectIntensity = 0.02f;
     public float effectSpeed = 18f;
     public float smoothTime = 0.1f;
-    public PlayerBehaviour pb;
+    public float aimMultiplier = 0.1f;
+    public WeaponController wc;
     public PlayerMovement pm;
 
     private Vector3 originalPosition;
@@ -31,7 +32,7 @@ public class WeaponBobbing : MonoBehaviour
         {
             bobbingIntensity = effectIntensity + 0.01f;
         }
-        else if (pm.isCrouching || pb.isAiming)
+        else if (pm.isCrouching || wc.aiming)
         {
             bobbingSpeed = effectSpeed * 0.5f;
         }
@@ -45,8 +46,8 @@ public class WeaponBobbing : MonoBehaviour
         float idleMultiplier = inputVector.sqrMagnitude > 0f ? 1f : 0f;
 
         // Calculate bobbing position with a Mobius pattern
-        float sinAmountY = Mathf.Sin(sinTime) * bobbingIntensity * pb.currentAimBobbingMultiplier * idleMultiplier;
-        float sinAmountX = Mathf.Sin(sinTime/2) * bobbingIntensity * pb.currentAimBobbingMultiplier * idleMultiplier;
+        float sinAmountY = Mathf.Sin(sinTime) * bobbingIntensity * (wc.aiming ? aimMultiplier : 1f) * idleMultiplier;
+        float sinAmountX = Mathf.Sin(sinTime/2) * bobbingIntensity * (wc.aiming ? aimMultiplier : 1f) * idleMultiplier;
 
         Vector3 finalPosition = originalPosition + Vector3.up * sinAmountY + Vector3.right * sinAmountX;
 
