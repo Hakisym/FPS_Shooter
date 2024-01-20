@@ -4,19 +4,22 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    public WeaponSystem[] weapons;
-    public WeaponSystem currentWeapon;
+    [Header("Inventory Settings")]
+    public WeaponIdentification[] weapons;
+    public WeaponIdentification currentWeapon;
     public int inventorySize;
     public int initialWeapon = 0;
     private int weaponIndex = -1;
 
+    [Header("Animation")]
+    public Animator animator;
     public bool switching;
-
     public float switchDelay = 1.0f;  // Adjust the delay time as needed
     private float lastSwitchTime;
 
-    public Animator animator;
+    [Header("Reference")]
     public GameObject pickupPrefab;
+    public WeaponController wc;
     public static Inventory instance;
 
     private void Awake()
@@ -26,9 +29,9 @@ public class Inventory : MonoBehaviour
 
     private void Start()
     {
-        weapons = new WeaponSystem[inventorySize];
+        weapons = new WeaponIdentification[inventorySize];
 
-        weapons = GetComponentsInChildren<WeaponSystem>(true);
+        weapons = GetComponentsInChildren<WeaponIdentification>(true);
 
         // equip at start
         foreach (var weapon in weapons)
@@ -63,7 +66,7 @@ public class Inventory : MonoBehaviour
     {
         //state check
         if (switching) return;
-        if (currentWeapon != null && (currentWeapon.reloading || currentWeapon.shooting))
+        if (currentWeapon != null && (wc.reloading || wc.shooting))
         {
             Debug.Log("Can't switch when reloading and shooting!");
             return;
@@ -108,6 +111,7 @@ public class Inventory : MonoBehaviour
         //enable new weapon when unhostering
         currentWeapon = weapons[weaponIndex];
         currentWeapon.gameObject.SetActive(true);
+        wc.GetWeaponData(currentWeapon);
     }
 
     //animation event trigger
@@ -121,7 +125,7 @@ public class Inventory : MonoBehaviour
         if (switching) return false;
         //create new gun
         var weaponGO = Instantiate(weaponSO.gunPrefab, this.transform);
-        var newWeapon = weaponGO.GetComponent<WeaponSystem>();
+        var newWeapon = weaponGO.GetComponent<WeaponIdentification>();
 
         weapons[weaponIndex] = newWeapon;
 

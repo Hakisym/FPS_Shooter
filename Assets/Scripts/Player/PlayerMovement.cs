@@ -41,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Reference")]
     public PlayerBehaviour pb;
     public Animator animator;
-    public Inventory inventory;
+    public WeaponController wc;
 
     private Vector3 moveDirection;
     private float originalHeight;
@@ -103,7 +103,7 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = transform.right * mouseX + transform.forward * mouseY;
 
         // Sprint input
-        if (Input.GetKeyDown(KeyCode.LeftShift) && isGrounded && moveDirection.sqrMagnitude > 0 && !pb.isAiming && !inventory.currentWeapon.shooting)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && isGrounded && moveDirection.sqrMagnitude > 0 && !pb.isAiming && !wc.shooting)
         {
             isSprinting = !isSprinting;
         }
@@ -133,7 +133,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Sprint()
     {
-        if (moveDirection.sqrMagnitude <= 0 || pb.isAiming || inventory.currentWeapon.shooting)
+        if (moveDirection.sqrMagnitude <= 0 || pb.isAiming || wc.shooting)
         {
             isSprinting = false;
         }

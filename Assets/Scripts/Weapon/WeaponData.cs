@@ -19,6 +19,9 @@ public class WeaponData : ScriptableObject
     public GameObject gunPrefab;
     public GameObject pickUpGraphics;
     public GunStats gunStats;
+
+    [Header("Audio")]
+    public AudioClips audioSFX;
 }
 
 [System.Serializable]
@@ -64,4 +67,10 @@ public struct GunStats
     public float timeBetweenShooting, spread, range, reloadTime, timeBetweenShots;
     public int magazineSize, bulletsPerTap;
     public bool allowButtonHold;
+}
+
+[System.Serializable]
+public struct AudioClips
+{
+    public AudioClip firing, hoster, unhoster, reload, emptyMagReload, emptyMagShoot;
 }

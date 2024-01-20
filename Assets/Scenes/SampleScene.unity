@@ -1877,11 +1877,12 @@ MonoBehaviour:
   currentWeapon: {fileID: 0}
   inventorySize: 2
   initialWeapon: 0
+  animator: {fileID: 629880968}
   switching: 0
   switchDelay: 1
-  animator: {fileID: 629880968}
   pickupPrefab: {fileID: 9079248475693088837, guid: e9bf0af180b868f41a895c9dd30d2ec5,
     type: 3}
+  wc: {fileID: 1854642272}
 --- !u!1 &692309350
 GameObject:
   m_ObjectHideFlags: 0
@@ -5756,10 +5757,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1854642266}
   - component: {fileID: 1854642267}
+  - component: {fileID: 1854642272}
   - component: {fileID: 1854642268}
   - component: {fileID: 1854642271}
   - component: {fileID: 1854642269}
   - component: {fileID: 1854642270}
+  - component: {fileID: 1854642273}
   m_Layer: 8
   m_Name: FirstPersonPlayer
   m_TagString: Player
@@ -5839,7 +5842,7 @@ MonoBehaviour:
   runSound: {fileID: 8300000, guid: 15d2b028de199834e9cbb463b99d4aaf, type: 3}
   pb: {fileID: 1854642269}
   animator: {fileID: 629880968}
-  inventory: {fileID: 629880969}
+  wc: {fileID: 1854642272}
 --- !u!114 &1854642269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5970,6 +5973,133 @@ MonoBehaviour:
   whatIsInteractable:
     serializedVersion: 2
     m_Bits: 1024
+--- !u!114 &1854642272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1854642265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cfca86db146ec846b5b550c0882fd48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wd: {fileID: 11400000, guid: 7a7dcc522ac3544448973d2ed5ab109f, type: 2}
+  shooting: 0
+  readyToShoot: 0
+  reloading: 0
+  playerCam: {fileID: 0}
+  muzzlePoint: {fileID: 2017285019}
+  whatIsShootable:
+    serializedVersion: 2
+    m_Bits: 64
+  animator: {fileID: 629880968}
+  cameraRecoil: {fileID: 1199068714}
+  weaponRecoil: {fileID: 428910818}
+  inventory: {fileID: 629880969}
+  muzzleFlash: {fileID: 1336949550903370, guid: c2b87e79bcb20534389bd58abbe4e933,
+    type: 3}
+  bulletHoleGraphic: {fileID: 1709698631529194, guid: 72b8f08b2b4dbbc439ccbb6402928ad1,
+    type: 3}
+  shootSound: {fileID: 8300000, guid: 4c22c9d7cc76c414995201a6fb37b0c3, type: 3}
+  audioSource: {fileID: 1854642273}
+--- !u!82 &1854642273
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1854642265}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &1926810894
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6676,6 +6806,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2017123344}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &2017285019 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 261095900588556056, guid: 59dd0607036752d488f35cd7c65e3b1d,
+    type: 3}
+  m_PrefabInstance: {fileID: 3626746352409552616}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2033425231
 GameObject:
   m_ObjectHideFlags: 0
@@ -7064,31 +7200,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 629880967}
     m_Modifications:
-    - target: {fileID: 6558949359568507345, guid: e95d4ed863853b64699b10c14100b0c2,
-        type: 3}
-      propertyPath: fpsCam
-      value: 
-      objectReference: {fileID: 330585545}
-    - target: {fileID: 6558949359568507345, guid: e95d4ed863853b64699b10c14100b0c2,
-        type: 3}
-      propertyPath: animator
-      value: 
-      objectReference: {fileID: 629880968}
-    - target: {fileID: 6558949359568507345, guid: e95d4ed863853b64699b10c14100b0c2,
-        type: 3}
-      propertyPath: inventory
-      value: 
-      objectReference: {fileID: 629880969}
-    - target: {fileID: 6558949359568507345, guid: e95d4ed863853b64699b10c14100b0c2,
-        type: 3}
-      propertyPath: cameraRecoil
-      value: 
-      objectReference: {fileID: 1199068714}
-    - target: {fileID: 6558949359568507345, guid: e95d4ed863853b64699b10c14100b0c2,
-        type: 3}
-      propertyPath: weaponRecoil
-      value: 
-      objectReference: {fileID: 428910818}
     - target: {fileID: 6558949359568507348, guid: e95d4ed863853b64699b10c14100b0c2,
         type: 3}
       propertyPath: m_RootOrder
@@ -7149,17 +7260,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: AK
       objectReference: {fileID: 0}
-    - target: {fileID: 6558949359568507349, guid: e95d4ed863853b64699b10c14100b0c2,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6558949359568507350, guid: e95d4ed863853b64699b10c14100b0c2,
         type: 3}
       propertyPath: pb
       value: 
       objectReference: {fileID: 1854642269}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7589369281783840257, guid: e95d4ed863853b64699b10c14100b0c2, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e95d4ed863853b64699b10c14100b0c2, type: 3}
 --- !u!1001 &184356860246079463
 PrefabInstance:
@@ -7984,11 +8091,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Scar
       objectReference: {fileID: 0}
-    - target: {fileID: 3626746352910567544, guid: 59dd0607036752d488f35cd7c65e3b1d,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3626746352910567545, guid: 59dd0607036752d488f35cd7c65e3b1d,
         type: 3}
       propertyPath: m_RootOrder
@@ -8049,32 +8151,8 @@ PrefabInstance:
       propertyPath: pb
       value: 
       objectReference: {fileID: 1854642269}
-    - target: {fileID: 3626746352910567548, guid: 59dd0607036752d488f35cd7c65e3b1d,
-        type: 3}
-      propertyPath: fpsCam
-      value: 
-      objectReference: {fileID: 330585545}
-    - target: {fileID: 3626746352910567548, guid: 59dd0607036752d488f35cd7c65e3b1d,
-        type: 3}
-      propertyPath: animator
-      value: 
-      objectReference: {fileID: 629880968}
-    - target: {fileID: 3626746352910567548, guid: 59dd0607036752d488f35cd7c65e3b1d,
-        type: 3}
-      propertyPath: inventory
-      value: 
-      objectReference: {fileID: 629880969}
-    - target: {fileID: 3626746352910567548, guid: 59dd0607036752d488f35cd7c65e3b1d,
-        type: 3}
-      propertyPath: cameraRecoil
-      value: 
-      objectReference: {fileID: 1199068714}
-    - target: {fileID: 3626746352910567548, guid: 59dd0607036752d488f35cd7c65e3b1d,
-        type: 3}
-      propertyPath: weaponRecoil
-      value: 
-      objectReference: {fileID: 428910818}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1854564268, guid: 59dd0607036752d488f35cd7c65e3b1d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 59dd0607036752d488f35cd7c65e3b1d, type: 3}
 --- !u!1001 &3999213930365480574
 PrefabInstance:

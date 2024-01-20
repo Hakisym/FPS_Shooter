@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class WeaponSystem : MonoBehaviour
+public class WeaponController : MonoBehaviour
 {
     [Header("WeaponData")]
     public WeaponData wd;
@@ -13,7 +13,7 @@ public class WeaponSystem : MonoBehaviour
     public bool shooting, readyToShoot, reloading;
 
     [Header("Reference")]
-    public Camera fpsCam;
+    public Camera playerCam;
     public Transform muzzlePoint;
     public RaycastHit rayHit;
     public LayerMask whatIsShootable;
@@ -26,8 +26,8 @@ public class WeaponSystem : MonoBehaviour
     public GameObject muzzleFlash, bulletHoleGraphic;
 
     [Header("Sounds")]
-    public AudioClip shootSound;
     public AudioSource audioSource;
+    private AudioClip shootSound;
 
     int bulletsLeft, bulletsShot;
 
@@ -43,7 +43,14 @@ public class WeaponSystem : MonoBehaviour
         MyInput();
     }
 
-    void MyInput()
+    public void GetWeaponData(WeaponIdentification wid)
+    {
+        wd = wid.wd;
+        muzzlePoint = wid.muzzle;
+        shootSound = wd.audioSFX.firing;
+    }
+
+    private void MyInput()
     {
         if(wd.gunStats.allowButtonHold) shooting = Input.GetKey(KeyCode.Mouse0);
         else shooting = Input.GetKeyDown(KeyCode.Mouse0);
@@ -66,12 +73,12 @@ public class WeaponSystem : MonoBehaviour
         float y = Random.Range(-wd.gunStats.spread, wd.gunStats.spread);
 
         //Calculate direction with spread
-        Vector3 direction = fpsCam.transform.forward + new Vector3(x, y, 0f);
+        Vector3 direction = playerCam.transform.forward + new Vector3(x, y, 0f);
 
         //Raycast
-        if(Physics.Raycast(fpsCam.transform.position, direction, out rayHit, wd.gunStats.range, whatIsShootable))
+        if(Physics.Raycast(playerCam.transform.position, direction, out rayHit, wd.gunStats.range, whatIsShootable))
         {
-            Debug.DrawLine(fpsCam.transform.position, rayHit.point);
+            Debug.DrawLine(playerCam.transform.position, rayHit.point);
             if (rayHit.collider.CompareTag("Enemy"))
                 rayHit.collider.GetComponent<IDamageable>().TakeDamage(wd.gunStats.damage);
 
@@ -84,7 +91,7 @@ public class WeaponSystem : MonoBehaviour
         weaponRecoil.Fire();
 
         //Graphics
-        Instantiate(muzzleFlash, muzzlePoint.position, fpsCam.transform.rotation,muzzlePoint);
+        Instantiate(muzzleFlash, muzzlePoint.position, playerCam.transform.rotation,muzzlePoint);
 
         //Sounds
         audioSource.PlayOneShot(shootSound);
@@ -98,7 +105,7 @@ public class WeaponSystem : MonoBehaviour
             Invoke("Shoot", wd.gunStats.timeBetweenShots);
     }
 
-    void ResetShoot()
+    private void ResetShoot()
     {
         readyToShoot = true;
     }
@@ -110,7 +117,7 @@ public class WeaponSystem : MonoBehaviour
         Invoke("ReloadFinished", wd.gunStats.reloadTime);
     }
 
-    void ReloadFinished()
+    private void ReloadFinished()
     {
         bulletsLeft = wd.gunStats.magazineSize;
 
@@ -119,11 +126,8 @@ public class WeaponSystem : MonoBehaviour
 
     private void InitialSettings()
     {
-        fpsCam = Camera.main;
-        animator = GetComponentInParent<Animator>();
-        inventory = GetComponentInParent<Inventory>();
-        var player = GameObject.FindGameObjectWithTag("Player");
-        cameraRecoil = player.GetComponentInChildren<CameraRecoil>();
-        weaponRecoil = player.GetComponentInChildren<WeaponRecoil>();
+        playerCam = Camera.main;
+        cameraRecoil = GetComponentInChildren<CameraRecoil>();
+        weaponRecoil = GetComponentInChildren<WeaponRecoil>();
     }
 }
