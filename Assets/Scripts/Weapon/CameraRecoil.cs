@@ -7,6 +7,7 @@ public class CameraRecoil : MonoBehaviour
     [Header("Reference")]
     public WeaponController wc;
     public Inventory inventory;
+    public Camera playerCam;
 
     private Vector3 currentRotation;
     private Vector3 rot;
@@ -17,7 +18,7 @@ public class CameraRecoil : MonoBehaviour
         Vector3 returnPoint = Input.GetMouseButton(0) ? new Vector3(currentRotation.x, 0f, 0f) : Vector3.zero;
 
         //Return interpolation
-        currentRotation = Vector3.Lerp(currentRotation, returnPoint, inventory.currentWeapon.wd.cameraRecoilParameters.returnSpeed * Time.deltaTime);
+        currentRotation = Vector3.Lerp(currentRotation, Vector3.zero, inventory.currentWeapon.wd.cameraRecoilParameters.returnSpeed * Time.deltaTime);
 
         //Smooth rotate to current rotation
         rot = Vector3.Slerp(rot, currentRotation, inventory.currentWeapon.wd.cameraRecoilParameters.rotationSpeed * Time.fixedDeltaTime);
@@ -29,15 +30,37 @@ public class CameraRecoil : MonoBehaviour
         //Add random offset to current rotation when firing
         if (wc.aiming)
         {
-            currentRotation += new Vector3(-inventory.currentWeapon.wd.cameraRecoilParameters.RecoilRotationAiming.x, 
-                Random.Range(-inventory.currentWeapon.wd.cameraRecoilParameters.RecoilRotationAiming.y, inventory.currentWeapon.wd.cameraRecoilParameters.RecoilRotationAiming.y), 
+            currentRotation += new Vector3(-inventory.currentWeapon.wd.cameraRecoilParameters.RecoilRotationAiming.x,
+                Random.Range(-inventory.currentWeapon.wd.cameraRecoilParameters.RecoilRotationAiming.y, inventory.currentWeapon.wd.cameraRecoilParameters.RecoilRotationAiming.y),
                 Random.Range(-inventory.currentWeapon.wd.cameraRecoilParameters.RecoilRotationAiming.z, inventory.currentWeapon.wd.cameraRecoilParameters.RecoilRotationAiming.z));
+
+            var newEulerAngles = GetWeaponSpreadAngle();
+            currentRotation += new Vector3(-newEulerAngles.x, newEulerAngles.y, newEulerAngles.z);
         }
         else
         {
-            currentRotation += new Vector3(-inventory.currentWeapon.wd.cameraRecoilParameters.RecoilRotation.x, 
-                Random.Range(-inventory.currentWeapon.wd.cameraRecoilParameters.RecoilRotation.y, inventory.currentWeapon.wd.cameraRecoilParameters.RecoilRotation.y), 
+            currentRotation += new Vector3(-inventory.currentWeapon.wd.cameraRecoilParameters.RecoilRotation.x,
+                Random.Range(-inventory.currentWeapon.wd.cameraRecoilParameters.RecoilRotation.y, inventory.currentWeapon.wd.cameraRecoilParameters.RecoilRotation.y),
                 Random.Range(-inventory.currentWeapon.wd.cameraRecoilParameters.RecoilRotation.z, inventory.currentWeapon.wd.cameraRecoilParameters.RecoilRotation.z));
+
+            var newEulerAngles = GetWeaponSpreadAngle();
+            currentRotation += new Vector3(-newEulerAngles.x, newEulerAngles.y, newEulerAngles.z);
         }
+    }
+
+    private Vector3 GetWeaponSpreadAngle()
+    {
+        Quaternion targetRotation = Quaternion.FromToRotation(playerCam.transform.forward, wc.shootDirection);
+        var newEulerAngles = ClampEulerAngles(targetRotation.eulerAngles);
+        return newEulerAngles;
+    }
+
+    Vector3 ClampEulerAngles(Vector3 angles)
+    {
+        angles.x = Mathf.Repeat(angles.x + 180f, 360f) - 180f;
+        angles.y = Mathf.Repeat(angles.y + 180f, 360f) - 180f;
+        angles.z = Mathf.Repeat(angles.z + 180f, 360f) - 180f;
+
+        return angles;
     }
 }
