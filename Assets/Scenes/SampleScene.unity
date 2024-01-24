@@ -5981,7 +5981,7 @@ MonoBehaviour:
   cameraRecoil: {fileID: 0}
   weaponRecoil: {fileID: 428910818}
   inventory: {fileID: 629880969}
-  muzzleFlash: {fileID: 1336949550903370, guid: c2b87e79bcb20534389bd58abbe4e933,
+  muzzleFlash: {fileID: 1336949550903370, guid: a50747b6d24dee34d82e2558bd9452ba,
     type: 3}
   bulletHoleGraphic: {fileID: 1709698631529194, guid: 72b8f08b2b4dbbc439ccbb6402928ad1,
     type: 3}
