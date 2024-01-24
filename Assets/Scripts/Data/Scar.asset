@@ -39,11 +39,11 @@ MonoBehaviour:
   gunStats:
     damage: 37
     timeBetweenShooting: 0.1
-    spread: 0.01
+    spread: 0
     range: 50
     reloadTime: 2
     timeBetweenShots: 0
-    magazineSize: 20
+    magazineSize: 30
     bulletsPerTap: 1
     allowButtonHold: 1
   audioSFX:

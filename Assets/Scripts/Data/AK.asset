@@ -27,7 +27,7 @@ MonoBehaviour:
     rotationSpeed: 6
     returnSpeed: 6
   aimParameters:
-    aimPosition: {x: 0.001, y: -0.131, z: 0.09}
+    aimPosition: {x: 0.001, y: -0.1357, z: 0.09}
     aimRotation: {x: 0, y: 0, z: 0}
     smoothTime: 0.1
     smoothRotation: 6
@@ -39,7 +39,7 @@ MonoBehaviour:
   gunStats:
     damage: 27
     timeBetweenShooting: 0.1
-    spread: 0.01
+    spread: 0
     range: 50
     reloadTime: 2
     timeBetweenShots: 0

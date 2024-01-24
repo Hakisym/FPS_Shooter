@@ -30,9 +30,7 @@ public class WeaponController : MonoBehaviour
     public AudioSource audioSource;
     private AudioClip shootSound;
 
-    public Vector3 shootDirection;
     private int bulletsLeft, bulletsShot;
-    private Vector3 spreadAmount;
 
     private void Start()
     {
@@ -44,10 +42,6 @@ public class WeaponController : MonoBehaviour
     private void Update()
     {
         MyInput();
-        if (!shooting || Mathf.Abs(Input.GetAxis("Mouse X")) > 1 || Mathf.Abs(Input.GetAxis("Mouse Y")) > 1)
-        {
-            spreadAmount = Vector3.zero;
-        }
     }
 
     private void MyInput()
@@ -72,12 +66,10 @@ public class WeaponController : MonoBehaviour
         float x = Random.Range(-wd.gunStats.spread, wd.gunStats.spread);
         float y = Random.Range(0, wd.gunStats.spread);
 
-        //Calculate direction with spread
-        spreadAmount += new Vector3(x, y, 0f);
-        shootDirection = playerCam.transform.forward + spreadAmount;
+        var direction = playerCam.transform.forward + new Vector3(x, y, 0f);
 
         //Raycast
-        if (Physics.Raycast(playerCam.transform.position, shootDirection, out rayHit, wd.gunStats.range, whatIsShootable))
+        if (Physics.Raycast(playerCam.transform.position, direction, out rayHit, wd.gunStats.range, whatIsShootable))
         {
             Debug.DrawLine(playerCam.transform.position, rayHit.point);
             if (rayHit.collider.CompareTag("Enemy"))

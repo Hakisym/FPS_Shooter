@@ -5978,7 +5978,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   animator: {fileID: 629880968}
-  cameraRecoil: {fileID: 1199068714}
+  cameraRecoil: {fileID: 0}
   weaponRecoil: {fileID: 428910818}
   inventory: {fileID: 629880969}
   muzzleFlash: {fileID: 1336949550903370, guid: c2b87e79bcb20534389bd58abbe4e933,
@@ -5986,7 +5986,6 @@ MonoBehaviour:
   bulletHoleGraphic: {fileID: 1709698631529194, guid: 72b8f08b2b4dbbc439ccbb6402928ad1,
     type: 3}
   audioSource: {fileID: 1854642273}
-  bulletDirection: {x: 0, y: 0, z: 0}
 --- !u!82 &1854642273
 AudioSource:
   m_ObjectHideFlags: 0
