@@ -10,7 +10,7 @@ public class WeaponController : MonoBehaviour
     public WeaponData wd;
 
     [Header("Gun states")]
-    public bool shooting, reloading, aiming;
+    [HideInInspector]public bool shooting, reloading, aiming;
     private bool readyToShoot;
 
     [Header("Reference")]
@@ -24,7 +24,9 @@ public class WeaponController : MonoBehaviour
     public Inventory inventory;
 
     [Header("Visuals")]
-    public GameObject muzzleFlash, bulletHoleGraphic;
+    public GameObject muzzleFlash;
+    public GameObject bulletHoleGraphic;
+    public GameObject bulletGO;
 
     [Header("Sounds")]
     public AudioSource audioSource;
@@ -85,6 +87,8 @@ public class WeaponController : MonoBehaviour
 
         //Graphics
         Instantiate(muzzleFlash, muzzlePoint.position, playerCam.transform.rotation,muzzlePoint);
+        var bulletGO = Instantiate(this.bulletGO, muzzlePoint.position, playerCam.transform.rotation);
+        bulletGO.GetComponent<Rigidbody>().AddForce(bulletGO.transform.forward*100f, ForceMode.Impulse);
 
         //Sounds
         audioSource.PlayOneShot(shootSound);
@@ -119,9 +123,7 @@ public class WeaponController : MonoBehaviour
 
     private void InitialSettings()
     {
-        playerCam = Camera.main;
-        cameraRecoil = GetComponentInChildren<CameraRecoil>();
-        weaponRecoil = GetComponentInChildren<WeaponRecoil>();
+
     }
 
     public void GetWeaponData(WeaponIdentification wid)
@@ -129,5 +131,6 @@ public class WeaponController : MonoBehaviour
         wd = wid.wd;
         muzzlePoint = wid.muzzle;
         shootSound = wd.audioSFX.firing;
+        bulletsLeft = wd.gunStats.magazineSize;
     }
 }

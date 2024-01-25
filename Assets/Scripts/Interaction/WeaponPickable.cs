@@ -9,7 +9,6 @@ public class WeaponPickable : MonoBehaviour
     private void Start()
     {
         var weapon = Instantiate(weaponData.pickUpGraphics, transform);
-        weapon.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
     }
 
     public void Interact()

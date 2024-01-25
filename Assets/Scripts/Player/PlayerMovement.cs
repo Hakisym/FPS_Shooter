@@ -122,7 +122,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Camera crouch
-        Vector3 finalPosition = (controller.height * 0.75f - originalHeight / 2f) * Vector3.up;
+        Vector3 finalPosition = (controller.height * 0.85f - originalHeight / 2f) * Vector3.up;
         cameraHolder.localPosition = Vector3.Lerp(cameraHolder.localPosition, finalPosition, Time.deltaTime * 10f);
 
         // Character collider crouch
