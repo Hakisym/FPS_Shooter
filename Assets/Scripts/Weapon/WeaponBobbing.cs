@@ -42,8 +42,8 @@ public class WeaponBobbing : MonoBehaviour
         }
         sinTime += Time.deltaTime * bobbingSpeed;
 
-        // Movement multiplier for return animation
-        float idleMultiplier = inputVector.sqrMagnitude > 0f ? 1f : 0f;
+        // Movement & air multiplier for return animation
+        float idleMultiplier = inputVector.sqrMagnitude > 0f && pm.isGrounded ? 1f : 0f;
 
         // Calculate bobbing position with a Mobius pattern
         float sinAmountY = Mathf.Sin(sinTime) * bobbingIntensity * (wc.aiming ? aimMultiplier : 1f) * idleMultiplier;
