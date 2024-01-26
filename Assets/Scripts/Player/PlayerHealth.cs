@@ -12,7 +12,7 @@ public class PlayerHealth : MonoBehaviour,IDamageable
         currentHealth = maxHealth;
     }
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(int amount, float force, Vector3 direction, Collider bodyPart)
     {
         currentHealth -= amount;
         if (currentHealth <= 0)

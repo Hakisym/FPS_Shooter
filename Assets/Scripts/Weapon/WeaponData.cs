@@ -63,7 +63,7 @@ public struct AimParameters
 [System.Serializable]
 public struct GunStats
 {
-    public int damage;
+    public int damage,bulletForce;
     public float timeBetweenShooting, spread, range, reloadTime, timeBetweenShots;
     public int magazineSize, bulletsPerTap;
     public bool allowButtonHold;

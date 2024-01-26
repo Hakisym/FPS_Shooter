@@ -37,7 +37,8 @@ MonoBehaviour:
   pickUpGraphics: {fileID: 3862400414543541480, guid: 227d7ff9054d3e442837531179690484,
     type: 3}
   gunStats:
-    damage: 27
+    damage: 30
+    bulletForce: 50
     timeBetweenShooting: 0.1
     spread: 0
     range: 50

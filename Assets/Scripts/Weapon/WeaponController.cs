@@ -74,9 +74,9 @@ public class WeaponController : MonoBehaviour
         if (Physics.Raycast(playerCam.transform.position, direction, out rayHit, wd.gunStats.range, whatIsShootable))
         {
             //hit damage
-            if (rayHit.collider.CompareTag("Enemy"))
+            if (rayHit.collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
             {
-                rayHit.collider.GetComponent<IDamageable>().TakeDamage(wd.gunStats.damage);
+                rayHit.collider.GetComponentInParent<IDamageable>().TakeDamage(wd.gunStats.damage,wd.gunStats.bulletForce, direction, rayHit.collider);
             }
             else
             {
