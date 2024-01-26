@@ -73,12 +73,16 @@ public class WeaponController : MonoBehaviour
         //Raycast
         if (Physics.Raycast(playerCam.transform.position, direction, out rayHit, wd.gunStats.range, whatIsShootable))
         {
-            Debug.DrawLine(playerCam.transform.position, rayHit.point);
+            //hit damage
             if (rayHit.collider.CompareTag("Enemy"))
+            {
                 rayHit.collider.GetComponent<IDamageable>().TakeDamage(wd.gunStats.damage);
-
-            //bullet impact
-            Instantiate(bulletHoleGraphic, rayHit.point, Quaternion.LookRotation(rayHit.normal));
+            }
+            else
+            {
+                //bullet impact
+                Instantiate(bulletHoleGraphic, rayHit.point, Quaternion.LookRotation(rayHit.normal));
+            }
         }
 
         //Recoil
