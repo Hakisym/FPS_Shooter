@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 15cf03979e26a8d478253349c0110a6c
+guid: 174b1945817356d40b970adc960d4d82
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -19,10 +19,11 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
-    animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
+    animationImportWarnings: "\nClip 'mixamo.com' has import animation warnings that
       might lower retargeting quality:\nNote: Activate translation DOF on avatar
-      to improve retargeting quality.\n\t'Eyes' has translation animation that will
-      be discarded.\n"
+      to improve retargeting quality.\n\t'Ball_R' is inbetween humanoid transforms
+      and has rotation animation that will be discarded.\n\t'Ball_L' is inbetween
+      humanoid transforms and has rotation animation that will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
@@ -36,11 +37,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: ZombieIdle
+      name: Dwarf Walk
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 254
+      lastFrame: 70
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

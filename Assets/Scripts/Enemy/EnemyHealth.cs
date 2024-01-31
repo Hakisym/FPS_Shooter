@@ -2,10 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyHealth : MonoBehaviour,IDamageable
 {
     public int maxHealth;
+    public bool dead;
 
     private int bodyHealth;
     private int headHealth;
@@ -28,13 +30,32 @@ public class EnemyHealth : MonoBehaviour,IDamageable
         }
         if (headHealth <= 0 || bodyHealth <= 0)
         {
-            Die(force, direction, bodyPart);
+            if (!dead)
+            {
+                Die();
+            }
+            bodyPart.GetComponent<Rigidbody>().AddForce(direction.normalized * force, ForceMode.Impulse);
         }
     }
 
-    private void Die(float force,Vector3 direction,Collider bodyPart)
+    private void Die()
     {
+        foreach (var mb in this.GetComponents<MonoBehaviour>())
+        {
+            if (this != mb)
+                Destroy(mb);
+        }
+        Destroy(this.GetComponent<NavMeshAgent>());
+        RemoveAllForces();
         GetComponent<Animator>().enabled = false;
-        bodyPart.GetComponent<Rigidbody>().AddForce(direction.normalized * force, ForceMode.Impulse);
+        dead = true;
+    }
+
+    private void RemoveAllForces()
+    {
+        foreach (var member in GetComponentsInChildren<Rigidbody>())
+        {
+            member.velocity = Vector3.zero;
+        }
     }
 }

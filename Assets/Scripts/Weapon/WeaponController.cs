@@ -73,6 +73,7 @@ public class WeaponController : MonoBehaviour
         //Raycast
         if (Physics.Raycast(playerCam.transform.position, direction, out rayHit, wd.gunStats.range, whatIsShootable))
         {
+            Debug.Log(rayHit.transform.name);
             //hit damage
             if (rayHit.collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
             {
