@@ -17,6 +17,5 @@ public class FocusMoveState : EnemyBaseState
         {
             enemy.animIndex = 0;
         }
-        Debug.Log(distance);
     }
 }

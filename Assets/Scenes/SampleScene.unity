@@ -9137,20 +9137,29 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2050530263575110506, guid: cbd1ee04a27388549ab903fa766b3a17,
-        type: 3}
+    - target: {fileID: 664612986, guid: cbd1ee04a27388549ab903fa766b3a17, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2098938289177471884, guid: cbd1ee04a27388549ab903fa766b3a17,
         type: 3}
-      propertyPath: m_Speed
-      value: 15
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2098938289177471888, guid: cbd1ee04a27388549ab903fa766b3a17,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2099612773015049234, guid: cbd1ee04a27388549ab903fa766b3a17,
         type: 3}
       propertyPath: m_Name
       value: Zombie_Clown_Male_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 2099612773015049234, guid: cbd1ee04a27388549ab903fa766b3a17,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2102954227345991666, guid: cbd1ee04a27388549ab903fa766b3a17,
         type: 3}
