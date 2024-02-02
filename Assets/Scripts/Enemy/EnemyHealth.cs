@@ -16,10 +16,17 @@ public class EnemyHealth : MonoBehaviour,IDamageable
     {
         bodyHealth = maxHealth;
         headHealth = (int)(maxHealth / 3f);
+
+        //Disable ragdoll physics
+        foreach (var member in GetComponentsInChildren<Rigidbody>())
+        {
+            member.isKinematic = true;
+        }
     }
 
     public void TakeDamage(int amount, float force, Vector3 direction, Collider bodyPart)
     {
+        //Count body and head HP individually
         if (bodyPart.CompareTag("Head"))
         {
             headHealth -= amount;
@@ -40,6 +47,7 @@ public class EnemyHealth : MonoBehaviour,IDamageable
 
     private void Die()
     {
+        //Destroy enemy scripts and navmesh
         foreach (var mb in this.GetComponents<MonoBehaviour>())
         {
             if (this != mb)
@@ -53,8 +61,10 @@ public class EnemyHealth : MonoBehaviour,IDamageable
 
     private void RemoveAllForces()
     {
+        //Enable ragdoll
         foreach (var member in GetComponentsInChildren<Rigidbody>())
         {
+            member.isKinematic = false;
             member.velocity = Vector3.zero;
         }
     }

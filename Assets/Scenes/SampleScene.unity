@@ -9151,6 +9151,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2098938289177471888, guid: cbd1ee04a27388549ab903fa766b3a17,
+        type: 3}
+      propertyPath: viewRadius
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2099612773015049234, guid: cbd1ee04a27388549ab903fa766b3a17,
         type: 3}
       propertyPath: m_Name
