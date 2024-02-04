@@ -9143,6 +9143,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2098938289177471884, guid: cbd1ee04a27388549ab903fa766b3a17,
         type: 3}
+      propertyPath: m_Speed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2098938289177471884, guid: cbd1ee04a27388549ab903fa766b3a17,
+        type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
@@ -9150,11 +9155,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2098938289177471888, guid: cbd1ee04a27388549ab903fa766b3a17,
+        type: 3}
+      propertyPath: viewAngle
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 2098938289177471888, guid: cbd1ee04a27388549ab903fa766b3a17,
+        type: 3}
+      propertyPath: headHeight
+      value: 1.7
       objectReference: {fileID: 0}
     - target: {fileID: 2098938289177471888, guid: cbd1ee04a27388549ab903fa766b3a17,
         type: 3}
       propertyPath: viewRadius
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 2098938289177471888, guid: cbd1ee04a27388549ab903fa766b3a17,
+        type: 3}
+      propertyPath: attackRadius
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2098938289177471888, guid: cbd1ee04a27388549ab903fa766b3a17,
+        type: 3}
+      propertyPath: targetMask.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 2098938289177471888, guid: cbd1ee04a27388549ab903fa766b3a17,
+        type: 3}
+      propertyPath: obstacleMask.m_Bits
+      value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 2099612773015049234, guid: cbd1ee04a27388549ab903fa766b3a17,
         type: 3}

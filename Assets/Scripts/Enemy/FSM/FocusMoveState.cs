@@ -13,14 +13,12 @@ public class FocusMoveState : EnemyBaseState
 
     public override void OnStateUpdate(StateController enemy)
     {
-        //walk to target
+        //Walk to target
         enemy.MoveToTarget();
 
         //Sight radius
-        float distance = Vector3.Distance(enemy.transform.position, enemy.GetClosestPlayer().position);
-        if (distance <= enemy.viewRadius)
-        {
-            enemy.animIndex = 0;
-        }
+        enemy.LookDecision();
+
+        //Engage radius
     }
 }
