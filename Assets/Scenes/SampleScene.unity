@@ -9033,6 +9033,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1700024202281320398, guid: 697ef857e7c44a44aaf2aa0f3ea4867e,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1700024202281320399, guid: 697ef857e7c44a44aaf2aa0f3ea4867e,
         type: 3}
       propertyPath: whatIsShootable.m_Bits
@@ -9137,64 +9142,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 664612986, guid: cbd1ee04a27388549ab903fa766b3a17, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2098938289177471884, guid: cbd1ee04a27388549ab903fa766b3a17,
-        type: 3}
-      propertyPath: m_Speed
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 2098938289177471884, guid: cbd1ee04a27388549ab903fa766b3a17,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2098938289177471888, guid: cbd1ee04a27388549ab903fa766b3a17,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2098938289177471888, guid: cbd1ee04a27388549ab903fa766b3a17,
-        type: 3}
-      propertyPath: viewAngle
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 2098938289177471888, guid: cbd1ee04a27388549ab903fa766b3a17,
-        type: 3}
-      propertyPath: headHeight
-      value: 1.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 2098938289177471888, guid: cbd1ee04a27388549ab903fa766b3a17,
-        type: 3}
-      propertyPath: viewRadius
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 2098938289177471888, guid: cbd1ee04a27388549ab903fa766b3a17,
-        type: 3}
-      propertyPath: attackRadius
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2098938289177471888, guid: cbd1ee04a27388549ab903fa766b3a17,
-        type: 3}
-      propertyPath: targetMask.m_Bits
-      value: 256
-      objectReference: {fileID: 0}
-    - target: {fileID: 2098938289177471888, guid: cbd1ee04a27388549ab903fa766b3a17,
-        type: 3}
-      propertyPath: obstacleMask.m_Bits
-      value: 64
-      objectReference: {fileID: 0}
     - target: {fileID: 2099612773015049234, guid: cbd1ee04a27388549ab903fa766b3a17,
         type: 3}
       propertyPath: m_Name
       value: Zombie_Clown_Male_01
-      objectReference: {fileID: 0}
-    - target: {fileID: 2099612773015049234, guid: cbd1ee04a27388549ab903fa766b3a17,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2102954227345991666, guid: cbd1ee04a27388549ab903fa766b3a17,
         type: 3}

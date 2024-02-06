@@ -7,41 +7,47 @@ using UnityEngine.AI;
 
 public class StateController : MonoBehaviour
 {
-    private Animator animator;
+    [HideInInspector] public Animator animator;
+    [HideInInspector] public int animIndex;
     private NavMeshAgent agent;
-    [HideInInspector]public int animIndex;
+    private AudioSource audioSource;
 
     public Transform targetPlayer;
     private List<Transform> playerList = new List<Transform>();
     private Vector3 targetPosition;
 
     public EnemyBaseState currentState;
-    private FocusMoveState focusMoveState;
-    private AttackState attackState;
+    public FocusMoveState focusMoveState = new FocusMoveState();
+    public AttackState attackState = new AttackState();
 
+    [Header("Enemy Stats")]
     [Range(0,30)]
     public int attackRadius;
-
     [Range(0,100)]
     public int viewRadius;
-
     [Range(0,120)]
     public int viewAngle;
     public LayerMask targetMask;
     public LayerMask obstacleMask;
     public float headHeight;
 
+    public AudioClip attackSound;
+    public float attackInterval;
+    public float attackRange;
+    public float attackTimer;
+
     //Initial data and state
     void Start()
     {
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
+        audioSource = GetComponent<AudioSource>();
         foreach (var player in GameObject.FindGameObjectsWithTag("Player"))
         {
             playerList.Add(player.transform);
         }
 
-        TransitionToState(new FocusMoveState());
+        TransitionToState(focusMoveState);
     }
 
     void Update()
