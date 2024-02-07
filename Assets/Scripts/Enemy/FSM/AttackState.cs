@@ -12,22 +12,21 @@ public class AttackState : EnemyBaseState
 
     public override void OnStateUpdate(StateController enemy)
     {
+
         //Swap to move state when target is far
-        if (Vector3.Distance(enemy.transform.position, enemy.targetPlayer.position) > enemy.attackRadius 
-            && !enemy.animator.GetCurrentAnimatorStateInfo(1).IsName("Attack"))
+        if (!enemy.AttackDecision() && enemy.animator.GetCurrentAnimatorStateInfo(1).IsName("Empty"))
         {
+            enemy.animator.ResetTrigger("attack");
             enemy.TransitionToState(enemy.focusMoveState);
-            enemy.attackTimer = 0f;
         }
 
         //Attack timer
-        if(!enemy.animator.GetCurrentAnimatorStateInfo(1).IsName("Attack"))
-            enemy.attackTimer += Time.deltaTime;
-
-        if (enemy.attackTimer > enemy.attackInterval)
+        if (enemy.AttackDecision() && Time.time > enemy.nextAttackTime)
         {
             enemy.animator.SetTrigger("attack");
-            enemy.attackTimer = 0f;
+            enemy.nextAttackTime = Time.time + enemy.attackRate;
         }
+
+        enemy.transform.LookAt(enemy.targetPlayer);
     }
 }

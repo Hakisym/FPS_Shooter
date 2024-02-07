@@ -17,12 +17,12 @@ public class StateController : MonoBehaviour
     private Vector3 targetPosition;
 
     public EnemyBaseState currentState;
-    public FocusMoveState focusMoveState = new FocusMoveState();
-    public AttackState attackState = new AttackState();
+    public FocusMoveState focusMoveState;
+    public AttackState attackState;
 
     [Header("Enemy Stats")]
     [Range(0,30)]
-    public int attackRadius;
+    public float attackRadius;
     [Range(0,100)]
     public int viewRadius;
     [Range(0,120)]
@@ -32,9 +32,8 @@ public class StateController : MonoBehaviour
     public float headHeight;
 
     public AudioClip attackSound;
-    public float attackInterval;
-    public float attackRange;
-    public float attackTimer;
+    public float attackRate;
+    [HideInInspector] public float nextAttackTime;
 
     //Initial data and state
     void Start()
@@ -42,6 +41,8 @@ public class StateController : MonoBehaviour
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         audioSource = GetComponent<AudioSource>();
+        focusMoveState = gameObject.AddComponent<FocusMoveState>();
+        attackState = gameObject.AddComponent<AttackState>();
         foreach (var player in GameObject.FindGameObjectsWithTag("Player"))
         {
             playerList.Add(player.transform);
@@ -99,11 +100,25 @@ public class StateController : MonoBehaviour
     }
 
     //The common overlap function for senses decisions
-    public Collider[] CheckTargetInRadius(float radius)
+    public Collider[] CheckTargetsInRadius(float radius)
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, radius, targetMask);
+        if (colliders.Length == 0)
+            return null;
+
         var orderedByProximity = colliders.OrderBy(c => (transform.position - c.transform.position).sqrMagnitude).ToArray();
         return orderedByProximity;
+    }
+
+    public bool CheckTargetInRadius(Transform target,float radius)
+    {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, radius, targetMask);
+        foreach (var collider in colliders)
+        {
+            if (collider.transform == target)
+                return true;
+        }
+        return false;
     }
 
     //The common cast function
@@ -135,7 +150,7 @@ public class StateController : MonoBehaviour
 
     public void LookDecision()
     {
-        var colliders = CheckTargetInRadius(viewRadius);
+        var colliders = CheckTargetsInRadius(viewRadius);
         //Is the collider is in FOV?
         foreach (var collider in colliders)
         {
@@ -149,5 +164,10 @@ public class StateController : MonoBehaviour
                 return;
             }
         }
+    }
+
+    public bool AttackDecision()
+    {
+        return CheckTargetInRadius(targetPlayer, attackRadius);
     }
 }

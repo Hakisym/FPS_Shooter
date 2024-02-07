@@ -20,7 +20,7 @@ public class FocusMoveState : EnemyBaseState
         enemy.LookDecision();
 
         //Engage radius
-        if (Vector3.Distance(enemy.transform.position, enemy.targetPlayer.position) < enemy.attackRadius)
+        if (enemy.AttackDecision())
         {
             enemy.TransitionToState(enemy.attackState);
         }

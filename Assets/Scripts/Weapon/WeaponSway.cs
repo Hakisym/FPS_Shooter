@@ -33,7 +33,7 @@ public class WeaponSway : MonoBehaviour
     {
         initialPosition = transform.localPosition;
         initialRotation = transform.localRotation;
-        wc = GameObject.FindGameObjectWithTag("Player").GetComponent<WeaponController>();
+        wc = Inventory.instance.wc;
     }
 
     private void Update()

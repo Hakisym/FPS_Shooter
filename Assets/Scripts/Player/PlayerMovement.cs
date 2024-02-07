@@ -8,9 +8,9 @@ public class PlayerMovement : MonoBehaviour
     public CharacterController controller;
     [Space]
     [Header("Move Stats")]
-    public float walkSpeed = 8f;
-    public float sprintSpeed = 12f;
-    public float crouchSpeed = 4f;
+    public float walkSpeed = 5f;
+    public float sprintSpeed = 6f;
+    public float crouchSpeed = 2f;
     public float gravity = -9.81f;
     public float jumpHeight = 3f;
     [Space]
