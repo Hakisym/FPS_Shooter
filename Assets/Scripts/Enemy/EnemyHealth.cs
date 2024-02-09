@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyHealth : MonoBehaviour,IDamageable
+public class EnemyHealth : HealthManager
 {
     public int maxHealth;
     public bool dead;
@@ -24,7 +24,7 @@ public class EnemyHealth : MonoBehaviour,IDamageable
         }
     }
 
-    public void TakeDamage(int amount, float force, Vector3 direction, Collider bodyPart)
+    public override void TakeDamage(int amount, float force, Vector3 direction, Collider bodyPart)
     {
         //Count body and head HP individually
         if (bodyPart.CompareTag("Head"))
