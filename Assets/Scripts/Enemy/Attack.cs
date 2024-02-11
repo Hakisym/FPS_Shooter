@@ -1,0 +1,12 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "Attack",menuName = "CombatSO/AttackRegular")]
+public class Attack : ScriptableObject
+{
+    public AnimationClip animationClip;
+    public int animationIndex;
+    public int damage;
+    public float range;
+}

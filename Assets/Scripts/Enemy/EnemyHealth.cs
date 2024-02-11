@@ -56,6 +56,7 @@ public class EnemyHealth : HealthManager
         Destroy(this.GetComponent<NavMeshAgent>());
         RemoveAllForces();
         GetComponent<Animator>().enabled = false;
+        GetComponent<Collider>().enabled = false;
         dead = true;
     }
 

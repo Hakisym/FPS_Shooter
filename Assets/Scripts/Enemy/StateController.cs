@@ -7,33 +7,39 @@ using UnityEngine.AI;
 
 public class StateController : MonoBehaviour
 {
-    [HideInInspector] public Animator animator;
-    [HideInInspector] public int animIndex;
-    private NavMeshAgent agent;
-    private AudioSource audioSource;
+    public EnemyBaseState currentState;
+    public FocusMoveState focusMoveState;
+    public AttackState attackState;
 
     public Transform targetPlayer;
     private List<Transform> playerList = new List<Transform>();
     private Vector3 targetPosition;
 
-    public EnemyBaseState currentState;
-    public FocusMoveState focusMoveState;
-    public AttackState attackState;
-
     [Header("Enemy Stats")]
     [Range(0,30)]
-    public float attackRadius;
+    public float engageRadius;
     [Range(0,100)]
     public int viewRadius;
     [Range(0,120)]
     public int viewAngle;
+
+    [Header("Enemy Stats SO")]
+    public float attackInterval;
     public LayerMask targetMask;
     public LayerMask obstacleMask;
-    public float headHeight;
 
-    public AudioClip attackSound;
+    [Header("Enemy Class SO")]
+    public float headHeight;
     public float attackRate;
-    [HideInInspector] public float nextAttackTime;
+    public Attack[] attacks;
+    public WeaponHandler[] weaponHandlers;
+
+    [HideInInspector] public Animator animator;
+    [HideInInspector] public int animLocomotion;
+    [HideInInspector] public float attackEndTime;
+    [HideInInspector] public bool attackFinished;
+    private NavMeshAgent agent;
+    private AudioSource audioSource;
 
     //Initial data and state
     void Start()
@@ -43,6 +49,7 @@ public class StateController : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         focusMoveState = gameObject.AddComponent<FocusMoveState>();
         attackState = gameObject.AddComponent<AttackState>();
+        attackEndTime = float.MaxValue;
         foreach (var player in GameObject.FindGameObjectsWithTag("Player"))
         {
             playerList.Add(player.transform);
@@ -53,7 +60,7 @@ public class StateController : MonoBehaviour
 
     void Update()
     {
-        animator.SetInteger("state", animIndex);
+        animator.SetInteger("locomotion", animLocomotion);
         currentState.OnStateUpdate(this);
     }
 
@@ -168,6 +175,6 @@ public class StateController : MonoBehaviour
 
     public bool AttackDecision()
     {
-        return CheckTargetInRadius(targetPlayer, attackRadius);
+        return CheckTargetInRadius(targetPlayer, engageRadius);
     }
 }

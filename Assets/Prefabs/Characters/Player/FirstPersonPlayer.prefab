@@ -272,8 +272,8 @@ GameObject:
   - component: {fileID: 1700024202281320436}
   - component: {fileID: 1700024202281320399}
   - component: {fileID: 1700024202281320435}
-  - component: {fileID: 1700024202281320432}
   - component: {fileID: 7102522014006773767}
+  - component: {fileID: 1700024202281320432}
   - component: {fileID: 1700024202281320433}
   - component: {fileID: 1700024202281320398}
   m_Layer: 8
@@ -313,7 +313,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 2
   m_Height: 1.8
-  m_Radius: 0.3
+  m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.25
   m_SkinWidth: 0.08
@@ -339,7 +339,7 @@ MonoBehaviour:
   muzzlePoint: {fileID: 2764331388134260319}
   whatIsShootable:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 2112
   animator: {fileID: 1700024203204091687}
   cameraRecoil: {fileID: 1700024201625776517}
   weaponRecoil: {fileID: 1700024202466185037}
@@ -387,6 +387,20 @@ MonoBehaviour:
   runSound: {fileID: 8300000, guid: 15d2b028de199834e9cbb463b99d4aaf, type: 3}
   animator: {fileID: 1700024203204091687}
   wc: {fileID: 1700024202281320399}
+--- !u!114 &7102522014006773767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1700024202281320438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb43dbd568d4f9049af9b981e02e9af5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 0
 --- !u!114 &1700024202281320432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -404,19 +418,6 @@ MonoBehaviour:
   whatIsInteractable:
     serializedVersion: 2
     m_Bits: 1024
---- !u!114 &7102522014006773767
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1700024202281320438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb43dbd568d4f9049af9b981e02e9af5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 0
 --- !u!82 &1700024202281320433
 AudioSource:
   m_ObjectHideFlags: 0
