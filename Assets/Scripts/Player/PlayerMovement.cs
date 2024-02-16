@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     public bool isGrounded;
     public bool isSprinting;
     public bool isCrouching;
+    public bool isGrabbed;
     [Space]
     [Header("Crouch")]
     public Transform cameraHolder;
@@ -69,8 +70,6 @@ public class PlayerMovement : MonoBehaviour
 
         Move();
 
-        Jump();
-
         HandleSFX();
     }
 
@@ -96,6 +95,8 @@ public class PlayerMovement : MonoBehaviour
 
     void CheckInput()
     {
+        if (isGrabbed) return;
+
         // Move input
         mouseX = Input.GetAxis("Horizontal");
         mouseY = Input.GetAxis("Vertical");
@@ -103,15 +104,14 @@ public class PlayerMovement : MonoBehaviour
 
         // Sprint input
         if (Input.GetKeyDown(KeyCode.LeftShift) && isGrounded && moveDirection.sqrMagnitude > 0 && !wc.aiming && !wc.shooting)
-        {
             isSprinting = !isSprinting;
-        }
 
         // Crouch input
         if (Input.GetKeyDown(KeyCode.LeftControl) && isGrounded && !isSprinting)
-        {
             isCrouching = !isCrouching;
-        }
+
+        // Jump
+        if (Input.GetButtonDown("Jump") && isGrounded) Jump();
     }
 
     void Crouch()
@@ -179,11 +179,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        // Jump
-        if (Input.GetButtonDown("Jump") && isGrounded)
-        {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-        }
+        velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
     }
 
     private void HandleSFX()

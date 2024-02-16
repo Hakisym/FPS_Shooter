@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class AnimationEventHandler : MonoBehaviour
 {
+    private StateController stateController;
+    private void Start()
+    {
+        stateController = GetComponent<StateController>();
+    }
+
     private void AnimationFinishTrigger()
     {
-        GetComponent<StateController>().attackFinished = true;
-        GetComponent<StateController>().attackEndTime = Time.time;
-        GetComponent<Animator>().SetInteger("attack", -1);
+        stateController.attackFinished = true;
+        stateController.attackEndTime = Time.time;
+        stateController.animator.SetInteger("attack", -1);
     }
 }

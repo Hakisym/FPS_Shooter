@@ -8,6 +8,7 @@ public class EnemyHealth : HealthManager
 {
     public int maxHealth;
     public bool dead;
+    public Action OnDie;
 
     private int bodyHealth;
     private int headHealth;
@@ -47,6 +48,8 @@ public class EnemyHealth : HealthManager
 
     private void Die()
     {
+        OnDie?.Invoke();
+
         //Destroy enemy scripts and navmesh
         foreach (var mb in this.GetComponents<MonoBehaviour>())
         {

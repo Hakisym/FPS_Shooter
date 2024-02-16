@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "FocusMoveState", menuName = "Enemy/State/FocusMoveState")]
 public class FocusMoveState : EnemyBaseState
 {
     public override void OnStateEnter(StateController enemy)
@@ -22,7 +23,7 @@ public class FocusMoveState : EnemyBaseState
         //Engage radius
         if (enemy.AttackDecision())
         {
-            enemy.TransitionToState(enemy.attackState);
+            enemy.TransitionToState<AttackState>();
         }
     }
 }

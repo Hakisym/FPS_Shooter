@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "AttackState", menuName = "Enemy/State/AttackState")]
 public class AttackState : EnemyBaseState
 {
     public override void OnStateEnter(StateController enemy)
@@ -19,7 +20,7 @@ public class AttackState : EnemyBaseState
             //Exit attack
             if (!enemy.AttackDecision())
             {
-                enemy.TransitionToState(enemy.focusMoveState);
+                enemy.TransitionToState<FocusMoveState>();
             }
         }
 
@@ -28,6 +29,11 @@ public class AttackState : EnemyBaseState
         {
             ActAttack(enemy);
         }
+
+        if (enemy.grabbedTarget)
+        {
+            enemy.TransitionToState<GrabState>();
+        }
     }
 
     private void ActAttack(StateController enemy)
@@ -35,8 +41,12 @@ public class AttackState : EnemyBaseState
         var attack = enemy.attacks[Random.Range(0, enemy.attacks.Length)];
 
         enemy.animator.SetInteger("attack", attack.animationIndex);
-        enemy.weaponHandlers[0].damageAmount = attack.damage;
 
+        foreach (var hitPoint in enemy.hitHandlers)
+        {
+            hitPoint.attack = attack;
+        }
+        
         enemy.attackFinished = false;
     }
 }

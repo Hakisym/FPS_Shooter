@@ -8,10 +8,10 @@ using UnityEngine.AI;
 public class StateController : MonoBehaviour
 {
     public EnemyBaseState currentState;
-    public FocusMoveState focusMoveState;
-    public AttackState attackState;
+    public EnemyBaseState[] enemyBaseStates;
 
     public Transform targetPlayer;
+    public Transform lineOfSight;
     private List<Transform> playerList = new List<Transform>();
     private Vector3 targetPosition;
 
@@ -29,16 +29,17 @@ public class StateController : MonoBehaviour
     public LayerMask obstacleMask;
 
     [Header("Enemy Class SO")]
-    public float headHeight;
-    public float attackRate;
     public Attack[] attacks;
-    public WeaponHandler[] weaponHandlers;
+    public MeleeHandler[] hitHandlers;
+    public int grabDamage;
+    public float moveDistance;
 
     [HideInInspector] public Animator animator;
     [HideInInspector] public int animLocomotion;
     [HideInInspector] public float attackEndTime;
     [HideInInspector] public bool attackFinished;
-    private NavMeshAgent agent;
+    [HideInInspector] public bool grabbedTarget;
+    [HideInInspector] public NavMeshAgent agent;
     private AudioSource audioSource;
 
     //Initial data and state
@@ -47,15 +48,14 @@ public class StateController : MonoBehaviour
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         audioSource = GetComponent<AudioSource>();
-        focusMoveState = gameObject.AddComponent<FocusMoveState>();
-        attackState = gameObject.AddComponent<AttackState>();
+        GetComponent<EnemyHealth>().OnDie += DeathHandler;
         attackEndTime = float.MaxValue;
         foreach (var player in GameObject.FindGameObjectsWithTag("Player"))
         {
             playerList.Add(player.transform);
         }
 
-        TransitionToState(focusMoveState);
+        TransitionToState<FocusMoveState>();
     }
 
     void Update()
@@ -72,10 +72,18 @@ public class StateController : MonoBehaviour
     }
 
     //Change state
-    public void TransitionToState(EnemyBaseState newState)
+    public void TransitionToState<T>() where T : EnemyBaseState
     {
-        currentState = newState;
-        currentState.OnStateEnter(this);
+        foreach (var state in enemyBaseStates)
+        {
+            if (state is T)
+            {
+                currentState = state;
+                currentState.OnStateEnter(this);
+                return;
+            }
+        }
+        throw new Exception("Transition state doesn't exist");
     }
 
     //Get the closest player
@@ -132,7 +140,7 @@ public class StateController : MonoBehaviour
     public bool BlockedSight(Vector3 target)
     {
         //Get cast to target parameters
-        Vector3 castOrigin = transform.position + Vector3.up * headHeight;
+        Vector3 castOrigin = lineOfSight.position;
         Vector3 dirToTarget = target - castOrigin;
         //Hit anything other than targets?
         bool blockedSight = Physics.Raycast(castOrigin, dirToTarget, dirToTarget.magnitude, obstacleMask);
@@ -176,5 +184,11 @@ public class StateController : MonoBehaviour
     public bool AttackDecision()
     {
         return CheckTargetInRadius(targetPlayer, engageRadius);
+    }
+
+    public void DeathHandler()
+    {
+        if (grabbedTarget)
+            targetPlayer.GetComponent<PlayerMovement>().isGrabbed = false;
     }
 }
