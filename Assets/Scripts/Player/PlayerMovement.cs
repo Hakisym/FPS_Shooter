@@ -95,7 +95,11 @@ public class PlayerMovement : MonoBehaviour
 
     void CheckInput()
     {
-        if (isGrabbed) return;
+        if (isGrabbed)
+        {
+            moveDirection = Vector3.zero;
+            return;
+        }
 
         // Move input
         mouseX = Input.GetAxis("Horizontal");

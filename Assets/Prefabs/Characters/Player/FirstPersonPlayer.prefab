@@ -276,6 +276,7 @@ GameObject:
   - component: {fileID: 1700024202281320432}
   - component: {fileID: 1700024202281320433}
   - component: {fileID: 1700024202281320398}
+  - component: {fileID: 483432918}
   m_Layer: 8
   m_Name: FirstPersonPlayer
   m_TagString: Player
@@ -378,6 +379,7 @@ MonoBehaviour:
   isGrounded: 0
   isSprinting: 0
   isCrouching: 0
+  isGrabbed: 0
   cameraHolder: {fileID: 1700024201428482309}
   crouchHeight: 1.1
   cameraFovSprinting: 70
@@ -610,6 +612,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &483432918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1700024202281320438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d2a1914f2dc63c46896b1d55dc6d0a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mass: 3
 --- !u!1 &1700024202367906408
 GameObject:
   m_ObjectHideFlags: 0

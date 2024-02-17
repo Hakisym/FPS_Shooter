@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3862400414540605672}
   - component: {fileID: 3862400414541605416}
   - component: {fileID: 5201536991793078197}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: AssaultRifle1_05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,6 +112,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AssaultRifle1_05_2
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: c13c9896bbe3ae84c973c48534cc8192, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c13c9896bbe3ae84c973c48534cc8192, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -199,6 +203,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AssaultRifle1_05_4
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 2d8cd3bf787b5c24f8562de966a274c5, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 2d8cd3bf787b5c24f8562de966a274c5, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -285,6 +293,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 5a6c8c974ad28934f9969b24799cff7a, type: 3}
       propertyPath: m_Name
       value: AssaultRifle1_05_3
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 5a6c8c974ad28934f9969b24799cff7a, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5a6c8c974ad28934f9969b24799cff7a, type: 3}
       propertyPath: m_RootOrder
