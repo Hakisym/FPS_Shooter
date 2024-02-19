@@ -3752,7 +3752,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1200427666}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.43200004, z: -0.5}
+  m_LocalPosition: {x: 0, y: -0.18200004, z: -0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5447,11 +5447,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Zombie_Clown_Male_01
       objectReference: {fileID: 0}
-    - target: {fileID: 2099612773015049234, guid: cbd1ee04a27388549ab903fa766b3a17,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2102954227345991666, guid: cbd1ee04a27388549ab903fa766b3a17,
         type: 3}
       propertyPath: m_RootOrder
@@ -5480,17 +5475,17 @@ PrefabInstance:
     - target: {fileID: 2102954227345991666, guid: cbd1ee04a27388549ab903fa766b3a17,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2102954227345991666, guid: cbd1ee04a27388549ab903fa766b3a17,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2102954227345991666, guid: cbd1ee04a27388549ab903fa766b3a17,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2102954227345991666, guid: cbd1ee04a27388549ab903fa766b3a17,
         type: 3}
@@ -9296,11 +9291,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: FirstPersonPlayer
       objectReference: {fileID: 0}
-    - target: {fileID: 1700024202367906406, guid: 697ef857e7c44a44aaf2aa0f3ea4867e,
-        type: 3}
-      propertyPath: m_CullingMask.m_Bits
-      value: 4599
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 697ef857e7c44a44aaf2aa0f3ea4867e, type: 3}
 --- !u!1001 &3999213930365480574
@@ -9410,12 +9400,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 9079248475693088832, guid: e9bf0af180b868f41a895c9dd30d2ec5,
-        type: 3}
-      propertyPath: weaponData
-      value: 
-      objectReference: {fileID: 11400000, guid: c48904e4f596248469951dee6222fe6f,
-        type: 2}
     - target: {fileID: 9079248475693088833, guid: e9bf0af180b868f41a895c9dd30d2ec5,
         type: 3}
       propertyPath: m_RootOrder
@@ -9471,16 +9455,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9079248475693088835, guid: e9bf0af180b868f41a895c9dd30d2ec5,
-        type: 3}
-      propertyPath: m_IsKinematic
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 9079248475693088837, guid: e9bf0af180b868f41a895c9dd30d2ec5,
         type: 3}
       propertyPath: m_Name
       value: WeaponPickup
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 9079248475693088836, guid: e9bf0af180b868f41a895c9dd30d2ec5, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e9bf0af180b868f41a895c9dd30d2ec5, type: 3}
