@@ -5447,6 +5447,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Zombie_Clown_Male_01
       objectReference: {fileID: 0}
+    - target: {fileID: 2099612773015049234, guid: cbd1ee04a27388549ab903fa766b3a17,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2102954227345991666, guid: cbd1ee04a27388549ab903fa766b3a17,
         type: 3}
       propertyPath: m_RootOrder
@@ -5764,6 +5769,67 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1667164448}
   m_CullTransparentMesh: 1
+--- !u!1001 &1675300860
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 100000, guid: 8c2f8cfea632c3c41a7abc68f0ed0a93, type: 3}
+      propertyPath: m_Name
+      value: RifleShellCast
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 8c2f8cfea632c3c41a7abc68f0ed0a93, type: 3}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 8c2f8cfea632c3c41a7abc68f0ed0a93, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 8c2f8cfea632c3c41a7abc68f0ed0a93, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.122
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 8c2f8cfea632c3c41a7abc68f0ed0a93, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 8c2f8cfea632c3c41a7abc68f0ed0a93, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 8c2f8cfea632c3c41a7abc68f0ed0a93, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 8c2f8cfea632c3c41a7abc68f0ed0a93, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 8c2f8cfea632c3c41a7abc68f0ed0a93, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 8c2f8cfea632c3c41a7abc68f0ed0a93, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 8c2f8cfea632c3c41a7abc68f0ed0a93, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 8c2f8cfea632c3c41a7abc68f0ed0a93, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 8c2f8cfea632c3c41a7abc68f0ed0a93, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 28af8aa4e6bad69439ee2d4d6d11939a, type: 2}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8c2f8cfea632c3c41a7abc68f0ed0a93, type: 3}
 --- !u!1001 &1748185455
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9291,6 +9357,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FirstPersonPlayer
       objectReference: {fileID: 0}
+    - target: {fileID: 1700024202367906406, guid: 697ef857e7c44a44aaf2aa0f3ea4867e,
+        type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 12791
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 697ef857e7c44a44aaf2aa0f3ea4867e, type: 3}
 --- !u!1001 &3999213930365480574
@@ -9400,6 +9471,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 9079248475693088832, guid: e9bf0af180b868f41a895c9dd30d2ec5,
+        type: 3}
+      propertyPath: canInteract
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9079248475693088833, guid: e9bf0af180b868f41a895c9dd30d2ec5,
         type: 3}
       propertyPath: m_RootOrder

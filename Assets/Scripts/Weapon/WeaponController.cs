@@ -38,7 +38,6 @@ public class WeaponController : MonoBehaviour
     {
         bulletsLeft = wd.gunStats.magazineSize;
         readyToShoot = true;
-        InitialSettings();
     }
 
     private void Update()
@@ -58,6 +57,9 @@ public class WeaponController : MonoBehaviour
             bulletsShot = wd.gunStats.bulletsPerTap;
             Shoot();
         }
+
+        if (Input.GetKeyDown(KeyCode.Backspace) && !reloading)
+            inventory.DropGun();
     }
 
     private void Shoot()
@@ -123,11 +125,6 @@ public class WeaponController : MonoBehaviour
         bulletsLeft = wd.gunStats.magazineSize;
 
         reloading = false;
-    }
-
-    private void InitialSettings()
-    {
-
     }
 
     public void GetWeaponData(WeaponIdentification wid)

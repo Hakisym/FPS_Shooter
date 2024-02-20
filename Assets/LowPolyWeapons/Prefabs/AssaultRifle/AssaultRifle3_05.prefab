@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1537223894820815573}
   - component: {fileID: 1537223894821814293}
   - component: {fileID: 4248036403212892254}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: AssaultRifle3_05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185,7 +185,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 648e38e3d1ec06c49bff23203af42f02,
         type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 648e38e3d1ec06c49bff23203af42f02, type: 3}
@@ -228,7 +228,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 67bfff0ab63d0304f82790b990219b10, type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 67bfff0ab63d0304f82790b990219b10, type: 3}
       propertyPath: m_RootOrder
@@ -381,7 +381,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: e312413c888c7534488ae5be19983c34,
         type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e312413c888c7534488ae5be19983c34, type: 3}
@@ -424,7 +424,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 0db852ed5b2a30c488e67dd72b09d702, type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0db852ed5b2a30c488e67dd72b09d702, type: 3}
       propertyPath: m_RootOrder
@@ -577,7 +577,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 70bbee3c985c40549b65ed26e92605fd,
         type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70bbee3c985c40549b65ed26e92605fd, type: 3}

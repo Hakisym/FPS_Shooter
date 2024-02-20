@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3256710037465409576}
   - component: {fileID: 3256710037464312552}
   - component: {fileID: 5103333246579960850}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: AssaultRifle3_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185,7 +185,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: d4dcdc145dc58ee4ea90c0d7d1f28253,
         type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d4dcdc145dc58ee4ea90c0d7d1f28253, type: 3}
@@ -228,7 +228,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 9219f5f4f1dbcf441ba1eea18283586d, type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9219f5f4f1dbcf441ba1eea18283586d, type: 3}
       propertyPath: m_RootOrder
@@ -381,7 +381,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: c0dd7e6fadb805545b5cf87b8bae6a95,
         type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0dd7e6fadb805545b5cf87b8bae6a95, type: 3}
@@ -424,7 +424,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 066b5f394ca966449b38aec60e5db11b, type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 066b5f394ca966449b38aec60e5db11b, type: 3}
       propertyPath: m_RootOrder
@@ -577,7 +577,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: eba79f527ee3734408555e5718e6a680,
         type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eba79f527ee3734408555e5718e6a680, type: 3}

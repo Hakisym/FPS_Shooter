@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2054593647013051656}
   - component: {fileID: 2054593647012085704}
   - component: {fileID: 1317588117917414880}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: AssaultRifle3_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,7 +116,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 4922f0fa8e9560d4986b58a48434c9c8, type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4922f0fa8e9560d4986b58a48434c9c8, type: 3}
       propertyPath: m_RootOrder
@@ -269,7 +269,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: b30adf8916fe1ad4b93f405c6b4abe7b,
         type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b30adf8916fe1ad4b93f405c6b4abe7b, type: 3}
@@ -381,7 +381,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 56c3bd93c2a653342b85ad53ba64ae0e,
         type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56c3bd93c2a653342b85ad53ba64ae0e, type: 3}
@@ -486,7 +486,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 89978926bfc5a12449e4282e70a9f93b,
         type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89978926bfc5a12449e4282e70a9f93b, type: 3}
@@ -529,7 +529,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 8457756a93e7a7b478164a9036cd108c, type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 8457756a93e7a7b478164a9036cd108c, type: 3}
       propertyPath: m_RootOrder

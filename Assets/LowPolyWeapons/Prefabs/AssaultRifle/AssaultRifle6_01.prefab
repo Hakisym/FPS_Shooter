@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5277177922451403251}
   - component: {fileID: 5277177922450273075}
   - component: {fileID: 8630747595047657154}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: AssaultRifle6_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -114,7 +114,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 0e630fc8a331f744881152ed29fdb7d9, type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0e630fc8a331f744881152ed29fdb7d9, type: 3}
       propertyPath: m_RootOrder
@@ -205,7 +205,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 592f0577979473f4a826cd72787edeae, type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 592f0577979473f4a826cd72787edeae, type: 3}
       propertyPath: m_RootOrder
@@ -296,7 +296,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: c3c9dd14b485cab468b5803fed36887a, type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c3c9dd14b485cab468b5803fed36887a, type: 3}
       propertyPath: m_RootOrder

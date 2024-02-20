@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2778968545709822637}
   - component: {fileID: 2778968545710952557}
   - component: {fileID: 7042317540873953997}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: AssaultRifle4_05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,7 +113,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: a8daf8b3a1e8a2e41b314104bdbf764a, type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: a8daf8b3a1e8a2e41b314104bdbf764a, type: 3}
       propertyPath: m_RootOrder
@@ -204,7 +204,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 2841b400a972de74fab992b1d853b617, type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 2841b400a972de74fab992b1d853b617, type: 3}
       propertyPath: m_RootOrder

@@ -15,14 +15,14 @@ public class InteractManager : MonoBehaviour
         if(Physics.Raycast(playerCam.transform.position,playerCam.transform.forward,out raycastHit,detectDistance, whatIsInteractable))
         {
             //show object UI
-            var weaponPickable = raycastHit.transform.GetComponent<WeaponPickable>();
+            var interactGO = raycastHit.transform.GetComponent<Interactable>();
             UIManager.instance.InteractUI.gameObject.SetActive(true);
-            UIManager.instance.interactionName.text = weaponPickable.weaponData.gunName;
+            UIManager.instance.interactionName.text = interactGO.name;
 
             //interact
             if (Input.GetKeyDown(KeyCode.E))
             {
-                weaponPickable.Interact();
+                interactGO.Interact();
             }
         }
         else

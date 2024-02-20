@@ -9,6 +9,7 @@ public class EnemyHealth : HealthManager
     public int maxHealth;
     public bool dead;
     public Action OnDie;
+    public float ragdollShootForce = 100f;
 
     private int bodyHealth;
     private int headHealth;
@@ -41,8 +42,10 @@ public class EnemyHealth : HealthManager
             if (!dead)
             {
                 Die();
+                bodyPart.GetComponent<Rigidbody>().AddForce(direction.normalized * force, ForceMode.Impulse);
             }
-            bodyPart.GetComponent<Rigidbody>().AddForce(direction.normalized * force, ForceMode.Impulse);
+            else
+                bodyPart.GetComponent<Rigidbody>().AddForce(direction.normalized * ragdollShootForce, ForceMode.Impulse);
         }
     }
 

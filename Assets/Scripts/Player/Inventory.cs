@@ -1,14 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Inventory : MonoBehaviour
 {
     [Header("Inventory Settings")]
-    public WeaponIdentification[] weapons;
+    public List<WeaponIdentification> weapons;
     public WeaponIdentification currentWeapon;
     public int inventorySize;
     public int initialWeapon = 0;
+    public float dropForce = 10f;
     private int weaponIndex = -1;
 
     [Header("Animation")]
@@ -29,9 +31,9 @@ public class Inventory : MonoBehaviour
 
     private void Start()
     {
-        weapons = new WeaponIdentification[inventorySize];
+        weapons = new List<WeaponIdentification>();
 
-        weapons = GetComponentsInChildren<WeaponIdentification>(true);
+        weapons = GetComponentsInChildren<WeaponIdentification>(true).ToList();
 
         // equip at start
         foreach (var weapon in weapons)
@@ -51,10 +53,9 @@ public class Inventory : MonoBehaviour
             // Check if enough time has passed since the last switch
             if (Time.time - lastSwitchTime >= switchDelay)
             {
-                int index = weaponIndex;
                 // Switch weapon
-                if(scrollValue>0) Equip(index + 1);
-                else Equip(index - 1);
+                if(scrollValue>0) Equip(weaponIndex + 1);
+                else Equip(weaponIndex - 1);
 
                 // Update the last switch time
                 lastSwitchTime = Time.time;
@@ -65,7 +66,7 @@ public class Inventory : MonoBehaviour
     public void Equip(int index)
     {
         //state check
-        if (switching) return;
+        if (switching || weapons.Count <= 1) return;
         if (currentWeapon != null && (wc.reloading || wc.shooting))
         {
             Debug.Log("Can't switch when reloading and shooting!");
@@ -73,13 +74,13 @@ public class Inventory : MonoBehaviour
         }
 
         //wheel inventory
-        if (index > weapons.Length - 1)
+        if (index > weapons.Count - 1)
         {
             index = 0;
         }
         if (index < 0)
         {
-            index = weapons.Length - 1;
+            index = weapons.Count - 1;
         }
 
         switching = true;
@@ -120,24 +121,33 @@ public class Inventory : MonoBehaviour
         switching = false;
     }
 
-    public bool SwapWeapon(WeaponData weaponSO)
+    public bool PickupWeapon(WeaponData weaponSO)
     {
-        if (switching) return false;
         //create new gun
         var weaponGO = Instantiate(weaponSO.gunPrefab, this.transform);
         var newWeapon = weaponGO.GetComponent<WeaponIdentification>();
+        //add to inventory and hide it
+        weapons.Add(newWeapon);
+        newWeapon.gameObject.SetActive(false);
 
-        weapons[weaponIndex] = newWeapon;
+        return true;
+    }
 
-        //drop old gun
-        var pickupGO = Instantiate(pickupPrefab);
+    public void DropGun()
+    {
+        //one gun remaining
+        if (switching || weapons.Count <= 1) return;
+
+        //spawn pickup GO
+        var pickupGO = Instantiate(pickupPrefab,transform.position,Quaternion.identity);
+        pickupGO.GetComponent<Rigidbody>().AddForce(transform.forward.normalized * dropForce, ForceMode.Impulse);
         pickupGO.GetComponent<WeaponPickable>().weaponData = currentWeapon.wd;
 
-        //clean up
+        //delete from inventory
+        weapons.Remove(currentWeapon);
         Destroy(currentWeapon.gameObject);
         currentWeapon = null;
-        
-        Equip(weaponIndex);
-        return true;
+
+        Equip(weaponIndex + 1);
     }
 }

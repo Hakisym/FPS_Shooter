@@ -5,15 +5,22 @@ using UnityEngine;
 public class WeaponPickable : MonoBehaviour
 {
     public WeaponData weaponData;
+    public bool canInteract;
 
     private void Start()
     {
-        var weapon = Instantiate(weaponData.pickUpGraphics, transform);
+        Instantiate(weaponData.pickUpGraphics, transform);
     }
 
-    public void Interact()
+    private void OnTriggerEnter(Collider other)
     {
-        if (Inventory.instance.SwapWeapon(weaponData))
-            Destroy(gameObject);
+        if (other.CompareTag("Player") && canInteract)
+            if (Inventory.instance.PickupWeapon(weaponData))
+                Destroy(gameObject);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        canInteract = true;
     }
 }

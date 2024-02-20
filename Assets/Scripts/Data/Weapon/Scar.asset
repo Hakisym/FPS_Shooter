@@ -38,7 +38,7 @@ MonoBehaviour:
     type: 3}
   gunStats:
     damage: 40
-    bulletForce: 20
+    bulletForce: 50
     timeBetweenShooting: 0.1
     spread: 0
     range: 50
