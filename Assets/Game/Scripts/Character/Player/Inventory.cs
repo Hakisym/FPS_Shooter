@@ -66,7 +66,8 @@ public class Inventory : MonoBehaviour
     public void Equip(int index)
     {
         //state check
-        if (switching || weapons.Count <= 1) return;
+        if (switching) return;
+
         if (currentWeapon != null && (wc.reloading || wc.shooting))
         {
             Debug.Log("Can't switch when reloading and shooting!");
