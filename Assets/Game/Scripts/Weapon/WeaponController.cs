@@ -24,9 +24,9 @@ public class WeaponController : MonoBehaviour
     public Inventory inventory;
 
     [Header("Visuals")]
-    public GameObject muzzleFlash;
-    public GameObject bulletHoleGraphic;
-    public GameObject bulletGO;
+    public ParticleSystem muzzleFlash;
+    public GameObject bulletImpact;
+    public GameObject bulletTrail;
 
     [Header("Sounds")]
     public AudioSource audioSource;
@@ -83,7 +83,7 @@ public class WeaponController : MonoBehaviour
             else
             {
                 //bullet impact
-                Instantiate(bulletHoleGraphic, rayHit.point, Quaternion.LookRotation(rayHit.normal));
+                Instantiate(bulletImpact, rayHit.point, Quaternion.LookRotation(rayHit.normal));
             }
         }
 
@@ -91,10 +91,12 @@ public class WeaponController : MonoBehaviour
         cameraRecoil.Fire();
         weaponRecoil.Fire();
 
-        //Graphics
-        Instantiate(muzzleFlash, muzzlePoint.position, playerCam.transform.rotation,muzzlePoint);
-        var bulletGO = Instantiate(this.bulletGO, muzzlePoint.position, playerCam.transform.rotation);
-        bulletGO.GetComponent<Rigidbody>().AddForce(bulletGO.transform.forward*100f, ForceMode.Impulse);
+        //VFX
+        //Instantiate(muzzleFlash, muzzlePoint.position, playerCam.transform.rotation, muzzlePoint);
+        muzzleFlash.Play();
+
+        //var bulletGO = Instantiate(this.bulletGO, muzzlePoint.position, playerCam.transform.rotation);
+        //bulletGO.GetComponent<Rigidbody>().AddForce(bulletGO.transform.forward*100f, ForceMode.Impulse);
 
         //Sounds
         audioSource.PlayOneShot(shootSound);
