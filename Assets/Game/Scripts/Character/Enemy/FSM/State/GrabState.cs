@@ -17,7 +17,7 @@ public class GrabState : EnemyBaseState
         Vector3 directionToPlayer = enemy.targetPlayer.position - enemy.transform.position;
 
         // Check if the enemy is already close enough to the target player
-        if (directionToPlayer.magnitude > enemy.moveDistance)
+        if (directionToPlayer.magnitude > enemy.grabDistanceClose)
         {
             // Normalize the direction vector to ensure consistent movement speed
             directionToPlayer.Normalize();

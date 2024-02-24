@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GrabHandler : MonoBehaviour
 {
+    public Action OnGrabSuccess;
     private StateController enemy;
 
     private void Start()
@@ -18,8 +20,7 @@ public class GrabHandler : MonoBehaviour
             var pm = other.GetComponent<PlayerMovement>();
             if (!pm.isGrabbed)
             {
-                enemy.animator.SetInteger("attack", -1);
-                enemy.grabbedTarget = true;
+                OnGrabSuccess?.Invoke();
                 pm.isGrabbed = true;
             }
         }

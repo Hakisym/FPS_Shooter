@@ -31,15 +31,16 @@ public class StateController : MonoBehaviour
     [Header("Enemy Class SO")]
     public Attack[] attacks;
     public MeleeHandler[] hitHandlers;
+    public GrabHandler[] grabHandlers;
     public int grabDamage;
-    public float moveDistance;
+    public float grabDistanceClose;
 
+    //fields
     [HideInInspector] public Animator animator;
-    [HideInInspector] public int animLocomotion;
-    [HideInInspector] public float attackEndTime;
-    [HideInInspector] public bool attackFinished;
-    [HideInInspector] public bool grabbedTarget;
     [HideInInspector] public NavMeshAgent agent;
+    [HideInInspector] public float attackEndTime;
+    [HideInInspector] public bool isAttacking;
+    [HideInInspector] public bool isGrabbing;
     private AudioSource audioSource;
 
     //Initial data and state
@@ -48,8 +49,9 @@ public class StateController : MonoBehaviour
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         audioSource = GetComponent<AudioSource>();
-        GetComponent<EnemyHealth>().OnDie += DeathHandler;
+
         attackEndTime = float.MaxValue;
+
         foreach (var player in GameObject.FindGameObjectsWithTag("Player"))
         {
             playerList.Add(player.transform);
@@ -60,14 +62,34 @@ public class StateController : MonoBehaviour
 
     void Update()
     {
-        animator.SetInteger("locomotion", animLocomotion);
+        animator.SetFloat("locomotion", agent.velocity.sqrMagnitude);
         currentState.OnStateUpdate(this);
+    }
+
+    private void OnEnable()
+    {
+        GetComponent<EnemyHealth>().OnDie += DeathHandler;
+        GetComponent<AnimationEventHandler>().OnAnimFinish += AnimFinishHandler;
+        foreach (var grab in grabHandlers)
+        {
+            grab.OnGrabSuccess += GrabSuccessHandler;
+        }
+    }
+
+    private void OnDisable()
+    {
+        GetComponent<EnemyHealth>().OnDie -= DeathHandler;
+        GetComponent<AnimationEventHandler>().OnAnimFinish -= AnimFinishHandler;
+        foreach (var grab in grabHandlers)
+        {
+            grab.OnGrabSuccess += GrabSuccessHandler;
+        }
     }
 
     //Set navmesh destination
     public void MoveToTarget()
     {
-        targetPosition = Vector3.MoveTowards(transform.position, targetPlayer.position, agent.speed * Time.deltaTime);
+        targetPosition = Vector3.MoveTowards(transform.position, targetPlayer.position, agent.speed * Time.fixedDeltaTime);
         agent.destination = targetPosition;
     }
 
@@ -188,7 +210,20 @@ public class StateController : MonoBehaviour
 
     public void DeathHandler()
     {
-        if (grabbedTarget)
+        if (isGrabbing)
             targetPlayer.GetComponent<PlayerMovement>().isGrabbed = false;
+    }
+
+    private void AnimFinishHandler()
+    {
+        isAttacking = false;
+        attackEndTime = Time.time;
+        animator.SetInteger("attack", -1);
+    }
+
+    private void GrabSuccessHandler()
+    {
+        isGrabbing = true;
+        animator.SetInteger("attack", -1);
     }
 }

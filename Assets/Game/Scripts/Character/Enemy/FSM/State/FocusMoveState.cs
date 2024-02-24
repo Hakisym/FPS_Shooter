@@ -7,8 +7,7 @@ public class FocusMoveState : EnemyBaseState
 {
     public override void OnStateEnter(StateController enemy)
     {
-        //set target player and walk pose
-        enemy.animLocomotion = 1;
+        //set target player
         enemy.targetPlayer = enemy.GetClosestPlayer();
     }
 

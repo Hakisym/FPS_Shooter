@@ -16,4 +16,4 @@ MonoBehaviour:
   animationIndex: 0
   regularDamage: 2
   range: 1.7
-  knockForce: -5
+  knockForce: 10

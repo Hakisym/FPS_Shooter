@@ -7,15 +7,16 @@ public class AttackState : EnemyBaseState
 {
     public override void OnStateEnter(StateController enemy)
     {
-        enemy.animLocomotion = 0;
         ActAttack(enemy);
     }
 
     public override void OnStateUpdate(StateController enemy)
     {
+        enemy.agent.enabled = enemy.isAttacking ? false : true;
+
         enemy.transform.LookAt(enemy.targetPlayer);
 
-        if (enemy.attackFinished)
+        if (!enemy.isAttacking)
         {
             //Exit attack
             if (!enemy.AttackDecision())
@@ -25,12 +26,12 @@ public class AttackState : EnemyBaseState
         }
 
         //Attack
-        if (enemy.AttackDecision() && Time.time - enemy.attackEndTime >= enemy.attackInterval && enemy.attackFinished)
+        if (enemy.AttackDecision() && Time.time - enemy.attackEndTime >= enemy.attackInterval && !enemy.isAttacking)
         {
             ActAttack(enemy);
         }
 
-        if (enemy.grabbedTarget)
+        if (enemy.isGrabbing)
         {
             enemy.TransitionToState<GrabState>();
         }
@@ -38,6 +39,8 @@ public class AttackState : EnemyBaseState
 
     private void ActAttack(StateController enemy)
     {
+        enemy.isAttacking = true;
+
         var attack = enemy.attacks[Random.Range(0, enemy.attacks.Length)];
 
         enemy.animator.SetInteger("attack", attack.animationIndex);
@@ -46,7 +49,5 @@ public class AttackState : EnemyBaseState
         {
             hitPoint.attack = attack;
         }
-        
-        enemy.attackFinished = false;
     }
 }
