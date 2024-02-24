@@ -24169,8 +24169,24 @@ PrefabInstance:
     - target: {fileID: 2050530263575110506, guid: cbd1ee04a27388549ab903fa766b3a17,
         type: 3}
       propertyPath: m_ApplyRootMotion
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2098938289177471888, guid: cbd1ee04a27388549ab903fa766b3a17,
+        type: 3}
+      propertyPath: grabDistanceClose
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2098938289177471888, guid: cbd1ee04a27388549ab903fa766b3a17,
+        type: 3}
+      propertyPath: attacks.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2098938289177471888, guid: cbd1ee04a27388549ab903fa766b3a17,
+        type: 3}
+      propertyPath: attacks.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 6023cdae5a563dc469a55815d5f8c021,
+        type: 2}
     - target: {fileID: 2098938289177471888, guid: cbd1ee04a27388549ab903fa766b3a17,
         type: 3}
       propertyPath: grabHandlers.Array.size

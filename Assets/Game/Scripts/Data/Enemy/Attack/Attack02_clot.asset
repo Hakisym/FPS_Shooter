@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 908b16b5f804e9342a2a0c4932be8268, type: 3}
   m_Name: Attack02_clot
   m_EditorClassIdentifier: 
-  animationClip: {fileID: 7400000, guid: 5e2d9645a9df254478d914e8c23ac169, type: 2}
+  animationClip: {fileID: 7400000, guid: 76a1c846db0417b44ac83af40dd54771, type: 2}
   animationIndex: 1
   regularDamage: 0
   range: 1.7
-  knockForce: 0
+  knockForce: -5
