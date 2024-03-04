@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animationClip: {fileID: 7400000, guid: 5e2d9645a9df254478d914e8c23ac169, type: 2}
   animationIndex: 2
-  regularDamage: 0
-  range: 1.7
+  regularDamage: 1
+  engageRange: 0
   knockForce: 0

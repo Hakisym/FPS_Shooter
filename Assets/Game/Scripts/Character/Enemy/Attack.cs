@@ -8,6 +8,6 @@ public class Attack : ScriptableObject
     public AnimationClip animationClip;
     public int animationIndex;
     public int regularDamage;
-    public float range;
+    public float engageRange;
     public float knockForce;
 }

@@ -44,8 +44,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.8, y: 0.2, z: 0.2}
-  m_Center: {x: 0.4, y: 0, z: 0}
+  m_Size: {x: 1, y: 0.2, z: 0.2}
+  m_Center: {x: 0.5, y: 0, z: 0}
 --- !u!114 &7940781967264208376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -103,8 +103,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.7, y: 0.2, z: 0.2}
-  m_Center: {x: -0.34, y: 0, z: 0}
+  m_Size: {x: 1, y: 0.2, z: 0.2}
+  m_Center: {x: -0.5, y: 0, z: 0}
 --- !u!114 &1199104974400328627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -521,7 +521,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 66bfc87fe826da64394d8a8c5e30c32c, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -552,7 +552,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 2099612773015049234}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.3
   m_Speed: 8
   m_Acceleration: 15
   avoidancePriority: 50
@@ -597,17 +597,20 @@ MonoBehaviour:
   attacks:
   - {fileID: 11400000, guid: 157ce2d3e8f549047ba9226e7ad3c84c, type: 2}
   - {fileID: 11400000, guid: 174d27b5e5196c04cb5b64a61104037b, type: 2}
+  - {fileID: 11400000, guid: 6023cdae5a563dc469a55815d5f8c021, type: 2}
   hitHandlers:
   - {fileID: 6035181518465204559}
   - {fileID: 7940781967264208376}
+  grabHandlers:
+  - {fileID: 1199104974400328627}
+  - {fileID: 818915385005982952}
   grabDamage: 2
   grabDistanceClose: 1
   animator: {fileID: 0}
-  animLocomotion: 0
-  attackEndTime: 0
-  attackFinished: 0
-  grabbedTarget: 0
   agent: {fileID: 0}
+  attackEndTime: 0
+  isAttacking: 0
+  isGrabbing: 0
 --- !u!82 &759587099
 AudioSource:
   m_ObjectHideFlags: 0
@@ -715,7 +718,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.8, z: 1}
+  m_Size: {x: 0.6, y: 1.8, z: 0.6}
   m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!114 &1357060238
 MonoBehaviour:
@@ -9644,8 +9647,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.8, y: 0.2, z: 0.2}
-  m_Center: {x: -0.4, y: 0, z: 0}
+  m_Size: {x: 1, y: 0.2, z: 0.2}
+  m_Center: {x: -0.5, y: 0, z: 0}
 --- !u!114 &6035181518465204559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9703,8 +9706,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.8, y: 0.2, z: 0.2}
-  m_Center: {x: 0.4, y: 0, z: 0}
+  m_Size: {x: 1, y: 0.2, z: 0.2}
+  m_Center: {x: 0.5, y: 0, z: 0}
 --- !u!114 &818915385005982952
 MonoBehaviour:
   m_ObjectHideFlags: 0
