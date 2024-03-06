@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7742719940785467229}
   - component: {fileID: 7939274495602114376}
   - component: {fileID: 8349565430850033219}
-  - component: {fileID: 7984053241734858736}
   - component: {fileID: -3176577798971717070}
   m_Layer: 0
   m_Name: BulletTrail
@@ -77,29 +76,38 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.01
+  m_Time: 0.1
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 1
+    widthMultiplier: 0.1
     widthCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 0.014634162
+        time: 0.00812912
+        value: 1
         inSlope: 0
         outSlope: 0
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 0.05
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.94509804, g: 0.7906444, b: 0, a: 1}
-      key1: {r: 0.9450981, g: 0.79215693, b: 0, a: 0}
+      key0: {r: 1, g: 1, b: 1, a: 1}
+      key1: {r: 1, g: 1, b: 1, a: 0}
       key2: {r: 0.9450981, g: 0.79215693, b: 0, a: 1}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -150,19 +158,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &7984053241734858736
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6989554197402686408}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f633bb8e5a5cb74491cea26d3f99902, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  destroyTime: 1
 --- !u!65 &-3176577798971717070
 BoxCollider:
   m_ObjectHideFlags: 0
