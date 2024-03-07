@@ -40,7 +40,7 @@ MonoBehaviour:
     damage: 40
     bulletForce: 50
     timeBetweenShooting: 0.1
-    spread: 0
+    spread: 0.01
     range: 50
     reloadTime: 2
     timeBetweenShots: 0

@@ -26,7 +26,7 @@ public class WeaponController : MonoBehaviour
     [Header("Visuals")]
     public ParticleSystem muzzleFlash;
     public GameObject bulletImpact;
-    public GameObject bulletTrail;
+    public TrailRenderer bulletTrail;
 
     [Header("Sounds")]
     public AudioSource audioSource;
@@ -72,14 +72,16 @@ public class WeaponController : MonoBehaviour
 
         var direction = playerCam.transform.forward + new Vector3(x, y, 0f);
 
+        rayHit = new RaycastHit();
         //Raycast
         if (Physics.Raycast(playerCam.transform.position, direction, out rayHit, wd.gunStats.range, whatIsShootable))
         {
-            //hit damage
+            //hit damageable
             if (rayHit.collider.gameObject.layer == LayerMask.NameToLayer("EnemyHit"))
             {
                 rayHit.collider.GetComponentInParent<HealthManager>().TakeDamage(wd.gunStats.damage,wd.gunStats.bulletForce, direction, rayHit.collider);
             }
+            //hit environment
             else
             {
                 //bullet impact
@@ -92,11 +94,11 @@ public class WeaponController : MonoBehaviour
         weaponRecoil.Fire();
 
         //VFX
-        //Instantiate(muzzleFlash, muzzlePoint.position, playerCam.transform.rotation, muzzlePoint);
         muzzleFlash.Play();
-
-        //var bulletGO = Instantiate(this.bulletGO, muzzlePoint.position, playerCam.transform.rotation);
-        //bulletGO.GetComponent<Rigidbody>().AddForce(bulletGO.transform.forward*100f, ForceMode.Impulse);
+        //trail
+        var tracer = Instantiate(bulletTrail, muzzlePoint.position, Quaternion.identity);
+        tracer.AddPosition(muzzlePoint.position);
+        tracer.transform.position = rayHit.point;
 
         //Sounds
         audioSource.PlayOneShot(shootSound);
