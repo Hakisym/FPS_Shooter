@@ -16,6 +16,7 @@ public class WeaponController : MonoBehaviour
     [Header("Reference")]
     public Camera playerCam;
     public Transform muzzlePoint;
+    public Transform castingPoint;
     public RaycastHit rayHit;
     public LayerMask whatIsShootable;
     public Animator animator;
@@ -27,12 +28,13 @@ public class WeaponController : MonoBehaviour
     public ParticleSystem muzzleFlash;
     public GameObject bulletImpact;
     public TrailRenderer bulletTrail;
+    public GameObject bulletCasting;
 
     [Header("Sounds")]
     public AudioSource audioSource;
     private AudioClip shootSound;
 
-    private int bulletsLeft, bulletsShot;
+    public int bulletsLeft, bulletsShot;
 
     private void Start()
     {
@@ -72,7 +74,6 @@ public class WeaponController : MonoBehaviour
 
         var direction = playerCam.transform.forward + new Vector3(x, y, 0f);
 
-        rayHit = new RaycastHit();
         //Raycast
         if (Physics.Raycast(playerCam.transform.position, direction, out rayHit, wd.gunStats.range, whatIsShootable))
         {
@@ -89,16 +90,20 @@ public class WeaponController : MonoBehaviour
             }
         }
 
-        //Recoil
-        cameraRecoil.Fire();
-        weaponRecoil.Fire();
-
-        //VFX
-        muzzleFlash.Play();
-        //trail
+        //bullet trail
         var tracer = Instantiate(bulletTrail, muzzlePoint.position, Quaternion.identity);
         tracer.AddPosition(muzzlePoint.position);
         tracer.transform.position = rayHit.point;
+
+        //muzzle flash
+        muzzleFlash.Play();
+
+        //bullet cast
+        Instantiate(bulletCasting, castingPoint.position, castingPoint.rotation);
+
+        //Recoil
+        cameraRecoil.Fire();
+        weaponRecoil.Fire();
 
         //Sounds
         audioSource.PlayOneShot(shootSound);
