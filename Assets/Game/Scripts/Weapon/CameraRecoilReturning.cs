@@ -2,12 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraRecoilReturning : CameraRecoilBase
+public class CameraRecoilReturning : MonoBehaviour
 {
     [Header("Reference")]
     public WeaponController wc;
     public Inventory inventory;
     public Camera playerCam;
+
+    public Vector3 recoilRotation; //hipfire
+    public Vector3 recoilRotationAiming; //aiming
+    //speed
+    public float rotationSpeed;
+    public float returnSpeed;
 
     private Vector3 rot;
     private Vector3 currentRotation;
@@ -15,32 +21,27 @@ public class CameraRecoilReturning : CameraRecoilBase
     private void FixedUpdate()
     {
         //Return interpolation
-        currentRotation = Vector3.Lerp(currentRotation, Vector3.zero, inventory.currentWeapon.wd.cameraRecoilParameters.returnSpeed * Time.deltaTime);
+        currentRotation = Vector3.Lerp(currentRotation, Vector3.zero, returnSpeed * Time.deltaTime);
 
         //Smooth rotate to current rotation
-        rot = Vector3.Slerp(rot, currentRotation, inventory.currentWeapon.wd.cameraRecoilParameters.rotationSpeed * Time.fixedDeltaTime);
+        rot = Vector3.Slerp(rot, currentRotation, rotationSpeed * Time.fixedDeltaTime);
         transform.localRotation = Quaternion.Euler(rot);
     }
 
-    public override void Fire()
+    public void Fire()
     {
         //Add random offset to current rotation when firing
         if (wc.aiming)
         {
-            currentRotation += new Vector3(-inventory.currentWeapon.wd.cameraRecoilParameters.RecoilRotationAiming.x,
-                Random.Range(-inventory.currentWeapon.wd.cameraRecoilParameters.RecoilRotationAiming.y, inventory.currentWeapon.wd.cameraRecoilParameters.RecoilRotationAiming.y),
-                Random.Range(-inventory.currentWeapon.wd.cameraRecoilParameters.RecoilRotationAiming.z, inventory.currentWeapon.wd.cameraRecoilParameters.RecoilRotationAiming.z));
+            currentRotation += new Vector3(-recoilRotationAiming.x,
+                Random.Range(-recoilRotationAiming.y, recoilRotationAiming.y),
+                Random.Range(-recoilRotationAiming.z, recoilRotationAiming.z));
         }
         else
         {
-            currentRotation += new Vector3(-inventory.currentWeapon.wd.cameraRecoilParameters.RecoilRotation.x,
-                Random.Range(-inventory.currentWeapon.wd.cameraRecoilParameters.RecoilRotation.y, inventory.currentWeapon.wd.cameraRecoilParameters.RecoilRotation.y),
-                Random.Range(-inventory.currentWeapon.wd.cameraRecoilParameters.RecoilRotation.z, inventory.currentWeapon.wd.cameraRecoilParameters.RecoilRotation.z));
+            currentRotation += new Vector3(-recoilRotation.x,
+                Random.Range(-recoilRotation.y, recoilRotation.y),
+                Random.Range(-recoilRotation.z, recoilRotation.z));
         }
     }
-}
-
-public abstract class CameraRecoilBase : MonoBehaviour
-{
-    public abstract void Fire();
 }

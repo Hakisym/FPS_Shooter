@@ -22,10 +22,8 @@ MonoBehaviour:
     positionalReturnSpeed: 18
     rotationalReturnSpeed: 12
   cameraRecoilParameters:
-    RecoilRotation: {x: 3, y: 2, z: 0.35}
-    RecoilRotationAiming: {x: 2, y: 1, z: 0.3}
-    rotationSpeed: 6
-    returnSpeed: 2
+    recoilAmountX: 3
+    recoilAmountY: 5
   aimParameters:
     aimPosition: {x: 0.001, y: -0.185, z: 0.166}
     aimRotation: {x: 0, y: 0, z: 0}
@@ -39,7 +37,7 @@ MonoBehaviour:
   gunStats:
     damage: 40
     bulletForce: 50
-    timeBetweenShooting: 0.09
+    fireRate: 800
     spread: 0
     range: 50
     reloadTime: 2

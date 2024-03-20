@@ -44,11 +44,8 @@ public struct WeaponRecoilParameters
 [System.Serializable]
 public struct CameraRecoilParameters
 {
-    public Vector3 RecoilRotation; //hipfire
-    public Vector3 RecoilRotationAiming; //aiming
-    //speed
-    public float rotationSpeed;
-    public float returnSpeed;
+    public float recoilAmountX;
+    public float recoilAmountY;
 }
 
 [System.Serializable]

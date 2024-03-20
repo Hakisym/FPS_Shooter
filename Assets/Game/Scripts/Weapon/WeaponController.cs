@@ -20,7 +20,7 @@ public class WeaponController : MonoBehaviour
     public RaycastHit rayHit;
     public LayerMask whatIsShootable;
     public Animator animator;
-    public CameraRecoilBase cameraRecoil;
+    public CameraRecoilStacking cameraRecoil;
     public WeaponRecoil weaponRecoil;
     public Inventory inventory;
 

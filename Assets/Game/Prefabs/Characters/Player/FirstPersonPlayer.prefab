@@ -170,7 +170,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1700024201625776518}
-  - component: {fileID: 1700024201625776517}
+  - component: {fileID: 8409091993949995521}
   m_Layer: 0
   m_Name: CameraEffect
   m_TagString: Untagged
@@ -194,7 +194,7 @@ Transform:
   m_Father: {fileID: 1700024201428482309}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1700024201625776517
+--- !u!114 &8409091993949995521
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -203,12 +203,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1700024201625776519}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8a58112c0ae02d48915177596b1a630, type: 3}
+  m_Script: {fileID: 11500000, guid: aa4b54ee3403d8047b51bcaf6f5954eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   wc: {fileID: 1700024202281320399}
   inventory: {fileID: 1700024203204091686}
-  playerCam: {fileID: 1700024202367906406}
+  mls: {fileID: 1700024202367906403}
 --- !u!1 &1700024201923230944
 GameObject:
   m_ObjectHideFlags: 0
@@ -343,7 +343,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2112
   animator: {fileID: 1700024203204091687}
-  cameraRecoil: {fileID: 1700024201625776517}
+  cameraRecoil: {fileID: 8409091993949995521}
   weaponRecoil: {fileID: 1700024202466185037}
   inventory: {fileID: 1700024203204091686}
   muzzleFlash: {fileID: 0}
@@ -354,6 +354,7 @@ MonoBehaviour:
   bulletCasting: {fileID: 8360084055759571751, guid: 47e2dad834f38dc43a2622d3db1e283b,
     type: 3}
   audioSource: {fileID: 1700024202281320398}
+  bulletsLeft: 0
 --- !u!114 &1700024202281320435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -760,7 +761,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f119d603c805154b8e3ade4aec2cbd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSensitivity: 200
+  mouseSensitivity: 1
+  wantedCameraXRotation: 0
+  wantedYRotation: 0
+  yRotationSpeed: 0.01
+  xCameraSpeed: 0.01
   playerBody: {fileID: 1700024202281320437}
 --- !u!1 &1700024202380859645
 GameObject:

@@ -2,19 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraRecoilStacking : CameraRecoilBase
+public class CameraRecoilStacking : MonoBehaviour
 {
-    public float recoilAmountX;
-    public float recoilAmountY;
+    
+    public WeaponController wc;
+    public Inventory inventory;
     public MouseLook mls;
 
     private float currentRecoilXPos;
     private float currentRecoilYPos;
     
-    public override void Fire()
+    public void Fire()
     {
-        currentRecoilXPos = ((Random.value - .5f) / 2) * recoilAmountX;
-        currentRecoilYPos = 0.25f * recoilAmountY;
+        if (wc.aiming) currentRecoilXPos = ((Random.value - .5f) / 2) * inventory.currentWeapon.wd.cameraRecoilParameters.recoilAmountX;
+        currentRecoilYPos = 0.25f * inventory.currentWeapon.wd.cameraRecoilParameters.recoilAmountY;
         mls.wantedCameraXRotation -= Mathf.Abs(currentRecoilYPos);
         mls.wantedYRotation -= currentRecoilXPos;
     }
