@@ -64,7 +64,7 @@ public struct AimParameters
 public struct GunStats
 {
     public int damage,bulletForce;
-    public float timeBetweenShooting, spread, range, reloadTime, timeBetweenShots;
+    public float fireRate, spread, range, reloadTime, timeBetweenShots;
     public int magazineSize, bulletsPerTap;
     public bool allowButtonHold;
 }

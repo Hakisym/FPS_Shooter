@@ -2,31 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraRecoil : MonoBehaviour
+public class CameraRecoilReturning : CameraRecoilBase
 {
     [Header("Reference")]
     public WeaponController wc;
     public Inventory inventory;
     public Camera playerCam;
 
-    private Vector3 currentRotation;
     private Vector3 rot;
+    private Vector3 currentRotation;
 
     private void FixedUpdate()
     {
-        //Return to (0,0,0) after continuous fire
-        //Vector3 returnPoint = new Vector3(currentRotation.x, 0f, 0f);
-        Vector3 returnPoint = wc.shooting && wc.bulletsLeft > 0 ? new Vector3(currentRotation.x, 0f, 0f) : Vector3.zero;
-
         //Return interpolation
-        currentRotation = Vector3.Lerp(currentRotation, returnPoint, inventory.currentWeapon.wd.cameraRecoilParameters.returnSpeed * Time.deltaTime);
+        currentRotation = Vector3.Lerp(currentRotation, Vector3.zero, inventory.currentWeapon.wd.cameraRecoilParameters.returnSpeed * Time.deltaTime);
 
         //Smooth rotate to current rotation
         rot = Vector3.Slerp(rot, currentRotation, inventory.currentWeapon.wd.cameraRecoilParameters.rotationSpeed * Time.fixedDeltaTime);
         transform.localRotation = Quaternion.Euler(rot);
     }
 
-    public void Fire()
+    public override void Fire()
     {
         //Add random offset to current rotation when firing
         if (wc.aiming)
@@ -42,4 +38,9 @@ public class CameraRecoil : MonoBehaviour
                 Random.Range(-inventory.currentWeapon.wd.cameraRecoilParameters.RecoilRotation.z, inventory.currentWeapon.wd.cameraRecoilParameters.RecoilRotation.z));
         }
     }
+}
+
+public abstract class CameraRecoilBase : MonoBehaviour
+{
+    public abstract void Fire();
 }

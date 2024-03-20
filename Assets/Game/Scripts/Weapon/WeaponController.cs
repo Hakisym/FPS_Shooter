@@ -34,11 +34,13 @@ public class WeaponController : MonoBehaviour
     public AudioSource audioSource;
     private AudioClip shootSound;
 
-    public int bulletsLeft, bulletsShot;
+    public int bulletsLeft;
+    private int bulletsShot;
+    private float timeBetweenShooting;
 
     private void Start()
     {
-        bulletsLeft = wd.gunStats.magazineSize;
+        GetWeaponData(inventory.currentWeapon);
         readyToShoot = true;
     }
 
@@ -114,7 +116,7 @@ public class WeaponController : MonoBehaviour
         bulletsLeft--;
         bulletsShot--;
 
-        Invoke("ResetShoot", wd.gunStats.timeBetweenShooting);
+        Invoke("ResetShoot", timeBetweenShooting);
 
         if (bulletsShot > 0 && bulletsLeft > 0)
             Invoke("Shoot", wd.gunStats.timeBetweenShots);
@@ -145,5 +147,6 @@ public class WeaponController : MonoBehaviour
         muzzlePoint = wid.muzzle;
         shootSound = wd.audioSFX.firing;
         bulletsLeft = wd.gunStats.magazineSize;
+        timeBetweenShooting = 60f / wd.gunStats.fireRate;
     }
 }
