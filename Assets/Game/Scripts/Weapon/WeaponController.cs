@@ -20,7 +20,7 @@ public class WeaponController : MonoBehaviour
     public RaycastHit rayHit;
     public LayerMask whatIsShootable;
     public Animator animator;
-    public CameraRecoil cameraRecoil;
+    public CameraRecoilBase cameraRecoil;
     public WeaponRecoil weaponRecoil;
     public Inventory inventory;
 
@@ -71,11 +71,13 @@ public class WeaponController : MonoBehaviour
         //Spread
         float x = Random.Range(-wd.gunStats.spread, wd.gunStats.spread);
         float y = Random.Range(0, wd.gunStats.spread);
+        Vector3 spreadDir = new Vector3(x, y, 0f);
 
-        var direction = playerCam.transform.forward + new Vector3(x, y, 0f);
+        var direction = muzzlePoint.forward;
 
+        rayHit = new RaycastHit();
         //Raycast
-        if (Physics.Raycast(playerCam.transform.position, direction, out rayHit, wd.gunStats.range, whatIsShootable))
+        if (Physics.Raycast(muzzlePoint.position, direction, out rayHit, wd.gunStats.range, whatIsShootable))
         {
             //hit damageable
             if (rayHit.collider.gameObject.layer == LayerMask.NameToLayer("EnemyHit"))
@@ -88,6 +90,7 @@ public class WeaponController : MonoBehaviour
                 //bullet impact
                 Instantiate(bulletImpact, rayHit.point, Quaternion.LookRotation(rayHit.normal));
             }
+            //Debug.DrawLine(muzzlePoint.position, rayHit.point, Color.red, 1.0f);
         }
 
         //bullet trail

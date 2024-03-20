@@ -138,6 +138,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if (moveDirection.sqrMagnitude <= 0 || wc.aiming || wc.shooting)
         {
+            //fire when sprint cancel sprint
+            if (wc.shooting && isSprinting)
+                animator.Play("Idle", 0);
+            //set sprinting to false
             isSprinting = false;
         }
 
