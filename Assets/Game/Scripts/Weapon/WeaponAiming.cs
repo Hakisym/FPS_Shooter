@@ -6,6 +6,7 @@ public class WeaponAiming : MonoBehaviour
 {
     public WeaponController wc;
     public Inventory inventory;
+    public Camera mainCam;
 
     private Vector3 originalPosition;
     private Quaternion originalRotation;

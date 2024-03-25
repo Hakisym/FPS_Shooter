@@ -30,10 +30,6 @@ public class PlayerMovement : MonoBehaviour
     public Transform cameraHolder;
     public float crouchHeight;
     [Space]
-    [Header("Sprint")]
-    public float cameraFovSprinting = 70f;
-    public float cameraFovSmoothing = 5f;
-    [Space]
     [Header("Sounds")]
     public AudioSource audioSource;
     public AudioClip walkSound;
@@ -144,10 +140,6 @@ public class PlayerMovement : MonoBehaviour
             //set sprinting to false
             isSprinting = false;
         }
-
-        // Camera fov
-        float cameraFov = isSprinting ? cameraFovSprinting : 60;
-        Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, cameraFov, Time.deltaTime * 5f);
 
         if (isSprinting)
         {
