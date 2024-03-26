@@ -14,7 +14,7 @@ public class CameraRecoilStacking : MonoBehaviour
     
     public void Fire()
     {
-        if (wc.aiming) currentRecoilXPos = ((Random.value - .5f) / 2) * inventory.currentWeapon.wd.cameraRecoilParameters.recoilAmountX;
+        currentRecoilXPos = wc.aiming ? ((Random.value - .5f) / 2) * inventory.currentWeapon.wd.cameraRecoilParameters.recoilAmountX : 0f;
         currentRecoilYPos = 0.25f * inventory.currentWeapon.wd.cameraRecoilParameters.recoilAmountY;
         mls.wantedCameraXRotation -= Mathf.Abs(currentRecoilYPos);
         mls.wantedYRotation -= currentRecoilXPos;

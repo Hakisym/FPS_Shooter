@@ -156,7 +156,10 @@ public class WeaponController : MonoBehaviour
         wd = wid.wd;
         muzzlePoint = wid.muzzle;
         castingPoint = wid.castPoint;
+        //reset muzzle position
         muzzleFlash.transform.SetParent(muzzlePoint);
+        muzzleFlash.transform.localPosition = Vector3.zero;
+
         shootSound = wd.soundClips.shootSound;
         bulletsLeft = wd.gunStats.magazineSize;
         timeBetweenShooting = 60f / wd.gunStats.fireRate;

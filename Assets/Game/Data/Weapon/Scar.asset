@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Scar
   m_EditorClassIdentifier: 
   gunName: Scar
-  gunPrefab: {fileID: 3626746352910567544, guid: 59dd0607036752d488f35cd7c65e3b1d,
+  gunPrefab: {fileID: 573339908886308818, guid: b661e1dd3c074fc4c8e87590b42b1c5e,
     type: 3}
   pickUpGraphics: {fileID: 533850538935619641, guid: a732426c8587cde44b9765a82823e971,
     type: 3}
@@ -22,7 +22,7 @@ MonoBehaviour:
     bulletForce: 50
     fireRate: 600
     spread: 0
-    range: 50
+    range: 100
     reloadTime: 2
     timeBetweenShots: 0
     magazineSize: 30
@@ -38,13 +38,13 @@ MonoBehaviour:
     recoilKickback: {x: 0.015, y: 0, z: -0.1}
     recoilRotationAim: {x: 3, y: 0, z: 0}
     recoilKickbackAim: {x: 0, y: 0, z: -0.05}
-    positionalRecoilSpeed: 28
-    rotationalRecoilSpeed: 28
+    positionalRecoilSpeed: 18
+    rotationalRecoilSpeed: 8
     positionalReturnSpeed: 18
-    rotationalReturnSpeed: 18
+    rotationalReturnSpeed: 12
   cameraRecoilParameters:
     recoilAmountX: 2
-    recoilAmountY: 3
+    recoilAmountY: 5
   soundClips:
     shootSound: {fileID: 8300000, guid: 4c22c9d7cc76c414995201a6fb37b0c3, type: 3}
     holsterSound: {fileID: 8300000, guid: 8c448a769001a1d439bea75de9da7205, type: 3}

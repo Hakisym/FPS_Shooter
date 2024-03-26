@@ -5,8 +5,8 @@ using UnityEngine;
 public class CameraFovManager : MonoBehaviour
 {
     [Header("FovStats")]
-    public float cameraFovSprinting = 70f;
-    public float cameraFovAiming = 50f;
+    public float sprintingFOV = 10f;
+    public float aimingFOV = -10f;
     public float cameraFovSmoothing = 5f;
     [Space]
     public PlayerMovement pm;
@@ -14,26 +14,38 @@ public class CameraFovManager : MonoBehaviour
 
     private Camera mainCamera;
     private Camera weaponCamera;
-    private float originalFov;
-    private float currentFov;
+    private float originalMainFov;
+    private float originalWeaponFov;
+    private float currentMainFov;
+    private float currentWeaponFov;
 
     private void Awake()
     {
         mainCamera = GetComponent<Camera>();
         weaponCamera = transform.Find("WeaponCamera").GetComponent<Camera>();
-        originalFov = mainCamera.fieldOfView;
+        originalMainFov = mainCamera.fieldOfView;
+        originalWeaponFov = weaponCamera.fieldOfView;
     }
 
     void Update()
     {
         if (pm.isSprinting)
-            currentFov = cameraFovSprinting;
+        {
+            currentMainFov = originalMainFov + sprintingFOV;
+            currentWeaponFov = originalWeaponFov + sprintingFOV;
+        }
         else if (wc.aiming)
-            currentFov = cameraFovAiming;
+        {
+            currentMainFov = originalMainFov + aimingFOV;
+            currentWeaponFov = originalWeaponFov + aimingFOV;
+        }
         else
-            currentFov = originalFov;
+        {
+            currentMainFov = originalMainFov;
+            currentWeaponFov = originalWeaponFov;
+        }
 
-        mainCamera.fieldOfView = Mathf.Lerp(mainCamera.fieldOfView, currentFov, Time.deltaTime * cameraFovSmoothing);
-        weaponCamera.fieldOfView = Mathf.Lerp(weaponCamera.fieldOfView, currentFov, Time.deltaTime * cameraFovSmoothing);
+        mainCamera.fieldOfView = Mathf.Lerp(mainCamera.fieldOfView, currentMainFov, Time.deltaTime * cameraFovSmoothing);
+        weaponCamera.fieldOfView = Mathf.Lerp(weaponCamera.fieldOfView, currentWeaponFov, Time.deltaTime * cameraFovSmoothing);
     }
 }

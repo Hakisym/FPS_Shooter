@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
     public bool isGrounded;
     public bool isSprinting;
     public bool isCrouching;
-    public bool canMove = true;
+    public bool canMove;
     [Space]
     [Header("Crouch")]
     public Transform cameraHolder;
@@ -48,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         originalHeight = controller.height;
+        canMove = true;
     }
 
     private void Update()

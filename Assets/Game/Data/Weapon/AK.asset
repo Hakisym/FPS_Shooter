@@ -13,16 +13,16 @@ MonoBehaviour:
   m_Name: AK
   m_EditorClassIdentifier: 
   gunName: AK
-  gunPrefab: {fileID: 6558949359568507349, guid: e95d4ed863853b64699b10c14100b0c2,
+  gunPrefab: {fileID: 3378369856455817110, guid: e95d4ed863853b64699b10c14100b0c2,
     type: 3}
   pickUpGraphics: {fileID: 3862400414543541480, guid: 227d7ff9054d3e442837531179690484,
     type: 3}
   gunStats:
     damage: 30
-    bulletForce: 100
-    fireRate: 700
+    bulletForce: 50
+    fireRate: 550
     spread: 0
-    range: 50
+    range: 100
     reloadTime: 2
     timeBetweenShots: 0
     magazineSize: 30
@@ -34,11 +34,11 @@ MonoBehaviour:
     smoothTime: 0.1
     smoothRotation: 6
   weaponRecoilParameters:
-    recoilRotation: {x: 8, y: 5, z: 7}
+    recoilRotation: {x: 4, y: 5, z: 7}
     recoilKickback: {x: 0.015, y: 0, z: -0.2}
     recoilRotationAim: {x: 5, y: 1, z: 2}
     recoilKickbackAim: {x: 0.015, y: 0, z: -0.05}
-    positionalRecoilSpeed: 8
+    positionalRecoilSpeed: 18
     rotationalRecoilSpeed: 8
     positionalReturnSpeed: 18
     rotationalReturnSpeed: 12
