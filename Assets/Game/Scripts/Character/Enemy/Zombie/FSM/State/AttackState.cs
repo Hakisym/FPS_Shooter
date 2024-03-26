@@ -5,12 +5,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "AttackState", menuName = "Enemy/State/AttackState")]
 public class AttackState : EnemyBaseState
 {
-    public override void OnStateEnter(StateController enemy)
+    public override void OnStateEnter(ZombieStateController enemy)
     {
         ActAttack(enemy);
     }
 
-    public override void OnStateUpdate(StateController enemy)
+    public override void OnStateUpdate(ZombieStateController enemy)
     {
         enemy.agent.enabled = enemy.isAttacking ? false : true;
 
@@ -37,7 +37,7 @@ public class AttackState : EnemyBaseState
         }
     }
 
-    private void ActAttack(StateController enemy)
+    private void ActAttack(ZombieStateController enemy)
     {
         enemy.isAttacking = true;
 

@@ -91,18 +91,24 @@ public class Inventory : MonoBehaviour
         {
             //hoster old weapon
             animator.SetTrigger("hoster");
+            //play hoster sound
+            wc.mainAudioSource.clip = currentWeapon.wd.soundClips.holsterSound;
+            wc.mainAudioSource.Play();
         }
         else
         {
-            FinishedHostered();
+            HosterHandler();
             //simply unhoster new weapon
             animator.SetTrigger("unhoster");
+            //play take out sound
+            wc.mainAudioSource.clip = currentWeapon.wd.soundClips.takeOutSound;
+            wc.mainAudioSource.Play();
         }
         
     }
 
-    //animation event trigger
-    public void FinishedHostered()
+    //when finish hoster weapon
+    public void HosterHandler()
     {
         //disable old weapon
         if (currentWeapon != null)
@@ -114,9 +120,13 @@ public class Inventory : MonoBehaviour
         currentWeapon = weapons[weaponIndex];
         currentWeapon.gameObject.SetActive(true);
         wc.GetWeaponData(currentWeapon);
+
+        //play take out sound
+        wc.mainAudioSource.clip = currentWeapon.wd.soundClips.takeOutSound;
+        wc.mainAudioSource.Play();
     }
 
-    //animation event trigger
+    //when finish taking out weapon
     public void ResetEquip()
     {
         switching = false;
@@ -146,6 +156,8 @@ public class Inventory : MonoBehaviour
 
         //delete from inventory
         weapons.Remove(currentWeapon);
+        //destroy game object and return muzzle flash
+        wc.muzzleFlash.transform.SetParent(transform);
         Destroy(currentWeapon.gameObject);
         currentWeapon = null;
 

@@ -6,11 +6,11 @@ using UnityEngine;
 public class AnimationEventHandler : MonoBehaviour
 {
     public Action OnAnimFinish;
-    private StateController stateController;
+    private ZombieStateController stateController;
 
     private void Start()
     {
-        stateController = GetComponent<StateController>();
+        stateController = GetComponent<ZombieStateController>();
     }
 
     private void AnimationFinishTrigger()

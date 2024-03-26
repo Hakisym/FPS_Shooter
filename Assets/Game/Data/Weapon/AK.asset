@@ -12,23 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ccf1944ed416b9498c99836ead28bcb, type: 3}
   m_Name: AK
   m_EditorClassIdentifier: 
-  weaponRecoilParameters:
-    recoilRotation: {x: 8, y: 5, z: 7}
-    recoilKickback: {x: 0.015, y: 0, z: -0.2}
-    recoilRotationAim: {x: 5, y: 1, z: 2}
-    recoilKickbackAim: {x: 0.015, y: 0, z: -0.05}
-    positionalRecoilSpeed: 8
-    rotationalRecoilSpeed: 8
-    positionalReturnSpeed: 18
-    rotationalReturnSpeed: 12
-  cameraRecoilParameters:
-    recoilAmountX: 2
-    recoilAmountY: 5
-  aimParameters:
-    aimPosition: {x: 0.001, y: -0.1357, z: 0.09}
-    aimRotation: {x: 0, y: 0, z: 0}
-    smoothTime: 0.1
-    smoothRotation: 6
   gunName: AK
   gunPrefab: {fileID: 6558949359568507349, guid: e95d4ed863853b64699b10c14100b0c2,
     type: 3}
@@ -45,10 +28,29 @@ MonoBehaviour:
     magazineSize: 30
     bulletsPerTap: 1
     allowButtonHold: 1
-  audioSFX:
-    firing: {fileID: 8300000, guid: c2763216fc6f5a24897c6f5f499a3955, type: 3}
-    hoster: {fileID: 0}
-    unhoster: {fileID: 0}
-    reload: {fileID: 0}
-    emptyMagReload: {fileID: 0}
+  aimParameters:
+    aimPosition: {x: 0.001, y: -0.1357, z: 0.09}
+    aimRotation: {x: 0, y: 0, z: 0}
+    smoothTime: 0.1
+    smoothRotation: 6
+  weaponRecoilParameters:
+    recoilRotation: {x: 8, y: 5, z: 7}
+    recoilKickback: {x: 0.015, y: 0, z: -0.2}
+    recoilRotationAim: {x: 5, y: 1, z: 2}
+    recoilKickbackAim: {x: 0.015, y: 0, z: -0.05}
+    positionalRecoilSpeed: 8
+    rotationalRecoilSpeed: 8
+    positionalReturnSpeed: 18
+    rotationalReturnSpeed: 12
+  cameraRecoilParameters:
+    recoilAmountX: 2
+    recoilAmountY: 5
+  soundClips:
+    shootSound: {fileID: 8300000, guid: c2763216fc6f5a24897c6f5f499a3955, type: 3}
+    holsterSound: {fileID: 8300000, guid: 8c448a769001a1d439bea75de9da7205, type: 3}
+    takeOutSound: {fileID: 8300000, guid: ada72bc0b7b70b84ba17374e23a130fe, type: 3}
+    reloadSoundAmmoLeft: {fileID: 8300000, guid: f7ce534a0633b9847910ba117e2245d1,
+      type: 3}
+    reloadSoundOutOfAmmo: {fileID: 0}
     emptyMagShoot: {fileID: 0}
+    aimSound: {fileID: 8300000, guid: acaebc89b98b82142bd2b24edb6081e4, type: 3}

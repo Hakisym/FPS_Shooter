@@ -31,7 +31,8 @@ public class WeaponController : MonoBehaviour
     public GameObject bulletCasting;
 
     [Header("Sounds")]
-    public AudioSource audioSource;
+    public AudioSource mainAudioSource;
+    public AudioSource shootAudioSource;
     private AudioClip shootSound;
 
     public int bulletsLeft;
@@ -110,8 +111,12 @@ public class WeaponController : MonoBehaviour
         cameraRecoil.Fire();
         weaponRecoil.Fire();
 
-        //Sounds
-        audioSource.PlayOneShot(shootSound);
+        //play shoot sound
+        shootAudioSource.clip = shootSound;
+        shootAudioSource.Play();
+
+        //gun animation
+        inventory.currentWeapon.animator.Play("Fire");
 
         bulletsLeft--;
         bulletsShot--;
@@ -131,6 +136,11 @@ public class WeaponController : MonoBehaviour
     {
         reloading = true;
         animator.SetTrigger("reloading");
+
+        //play reload sound
+        mainAudioSource.clip = wd.soundClips.reloadSoundAmmoLeft;
+        mainAudioSource.Play();
+
         Invoke("ReloadFinished", wd.gunStats.reloadTime);
     }
 
@@ -145,7 +155,9 @@ public class WeaponController : MonoBehaviour
     {
         wd = wid.wd;
         muzzlePoint = wid.muzzle;
-        shootSound = wd.audioSFX.firing;
+        castingPoint = wid.castPoint;
+        muzzleFlash.transform.SetParent(muzzlePoint);
+        shootSound = wd.soundClips.shootSound;
         bulletsLeft = wd.gunStats.magazineSize;
         timeBetweenShooting = 60f / wd.gunStats.fireRate;
     }

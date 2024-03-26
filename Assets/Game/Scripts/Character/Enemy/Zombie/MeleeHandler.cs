@@ -5,11 +5,11 @@ using UnityEngine;
 public class MeleeHandler : MonoBehaviour
 {
     public Attack attack;
-    private StateController enemy;
+    private ZombieStateController enemy;
 
     private void Start()
     {
-        enemy = transform.root.GetComponent<StateController>();
+        enemy = transform.root.GetComponent<ZombieStateController>();
     }
 
     private void OnTriggerEnter(Collider other)

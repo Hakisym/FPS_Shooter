@@ -5,13 +5,13 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "GrabState", menuName = "Enemy/State/GrabState")]
 public class GrabState : EnemyBaseState
 {
-    public override void OnStateEnter(StateController enemy)
+    public override void OnStateEnter(ZombieStateController enemy)
     {
         enemy.animator.SetTrigger("grab");
         enemy.agent.enabled = false;
     }
 
-    public override void OnStateUpdate(StateController enemy)
+    public override void OnStateUpdate(ZombieStateController enemy)
     {
         // Calculate the direction towards the target player
         Vector3 directionToPlayer = enemy.targetPlayer.position - enemy.transform.position;

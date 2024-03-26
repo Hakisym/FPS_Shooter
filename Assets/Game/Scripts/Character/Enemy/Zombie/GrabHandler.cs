@@ -6,11 +6,11 @@ using UnityEngine;
 public class GrabHandler : MonoBehaviour
 {
     public Action OnGrabSuccess;
-    private StateController enemy;
+    private ZombieStateController enemy;
 
     private void Start()
     {
-        enemy = transform.root.GetComponent<StateController>();
+        enemy = transform.root.GetComponent<ZombieStateController>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -18,10 +18,10 @@ public class GrabHandler : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             var pm = other.GetComponent<PlayerMovement>();
-            if (!pm.isGrabbed)
+            if (pm.canMove)
             {
                 OnGrabSuccess?.Invoke();
-                pm.isGrabbed = true;
+                pm.canMove = false;
             }
         }
     }

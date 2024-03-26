@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class StateController : MonoBehaviour
+public class ZombieStateController : MonoBehaviour
 {
     public EnemyBaseState currentState;
     public EnemyBaseState[] enemyBaseStates;
@@ -38,10 +38,11 @@ public class StateController : MonoBehaviour
     //fields
     [HideInInspector] public Animator animator;
     [HideInInspector] public NavMeshAgent agent;
+    private AudioSource audioSource;
+
     [HideInInspector] public float attackEndTime;
     [HideInInspector] public bool isAttacking;
     [HideInInspector] public bool isGrabbing;
-    private AudioSource audioSource;
 
     //Initial data and state
     void Start()
@@ -211,7 +212,7 @@ public class StateController : MonoBehaviour
     public void DeathHandler()
     {
         if (isGrabbing)
-            targetPlayer.GetComponent<PlayerMovement>().isGrabbed = false;
+            targetPlayer.GetComponent<PlayerMovement>().canMove = true;
     }
 
     private void AnimFinishHandler()

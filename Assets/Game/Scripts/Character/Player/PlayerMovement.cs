@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
     public bool isGrounded;
     public bool isSprinting;
     public bool isCrouching;
-    public bool isGrabbed;
+    public bool canMove = true;
     [Space]
     [Header("Crouch")]
     public Transform cameraHolder;
@@ -91,7 +91,7 @@ public class PlayerMovement : MonoBehaviour
 
     void CheckInput()
     {
-        if (isGrabbed)
+        if (!canMove)
         {
             moveDirection = Vector3.zero;
             return;

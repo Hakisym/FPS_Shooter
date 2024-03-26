@@ -6,11 +6,11 @@ public class WeaponAiming : MonoBehaviour
 {
     public WeaponController wc;
     public Inventory inventory;
-    public Camera mainCam;
 
     private Vector3 originalPosition;
     private Quaternion originalRotation;
     private Vector3 velocity;
+    private bool soundHasPlayed;
 
     // Start is called before the first frame update
     void Start()
@@ -32,12 +32,22 @@ public class WeaponAiming : MonoBehaviour
             finalPosition = inventory.currentWeapon.wd.aimParameters.aimPosition;
             finalRotation = Quaternion.Euler(inventory.currentWeapon.wd.aimParameters.aimRotation);
             wc.aiming = true;
+
+            //play aim sound
+            if (!soundHasPlayed)
+            {
+                wc.mainAudioSource.clip = wc.wd.soundClips.aimSound;
+                wc.mainAudioSource.Play();
+                soundHasPlayed = true;
+            }
         }
         else
         {
             finalPosition = originalPosition;
             finalRotation = originalRotation;
             wc.aiming = false;
+            //reset aim sound
+            soundHasPlayed = false;
         }
 
         //Smooth interpolate

@@ -5,13 +5,13 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "FocusMoveState", menuName = "Enemy/State/FocusMoveState")]
 public class FocusMoveState : EnemyBaseState
 {
-    public override void OnStateEnter(StateController enemy)
+    public override void OnStateEnter(ZombieStateController enemy)
     {
         //set target player
         enemy.targetPlayer = enemy.GetClosestPlayer();
     }
 
-    public override void OnStateUpdate(StateController enemy)
+    public override void OnStateUpdate(ZombieStateController enemy)
     {
         //Walk to target
         enemy.MoveToTarget();
