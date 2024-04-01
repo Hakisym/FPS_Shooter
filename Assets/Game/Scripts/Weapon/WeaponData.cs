@@ -59,6 +59,8 @@ public class WeaponData : ScriptableObject
     {
         public int damage, bulletForce;
         public float fireRate, spread, range, reloadTime, timeBetweenShots;
+        public float bulletSpeed;
+        public float bulletDrop;
         public int magazineSize, bulletsPerTap;
         public bool allowButtonHold;
     }
