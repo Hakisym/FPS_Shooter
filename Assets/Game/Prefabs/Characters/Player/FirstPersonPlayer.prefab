@@ -110,7 +110,7 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 1000
-  field of view: 60
+  field of view: 75
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -786,7 +786,7 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 1000
-  field of view: 60
+  field of view: 90
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -876,9 +876,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1961d79da40d3924f92537b60f4cf52e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraFovSprinting: 70
-  cameraFovAiming: 50
-  cameraFovSmoothing: 5
+  sprintingFOV: 0
+  aimingFOV: -20
+  cameraFovSmoothing: 20
   pm: {fileID: 1700024202281320435}
   wc: {fileID: 1700024202281320399}
 --- !u!1 &1700024202380859645

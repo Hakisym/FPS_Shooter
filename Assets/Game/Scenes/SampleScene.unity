@@ -17860,6 +17860,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 671778083}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &687067563 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8776897165959692482, guid: b661e1dd3c074fc4c8e87590b42b1c5e,
+    type: 3}
+  m_PrefabInstance: {fileID: 573339908993400461}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &691898827
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -62809,11 +62815,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1700024201611054509, guid: 697ef857e7c44a44aaf2aa0f3ea4867e,
-        type: 3}
-      propertyPath: field of view
-      value: 75
-      objectReference: {fileID: 0}
     - target: {fileID: 1700024202281320399, guid: 697ef857e7c44a44aaf2aa0f3ea4867e,
         type: 3}
       propertyPath: muzzleFlash
@@ -62879,11 +62880,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FirstPersonPlayer
       objectReference: {fileID: 0}
-    - target: {fileID: 1700024202367906406, guid: 697ef857e7c44a44aaf2aa0f3ea4867e,
+    - target: {fileID: 1700024202466185037, guid: 697ef857e7c44a44aaf2aa0f3ea4867e,
         type: 3}
-      propertyPath: field of view
-      value: 90
-      objectReference: {fileID: 0}
+      propertyPath: rotationPoint
+      value: 
+      objectReference: {fileID: 687067563}
     - target: {fileID: 1700024202636786039, guid: 697ef857e7c44a44aaf2aa0f3ea4867e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -62899,25 +62900,30 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0.21
       objectReference: {fileID: 0}
-    - target: {fileID: 5947225732923237604, guid: 697ef857e7c44a44aaf2aa0f3ea4867e,
+    - target: {fileID: 1700024202769622284, guid: 697ef857e7c44a44aaf2aa0f3ea4867e,
         type: 3}
-      propertyPath: aimingFOV
-      value: -20
-      objectReference: {fileID: 0}
-    - target: {fileID: 5947225732923237604, guid: 697ef857e7c44a44aaf2aa0f3ea4867e,
-        type: 3}
-      propertyPath: sprintingFOV
+      propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1700024203204091686, guid: 697ef857e7c44a44aaf2aa0f3ea4867e,
+        type: 3}
+      propertyPath: initialWeapon
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1700024203204091688, guid: 697ef857e7c44a44aaf2aa0f3ea4867e,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2587016551084360106, guid: 697ef857e7c44a44aaf2aa0f3ea4867e,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5947225732923237604, guid: 697ef857e7c44a44aaf2aa0f3ea4867e,
         type: 3}
       propertyPath: cameraFovAiming
       value: 80
-      objectReference: {fileID: 0}
-    - target: {fileID: 5947225732923237604, guid: 697ef857e7c44a44aaf2aa0f3ea4867e,
-        type: 3}
-      propertyPath: cameraFovSmoothing
-      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5947225732923237604, guid: 697ef857e7c44a44aaf2aa0f3ea4867e,
         type: 3}
@@ -62937,11 +62943,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: AK
-      objectReference: {fileID: 0}
-    - target: {fileID: 3378369856455817110, guid: e95d4ed863853b64699b10c14100b0c2,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3378369856455817111, guid: e95d4ed863853b64699b10c14100b0c2,
         type: 3}

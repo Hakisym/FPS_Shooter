@@ -41,6 +41,8 @@ public class WeaponController : MonoBehaviour
     private float maxLifetime = 3.0f;
     private List<Bullet> bullets = new List<Bullet>();
 
+    public Action<WeaponIdentification> OnWeaponEquip;
+
     class Bullet
     {
         public float time;
@@ -70,9 +72,13 @@ public class WeaponController : MonoBehaviour
         wd = wid.wd;
         muzzlePoint = wid.muzzle;
         castingPoint = wid.castPoint;
+
         //reset muzzle position
         muzzleFlash.transform.SetParent(muzzlePoint);
         muzzleFlash.transform.localPosition = Vector3.zero;
+
+        //trigger event
+        OnWeaponEquip?.Invoke(wid);
 
         shootSound = wd.soundClips.shootSound;
         bulletsLeft = wd.gunStats.magazineSize;

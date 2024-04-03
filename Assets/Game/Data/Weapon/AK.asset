@@ -20,7 +20,7 @@ MonoBehaviour:
   gunStats:
     damage: 30
     bulletForce: 50
-    fireRate: 650
+    fireRate: 600
     spread: 0
     range: 100
     reloadTime: 2
@@ -31,19 +31,19 @@ MonoBehaviour:
     bulletsPerTap: 1
     allowButtonHold: 1
   aimParameters:
-    aimPosition: {x: 0.001, y: -0.1357, z: 0.09}
+    aimPosition: {x: 0.001, y: -0.131, z: 0.09}
     aimRotation: {x: 0, y: 0, z: 0}
-    smoothTime: 0.1
+    smoothTime: 0.05
     smoothRotation: 6
   weaponRecoilParameters:
-    recoilRotation: {x: 2, y: 5, z: 7}
-    recoilKickback: {x: 0.015, y: 0, z: -0.2}
-    recoilRotationAim: {x: 3, y: 1, z: 2}
-    recoilKickbackAim: {x: 0, y: 0, z: -0.05}
+    recoilRotation: {x: 3, y: 3, z: 3}
+    recoilKickback: {x: 0.015, y: -0.02, z: -0.1}
+    recoilRotationAim: {x: 0.5, y: 0.5, z: 0.5}
+    recoilKickbackAim: {x: 0, y: -0.01, z: -0.05}
     positionalRecoilSpeed: 28
-    rotationalRecoilSpeed: 8
-    positionalReturnSpeed: 18
-    rotationalReturnSpeed: 12
+    rotationalRecoilSpeed: 18
+    positionalReturnSpeed: 12
+    rotationalReturnSpeed: 8
   cameraRecoilParameters:
     recoilAmountX: 2
     recoilAmountY: 5

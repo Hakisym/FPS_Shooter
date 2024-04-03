@@ -14,6 +14,16 @@ public class WeaponRecoil : MonoBehaviour
     private Vector3 positionalRecoil;
     private Vector3 rot;
 
+    private void OnEnable()
+    {
+        wc.OnWeaponEquip += HandleWeaponEquip;
+    }
+
+    private void OnDisable()
+    {
+        wc.OnWeaponEquip -= HandleWeaponEquip;
+    }
+
     private void FixedUpdate()
     {
         //Return interpolation
@@ -36,8 +46,8 @@ public class WeaponRecoil : MonoBehaviour
                 Random.Range(-inventory.currentWeapon.wd.weaponRecoilParameters.recoilRotationAim.y, inventory.currentWeapon.wd.weaponRecoilParameters.recoilRotationAim.y), 
                 Random.Range(-inventory.currentWeapon.wd.weaponRecoilParameters.recoilRotationAim.z, inventory.currentWeapon.wd.weaponRecoilParameters.recoilRotationAim.z));
 
-            positionalRecoil += new Vector3(Random.Range(-inventory.currentWeapon.wd.weaponRecoilParameters.recoilKickbackAim.x, inventory.currentWeapon.wd.weaponRecoilParameters.recoilKickbackAim.x), 
-                Random.Range(-inventory.currentWeapon.wd.weaponRecoilParameters.recoilKickbackAim.y, inventory.currentWeapon.wd.weaponRecoilParameters.recoilKickbackAim.y),
+            positionalRecoil += new Vector3(Random.Range(-inventory.currentWeapon.wd.weaponRecoilParameters.recoilKickbackAim.x, inventory.currentWeapon.wd.weaponRecoilParameters.recoilKickbackAim.x),
+                inventory.currentWeapon.wd.weaponRecoilParameters.recoilKickbackAim.y,
                 inventory.currentWeapon.wd.weaponRecoilParameters.recoilKickbackAim.z);
         }
         else
@@ -46,9 +56,14 @@ public class WeaponRecoil : MonoBehaviour
                 Random.Range(-inventory.currentWeapon.wd.weaponRecoilParameters.recoilRotation.y, inventory.currentWeapon.wd.weaponRecoilParameters.recoilRotation.y), 
                 Random.Range(-inventory.currentWeapon.wd.weaponRecoilParameters.recoilRotation.z, inventory.currentWeapon.wd.weaponRecoilParameters.recoilRotation.z));
 
-            positionalRecoil += new Vector3(Random.Range(-inventory.currentWeapon.wd.weaponRecoilParameters.recoilKickback.x, inventory.currentWeapon.wd.weaponRecoilParameters.recoilKickback.x), 
-                Random.Range(-inventory.currentWeapon.wd.weaponRecoilParameters.recoilKickback.y, inventory.currentWeapon.wd.weaponRecoilParameters.recoilKickback.y),
+            positionalRecoil += new Vector3(Random.Range(-inventory.currentWeapon.wd.weaponRecoilParameters.recoilKickback.x, inventory.currentWeapon.wd.weaponRecoilParameters.recoilKickback.x),
+                inventory.currentWeapon.wd.weaponRecoilParameters.recoilKickback.y,
                 inventory.currentWeapon.wd.weaponRecoilParameters.recoilKickback.z);
         }
+    }
+
+    private void HandleWeaponEquip(WeaponIdentification wid)
+    {
+        rotationPoint = wid.root;
     }
 }
