@@ -14,16 +14,6 @@ public class WeaponRecoil : MonoBehaviour
     private Vector3 positionalRecoil;
     private Vector3 rot;
 
-    private void OnEnable()
-    {
-        wc.OnWeaponEquip += HandleWeaponEquip;
-    }
-
-    private void OnDisable()
-    {
-        wc.OnWeaponEquip -= HandleWeaponEquip;
-    }
-
     private void FixedUpdate()
     {
         //Return interpolation
@@ -60,10 +50,5 @@ public class WeaponRecoil : MonoBehaviour
                 inventory.currentWeapon.wd.weaponRecoilParameters.recoilKickback.y,
                 inventory.currentWeapon.wd.weaponRecoilParameters.recoilKickback.z);
         }
-    }
-
-    private void HandleWeaponEquip(WeaponIdentification wid)
-    {
-        rotationPoint = wid.root;
     }
 }

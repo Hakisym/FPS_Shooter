@@ -19,6 +19,8 @@ public class MouseLook : MonoBehaviour
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        currentYRotation = playerBody.eulerAngles.y;
+        wantedYRotation = playerBody.eulerAngles.y;
     }
 
     private void Update()
@@ -32,8 +34,8 @@ public class MouseLook : MonoBehaviour
         wantedCameraXRotation = Mathf.Clamp(wantedCameraXRotation, -90f, 90f);
 
         //smooth rotate to current rotation
-        currentYRotation = Mathf.SmoothDamp(currentYRotation, wantedYRotation, ref rotationYVelocity, yRotationSpeed);
         currentCameraXRotation = Mathf.SmoothDamp(currentCameraXRotation, wantedCameraXRotation, ref cameraXVelocity, xCameraSpeed);
+        currentYRotation = Mathf.SmoothDamp(currentYRotation, wantedYRotation, ref rotationYVelocity, yRotationSpeed);
 
         // Rotate player and camera
         transform.localRotation = Quaternion.Euler(currentCameraXRotation, 0f, 0f);

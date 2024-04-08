@@ -18,6 +18,9 @@ public class WeaponData : ScriptableObject
     public WeaponRecoilParameters weaponRecoilParameters;
     public CameraRecoilParameters cameraRecoilParameters;
 
+    [Header("Visual")]
+    public float muzzleFlashSizeMultiplier;
+
     [Header("Audio")]
     public AudioClips soundClips;
 
@@ -57,11 +60,20 @@ public class WeaponData : ScriptableObject
     [System.Serializable]
     public class GunStats
     {
-        public int damage, bulletForce;
-        public float fireRate, spread, range, reloadTime, timeBetweenShots;
+        [Header("General")]
+        public int damage;
+        public int magazineSize;
+        public float fireRate;
+        public float reloadTime;
+        [Header("Bullet")]
+        public int bulletImpactForce;
         public float bulletSpeed;
         public float bulletDrop;
-        public int magazineSize, bulletsPerTap;
+        public float bulletSpread;
+        [Header("Shoot Mode")]
+        public int bulletsPerTap;
+        public float timeBetweenShots;
+        [Header("Misc")]
         public bool allowButtonHold;
     }
 

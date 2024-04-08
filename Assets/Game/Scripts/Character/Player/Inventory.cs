@@ -45,6 +45,11 @@ public class Inventory : MonoBehaviour
 
     private void Update()
     {
+        MyInput();
+    }
+
+    private void MyInput()
+    {
         float scrollValue = Input.GetAxis("Mouse ScrollWheel");
 
         // Check if there's a valid scroll input
@@ -53,8 +58,14 @@ public class Inventory : MonoBehaviour
             // Check if enough time has passed since the last switch
             if (Time.time - lastSwitchTime >= switchDelay)
             {
+                if (weapons.Count <= 1)
+                {
+                    Debug.Log("Can't switch with one weapon!");
+                    return;
+                }
+
                 // Switch weapon
-                if(scrollValue>0) Equip(weaponIndex + 1);
+                if (scrollValue > 0) Equip(weaponIndex + 1);
                 else Equip(weaponIndex - 1);
 
                 // Update the last switch time
@@ -85,30 +96,30 @@ public class Inventory : MonoBehaviour
         }
 
         switching = true;
-
         weaponIndex = index;
+
+        //if currently holding a gun
         if (currentWeapon != null)
         {
-            //hoster old weapon
+            //hoster current gun
             animator.SetTrigger("hoster");
             //play hoster sound
             wc.mainAudioSource.clip = currentWeapon.wd.soundClips.holsterSound;
             wc.mainAudioSource.Play();
         }
+        //if currently empty
         else
         {
-            HosterHandler();
-            //simply unhoster new weapon
+            //take out new weapon
+            TakeOutWeapon();
+            //play take out animation
             animator.SetTrigger("unhoster");
-            //play take out sound
-            wc.mainAudioSource.clip = currentWeapon.wd.soundClips.takeOutSound;
-            wc.mainAudioSource.Play();
         }
         
     }
 
-    //when finish hoster weapon
-    public void HosterHandler()
+    //take out new weapon
+    public void TakeOutWeapon()
     {
         //disable old weapon
         if (currentWeapon != null)
@@ -156,8 +167,9 @@ public class Inventory : MonoBehaviour
 
         //delete from inventory
         weapons.Remove(currentWeapon);
-        //destroy game object and return muzzle flash
-        wc.muzzleFlash.transform.SetParent(transform);
+        //detach muzzle flash
+        wc.muzzleFlash.GetComponent<WeaponMuzzleFlash>().DetachMuzzleFlash(this.transform);
+
         Destroy(currentWeapon.gameObject);
         currentWeapon = null;
 

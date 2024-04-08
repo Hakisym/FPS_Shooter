@@ -2,17 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponImpact : MonoBehaviour
+public class WeaponImpact : MonoBehaviour,IPoolingObject
 {
+    [SerializeField] PoolTag poolTag;
+    public PoolTag Tag { get => poolTag; }
     public float destroyTime;
+
+    public ParticleSystem impactParticle;
 
     public AudioClip[] impactSounds;
     public AudioSource audioSource;
 
-    // Start is called before the first frame update
-    void Start()
+    public void OnObjectSpawn()
     {
-        Destroy(gameObject, destroyTime);
+        PoolManager.instance.DespawnGameObject(gameObject, destroyTime);
+
+        impactParticle.Play();
 
         audioSource.clip = impactSounds
             [Random.Range(0, impactSounds.Length)];

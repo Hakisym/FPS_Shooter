@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 922667349417401556}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4997,6 +4997,7 @@ GameObject:
   - component: {fileID: 922667349486198807}
   - component: {fileID: 922667349486198889}
   - component: {fileID: 922667349486198806}
+  - component: {fileID: -4251082459250697508}
   m_Layer: 9
   m_Name: muzzleFlash
   m_TagString: Untagged
@@ -5011,7 +5012,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 922667349486198804}
-  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5020,7 +5021,7 @@ Transform:
   - {fileID: 678468768179123305}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &922667349486198889
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -5104,7 +5105,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.05
+      scalar: 0.01
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -5273,7 +5274,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.3
+      scalar: 0.6
       minScalar: 0.2
       maxCurve:
         serializedVersion: 2
@@ -6017,7 +6018,7 @@ ParticleSystem:
           m_RotationOrder: 4
       cycleCount: 1
       repeatInterval: 0.01
-      probability: 1
+      probability: 0.5
   SizeModule:
     enabled: 1
     curve:
@@ -9853,6 +9854,18 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &-4251082459250697508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 922667349486198804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a63d710adff34fa42975e96b784de783, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3985109396906594152
 GameObject:
   m_ObjectHideFlags: 0

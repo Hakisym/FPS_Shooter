@@ -15,8 +15,10 @@ public class WeaponController : MonoBehaviour
 
     [Header("Reference")]
     public Camera playerCam;
+    public Transform prefabHolder;
     public Transform muzzlePoint;
     public Transform castingPoint;
+    public ParticleSystem muzzleFlash;
     public RaycastHit rayHit;
     public LayerMask whatIsShootable;
     public Animator animator;
@@ -25,7 +27,7 @@ public class WeaponController : MonoBehaviour
     public Inventory inventory;
 
     [Header("Visuals")]
-    public ParticleSystem muzzleFlash;
+    public ParticleSystem muzzleFlashPrefab;
     public GameObject bulletImpact;
     public TrailRenderer bulletTrail;
     public GameObject bulletCasting;
@@ -48,23 +50,45 @@ public class WeaponController : MonoBehaviour
         public float time;
         public Vector3 initialPosition;
         public Vector3 initialVelocity;
-        public TrailRenderer tracer;
+        private TrailRenderer tracer;
+
+        public void AddTracer(TrailRenderer tr, Vector3 position, Transform holder)
+        {
+            //bullet trail
+            tracer = Instantiate(tr, position, Quaternion.identity, holder);
+            tracer.AddPosition(position);
+        }
+
+        public void UpdateTracer(Vector3 newPos)
+        {
+            //update tracer position
+            if (tracer != null) tracer.transform.position = newPos;
+        }
+
+        public void OnDestroy()
+        {
+            //destroy bullet tracer after certain frame
+            if (tracer != null) Destroy(tracer.gameObject, Time.deltaTime * 5f);
+        }
     }
 
-    private void Start()
+    private void Awake()
     {
-        GetWeaponData(inventory.currentWeapon);
         readyToShoot = true;
+        muzzleFlash = Instantiate(muzzleFlashPrefab, this.transform);
     }
 
     private void Update()
     {
         MyInput();
+
+        //debug for bpm
+        timeBetweenShooting = 60f / wd.gunStats.fireRate;
     }
 
-    private void LateUpdate()
+    private void FixedUpdate()
     {
-        UpdateBullets(Time.deltaTime);
+        UpdateBullets(Time.fixedDeltaTime);
     }
 
     public void GetWeaponData(WeaponIdentification wid)
@@ -73,9 +97,8 @@ public class WeaponController : MonoBehaviour
         muzzlePoint = wid.muzzle;
         castingPoint = wid.castPoint;
 
-        //reset muzzle position
-        muzzleFlash.transform.SetParent(muzzlePoint);
-        muzzleFlash.transform.localPosition = Vector3.zero;
+        //attach muzzle flash
+        muzzleFlash.GetComponent<WeaponMuzzleFlash>().AttachMuzzleFlash(muzzlePoint);
 
         //trigger event
         OnWeaponEquip?.Invoke(wid);
@@ -107,8 +130,8 @@ public class WeaponController : MonoBehaviour
         readyToShoot = false;
 
         //Spread
-        float x = Random.Range(-wd.gunStats.spread, wd.gunStats.spread);
-        float y = Random.Range(0, wd.gunStats.spread);
+        float x = Random.Range(-wd.gunStats.bulletSpread, wd.gunStats.bulletSpread);
+        float y = Random.Range(0, wd.gunStats.bulletSpread);
         Vector3 spreadDir = new Vector3(x, y, 0f);
 
         var direction = muzzlePoint.forward;
@@ -120,7 +143,7 @@ public class WeaponController : MonoBehaviour
         muzzleFlash.Play();
 
         //bullet cast
-        Instantiate(bulletCasting, castingPoint.position, castingPoint.rotation);
+        Instantiate(bulletCasting, castingPoint.position, castingPoint.rotation, prefabHolder);
 
         //Recoil
         cameraRecoil.Fire();
@@ -179,9 +202,7 @@ public class WeaponController : MonoBehaviour
         bullet.initialPosition = position;
         bullet.initialVelocity = velocity;
         bullet.time = 0.0f;
-        //bullet trail
-        bullet.tracer = Instantiate(bulletTrail, position, Quaternion.identity);
-        bullet.tracer.AddPosition(position);
+        bullet.AddTracer(bulletTrail, position, prefabHolder);
         return bullet;
     }
 
@@ -197,8 +218,8 @@ public class WeaponController : MonoBehaviour
         {
             if (bullet.time >= maxLifetime)
             {
-                //destroy bullet tracer after certain frame
-                Destroy(bullet.tracer.gameObject, Time.deltaTime * 5f);
+                //Call event on destroy
+                bullet.OnDestroy();
                 return true;
             }
             return false;
@@ -226,20 +247,20 @@ public class WeaponController : MonoBehaviour
             //hit damageable
             if (rayHit.collider.gameObject.layer == LayerMask.NameToLayer("EnemyHit"))
             {
-                rayHit.collider.GetComponentInParent<HealthManager>().TakeDamage(wd.gunStats.damage, wd.gunStats.bulletForce, direction, rayHit.collider);
+                rayHit.collider.GetComponentInParent<HealthManager>().TakeDamage(wd.gunStats.damage, wd.gunStats.bulletSpeed, direction, rayHit.collider);
             }
             //hit environment
             else
             {
                 //bullet impact
-                Instantiate(bulletImpact, rayHit.point, Quaternion.LookRotation(rayHit.normal));
+                PoolManager.instance.SpawnGameObject(PoolTag.BulletImpact,rayHit.point, Quaternion.LookRotation(rayHit.normal));
             }
-            bullet.tracer.transform.position = rayHit.point;
+            bullet.UpdateTracer(rayHit.point);
             bullet.time = maxLifetime;
         }
         else
         {
-            bullet.tracer.transform.position = end;
+            bullet.UpdateTracer(end);
         }
     }
 }

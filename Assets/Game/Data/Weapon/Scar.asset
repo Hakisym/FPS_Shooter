@@ -19,16 +19,15 @@ MonoBehaviour:
     type: 3}
   gunStats:
     damage: 40
-    bulletForce: 50
-    fireRate: 650
-    spread: 0
-    range: 100
+    magazineSize: 30
+    fireRate: 600
     reloadTime: 2
-    timeBetweenShots: 0
+    bulletImpactForce: 50
     bulletSpeed: 1000
     bulletDrop: 0
-    magazineSize: 30
+    bulletSpread: 0
     bulletsPerTap: 1
+    timeBetweenShots: 0
     allowButtonHold: 1
   aimParameters:
     aimPosition: {x: 0.001, y: -0.185, z: 0.166}
@@ -37,16 +36,17 @@ MonoBehaviour:
     smoothRotation: 6
   weaponRecoilParameters:
     recoilRotation: {x: 3, y: 3, z: 3}
-    recoilKickback: {x: 0.015, y: -0.02, z: -0.1}
+    recoilKickback: {x: 0, y: 0, z: -0.1}
     recoilRotationAim: {x: 0.5, y: 0.5, z: 0.5}
     recoilKickbackAim: {x: 0, y: -0.01, z: -0.05}
     positionalRecoilSpeed: 28
     rotationalRecoilSpeed: 18
-    positionalReturnSpeed: 18
+    positionalReturnSpeed: 23
     rotationalReturnSpeed: 8
   cameraRecoilParameters:
     recoilAmountX: 2
-    recoilAmountY: 5
+    recoilAmountY: 2
+  muzzleFlashSizeMultiplier: 0
   soundClips:
     shootSound: {fileID: 8300000, guid: 4c22c9d7cc76c414995201a6fb37b0c3, type: 3}
     holsterSound: {fileID: 8300000, guid: 8c448a769001a1d439bea75de9da7205, type: 3}
