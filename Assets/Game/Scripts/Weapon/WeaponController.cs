@@ -50,13 +50,32 @@ public class WeaponController : MonoBehaviour
         public float time;
         public Vector3 initialPosition;
         public Vector3 initialVelocity;
+        public BulletType type;
+        public enum BulletType
+        {
+            tracer,
+            raycast,
+            both
+        }
         private TrailRenderer tracer;
+
+        public Bullet(Vector3 position, Vector3 velocity, Bullet.BulletType type, WeaponController wc)
+        {
+            initialPosition = position;
+            initialVelocity = velocity;
+            time = 0.0f;
+            this.type = type;
+            AddTracer(wc.bulletTrail, position, wc.prefabHolder);
+        }
 
         public void AddTracer(TrailRenderer tr, Vector3 position, Transform holder)
         {
             //bullet trail
-            tracer = Instantiate(tr, position, Quaternion.identity, holder);
-            tracer.AddPosition(position);
+            if (type != BulletType.raycast)
+            {
+                tracer = Instantiate(tr, position, Quaternion.identity, holder);
+                tracer.AddPosition(position);
+            }
         }
 
         public void UpdateTracer(Vector3 newPos)
@@ -131,13 +150,30 @@ public class WeaponController : MonoBehaviour
 
         //Spread
         float x = Random.Range(-wd.gunStats.bulletSpread, wd.gunStats.bulletSpread);
-        float y = Random.Range(0, wd.gunStats.bulletSpread);
+        float y = Random.Range(-wd.gunStats.bulletSpread, wd.gunStats.bulletSpread);
         Vector3 spreadDir = new Vector3(x, y, 0f);
 
-        var direction = muzzlePoint.forward;
+        Vector3 directionToCenterScreen = GetDirectionToCenterScreen(muzzlePoint);
 
-        var bullet = CreateBullet(muzzlePoint.position, direction * wd.gunStats.bulletSpeed);
-        bullets.Add(bullet);
+        //aim
+        if (aiming)
+        {
+            //shoot the bullet from the muzzle
+            var bullet = new Bullet(muzzlePoint.position, directionToCenterScreen * wd.gunStats.bulletSpeed, Bullet.BulletType.both, this);
+            bullets.Add(bullet);
+        }
+        //hipfire
+        else
+        {
+            var spread = playerCam.transform.TransformDirection(spreadDir);
+            //render the trail
+            var tracer = new Bullet(muzzlePoint.position, (directionToCenterScreen + spread).normalized * wd.gunStats.bulletSpeed, Bullet.BulletType.tracer, this);
+            bullets.Add(tracer);
+
+            //raycast the bullet
+            var bullet = new Bullet(playerCam.transform.position, (playerCam.transform.forward + spread).normalized * wd.gunStats.bulletSpeed, Bullet.BulletType.raycast, this);
+            bullets.Add(bullet);
+        }
 
         //muzzle flash
         muzzleFlash.Play();
@@ -196,16 +232,6 @@ public class WeaponController : MonoBehaviour
         return (bullet.initialPosition) + (bullet.initialVelocity * bullet.time) + (0.5f * bullet.time * bullet.time * gravity);
     }
 
-    private Bullet CreateBullet(Vector3 position, Vector3 velocity)
-    {
-        Bullet bullet = new Bullet();
-        bullet.initialPosition = position;
-        bullet.initialVelocity = velocity;
-        bullet.time = 0.0f;
-        bullet.AddTracer(bulletTrail, position, prefabHolder);
-        return bullet;
-    }
-
     private void UpdateBullets(float deltaTime)
     {
         SimulateBullets(deltaTime);
@@ -244,16 +270,19 @@ public class WeaponController : MonoBehaviour
         //Raycast
         if (Physics.Raycast(start, direction, out rayHit, distance, whatIsShootable))
         {
-            //hit damageable
-            if (rayHit.collider.gameObject.layer == LayerMask.NameToLayer("EnemyHit"))
+            if (bullet.type != Bullet.BulletType.tracer)
             {
-                rayHit.collider.GetComponentInParent<HealthManager>().TakeDamage(wd.gunStats.damage, wd.gunStats.bulletSpeed, direction, rayHit.collider);
-            }
-            //hit environment
-            else
-            {
-                //bullet impact
-                PoolManager.instance.SpawnGameObject(PoolTag.BulletImpact,rayHit.point, Quaternion.LookRotation(rayHit.normal));
+                //hit damageable
+                if (rayHit.collider.gameObject.layer == LayerMask.NameToLayer("EnemyHit"))
+                {
+                    rayHit.collider.GetComponentInParent<HealthManager>().TakeDamage(wd.gunStats.damage, wd.gunStats.bulletSpeed, direction, rayHit.collider);
+                }
+                //hit environment
+                else
+                {
+                    //bullet impact
+                    PoolManager.instance.SpawnGameObject(PoolTag.BulletImpact, rayHit.point, Quaternion.LookRotation(rayHit.normal));
+                }
             }
             bullet.UpdateTracer(rayHit.point);
             bullet.time = maxLifetime;
@@ -261,6 +290,25 @@ public class WeaponController : MonoBehaviour
         else
         {
             bullet.UpdateTracer(end);
+        }
+    }
+
+    Vector3 GetDirectionToCenterScreen(Transform muzzlePoint)
+    {
+        Vector3 centerScreen = new Vector3(Screen.width / 2f, Screen.height / 2f, 0f);
+
+        Ray ray = Camera.main.ScreenPointToRay(centerScreen);
+        RaycastHit hit;
+
+        // If the ray hits something, set direction towards hit point
+        if (Physics.Raycast(ray, out hit))
+        {
+            return (hit.point - muzzlePoint.position).normalized;
+        }
+        else
+        {
+            // If ray does not hit anything, just return direction towards center of screen
+            return (ray.direction).normalized;
         }
     }
 }

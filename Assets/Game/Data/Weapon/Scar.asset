@@ -25,7 +25,7 @@ MonoBehaviour:
     bulletImpactForce: 50
     bulletSpeed: 1000
     bulletDrop: 0
-    bulletSpread: 0
+    bulletSpread: 0.2
     bulletsPerTap: 1
     timeBetweenShots: 0
     allowButtonHold: 1
@@ -35,7 +35,7 @@ MonoBehaviour:
     smoothTime: 0.05
     smoothRotation: 6
   weaponRecoilParameters:
-    recoilRotation: {x: 3, y: 3, z: 3}
+    recoilRotation: {x: 3, y: 0, z: 0}
     recoilKickback: {x: 0, y: 0, z: -0.1}
     recoilRotationAim: {x: 0.5, y: 0.5, z: 0.5}
     recoilKickbackAim: {x: 0, y: -0.01, z: -0.05}
@@ -44,8 +44,8 @@ MonoBehaviour:
     positionalReturnSpeed: 23
     rotationalReturnSpeed: 8
   cameraRecoilParameters:
-    recoilAmountX: 2
-    recoilAmountY: 2
+    recoilAmountX: 0
+    recoilAmountY: 0
   muzzleFlashSizeMultiplier: 0
   soundClips:
     shootSound: {fileID: 8300000, guid: 4c22c9d7cc76c414995201a6fb37b0c3, type: 3}
