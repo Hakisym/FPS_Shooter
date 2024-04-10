@@ -24,6 +24,10 @@ public class WeaponData : ScriptableObject
     [Header("Audio")]
     public AudioClips soundClips;
 
+    [Header("UI")]
+    public float crosshairResize;
+    public float crosshairResizeSpeed;
+
     [System.Serializable]
     public class WeaponRecoilParameters
     {

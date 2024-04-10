@@ -11,7 +11,7 @@ public class WeaponController : MonoBehaviour
 
     [Header("Gun states")]
     [HideInInspector]public bool shooting, reloading, aiming;
-    private bool readyToShoot;
+    public bool readyToShoot;
 
     [Header("Reference")]
     public Camera playerCam;
@@ -140,6 +140,11 @@ public class WeaponController : MonoBehaviour
             Shoot();
         }
 
+        if (reloading || bulletsLeft <= 0 || inventory.switching)
+        {
+            readyToShoot = false;
+        }
+
         if (Input.GetKeyDown(KeyCode.Backspace) && !reloading)
             inventory.DropGun();
     }
@@ -148,9 +153,12 @@ public class WeaponController : MonoBehaviour
     {
         readyToShoot = false;
 
+        UIController.instance.crosshair.Fire();
+
+        var bulletSpread = (UIController.instance.crosshair.spread - UIController.instance.crosshair.defaultSpread + wd.gunStats.bulletSpread) / 1000;
         //Spread
-        float x = Random.Range(-wd.gunStats.bulletSpread, wd.gunStats.bulletSpread);
-        float y = Random.Range(-wd.gunStats.bulletSpread, wd.gunStats.bulletSpread);
+        float x = Random.Range(-bulletSpread / 2, bulletSpread / 2);
+        float y = Random.Range(-bulletSpread / 2, bulletSpread / 2);
         Vector3 spreadDir = new Vector3(x, y, 0f);
 
         Vector3 directionToCenterScreen = GetDirectionToCenterScreen(muzzlePoint);
@@ -222,6 +230,7 @@ public class WeaponController : MonoBehaviour
     {
         bulletsLeft = wd.gunStats.magazineSize;
 
+        readyToShoot = true;
         reloading = false;
     }
 
@@ -311,4 +320,6 @@ public class WeaponController : MonoBehaviour
             return (ray.direction).normalized;
         }
     }
+
+    public void CanShoot() => readyToShoot = true;
 }

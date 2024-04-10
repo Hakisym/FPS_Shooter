@@ -141,6 +141,7 @@ public class Inventory : MonoBehaviour
     public void ResetEquip()
     {
         switching = false;
+        wc.CanShoot();
     }
 
     public bool PickupWeapon(WeaponData weaponSO)

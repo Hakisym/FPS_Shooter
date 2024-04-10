@@ -39,6 +39,8 @@ public class PlayerMovement : MonoBehaviour
     public Animator animator;
     public WeaponController wc;
 
+    public float currentSpeed { get => speed; }
+    public float moveVel { get => moveDirection.sqrMagnitude; }
     private Vector3 moveDirection;
     private float originalHeight;
     private float speed;
