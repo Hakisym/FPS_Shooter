@@ -19,7 +19,6 @@ public class WeaponController : MonoBehaviour
     public Transform muzzlePoint;
     public Transform castingPoint;
     public ParticleSystem muzzleFlash;
-    public RaycastHit rayHit;
     public LayerMask whatIsShootable;
     public Animator animator;
     public CameraRecoilStacking cameraRecoil;
@@ -50,44 +49,42 @@ public class WeaponController : MonoBehaviour
         public float time;
         public Vector3 initialPosition;
         public Vector3 initialVelocity;
-        public BulletType type;
-        public enum BulletType
-        {
-            tracer,
-            raycast,
-            both
-        }
+        public bool hasTracer;
         private TrailRenderer tracer;
 
-        public Bullet(Vector3 position, Vector3 velocity, Bullet.BulletType type, WeaponController wc)
+        public Bullet(Vector3 position, Vector3 velocity, bool hasTracer, WeaponController wc)
         {
             initialPosition = position;
             initialVelocity = velocity;
             time = 0.0f;
-            this.type = type;
-            AddTracer(wc.bulletTrail, position, wc.prefabHolder);
+            this.hasTracer = hasTracer;
+            if (hasTracer) AddTracer(wc.bulletTrail, position, wc.prefabHolder);
         }
 
         public void AddTracer(TrailRenderer tr, Vector3 position, Transform holder)
         {
             //bullet trail
-            if (type != BulletType.raycast)
-            {
-                tracer = Instantiate(tr, position, Quaternion.identity, holder);
-                tracer.AddPosition(position);
-            }
+            tracer = Instantiate(tr, position, Quaternion.identity, holder);
+            tracer.AddPosition(position);
         }
 
         public void UpdateTracer(Vector3 newPos)
         {
             //update tracer position
-            if (tracer != null) tracer.transform.position = newPos;
+            if (hasTracer) tracer.transform.position = newPos;
         }
 
         public void OnDestroy()
         {
             //destroy bullet tracer after certain frame
-            if (tracer != null) Destroy(tracer.gameObject, Time.deltaTime * 5f);
+            if (hasTracer) Destroy(tracer.gameObject, Time.deltaTime * 5f);
+        }
+
+        public Vector3 GetPosition(float bulletDrop)
+        {
+            // p + v*t + 0.5*g*t*t
+            Vector3 gravity = Vector3.down * bulletDrop;
+            return (initialPosition) + (initialVelocity * time) + (0.5f * time * time * gravity);
         }
     }
 
@@ -155,33 +152,34 @@ public class WeaponController : MonoBehaviour
 
         UIController.instance.crosshair.Fire();
 
-        var bulletSpread = (UIController.instance.crosshair.spread - UIController.instance.crosshair.defaultSpread + wd.gunStats.bulletSpread) / 1000;
         //Spread
-        float x = Random.Range(-bulletSpread / 2, bulletSpread / 2);
-        float y = Random.Range(-bulletSpread / 2, bulletSpread / 2);
-        Vector3 spreadDir = new Vector3(x, y, 0f);
+        var bulletSpread = aiming ? 0 : (UIController.instance.crosshair.spread - UIController.instance.crosshair.defaultSpread + wd.gunStats.bulletSpread) / 1000;
+        var spread = HenryUtilities.GetSpreadDirection(bulletSpread / 2, playerCam);
 
-        Vector3 directionToCenterScreen = GetDirectionToCenterScreen(muzzlePoint);
+        Vector3 dir = (playerCam.transform.forward + spread).normalized;
 
-        //aim
-        if (aiming)
+        RaycastHit hit;
+        Vector3 bulletDir;
+
+        //Raycast
+        if (Physics.Raycast(playerCam.transform.position, dir, out hit, wd.gunStats.bulletRange, whatIsShootable))
         {
-            //shoot the bullet from the muzzle
-            var bullet = new Bullet(muzzlePoint.position, directionToCenterScreen * wd.gunStats.bulletSpeed, Bullet.BulletType.both, this);
-            bullets.Add(bullet);
+            //hit damageable
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("EnemyHit"))
+            {
+                hit.collider.GetComponentInParent<HealthManager>().TakeDamage(wd.gunStats.damage, wd.gunStats.bulletImpactForce, dir, hit.collider);
+            }
+            Debug.DrawLine(playerCam.transform.position, hit.point, Color.red, 3.0f);
+            bulletDir = (hit.point - muzzlePoint.position).normalized;
         }
-        //hipfire
         else
         {
-            var spread = playerCam.transform.TransformDirection(spreadDir);
-            //render the trail
-            var tracer = new Bullet(muzzlePoint.position, (directionToCenterScreen + spread).normalized * wd.gunStats.bulletSpeed, Bullet.BulletType.tracer, this);
-            bullets.Add(tracer);
-
-            //raycast the bullet
-            var bullet = new Bullet(playerCam.transform.position, (playerCam.transform.forward + spread).normalized * wd.gunStats.bulletSpeed, Bullet.BulletType.raycast, this);
-            bullets.Add(bullet);
+            bulletDir = (HenryUtilities.GetDirectionToCenterScreen() + spread).normalized;
         }
+
+        //render the bullet from the muzzle
+        var bullet = new Bullet(muzzlePoint.position, bulletDir * wd.gunStats.bulletSpeed, true, this);
+        bullets.Add(bullet);
 
         //muzzle flash
         muzzleFlash.Play();
@@ -234,13 +232,6 @@ public class WeaponController : MonoBehaviour
         reloading = false;
     }
 
-    private Vector3 GetPosition(Bullet bullet)
-    {
-        // p + v*t + 0.5*g*t*t
-        Vector3 gravity = Vector3.down * wd.gunStats.bulletDrop;
-        return (bullet.initialPosition) + (bullet.initialVelocity * bullet.time) + (0.5f * bullet.time * bullet.time * gravity);
-    }
-
     private void UpdateBullets(float deltaTime)
     {
         SimulateBullets(deltaTime);
@@ -265,9 +256,9 @@ public class WeaponController : MonoBehaviour
     {
         bullets.ForEach(bullet =>
         {
-            Vector3 p0 = GetPosition(bullet);
+            Vector3 p0 = bullet.GetPosition(wd.gunStats.bulletDrop);
             bullet.time += deltaTime;
-            Vector3 p1 = GetPosition(bullet);
+            Vector3 p1 = bullet.GetPosition(wd.gunStats.bulletDrop);
             RaycastSegment(p0, p1, bullet);
         });
     }
@@ -277,47 +268,19 @@ public class WeaponController : MonoBehaviour
         Vector3 direction = end - start;
         float distance = direction.magnitude;
         //Raycast
-        if (Physics.Raycast(start, direction, out rayHit, distance, whatIsShootable))
+        RaycastHit hit;
+        if (Physics.Raycast(start, direction, out hit, distance, whatIsShootable))
         {
-            if (bullet.type != Bullet.BulletType.tracer)
-            {
-                //hit damageable
-                if (rayHit.collider.gameObject.layer == LayerMask.NameToLayer("EnemyHit"))
-                {
-                    rayHit.collider.GetComponentInParent<HealthManager>().TakeDamage(wd.gunStats.damage, wd.gunStats.bulletSpeed, direction, rayHit.collider);
-                }
-                //hit environment
-                else
-                {
-                    //bullet impact
-                    PoolManager.instance.SpawnGameObject(PoolTag.BulletImpact, rayHit.point, Quaternion.LookRotation(rayHit.normal));
-                }
-            }
-            bullet.UpdateTracer(rayHit.point);
+            //bullet impact hit
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Environment"))
+                PoolManager.instance.SpawnGameObject(PoolTag.BulletImpact, hit.point, Quaternion.LookRotation(hit.normal));
+
+            bullet.UpdateTracer(hit.point);
             bullet.time = maxLifetime;
         }
         else
         {
             bullet.UpdateTracer(end);
-        }
-    }
-
-    Vector3 GetDirectionToCenterScreen(Transform muzzlePoint)
-    {
-        Vector3 centerScreen = new Vector3(Screen.width / 2f, Screen.height / 2f, 0f);
-
-        Ray ray = Camera.main.ScreenPointToRay(centerScreen);
-        RaycastHit hit;
-
-        // If the ray hits something, set direction towards hit point
-        if (Physics.Raycast(ray, out hit))
-        {
-            return (hit.point - muzzlePoint.position).normalized;
-        }
-        else
-        {
-            // If ray does not hit anything, just return direction towards center of screen
-            return (ray.direction).normalized;
         }
     }
 

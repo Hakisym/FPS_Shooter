@@ -9,10 +9,8 @@ public class CrossHair : MonoBehaviour
 
     private WeaponController weaponController;
 
-    private Inventory inventory;
-
     [Tooltip(" How much space it takes from your screen"), SerializeField]
-    public float size = 10f;
+    private float size = 10f;
 
     [Tooltip(" Thickness of the crosshair  "), SerializeField]
     private float width = 2f;
@@ -40,7 +38,6 @@ public class CrossHair : MonoBehaviour
     private void Awake()
     {
         weaponController = player.GetComponent<WeaponController>();
-        inventory = weaponController.inventory;
     }
 
     void Update()

@@ -19,13 +19,13 @@ MonoBehaviour:
     type: 3}
   gunStats:
     damage: 40
-    magazineSize: 30
+    magazineSize: 20
     fireRate: 600
     reloadTime: 2
     bulletImpactForce: 50
     bulletSpeed: 1000
     bulletDrop: 0
-    bulletSpread: 0.05
+    bulletSpread: 12
     bulletsPerTap: 1
     timeBetweenShots: 0
     allowButtonHold: 1
@@ -44,8 +44,8 @@ MonoBehaviour:
     positionalReturnSpeed: 23
     rotationalReturnSpeed: 8
   cameraRecoilParameters:
-    recoilAmountX: 0
-    recoilAmountY: 0
+    recoilAmountX: 5
+    recoilAmountY: 2
   muzzleFlashSizeMultiplier: 0
   soundClips:
     shootSound: {fileID: 8300000, guid: 4c22c9d7cc76c414995201a6fb37b0c3, type: 3}

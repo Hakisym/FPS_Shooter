@@ -70,9 +70,10 @@ public class WeaponData : ScriptableObject
         public float fireRate;
         public float reloadTime;
         [Header("Bullet")]
-        public int bulletImpactForce;
+        public float bulletImpactForce;
         public float bulletSpeed;
         public float bulletDrop;
+        public float bulletRange;
         public float bulletSpread;
         [Header("Shoot Mode")]
         public int bulletsPerTap;
