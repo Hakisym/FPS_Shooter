@@ -74,7 +74,7 @@ public class WeaponData : ScriptableObject
         public float bulletSpeed;
         public float bulletDrop;
         public float bulletRange;
-        public float bulletSpread;
+        public float bulletAccuracy;
         [Header("Shoot Mode")]
         public int bulletsPerTap;
         public float timeBetweenShots;

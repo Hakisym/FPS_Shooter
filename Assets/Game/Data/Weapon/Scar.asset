@@ -18,14 +18,15 @@ MonoBehaviour:
   pickUpGraphics: {fileID: 533850538935619641, guid: a732426c8587cde44b9765a82823e971,
     type: 3}
   gunStats:
-    damage: 40
+    damage: 25
     magazineSize: 20
     fireRate: 600
     reloadTime: 2
     bulletImpactForce: 50
     bulletSpeed: 1000
     bulletDrop: 0
-    bulletSpread: 12
+    bulletRange: 100
+    bulletAccuracy: 12
     bulletsPerTap: 1
     timeBetweenShots: 0
     allowButtonHold: 1
@@ -44,8 +45,8 @@ MonoBehaviour:
     positionalReturnSpeed: 23
     rotationalReturnSpeed: 8
   cameraRecoilParameters:
-    recoilAmountX: 5
-    recoilAmountY: 2
+    recoilAmountX: 0
+    recoilAmountY: 0
   muzzleFlashSizeMultiplier: 0
   soundClips:
     shootSound: {fileID: 8300000, guid: 4c22c9d7cc76c414995201a6fb37b0c3, type: 3}

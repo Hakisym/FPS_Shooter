@@ -19,13 +19,13 @@ public class CrossHair : MonoBehaviour
     [Tooltip(" Original spread you want to start with "), SerializeField]
     public float defaultSpread = 10f;
 
-    [SerializeField] private float walkSpread, runSpread, crouchSpread, jumpSpread;
+    [SerializeField] public float walkSpread, runSpread, crouchSpread, jumpSpread;
 
     [SerializeField] private float resizeSpeed = 3f;
     [HideInInspector]
     public float spread;
-    private float locomotionSpread;
-    private float bulletSpread;
+    public float locomotionSpread;
+    public float bulletSpread;
 
     public Parts parts;
 

@@ -25,7 +25,8 @@ MonoBehaviour:
     bulletImpactForce: 50
     bulletSpeed: 1000
     bulletDrop: 0
-    bulletSpread: 0
+    bulletRange: 100
+    bulletAccuracy: 18
     bulletsPerTap: 1
     timeBetweenShots: 0
     allowButtonHold: 1
@@ -44,8 +45,8 @@ MonoBehaviour:
     positionalReturnSpeed: 12
     rotationalReturnSpeed: 8
   cameraRecoilParameters:
-    recoilAmountX: 2
-    recoilAmountY: 5
+    recoilAmountX: 0
+    recoilAmountY: 0
   muzzleFlashSizeMultiplier: 0
   soundClips:
     shootSound: {fileID: 8300000, guid: c2763216fc6f5a24897c6f5f499a3955, type: 3}
@@ -56,3 +57,5 @@ MonoBehaviour:
     reloadSoundOutOfAmmo: {fileID: 0}
     emptyMagShoot: {fileID: 0}
     aimSound: {fileID: 8300000, guid: acaebc89b98b82142bd2b24edb6081e4, type: 3}
+  crosshairResize: 15
+  crosshairResizeSpeed: 5

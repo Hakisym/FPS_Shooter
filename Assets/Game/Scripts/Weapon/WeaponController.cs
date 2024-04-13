@@ -44,50 +44,6 @@ public class WeaponController : MonoBehaviour
 
     public Action<WeaponIdentification> OnWeaponEquip;
 
-    class Bullet
-    {
-        public float time;
-        public Vector3 initialPosition;
-        public Vector3 initialVelocity;
-        public bool hasTracer;
-        private TrailRenderer tracer;
-
-        public Bullet(Vector3 position, Vector3 velocity, bool hasTracer, WeaponController wc)
-        {
-            initialPosition = position;
-            initialVelocity = velocity;
-            time = 0.0f;
-            this.hasTracer = hasTracer;
-            if (hasTracer) AddTracer(wc.bulletTrail, position, wc.prefabHolder);
-        }
-
-        public void AddTracer(TrailRenderer tr, Vector3 position, Transform holder)
-        {
-            //bullet trail
-            tracer = Instantiate(tr, position, Quaternion.identity, holder);
-            tracer.AddPosition(position);
-        }
-
-        public void UpdateTracer(Vector3 newPos)
-        {
-            //update tracer position
-            if (hasTracer) tracer.transform.position = newPos;
-        }
-
-        public void OnDestroy()
-        {
-            //destroy bullet tracer after certain frame
-            if (hasTracer) Destroy(tracer.gameObject, Time.deltaTime * 5f);
-        }
-
-        public Vector3 GetPosition(float bulletDrop)
-        {
-            // p + v*t + 0.5*g*t*t
-            Vector3 gravity = Vector3.down * bulletDrop;
-            return (initialPosition) + (initialVelocity * time) + (0.5f * time * time * gravity);
-        }
-    }
-
     private void Awake()
     {
         readyToShoot = true;
@@ -153,7 +109,21 @@ public class WeaponController : MonoBehaviour
         UIController.instance.crosshair.Fire();
 
         //Spread
-        var bulletSpread = aiming ? 0 : (UIController.instance.crosshair.spread - UIController.instance.crosshair.defaultSpread + wd.gunStats.bulletSpread) / 1000;
+        float bulletSpread;
+        if (aiming)
+            bulletSpread = 0;
+        else
+        {
+            //stand spread
+            if (UIController.instance.crosshair.locomotionSpread == UIController.instance.crosshair.defaultSpread)
+                bulletSpread = (UIController.instance.crosshair.bulletSpread + wd.gunStats.bulletAccuracy) / 1000;
+            //crouch spread
+            else if (UIController.instance.crosshair.locomotionSpread == UIController.instance.crosshair.crouchSpread)
+                bulletSpread = (UIController.instance.crosshair.bulletSpread + wd.gunStats.bulletAccuracy) / 1200;
+            else
+                bulletSpread = UIController.instance.crosshair.spread / 500;
+        }
+
         var spread = HenryUtilities.GetSpreadDirection(bulletSpread / 2, playerCam);
 
         Vector3 dir = (playerCam.transform.forward + spread).normalized;
@@ -169,8 +139,8 @@ public class WeaponController : MonoBehaviour
             {
                 hit.collider.GetComponentInParent<HealthManager>().TakeDamage(wd.gunStats.damage, wd.gunStats.bulletImpactForce, dir, hit.collider);
             }
-            Debug.DrawLine(playerCam.transform.position, hit.point, Color.red, 3.0f);
             bulletDir = (hit.point - muzzlePoint.position).normalized;
+            //Debug.DrawLine(playerCam.transform.position, hit.point, Color.red, 3.0f);
         }
         else
         {
