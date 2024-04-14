@@ -106,7 +106,7 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = transform.right * mouseX + transform.forward * mouseY;
 
         // Sprint input
-        if (Input.GetKeyDown(KeyCode.LeftShift) && isGrounded && moveDirection.sqrMagnitude > 0 && !wc.aiming && !wc.shooting)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && isGrounded && moveDirection.sqrMagnitude > 0 && !wc.aiming && !wc.shootState)
             isSprinting = !isSprinting;
 
         // Crouch input
@@ -135,10 +135,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void Sprint()
     {
-        if (moveDirection.sqrMagnitude <= 0 || wc.aiming || wc.shooting)
+        if (moveDirection.sqrMagnitude <= 0 || wc.aiming || wc.shootState)
         {
             //fire when sprint cancel sprint
-            if (wc.shooting && isSprinting)
+            if (wc.shootState && isSprinting)
                 animator.Play("Idle", 0);
             //set sprinting to false
             isSprinting = false;

@@ -12,30 +12,21 @@ public class CameraRecoil : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!wc.shooting || !wc.canShoot)
+        if (!wc.shootState || !wc.canShoot)
         {
-            if (wc.wd.cameraRecoilParameters.type == RecoilType.Curve)
-            {
-                evaluationProgress = Mathf.Lerp(evaluationProgress,0, wc.wd.cameraRecoilParameters.returnSpeed * Time.fixedDeltaTime);
-                evaluationProgressX = Mathf.Lerp(evaluationProgress, 0, wc.wd.cameraRecoilParameters.returnSpeed * Time.fixedDeltaTime);
-                currentRotation = new Vector3(-wc.wd.cameraRecoilParameters.recoilY.Evaluate(evaluationProgress) * wc.wd.cameraRecoilParameters.yRecoilAmount, -wc.wd.cameraRecoilParameters.recoilX.Evaluate(evaluationProgress) * wc.wd.cameraRecoilParameters.xRecoilAmount, 0);
-            }
-            else
-            {
-                //Return interpolation
-                currentRotation = Vector3.Lerp(currentRotation, Vector3.zero, wc.wd.cameraRecoilParameters.returnSpeed * Time.fixedDeltaTime);
-            }
+            evaluationProgress = 0;
+            evaluationProgressX = 0;
+            //Return interpolation
+            currentRotation = Vector3.Lerp(currentRotation, Vector3.zero, wc.wd.cameraRecoilParameters.returnSpeed * Time.fixedDeltaTime);
         }
 
-        if (wc.shooting && wc.canShoot)
+        if (wc.canShoot && wc.shootState)
             if (wc.wd.cameraRecoilParameters.type == RecoilType.Curve)
                 currentRotation = new Vector3(-wc.wd.cameraRecoilParameters.recoilY.Evaluate(evaluationProgress) * wc.wd.cameraRecoilParameters.yRecoilAmount, -wc.wd.cameraRecoilParameters.recoilX.Evaluate(evaluationProgress) * wc.wd.cameraRecoilParameters.xRecoilAmount, 0);
 
         //Smooth rotate to current rotation
         rot = Vector3.Slerp(rot, currentRotation, wc.wd.cameraRecoilParameters.rotationSpeed * Time.fixedDeltaTime);
         transform.localRotation = Quaternion.Euler(rot);
-
-
     }
 
     public void Fire()
@@ -61,7 +52,6 @@ public class CameraRecoil : MonoBehaviour
             evaluationProgress += 1f / wc.wd.gunStats.magazineSize;
             evaluationProgressX += 1f / wc.wd.gunStats.magazineSize;
         }
-        
     }
 }
 

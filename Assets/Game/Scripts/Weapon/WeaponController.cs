@@ -10,9 +10,11 @@ public class WeaponController : MonoBehaviour
     public WeaponData wd;
 
     [Header("Gun states")]
-    [HideInInspector]public bool shooting, reloading, aiming;
-    public bool readyToShoot;
+    [HideInInspector]public bool reloading, aiming;
     public bool canShoot;
+    public bool shootState;
+    private bool shooting;
+    private bool readyToShoot;
 
     [Header("Reference")]
     public Camera playerCam;
@@ -97,7 +99,6 @@ public class WeaponController : MonoBehaviour
 
         if (reloading || bulletsLeft <= 0 || inventory.switching)
         {
-            readyToShoot = false;
             canShoot = false;
         }
 
@@ -108,6 +109,7 @@ public class WeaponController : MonoBehaviour
     private void Shoot()
     {
         readyToShoot = false;
+        shootState = true;
 
         //Spread
         float bulletSpread;
@@ -179,6 +181,7 @@ public class WeaponController : MonoBehaviour
         bulletsShot--;
 
         Invoke("ResetShoot", timeBetweenShooting);
+        Invoke("ResetShootMode", timeBetweenShooting * 2);
 
         if (bulletsShot > 0 && bulletsLeft > 0)
             Invoke("Shoot", wd.gunStats.timeBetweenShots);
@@ -187,6 +190,11 @@ public class WeaponController : MonoBehaviour
     private void ResetShoot()
     {
         readyToShoot = true;
+    }
+
+    private void ResetShootMode()
+    {
+        shootState = false;
     }
 
     private void Reload()
@@ -205,7 +213,6 @@ public class WeaponController : MonoBehaviour
     {
         bulletsLeft = wd.gunStats.magazineSize;
 
-        readyToShoot = true;
         canShoot =true;
         reloading = false;
     }
@@ -264,7 +271,6 @@ public class WeaponController : MonoBehaviour
 
     public void CanShoot()
     {
-        readyToShoot = true;
         canShoot = true;
     }
 }

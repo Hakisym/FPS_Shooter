@@ -79,7 +79,7 @@ public class Inventory : MonoBehaviour
         //state check
         if (switching) return;
 
-        if (currentWeapon != null && (wc.reloading || wc.shooting))
+        if (currentWeapon != null && (wc.reloading || wc.shootState))
         {
             Debug.Log("Can't switch when reloading and shooting!");
             return;
