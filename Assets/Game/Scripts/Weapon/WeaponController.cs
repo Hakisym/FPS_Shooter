@@ -12,6 +12,7 @@ public class WeaponController : MonoBehaviour
     [Header("Gun states")]
     [HideInInspector]public bool shooting, reloading, aiming;
     public bool readyToShoot;
+    public bool canShoot;
 
     [Header("Reference")]
     public Camera playerCam;
@@ -21,7 +22,7 @@ public class WeaponController : MonoBehaviour
     public ParticleSystem muzzleFlash;
     public LayerMask whatIsShootable;
     public Animator animator;
-    public CameraRecoilStacking cameraRecoil;
+    public CameraRecoil cameraRecoil;
     public WeaponRecoil weaponRecoil;
     public Inventory inventory;
 
@@ -47,6 +48,7 @@ public class WeaponController : MonoBehaviour
     private void Awake()
     {
         readyToShoot = true;
+        canShoot = true;
         muzzleFlash = Instantiate(muzzleFlashPrefab, this.transform);
     }
 
@@ -96,6 +98,7 @@ public class WeaponController : MonoBehaviour
         if (reloading || bulletsLeft <= 0 || inventory.switching)
         {
             readyToShoot = false;
+            canShoot = false;
         }
 
         if (Input.GetKeyDown(KeyCode.Backspace) && !reloading)
@@ -105,8 +108,6 @@ public class WeaponController : MonoBehaviour
     private void Shoot()
     {
         readyToShoot = false;
-
-        UIController.instance.crosshair.Fire();
 
         //Spread
         float bulletSpread;
@@ -131,7 +132,7 @@ public class WeaponController : MonoBehaviour
         RaycastHit hit;
         Vector3 bulletDir;
 
-        //Raycast
+        // Hitscan shoot
         if (Physics.Raycast(playerCam.transform.position, dir, out hit, wd.gunStats.bulletRange, whatIsShootable))
         {
             //hit damageable
@@ -156,6 +157,12 @@ public class WeaponController : MonoBehaviour
 
         //bullet cast
         Instantiate(bulletCasting, castingPoint.position, castingPoint.rotation, prefabHolder);
+
+        //crosshair
+        UIController.instance.crosshair.Fire();
+
+        //cam shake
+        CamShake.instance.ShootShake(wd.camShakeIntensity);
 
         //Recoil
         cameraRecoil.Fire();
@@ -199,6 +206,7 @@ public class WeaponController : MonoBehaviour
         bulletsLeft = wd.gunStats.magazineSize;
 
         readyToShoot = true;
+        canShoot =true;
         reloading = false;
     }
 
@@ -254,5 +262,9 @@ public class WeaponController : MonoBehaviour
         }
     }
 
-    public void CanShoot() => readyToShoot = true;
+    public void CanShoot()
+    {
+        readyToShoot = true;
+        canShoot = true;
+    }
 }

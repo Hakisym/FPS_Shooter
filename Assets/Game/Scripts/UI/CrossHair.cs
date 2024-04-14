@@ -71,6 +71,8 @@ public class CrossHair : MonoBehaviour
 
     private void OnGUI()
     {
+        if (weaponController.aiming) return;
+
         Texture2D texture = new Texture2D(1, 1);
         texture.SetPixel(0, 0, Color.white);
         texture.wrapMode = TextureWrapMode.Repeat;

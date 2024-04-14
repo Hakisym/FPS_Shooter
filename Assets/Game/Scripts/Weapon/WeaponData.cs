@@ -19,6 +19,7 @@ public class WeaponData : ScriptableObject
     public CameraRecoilParameters cameraRecoilParameters;
 
     [Header("Visual")]
+    public float camShakeIntensity;
     public float muzzleFlashSizeMultiplier;
 
     [Header("Audio")]
@@ -48,8 +49,17 @@ public class WeaponData : ScriptableObject
     [System.Serializable]
     public class CameraRecoilParameters
     {
-        public float recoilAmountX;
-        public float recoilAmountY;
+        public RecoilType type;
+        public float rotationSpeed, returnSpeed;
+
+        [Header("Procedural Recoil")]
+        public Vector3 recoilRotation;
+        public Vector3 recoilRotationAiming;
+
+        [Header("Curve Recoil")]
+        public AnimationCurve recoilX;
+        public AnimationCurve recoilY;
+        public float xRecoilAmount, yRecoilAmount;
     }
 
     [System.Serializable]
