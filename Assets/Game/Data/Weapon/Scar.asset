@@ -45,8 +45,80 @@ MonoBehaviour:
     positionalReturnSpeed: 23
     rotationalReturnSpeed: 8
   cameraRecoilParameters:
-    recoilAmountX: 0
-    recoilAmountY: 0
+    type: 1
+    rotationSpeed: 10
+    returnSpeed: 5
+    recoilRotation: {x: 0, y: 0, z: 0}
+    recoilRotationAiming: {x: 0, y: 0, z: 0}
+    recoilX:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0.59735054
+        outSlope: 0.59735054
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.16635944
+        value: 0.099374905
+        inSlope: -0.053437263
+        outSlope: -0.053437263
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.4577987
+        value: -0.10586392
+        inSlope: -0.25448835
+        outSlope: -0.25448835
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0.19524838
+        outSlope: 0.19524838
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    recoilY:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    xRecoilAmount: 10
+    yRecoilAmount: 10
+  camShakeIntensity: 0.5
   muzzleFlashSizeMultiplier: 0
   soundClips:
     shootSound: {fileID: 8300000, guid: 4c22c9d7cc76c414995201a6fb37b0c3, type: 3}

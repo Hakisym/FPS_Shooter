@@ -45,8 +45,26 @@ MonoBehaviour:
     positionalReturnSpeed: 12
     rotationalReturnSpeed: 8
   cameraRecoilParameters:
-    recoilAmountX: 0
-    recoilAmountY: 0
+    type: 1
+    rotationSpeed: 0
+    returnSpeed: 0
+    recoilRotation: {x: 0, y: 0, z: 0}
+    recoilRotationAiming: {x: 0, y: 0, z: 0}
+    recoilX:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    recoilY:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    xRecoilAmount: 0
+    yRecoilAmount: 0
+  camShakeIntensity: 0
   muzzleFlashSizeMultiplier: 0
   soundClips:
     shootSound: {fileID: 8300000, guid: c2763216fc6f5a24897c6f5f499a3955, type: 3}
