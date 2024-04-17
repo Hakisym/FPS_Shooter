@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerHealth : HealthManager
+public class PlayerHealth : MonoBehaviour,IDamageable
 {
     public int maxHealth;
     public int currentHealth;
@@ -14,10 +14,10 @@ public class PlayerHealth : HealthManager
         impactManager = GetComponent<ImpactManager>();
     }
 
-    public override void TakeDamage(int amount, float force, Vector3 direction, Collider bodyPart = null)
+    public void TakeDamage(int amount, DamageInfo info)
     {
         currentHealth -= amount;
-        impactManager.AddImpact(direction, force);
+        impactManager.AddImpact(info.direction, info.force);
         if (currentHealth <= 0)
         {
             Debug.Log("Player is dead!");

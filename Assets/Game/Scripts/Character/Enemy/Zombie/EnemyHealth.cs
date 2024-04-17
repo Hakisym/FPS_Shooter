@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyHealth : HealthManager
+public class EnemyHealth : MonoBehaviour, IDamageable
 {
     public int maxHealth;
     public bool dead;
@@ -26,10 +26,10 @@ public class EnemyHealth : HealthManager
         }
     }
 
-    public override void TakeDamage(int amount, float force, Vector3 direction, Collider bodyPart)
+    public void TakeDamage(int amount, DamageInfo info)
     {
         //Count body and head HP individually
-        if (bodyPart.CompareTag("Head"))
+        if (info.bodyPart.CompareTag("Head"))
         {
             headHealth -= amount;
         }
@@ -37,21 +37,25 @@ public class EnemyHealth : HealthManager
         {
             bodyHealth -= amount;
         }
+
         if (headHealth <= 0 || bodyHealth <= 0)
         {
             if (!dead)
             {
                 Die();
-                bodyPart.GetComponent<Rigidbody>().AddForce(direction.normalized * force, ForceMode.Impulse);
+                info.bodyPart.GetComponent<Rigidbody>().AddForce(info.direction.normalized * info.force, ForceMode.Impulse);
             }
-            else
-                bodyPart.GetComponent<Rigidbody>().AddForce(direction.normalized * ragdollShootForce, ForceMode.Impulse);
+            else info.bodyPart.GetComponent<Rigidbody>().AddForce(info.direction.normalized * ragdollShootForce, ForceMode.Impulse);
         }
+
+        if (!dead) UIController.instance.OnEnemyHit.Invoke();
     }
 
     private void Die()
     {
         OnDie?.Invoke();
+
+        UIController.instance.OnEnemyKill.Invoke();
 
         //Destroy enemy scripts and navmesh
         foreach (var mb in this.GetComponents<MonoBehaviour>())

@@ -2,11 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponAiming : MonoBehaviour
+public class WeaponAiming : WeaponMotionBase
 {
-    public WeaponController wc;
-    public Inventory inventory;
-
     private Vector3 originalPosition;
     private Quaternion originalRotation;
     private Vector3 velocity;
@@ -15,8 +12,8 @@ public class WeaponAiming : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        originalPosition = transform.localPosition;
-        originalRotation = transform.localRotation;
+        originalPosition = target.localPosition;
+        originalRotation = target.localRotation;
     }
 
     // Update is called once per frame
@@ -29,14 +26,14 @@ public class WeaponAiming : MonoBehaviour
         //Update transform to aim position & rotation
         if (isAiming)
         {
-            finalPosition = inventory.currentWeapon.wd.aimParameters.aimPosition;
-            finalRotation = Quaternion.Euler(inventory.currentWeapon.wd.aimParameters.aimRotation);
+            finalPosition = wid.wd.aimParameters.aimPosition;
+            finalRotation = Quaternion.Euler(wid.wd.aimParameters.aimRotation);
             wc.aiming = true;
 
             //play aim sound
             if (!soundHasPlayed)
             {
-                wc.mainAudioSource.clip = wc.wd.soundClips.aimSound;
+                wc.mainAudioSource.clip = wid.wd.soundClips.aimSound;
                 wc.mainAudioSource.Play();
                 soundHasPlayed = true;
             }
@@ -51,8 +48,8 @@ public class WeaponAiming : MonoBehaviour
         }
 
         //Smooth interpolate
-        transform.localPosition = Vector3.SmoothDamp(transform.localPosition, finalPosition, ref velocity, inventory.currentWeapon.wd.aimParameters.smoothTime);
-        transform.localRotation = Quaternion.Slerp(transform.localRotation, finalRotation, Time.deltaTime * inventory.currentWeapon.wd.aimParameters.smoothRotation);
+        target.localPosition = Vector3.SmoothDamp(target.localPosition, finalPosition, ref velocity, wid.wd.aimParameters.smoothTime);
+        target.localRotation = Quaternion.Slerp(target.localRotation, finalRotation, Time.deltaTime * wid.wd.aimParameters.smoothRotation);
 
     }
 }

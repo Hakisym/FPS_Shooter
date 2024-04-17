@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponSway : MonoBehaviour
+public class WeaponSway : WeaponMotionBase
 {
     [Header("PositionSway")]
     public float amount = 0.02f;
@@ -19,7 +19,6 @@ public class WeaponSway : MonoBehaviour
     public bool rotationX = true;
     public bool rotationY = true;
     public bool rotationZ = true;
-    public WeaponController wc;
     public float aimMultiplier = 0.2f;
     private float currentAimMultiplier;
 
@@ -31,9 +30,8 @@ public class WeaponSway : MonoBehaviour
 
     private void Start()
     {
-        initialPosition = transform.localPosition;
-        initialRotation = transform.localRotation;
-        wc = Inventory.instance.wc;
+        initialPosition = target.localPosition;
+        initialRotation = target.localRotation;
     }
 
     private void Update()
@@ -60,7 +58,7 @@ public class WeaponSway : MonoBehaviour
 
         Vector3 finalPosition = initialPosition + new Vector3(moveX, moveY, 0);
 
-        transform.localPosition = Vector3.Lerp(transform.localPosition, finalPosition, smoothAmount * Time.deltaTime);
+        target.localPosition = Vector3.Lerp(target.localPosition, finalPosition, smoothAmount * Time.deltaTime);
     }
 
     private void UpdateRotationSway()
@@ -76,6 +74,6 @@ public class WeaponSway : MonoBehaviour
         Quaternion finalRotation = initialRotation * rotX * rotY * rotZ;
 
         // Rotate towards target rotation
-        transform.localRotation = Quaternion.Slerp(transform.localRotation, finalRotation, smoothRotation * Time.deltaTime);
+        target.localRotation = Quaternion.Slerp(target.localRotation, finalRotation, smoothRotation * Time.deltaTime);
     }
 }

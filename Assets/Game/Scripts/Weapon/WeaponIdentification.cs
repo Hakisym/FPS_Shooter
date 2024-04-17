@@ -5,8 +5,16 @@ using UnityEngine;
 public class WeaponIdentification : MonoBehaviour
 {
     public WeaponData wd;
-    public Transform root;
     public Transform muzzle;
     public Transform castPoint;
     public Animator animator;
+    public WeaponMotionBase[] motions;
+
+    public void Initialize(Inventory inventory)
+    {
+        foreach (var motion in motions)
+        {
+            motion.SetUp(this, inventory);
+        }
+    }
 }

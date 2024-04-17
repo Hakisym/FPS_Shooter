@@ -2,15 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponAirControl : MonoBehaviour
+public class WeaponJumping : WeaponMotionBase
 {
     public float effectIntensity = 16f;
     public float effectIntensityAiming = 8f;
     public float smoothTime = 12f;
     public float animationSpeed = 18f;
     [Space]
-    public PlayerMovement pm;
-    public WeaponController wc;
+    private PlayerMovement pm;
 
     private Quaternion originalRotation;
     private float shakeAmount;
@@ -18,7 +17,8 @@ public class WeaponAirControl : MonoBehaviour
 
     private void Start()
     {
-        originalRotation = transform.localRotation;
+        pm = wc.GetComponent<PlayerMovement>();
+        originalRotation = target.localRotation;
         wasGrounded = pm.isGrounded;
     }
 
@@ -36,7 +36,7 @@ public class WeaponAirControl : MonoBehaviour
 
         Quaternion finalRotation = originalRotation * Quaternion.Euler(Vector3.right * shakeAmount);
 
-        transform.localRotation = Quaternion.Slerp(transform.localRotation, finalRotation, smoothTime * Time.deltaTime);
+        target.localRotation = Quaternion.Slerp(target.localRotation, finalRotation, smoothTime * Time.deltaTime);
 
         wasGrounded = pm.isGrounded; // Update the previous grounded state for the next frame
     }

@@ -2,14 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponBobbing : MonoBehaviour
+public class WeaponBobbing : WeaponMotionBase
 {
     public float effectIntensity = 0.02f;
     public float effectSpeed = 18f;
     public float smoothTime = 0.1f;
     public float aimMultiplier = 0.1f;
-    public WeaponController wc;
-    public PlayerMovement pm;
+    private PlayerMovement pm;
 
     private Vector3 originalPosition;
     private float sinTime;
@@ -19,7 +18,8 @@ public class WeaponBobbing : MonoBehaviour
 
     private void Start()
     {
-        originalPosition = transform.localPosition;
+        pm = wc.GetComponent<PlayerMovement>();
+        originalPosition = target.localPosition;
     }
 
     private void Update()
@@ -52,6 +52,6 @@ public class WeaponBobbing : MonoBehaviour
         Vector3 finalPosition = originalPosition + Vector3.up * sinAmountY + Vector3.right * sinAmountX;
 
         // Smooth towards final position
-        transform.localPosition = Vector3.SmoothDamp(transform.localPosition, finalPosition, ref velocity, smoothTime);
+        target.localPosition = Vector3.SmoothDamp(target.localPosition, finalPosition, ref velocity, smoothTime);
     }
 }

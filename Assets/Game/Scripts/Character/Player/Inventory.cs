@@ -2,16 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
 
 public class Inventory : MonoBehaviour
 {
     [Header("Inventory Settings")]
+    public WeaponData[] initialWeapons;
     public List<WeaponIdentification> weapons;
     public WeaponIdentification currentWeapon;
     public int inventorySize;
-    public int initialWeapon = 0;
     public float dropForce = 10f;
-    private int weaponIndex = -1;
+    private int weaponIndex = 0;
 
     [Header("Animation")]
     public Animator animator;
@@ -23,6 +24,7 @@ public class Inventory : MonoBehaviour
     public GameObject pickupPrefab;
     public WeaponController wc;
     public static Inventory instance;
+    public Action OnEquipWeapon;
 
     private void Awake()
     {
@@ -31,16 +33,12 @@ public class Inventory : MonoBehaviour
 
     private void Start()
     {
-        weapons = new List<WeaponIdentification>();
-
-        weapons = GetComponentsInChildren<WeaponIdentification>(true).ToList();
-
-        // equip at start
-        foreach (var weapon in weapons)
+        // instantiate weapon
+        foreach (var weapon in initialWeapons)
         {
-            weapon.gameObject.SetActive(false);
+            PickupWeapon(weapon);
         }
-        Equip(initialWeapon);
+        Equip(weaponIndex);
     }
 
     private void Update()
@@ -132,6 +130,8 @@ public class Inventory : MonoBehaviour
         currentWeapon.gameObject.SetActive(true);
         wc.GetWeaponData(currentWeapon);
 
+        OnEquipWeapon?.Invoke();
+
         //play take out sound
         wc.mainAudioSource.clip = currentWeapon.wd.soundClips.takeOutSound;
         wc.mainAudioSource.Play();
@@ -149,6 +149,7 @@ public class Inventory : MonoBehaviour
         //create new gun
         var weaponGO = Instantiate(weaponSO.gunPrefab, this.transform);
         var newWeapon = weaponGO.GetComponent<WeaponIdentification>();
+        newWeapon.Initialize(this);
         //add to inventory and hide it
         weapons.Add(newWeapon);
         newWeapon.gameObject.SetActive(false);

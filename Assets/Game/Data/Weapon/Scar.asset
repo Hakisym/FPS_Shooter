@@ -22,7 +22,7 @@ MonoBehaviour:
     magazineSize: 20
     fireRate: 600
     reloadTime: 2
-    bulletImpactForce: 50
+    bulletImpactForce: 100
     bulletSpeed: 1000
     bulletDrop: 0
     bulletRange: 100
@@ -31,19 +31,19 @@ MonoBehaviour:
     timeBetweenShots: 0
     allowButtonHold: 1
   aimParameters:
-    aimPosition: {x: 0.001, y: -0.185, z: 0.166}
+    aimPosition: {x: -0.096, y: 0.043, z: -0.009999999}
     aimRotation: {x: 0, y: 0, z: 0}
     smoothTime: 0.05
     smoothRotation: 6
   weaponRecoilParameters:
-    recoilRotation: {x: 3, y: 0, z: 0}
-    recoilKickback: {x: 0, y: 0, z: -0.1}
-    recoilRotationAim: {x: 0.5, y: 0.5, z: 0.5}
-    recoilKickbackAim: {x: 0, y: -0.01, z: -0.05}
-    positionalRecoilSpeed: 28
-    rotationalRecoilSpeed: 18
-    positionalReturnSpeed: 23
-    rotationalReturnSpeed: 8
+    recoilRotation: {x: 1, y: 1, z: 2}
+    recoilKickback: {x: 0.015, y: 0.02, z: -0.07}
+    recoilRotationAim: {x: 5, y: 5, z: 1}
+    recoilKickbackAim: {x: 0, y: 0, z: -0.05}
+    positionalRecoilSpeed: 20
+    rotationalRecoilSpeed: 20
+    positionalReturnSpeed: 20
+    rotationalReturnSpeed: 20
   cameraRecoilParameters:
     type: 1
     rotationSpeed: 10
@@ -118,7 +118,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     xRecoilAmount: 10
     yRecoilAmount: 10
-  camShakeIntensity: 0.5
+  camShakeIntensity: 0.3
   muzzleFlashSizeMultiplier: 0
   soundClips:
     shootSound: {fileID: 8300000, guid: 4c22c9d7cc76c414995201a6fb37b0c3, type: 3}

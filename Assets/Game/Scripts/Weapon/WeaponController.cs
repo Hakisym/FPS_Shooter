@@ -7,12 +7,12 @@ using Random = UnityEngine.Random;
 public class WeaponController : MonoBehaviour
 {
     [Header("WeaponData")]
-    public WeaponData wd;
+    [HideInInspector]public WeaponData wd;
 
     [Header("Gun states")]
     [HideInInspector]public bool reloading, aiming;
-    public bool canShoot;
-    public bool shootState;
+    [HideInInspector] public bool canShoot;
+    [HideInInspector] public bool shootState;
     private bool shooting;
     private bool readyToShoot;
 
@@ -45,8 +45,6 @@ public class WeaponController : MonoBehaviour
     private float maxLifetime = 3.0f;
     private List<Bullet> bullets = new List<Bullet>();
 
-    public Action<WeaponIdentification> OnWeaponEquip;
-
     private void Awake()
     {
         readyToShoot = true;
@@ -76,8 +74,7 @@ public class WeaponController : MonoBehaviour
         //attach muzzle flash
         muzzleFlash.GetComponent<WeaponMuzzleFlash>().AttachMuzzleFlash(muzzlePoint);
 
-        //trigger event
-        OnWeaponEquip?.Invoke(wid);
+        weaponRecoil = wid.GetComponentInChildren<WeaponRecoil>();
 
         shootSound = wd.soundClips.shootSound;
         bulletsLeft = wd.gunStats.magazineSize;
@@ -110,6 +107,7 @@ public class WeaponController : MonoBehaviour
     {
         readyToShoot = false;
         shootState = true;
+        CancelInvoke("ResetShootMode");
 
         //Spread
         float bulletSpread;
@@ -140,19 +138,23 @@ public class WeaponController : MonoBehaviour
             //hit damageable
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("EnemyHit"))
             {
-                hit.collider.GetComponentInParent<HealthManager>().TakeDamage(wd.gunStats.damage, wd.gunStats.bulletImpactForce, dir, hit.collider);
+                hit.collider.GetComponentInParent<IDamageable>().TakeDamage(wd.gunStats.damage, new DamageInfo(wd.gunStats.bulletImpactForce, dir, hit.collider));
             }
-            bulletDir = (hit.point - muzzlePoint.position).normalized;
+
+            //bullet impact hit
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Environment"))
+                PoolManager.instance.SpawnGameObject(PoolTag.BulletImpact, hit.point, Quaternion.LookRotation(hit.normal));
+
+            //bulletDir = (hit.point - muzzlePoint.position).normalized;
             //Debug.DrawLine(playerCam.transform.position, hit.point, Color.red, 3.0f);
         }
         else
         {
             bulletDir = (HenryUtilities.GetDirectionToCenterScreen() + spread).normalized;
+            //render the bullet from the muzzle
+            var bullet = new Bullet(muzzlePoint.position, bulletDir * wd.gunStats.bulletSpeed, true, this);
+            bullets.Add(bullet);
         }
-
-        //render the bullet from the muzzle
-        var bullet = new Bullet(muzzlePoint.position, bulletDir * wd.gunStats.bulletSpeed, true, this);
-        bullets.Add(bullet);
 
         //muzzle flash
         muzzleFlash.Play();
@@ -256,10 +258,6 @@ public class WeaponController : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(start, direction, out hit, distance, whatIsShootable))
         {
-            //bullet impact hit
-            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Environment"))
-                PoolManager.instance.SpawnGameObject(PoolTag.BulletImpact, hit.point, Quaternion.LookRotation(hit.normal));
-
             bullet.UpdateTracer(hit.point);
             bullet.time = maxLifetime;
         }

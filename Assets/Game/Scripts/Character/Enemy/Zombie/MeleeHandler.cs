@@ -16,7 +16,8 @@ public class MeleeHandler : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            other.GetComponent<HealthManager>().TakeDamage(attack.regularDamage, attack.knockForce, other.transform.position - enemy.transform.position);
+            DamageInfo info = new DamageInfo(attack.knockForce, other.transform.position - enemy.transform.position, other);
+            other.GetComponent<IDamageable>().TakeDamage(attack.regularDamage, info);
         }
     }
 }
