@@ -31,9 +31,9 @@ MonoBehaviour:
     timeBetweenShots: 0
     allowButtonHold: 1
   aimParameters:
-    aimPosition: {x: -0.09599997, y: 0.06, z: -0.1}
+    aimPosition: {x: -0.097, y: 0.06, z: -0.15}
     aimRotation: {x: 0, y: 0, z: 0}
-    smoothTime: 0.05
+    smoothTime: 0.1
     smoothRotation: 6
   weaponRecoilParameters:
     recoilRotation: {x: 1, y: 1, z: 2}

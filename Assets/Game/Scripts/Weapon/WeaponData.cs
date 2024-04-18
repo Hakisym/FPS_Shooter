@@ -11,9 +11,6 @@ public class WeaponData : ScriptableObject
     public GameObject pickUpGraphics;
     public GunStats gunStats;
 
-    [Header("Aim Settings")]
-    public AimParameters aimParameters;
-
     [Header("Recoil Settings")]
     public WeaponRecoilParameters weaponRecoilParameters;
     public CameraRecoilParameters cameraRecoilParameters;
@@ -60,15 +57,6 @@ public class WeaponData : ScriptableObject
         public AnimationCurve recoilX;
         public AnimationCurve recoilY;
         public float xRecoilAmount, yRecoilAmount;
-    }
-
-    [System.Serializable]
-    public class AimParameters
-    {
-        public Vector3 aimPosition;
-        public Vector3 aimRotation;
-        public float smoothTime;
-        public float smoothRotation;
     }
 
     [System.Serializable]

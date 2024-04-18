@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class WeaponAiming : WeaponMotionBase
 {
+    public Vector3 aimPosition;
+    public Vector3 aimRotation;
+    public float smoothTime;
+    public float smoothRotation;
+
     private Vector3 originalPosition;
     private Quaternion originalRotation;
     private Vector3 velocity;
@@ -19,16 +24,14 @@ public class WeaponAiming : WeaponMotionBase
     // Update is called once per frame
     void Update()
     {
-        bool isAiming = Input.GetMouseButton(1);
         Vector3 finalPosition;
         Quaternion finalRotation;
 
         //Update transform to aim position & rotation
-        if (isAiming)
+        if (wc.aiming)
         {
-            finalPosition = wid.wd.aimParameters.aimPosition;
-            finalRotation = Quaternion.Euler(wid.wd.aimParameters.aimRotation);
-            wc.aiming = true;
+            finalPosition = aimPosition;
+            finalRotation = Quaternion.Euler(aimRotation);
 
             //play aim sound
             if (!soundHasPlayed)
@@ -42,14 +45,14 @@ public class WeaponAiming : WeaponMotionBase
         {
             finalPosition = originalPosition;
             finalRotation = originalRotation;
-            wc.aiming = false;
+
             //reset aim sound
             soundHasPlayed = false;
         }
 
         //Smooth interpolate
-        target.localPosition = Vector3.SmoothDamp(target.localPosition, finalPosition, ref velocity, wid.wd.aimParameters.smoothTime);
-        target.localRotation = Quaternion.Slerp(target.localRotation, finalRotation, Time.deltaTime * wid.wd.aimParameters.smoothRotation);
+        target.localPosition = Vector3.SmoothDamp(target.localPosition, finalPosition, ref velocity, smoothTime);
+        target.localRotation = Quaternion.Slerp(target.localRotation, finalRotation, Time.deltaTime * smoothRotation);
 
     }
 }

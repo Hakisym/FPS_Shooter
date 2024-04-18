@@ -3558,6 +3558,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1700024201611054509, guid: 697ef857e7c44a44aaf2aa0f3ea4867e,
+        type: 3}
+      propertyPath: field of view
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 1700024202281320399, guid: 697ef857e7c44a44aaf2aa0f3ea4867e,
         type: 3}
       propertyPath: prefabHolder
@@ -3622,6 +3627,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FirstPersonPlayer
+      objectReference: {fileID: 0}
+    - target: {fileID: 1700024202367906406, guid: 697ef857e7c44a44aaf2aa0f3ea4867e,
+        type: 3}
+      propertyPath: field of view
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 5947225732923237604, guid: 697ef857e7c44a44aaf2aa0f3ea4867e,
+        type: 3}
+      propertyPath: aimingFOV
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5947225732923237604, guid: 697ef857e7c44a44aaf2aa0f3ea4867e,
+        type: 3}
+      propertyPath: sprintingFOV
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5947225732923237604, guid: 697ef857e7c44a44aaf2aa0f3ea4867e,
+        type: 3}
+      propertyPath: cameraFovSmoothing
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 697ef857e7c44a44aaf2aa0f3ea4867e, type: 3}

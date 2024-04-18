@@ -86,6 +86,8 @@ public class WeaponController : MonoBehaviour
         if(wd.gunStats.allowButtonHold) shooting = Input.GetKey(KeyCode.Mouse0);
         else shooting = Input.GetKeyDown(KeyCode.Mouse0);
 
+        aiming = Input.GetMouseButton(1);
+
         if (Input.GetKeyDown(KeyCode.R) && !reloading && bulletsLeft < wd.gunStats.magazineSize && !inventory.switching) Reload();
 
         if (readyToShoot && shooting && !reloading && bulletsLeft > 0 && !inventory.switching)
