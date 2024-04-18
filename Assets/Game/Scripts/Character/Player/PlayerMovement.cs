@@ -106,7 +106,7 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = transform.right * mouseX + transform.forward * mouseY;
 
         // Sprint input
-        if (Input.GetKeyDown(KeyCode.LeftShift) && isGrounded && moveDirection.sqrMagnitude > 0 && !wc.aiming && !wc.shootState)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && isGrounded && moveDirection.sqrMagnitude > 0)
             isSprinting = !isSprinting;
 
         // Crouch input
@@ -135,11 +135,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Sprint()
     {
-        if (moveDirection.sqrMagnitude <= 0 || wc.aiming || wc.shootState)
-        {
-            //set sprinting to false
-            isSprinting = false;
-        }
+        if (moveDirection.sqrMagnitude <= 0 || wc.shootState || Input.GetMouseButtonDown(1)) isSprinting = false;
     }
 
     private void HandleVelocity()

@@ -3565,6 +3565,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1700024202281320399, guid: 697ef857e7c44a44aaf2aa0f3ea4867e,
         type: 3}
+      propertyPath: pm
+      value: 
+      objectReference: {fileID: 575094083}
+    - target: {fileID: 1700024202281320399, guid: 697ef857e7c44a44aaf2aa0f3ea4867e,
+        type: 3}
       propertyPath: prefabHolder
       value: 
       objectReference: {fileID: 948097431}
@@ -3641,7 +3646,7 @@ PrefabInstance:
     - target: {fileID: 5947225732923237604, guid: 697ef857e7c44a44aaf2aa0f3ea4867e,
         type: 3}
       propertyPath: sprintingFOV
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5947225732923237604, guid: 697ef857e7c44a44aaf2aa0f3ea4867e,
         type: 3}

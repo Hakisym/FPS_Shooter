@@ -159,7 +159,7 @@ MonoBehaviour:
   target: {fileID: 559509382328221341}
   sprintPosition: {x: -0.07, y: -0.07, z: -0.04}
   sprintRotation: {x: 12.2, y: -21.6, z: 30.1}
-  sprintSpeed: 3
+  sprintSpeed: 8
 --- !u!1 &573339908886308818
 GameObject:
   m_ObjectHideFlags: 0

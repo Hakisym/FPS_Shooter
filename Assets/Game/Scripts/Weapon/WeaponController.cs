@@ -13,8 +13,8 @@ public class WeaponController : MonoBehaviour
     [HideInInspector]public bool reloading, aiming;
     [HideInInspector] public bool canShoot;
     [HideInInspector] public bool shootState;
-    private bool shooting;
     private bool readyToShoot;
+    private bool shooting;
 
     [Header("Reference")]
     public Camera playerCam;
@@ -27,6 +27,7 @@ public class WeaponController : MonoBehaviour
     public CameraRecoil cameraRecoil;
     public WeaponRecoil weaponRecoil;
     public Inventory inventory;
+    public PlayerMovement pm;
 
     [Header("Visuals")]
     public ParticleSystem muzzleFlashPrefab;
@@ -86,7 +87,7 @@ public class WeaponController : MonoBehaviour
         if(wd.gunStats.allowButtonHold) shooting = Input.GetKey(KeyCode.Mouse0);
         else shooting = Input.GetKeyDown(KeyCode.Mouse0);
 
-        aiming = Input.GetMouseButton(1);
+        aiming = Input.GetMouseButton(1) && !pm.isSprinting;
 
         if (Input.GetKeyDown(KeyCode.R) && !reloading && bulletsLeft < wd.gunStats.magazineSize && !inventory.switching) Reload();
 
@@ -97,9 +98,7 @@ public class WeaponController : MonoBehaviour
         }
 
         if (reloading || bulletsLeft <= 0 || inventory.switching)
-        {
             canShoot = false;
-        }
 
         if (Input.GetKeyDown(KeyCode.Backspace) && !reloading)
             inventory.DropGun();
@@ -185,7 +184,6 @@ public class WeaponController : MonoBehaviour
         bulletsShot--;
 
         Invoke("ResetShoot", timeBetweenShooting);
-        Invoke("ResetShootMode", timeBetweenShooting * 2);
 
         if (bulletsShot > 0 && bulletsLeft > 0)
             Invoke("Shoot", wd.gunStats.timeBetweenShots);
@@ -194,10 +192,6 @@ public class WeaponController : MonoBehaviour
     private void ResetShoot()
     {
         readyToShoot = true;
-    }
-
-    private void ResetShootMode()
-    {
         shootState = false;
     }
 

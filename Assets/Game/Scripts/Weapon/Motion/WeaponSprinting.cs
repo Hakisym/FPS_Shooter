@@ -11,7 +11,7 @@ public class WeaponSprinting : WeaponMotionBase
     private Vector3 originalPosition;
     private Quaternion originalRotation;
     private PlayerMovement pm;
-    private float multiplier;
+    private float multiplier = 1f;
 
     // Start is called before the first frame update
     void Start()
@@ -33,13 +33,11 @@ public class WeaponSprinting : WeaponMotionBase
         {
             finalPosition = sprintPosition;
             finalRotation = Quaternion.Euler(sprintRotation);
-            multiplier = 1f;
         }
         else
         {
             finalPosition = originalPosition;
             finalRotation = originalRotation;
-            multiplier = 3f;
         }
 
         //Smooth interpolate
