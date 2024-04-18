@@ -31,7 +31,8 @@ public class WeaponController : MonoBehaviour
 
     [Header("Visuals")]
     public ParticleSystem muzzleFlashPrefab;
-    public GameObject bulletImpact;
+    public GameObject metalImpact;
+    public GameObject bloodImpact;
     public TrailRenderer bulletTrail;
     public GameObject bulletCasting;
 
@@ -139,6 +140,7 @@ public class WeaponController : MonoBehaviour
             //hit damageable
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("EnemyHit"))
             {
+                Instantiate(bloodImpact, hit.point, Quaternion.LookRotation(hit.normal),prefabHolder);
                 hit.collider.GetComponentInParent<IDamageable>().TakeDamage(wd.gunStats.damage, new DamageInfo(wd.gunStats.bulletImpactForce, dir, hit.collider));
             }
 
