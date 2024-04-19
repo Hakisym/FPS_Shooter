@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - Head
+  - CinemachineTarget
   layers:
   - Default
   - TransparentFX
@@ -21,8 +22,8 @@ TagManager:
   - EnemyHit
   - WeaponPickup
   - WeaponGraphics
-  - 
-  - 
+  - Post-Processing
+  - Post-Processing Overlay
   - 
   - 
   - 

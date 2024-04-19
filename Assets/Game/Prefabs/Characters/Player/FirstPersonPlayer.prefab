@@ -76,6 +76,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1700024201611054511}
   - {fileID: 1700024202367906405}
   m_Father: {fileID: 1700024201625776518}
   m_RootOrder: 0
@@ -123,12 +124,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1700024201611054672}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1700024202367906405}
+  m_Father: {fileID: 1700024201428482309}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &1700024201611054509
@@ -344,10 +345,11 @@ MonoBehaviour:
   cameraRecoil: {fileID: 7916176192214243588}
   weaponRecoil: {fileID: 0}
   inventory: {fileID: 1700024203204091686}
+  pm: {fileID: 0}
   muzzleFlashPrefab: {fileID: 922667349486198889, guid: 57df8819997956c4bb120cc891563b80,
     type: 3}
-  bulletImpact: {fileID: 1709698631529194, guid: 72b8f08b2b4dbbc439ccbb6402928ad1,
-    type: 3}
+  metalImpact: {fileID: 0}
+  bloodImpact: {fileID: 0}
   bulletTrail: {fileID: 8307662755226880606, guid: 7f4575879a32f1b429f2ce2940423983,
     type: 3}
   bulletCasting: {fileID: 8360084055759571751, guid: 47e2dad834f38dc43a2622d3db1e283b,
@@ -754,10 +756,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1700024201611054511}
+  m_Children: []
   m_Father: {fileID: 1700024201428482309}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &1700024202367906406
 Camera:
@@ -787,7 +788,7 @@ Camera:
   field of view: 90
   orthographic: 0
   orthographic size: 5
-  m_Depth: -1
+  m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 12791
@@ -834,11 +835,11 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 2
   m_AntialiasingQuality: 2
-  m_StopNaN: 0
-  m_Dithering: 0
+  m_StopNaN: 1
+  m_Dithering: 1
   m_ClearDepth: 1
   m_AllowXRRendering: 1
   m_RequiresDepthTexture: 0

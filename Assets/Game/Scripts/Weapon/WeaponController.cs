@@ -21,7 +21,7 @@ public class WeaponController : MonoBehaviour
     public Transform prefabHolder;
     public Transform muzzlePoint;
     public Transform castingPoint;
-    public ParticleSystem muzzleFlash;
+    public ParticleSystem[] muzzleVFX;
     public LayerMask whatIsShootable;
     public Animator animator;
     public CameraRecoil cameraRecoil;
@@ -30,7 +30,6 @@ public class WeaponController : MonoBehaviour
     public PlayerMovement pm;
 
     [Header("Visuals")]
-    public ParticleSystem muzzleFlashPrefab;
     public GameObject metalImpact;
     public GameObject bloodImpact;
     public TrailRenderer bulletTrail;
@@ -51,7 +50,6 @@ public class WeaponController : MonoBehaviour
     {
         readyToShoot = true;
         canShoot = true;
-        muzzleFlash = Instantiate(muzzleFlashPrefab, this.transform);
     }
 
     private void Update()
@@ -74,7 +72,7 @@ public class WeaponController : MonoBehaviour
         castingPoint = wid.castPoint;
 
         //attach muzzle flash
-        muzzleFlash.GetComponent<WeaponMuzzleFlash>().AttachMuzzleFlash(muzzlePoint);
+        muzzleVFX = muzzlePoint.GetComponentsInChildren<ParticleSystem>();
 
         weaponRecoil = wid.GetComponentInChildren<WeaponRecoil>();
 
@@ -160,7 +158,8 @@ public class WeaponController : MonoBehaviour
         }
 
         //muzzle flash
-        muzzleFlash.Play();
+        foreach (var particle in muzzleVFX)
+            particle.Play();
 
         //bullet cast
         Instantiate(bulletCasting, castingPoint.position, castingPoint.rotation, prefabHolder);

@@ -169,8 +169,6 @@ public class Inventory : MonoBehaviour
 
         //delete from inventory
         weapons.Remove(currentWeapon);
-        //detach muzzle flash
-        wc.muzzleFlash.GetComponent<WeaponMuzzleFlash>().DetachMuzzleFlash(this.transform);
 
         Destroy(currentWeapon.gameObject);
         currentWeapon = null;

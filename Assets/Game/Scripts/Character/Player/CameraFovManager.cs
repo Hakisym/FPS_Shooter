@@ -22,7 +22,7 @@ public class CameraFovManager : MonoBehaviour
     private void Awake()
     {
         mainCamera = GetComponent<Camera>();
-        weaponCamera = transform.Find("WeaponCamera").GetComponent<Camera>();
+        weaponCamera = transform.parent.Find("WeaponCamera").GetComponent<Camera>();
         originalMainFov = mainCamera.fieldOfView;
         originalWeaponFov = weaponCamera.fieldOfView;
     }
