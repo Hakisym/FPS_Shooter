@@ -17,7 +17,6 @@ public class WeaponData : ScriptableObject
 
     [Header("Visual")]
     public float camShakeIntensity;
-    public float muzzleFlashSizeMultiplier;
 
     [Header("Audio")]
     public AudioClips soundClips;

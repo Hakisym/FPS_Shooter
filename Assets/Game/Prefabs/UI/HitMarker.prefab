@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitSoundEffect: {fileID: 8300000, guid: 8aef3901183fc4a4080331204c72def1, type: 3}
+  hitMark: {fileID: 2145545527080950913}
   despawnTime: 1
 --- !u!1 &2145545527080950919
 GameObject:
@@ -64,6 +65,7 @@ GameObject:
   - component: {fileID: 2145545527080950914}
   - component: {fileID: 2145545527080950913}
   - component: {fileID: 4218158044586101338}
+  - component: {fileID: 1569380766659372598}
   m_Layer: 5
   m_Name: HitMarker
   m_TagString: Untagged
@@ -149,6 +151,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!225 &1569380766659372598
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2145545527080950919}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2145545528796206495
 GameObject:
   m_ObjectHideFlags: 0
@@ -174,7 +188,7 @@ RectTransform:
   m_GameObject: {fileID: 2145545528796206495}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.49999997, y: 0.49999997, z: 0.49999997}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2145545527080950912}

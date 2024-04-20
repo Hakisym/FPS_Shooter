@@ -16,8 +16,8 @@ public class InteractManager : MonoBehaviour
         {
             //show object UI
             var interactGO = raycastHit.transform.GetComponent<Interactable>();
-            UIController.instance.InteractUI.gameObject.SetActive(true);
-            UIController.instance.interactionName.text = interactGO.name;
+            UIManager.instance.InteractUI.gameObject.SetActive(true);
+            UIManager.instance.InteractUI.interactionName.text = interactGO.name;
 
             //interact
             if (Input.GetKeyDown(KeyCode.E))
@@ -28,7 +28,7 @@ public class InteractManager : MonoBehaviour
         else
         {
             //hide object UI
-            UIController.instance.InteractUI.gameObject.SetActive(false);
+            UIManager.instance.InteractUI.gameObject.SetActive(false);
         }
     }
 }

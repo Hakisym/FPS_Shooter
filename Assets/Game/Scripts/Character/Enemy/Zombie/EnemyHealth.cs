@@ -9,15 +9,14 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     public int maxHealth;
     public bool dead;
     public Action OnDie;
-    public float ragdollShootForce = 100f;
 
-    private int bodyHealth;
-    private int headHealth;
+    private int currentHealth;
+    private float ragdollShootForce = 100f;
+    private float headshotMultiplier = 1.5f;
 
     private void Start()
     {
-        bodyHealth = maxHealth;
-        headHealth = (int)(maxHealth / 3f);
+        currentHealth = maxHealth;
 
         //Disable ragdoll physics
         foreach (var member in GetComponentsInChildren<Rigidbody>())
@@ -31,31 +30,36 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         //Count body and head HP individually
         if (info.bodyPart.CompareTag("Head"))
         {
-            headHealth -= amount;
+            currentHealth -= (int)(amount * headshotMultiplier);
         }
         else
         {
-            bodyHealth -= amount;
+            currentHealth -= amount;
         }
 
-        if (headHealth <= 0 || bodyHealth <= 0)
+        if (currentHealth <= 0)
         {
             if (!dead)
             {
+                UIManager.instance.OnEnemyHit.Invoke(true,true);
                 Die();
                 info.bodyPart.GetComponent<Rigidbody>().AddForce(info.direction.normalized * info.force, ForceMode.Impulse);
             }
-            else info.bodyPart.GetComponent<Rigidbody>().AddForce(info.direction.normalized * ragdollShootForce, ForceMode.Impulse);
+            else
+            {
+                UIManager.instance.OnEnemyHit.Invoke(false, false);
+                info.bodyPart.GetComponent<Rigidbody>().AddForce(info.direction.normalized * ragdollShootForce, ForceMode.Impulse);
+            }
         }
-
-        if (!dead) UIController.instance.OnEnemyHit.Invoke();
+        else
+            UIManager.instance.OnEnemyHit.Invoke(false,true);
     }
 
     private void Die()
     {
         OnDie?.Invoke();
 
-        UIController.instance.OnEnemyKill.Invoke();
+        UIManager.instance.OnEnemyKill.Invoke();
 
         //Destroy enemy scripts and navmesh
         foreach (var mb in this.GetComponents<MonoBehaviour>())

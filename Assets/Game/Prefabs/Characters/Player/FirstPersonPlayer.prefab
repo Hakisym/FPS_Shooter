@@ -157,7 +157,7 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 1000
-  field of view: 75
+  field of view: 60
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -195,7 +195,7 @@ MonoBehaviour:
   m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 32768
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 1
@@ -337,7 +337,7 @@ MonoBehaviour:
   prefabHolder: {fileID: 0}
   muzzlePoint: {fileID: 0}
   castingPoint: {fileID: 0}
-  muzzleFlash: {fileID: 0}
+  muzzleVFX: []
   whatIsShootable:
     serializedVersion: 2
     m_Bits: 2112
@@ -345,11 +345,11 @@ MonoBehaviour:
   cameraRecoil: {fileID: 7916176192214243588}
   weaponRecoil: {fileID: 0}
   inventory: {fileID: 1700024203204091686}
-  pm: {fileID: 0}
-  muzzleFlashPrefab: {fileID: 922667349486198889, guid: 57df8819997956c4bb120cc891563b80,
+  pm: {fileID: 1700024202281320435}
+  metalImpact: {fileID: 1709698631529194, guid: 72b8f08b2b4dbbc439ccbb6402928ad1,
     type: 3}
-  metalImpact: {fileID: 0}
-  bloodImpact: {fileID: 0}
+  bloodImpact: {fileID: 6898028267083706492, guid: 6243fad3610020f4c9307c7ba631a1f5,
+    type: 3}
   bulletTrail: {fileID: 8307662755226880606, guid: 7f4575879a32f1b429f2ce2940423983,
     type: 3}
   bulletCasting: {fileID: 8360084055759571751, guid: 47e2dad834f38dc43a2622d3db1e283b,
@@ -785,7 +785,7 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 1000
-  field of view: 90
+  field of view: 60
   orthographic: 0
   orthographic size: 5
   m_Depth: 1
@@ -832,7 +832,7 @@ MonoBehaviour:
   m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 16384
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 1
@@ -858,8 +858,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprintingFOV: 0
-  aimingFOV: -20
-  cameraFovSmoothing: 20
+  aimingFOV: -10
+  cameraFovSmoothing: 10
   pm: {fileID: 1700024202281320435}
   wc: {fileID: 1700024202281320399}
 --- !u!114 &1866357341

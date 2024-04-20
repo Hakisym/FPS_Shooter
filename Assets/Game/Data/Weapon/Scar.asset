@@ -30,23 +30,18 @@ MonoBehaviour:
     bulletsPerTap: 1
     timeBetweenShots: 0
     allowButtonHold: 1
-  aimParameters:
-    aimPosition: {x: -0.096, y: 0.043, z: -0.1}
-    aimRotation: {x: 0, y: 0, z: 0}
-    smoothTime: 0.1
-    smoothRotation: 6
   weaponRecoilParameters:
     recoilRotation: {x: 1, y: 1, z: 2}
-    recoilKickback: {x: 0.015, y: 0.02, z: -0.07}
+    recoilKickback: {x: 0, y: 0, z: -0.07}
     recoilRotationAim: {x: 1, y: 1, z: 1}
     recoilKickbackAim: {x: 0, y: 0, z: -0.05}
     positionalRecoilSpeed: 20
     rotationalRecoilSpeed: 20
-    positionalReturnSpeed: 20
-    rotationalReturnSpeed: 20
+    positionalReturnSpeed: 10
+    rotationalReturnSpeed: 10
   cameraRecoilParameters:
     type: 1
-    rotationSpeed: 10
+    rotationSpeed: 20
     returnSpeed: 5
     recoilRotation: {x: 0, y: 0, z: 0}
     recoilRotationAiming: {x: 0, y: 0, z: 0}
@@ -118,8 +113,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     xRecoilAmount: 10
     yRecoilAmount: 10
-  camShakeIntensity: 0.3
-  muzzleFlashSizeMultiplier: 0
+  camShakeIntensity: 0.4
   soundClips:
     shootSound: {fileID: 8300000, guid: 4c22c9d7cc76c414995201a6fb37b0c3, type: 3}
     holsterSound: {fileID: 8300000, guid: 8c448a769001a1d439bea75de9da7205, type: 3}

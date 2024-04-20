@@ -116,13 +116,13 @@ public class WeaponController : MonoBehaviour
         else
         {
             //stand spread
-            if (UIController.instance.crosshair.locomotionSpread == UIController.instance.crosshair.defaultSpread)
-                bulletSpread = (UIController.instance.crosshair.bulletSpread + wd.gunStats.bulletAccuracy) / 1000;
+            if (UIManager.instance.crosshair.locomotionSpread == UIManager.instance.crosshair.defaultSpread)
+                bulletSpread = (UIManager.instance.crosshair.bulletSpread + wd.gunStats.bulletAccuracy) / 1000;
             //crouch spread
-            else if (UIController.instance.crosshair.locomotionSpread == UIController.instance.crosshair.crouchSpread)
-                bulletSpread = (UIController.instance.crosshair.bulletSpread + wd.gunStats.bulletAccuracy) / 1200;
+            else if (UIManager.instance.crosshair.locomotionSpread == UIManager.instance.crosshair.crouchSpread)
+                bulletSpread = (UIManager.instance.crosshair.bulletSpread + wd.gunStats.bulletAccuracy) / 1200;
             else
-                bulletSpread = UIController.instance.crosshair.spread / 500;
+                bulletSpread = UIManager.instance.crosshair.spread / 500;
         }
 
         var spread = HenryUtilities.GetSpreadDirection(bulletSpread / 2, playerCam);
@@ -165,7 +165,7 @@ public class WeaponController : MonoBehaviour
         Instantiate(bulletCasting, castingPoint.position, castingPoint.rotation, prefabHolder);
 
         //crosshair
-        UIController.instance.crosshair.Fire();
+        UIManager.instance.crosshair.Fire();
 
         //cam shake
         CamShake.instance.ShootShake(wd.camShakeIntensity);
