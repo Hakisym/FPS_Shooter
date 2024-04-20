@@ -15,7 +15,6 @@ public class UIManager : MonoBehaviour
     [HideInInspector] public CrossHair crosshair;
     [HideInInspector] public InteractHUD InteractUI;
     private HitMarker hitMarker;
-    private CenterHUD centerHUD;
 
     public static UIManager instance;
 
@@ -28,10 +27,8 @@ public class UIManager : MonoBehaviour
         crosshair = GetComponentInChildren<CrossHair>();
         InteractUI = GetComponentInChildren<InteractHUD>();
         hitMarker = GetComponentInChildren<HitMarker>();
-        centerHUD = GetComponentInChildren<CenterHUD>();
 
         InteractUI.gameObject.SetActive(false);
-        centerHUD.gameObject.SetActive(false);
     }
 
     private void OnEnable()
@@ -48,7 +45,8 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        if (Crosshair) crosshair.gameObject.SetActive(true);
+        crosshair.gameObject.SetActive(Crosshair);
+        hitMarker.enableKillMarker = KillMarker;
     }
 
     private void HandleHitMarker(bool isKill,bool showMarker)

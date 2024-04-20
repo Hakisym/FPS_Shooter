@@ -39,9 +39,10 @@ public class WeaponSprinting : WeaponMotionBase
             finalPosition = originalPosition;
             finalRotation = originalRotation;
         }
+        var curMpr = wc.aiming ? multiplier * 3f : multiplier;
 
         //Smooth interpolate
-        target.localPosition = Vector3.Slerp(target.localPosition, finalPosition, Time.deltaTime * sprintSpeed * multiplier);
-        target.localRotation = Quaternion.Slerp(target.localRotation, finalRotation, Time.deltaTime * sprintSpeed * multiplier);
+        target.localPosition = Vector3.Slerp(target.localPosition, finalPosition, Time.deltaTime * sprintSpeed * curMpr);
+        target.localRotation = Quaternion.Slerp(target.localRotation, finalRotation, Time.deltaTime * sprintSpeed * curMpr);
     }
 }

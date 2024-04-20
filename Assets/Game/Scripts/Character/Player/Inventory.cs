@@ -12,6 +12,7 @@ public class Inventory : MonoBehaviour
     public WeaponIdentification currentWeapon;
     public int inventorySize;
     public float dropForce = 10f;
+    public Transform dropPoint;
     private int weaponIndex = 0;
 
     [Header("Animation")]
@@ -163,8 +164,8 @@ public class Inventory : MonoBehaviour
         if (switching || weapons.Count <= 1) return;
 
         //spawn pickup GO
-        var pickupGO = Instantiate(pickupPrefab,transform.position,Quaternion.identity);
-        pickupGO.GetComponent<Rigidbody>().AddForce(transform.forward.normalized * dropForce, ForceMode.Impulse);
+        var pickupGO = Instantiate(pickupPrefab, dropPoint.position, dropPoint.rotation);
+        pickupGO.GetComponent<Rigidbody>().AddForce(dropPoint.forward * dropForce, ForceMode.Impulse);
         pickupGO.GetComponent<WeaponPickable>().weaponData = currentWeapon.wd;
 
         //delete from inventory

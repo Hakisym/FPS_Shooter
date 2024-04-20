@@ -6,7 +6,9 @@ public class CameraFovManager : MonoBehaviour
 {
     [Header("FovStats")]
     public float sprintingFOV = 10f;
+    public float sprintingFOVOverlay = 10f;
     public float aimingFOV = -10f;
+    public float aimingFOVOverlay = -10f;
     public float cameraFovSmoothing = 5f;
     [Space]
     public PlayerMovement pm;
@@ -32,12 +34,12 @@ public class CameraFovManager : MonoBehaviour
         if (pm.isSprinting)
         {
             currentMainFov = originalMainFov + sprintingFOV;
-            currentWeaponFov = originalWeaponFov + sprintingFOV;
+            currentWeaponFov = originalWeaponFov + sprintingFOVOverlay;
         }
         else if (wc.aiming)
         {
             currentMainFov = originalMainFov + aimingFOV;
-            currentWeaponFov = originalWeaponFov + aimingFOV;
+            currentWeaponFov = originalWeaponFov + aimingFOVOverlay;
         }
         else
         {

@@ -7,8 +7,9 @@ public class HitMarker : MonoBehaviour
 {
     public AudioClip hitSoundEffect;
     public Image hitMark;
-    private Animator animator;
     public float despawnTime;
+    public bool enableKillMarker;
+    private Animator animator;
 
     private void Awake()
     {
@@ -19,7 +20,7 @@ public class HitMarker : MonoBehaviour
     {
         if (enableHUD)
         {
-            hitMark.color = killed ? Color.red : Color.white;
+            hitMark.color = killed && enableKillMarker ? Color.red : Color.white;
 
             animator.Play("Hit", 0, 0f);
         }
