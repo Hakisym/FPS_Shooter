@@ -16,8 +16,12 @@ public class PlayerHealth : MonoBehaviour,IDamageable
 
     public void TakeDamage(int amount, DamageInfo info)
     {
+        UIManager.instance.OnReceiveDamage();
+
         currentHealth -= amount;
-        impactManager.AddImpact(info.direction, info.force);
+
+        if(info!=null) impactManager.AddImpact(info.direction, info.force);
+
         if (currentHealth <= 0)
         {
             Debug.Log("Player is dead!");

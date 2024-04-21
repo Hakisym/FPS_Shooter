@@ -26,6 +26,7 @@ public class CrossHair : MonoBehaviour
     public float spread;
     public float locomotionSpread;
     public float bulletSpread;
+    public bool enableCrosshair;
 
     public Parts parts;
 
@@ -71,7 +72,7 @@ public class CrossHair : MonoBehaviour
 
     private void OnGUI()
     {
-        if (weaponController.aiming) return;
+        if (weaponController.aiming || !enableCrosshair) return;
 
         Texture2D texture = new Texture2D(1, 1);
         texture.SetPixel(0, 0, Color.white);

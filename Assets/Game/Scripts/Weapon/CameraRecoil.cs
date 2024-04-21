@@ -22,7 +22,11 @@ public class CameraRecoil : MonoBehaviour
 
         if (wc.canShoot && wc.shootState)
             if (wc.wd.cameraRecoilParameters.type == RecoilType.Curve)
-                currentRotation = new Vector3(-wc.wd.cameraRecoilParameters.recoilY.Evaluate(evaluationProgress) * wc.wd.cameraRecoilParameters.yRecoilAmount, -wc.wd.cameraRecoilParameters.recoilX.Evaluate(evaluationProgress) * wc.wd.cameraRecoilParameters.xRecoilAmount, 0);
+            {
+                var xRecoil = wc.aiming ? wc.wd.cameraRecoilParameters.xRecoilAmount * 2 : wc.wd.cameraRecoilParameters.xRecoilAmount;
+                var yRecoil = wc.aiming ? wc.wd.cameraRecoilParameters.yRecoilAmount * 2 : wc.wd.cameraRecoilParameters.yRecoilAmount;
+                currentRotation = new Vector3(-wc.wd.cameraRecoilParameters.recoilY.Evaluate(evaluationProgress) * yRecoil, -wc.wd.cameraRecoilParameters.recoilX.Evaluate(evaluationProgress) * xRecoil, 0);
+            }
 
         //Smooth rotate to current rotation
         rot = Vector3.Slerp(rot, currentRotation, wc.wd.cameraRecoilParameters.rotationSpeed * Time.fixedDeltaTime);

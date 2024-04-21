@@ -15,11 +15,14 @@ public class UIManager : MonoBehaviour
     [HideInInspector] public CrossHair crosshair;
     [HideInInspector] public InteractHUD InteractUI;
     private HitMarker hitMarker;
+    private KillFeed killFeed;
+    private DamageIndicator damageIndicator;
 
     public static UIManager instance;
 
     public Action<bool,bool> OnEnemyHit;
     public Action OnEnemyKill;
+    public Action OnReceiveDamage;
 
     private void Awake()
     {
@@ -27,6 +30,8 @@ public class UIManager : MonoBehaviour
         crosshair = GetComponentInChildren<CrossHair>();
         InteractUI = GetComponentInChildren<InteractHUD>();
         hitMarker = GetComponentInChildren<HitMarker>();
+        killFeed = GetComponentInChildren<KillFeed>();
+        damageIndicator = GetComponentInChildren<DamageIndicator>();
 
         InteractUI.gameObject.SetActive(false);
     }
@@ -35,17 +40,19 @@ public class UIManager : MonoBehaviour
     {
         OnEnemyHit += HandleHitMarker;
         OnEnemyKill += HandleKillFeed;
+        OnReceiveDamage += HandleDamageIndicator;
     }
 
     private void OnDisable()
     {
         OnEnemyHit -= HandleHitMarker;
         OnEnemyKill -= HandleKillFeed;
+        OnReceiveDamage -= HandleDamageIndicator;
     }
 
     private void Update()
     {
-        crosshair.gameObject.SetActive(Crosshair);
+        crosshair.enableCrosshair = Crosshair;
         hitMarker.enableKillMarker = KillMarker;
     }
 
@@ -56,6 +63,11 @@ public class UIManager : MonoBehaviour
 
     private void HandleKillFeed()
     {
-        
+        killFeed.Show();
+    }
+
+    private void HandleDamageIndicator()
+    {
+        damageIndicator.Show();
     }
 }

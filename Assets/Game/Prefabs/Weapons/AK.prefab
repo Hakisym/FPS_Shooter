@@ -177,7 +177,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 715540901373673507}
-  aimPosition: {x: -0.097, y: 0.117, z: -0.22}
+  aimPosition: {x: -0.097, y: 0.117, z: -0.24}
   aimRotation: {x: 0, y: 0, z: 0}
   smoothTime: 0.1
   smoothRotation: 6

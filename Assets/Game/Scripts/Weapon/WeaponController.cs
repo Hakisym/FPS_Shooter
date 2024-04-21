@@ -26,6 +26,7 @@ public class WeaponController : MonoBehaviour
     public Animator animator;
     public CameraRecoil cameraRecoil;
     public WeaponRecoil weaponRecoil;
+    public RecoilPoint recoilPoint;
     public Inventory inventory;
     public PlayerMovement pm;
 
@@ -122,12 +123,12 @@ public class WeaponController : MonoBehaviour
             else if (UIManager.instance.crosshair.locomotionSpread == UIManager.instance.crosshair.crouchSpread)
                 bulletSpread = (UIManager.instance.crosshair.bulletSpread + wd.gunStats.bulletAccuracy) / 1200;
             else
-                bulletSpread = UIManager.instance.crosshair.spread / 500;
+                bulletSpread = UIManager.instance.crosshair.spread / 1000;
         }
 
         var spread = HenryUtilities.GetSpreadDirection(bulletSpread / 2, playerCam);
 
-        Vector3 dir = (playerCam.transform.forward + spread).normalized;
+        Vector3 dir = aiming ? (playerCam.transform.forward + spread).normalized : (recoilPoint.transform.forward + spread).normalized;
 
         RaycastHit hit;
         Vector3 bulletDir;
