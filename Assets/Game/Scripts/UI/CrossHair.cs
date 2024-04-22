@@ -6,7 +6,6 @@ public class CrossHair : MonoBehaviour
 {
     [Tooltip("Attach your PlayerMovement player "), SerializeField]
     private PlayerMovement player;
-
     private WeaponController weaponController;
 
     [Tooltip(" How much space it takes from your screen"), SerializeField]
@@ -15,18 +14,14 @@ public class CrossHair : MonoBehaviour
     [Tooltip(" Thickness of the crosshair  "), SerializeField]
     private float width = 2f;
 
-
     [Tooltip(" Original spread you want to start with "), SerializeField]
     public float defaultSpread = 10f;
 
     [SerializeField] public float walkSpread, runSpread, crouchSpread, jumpSpread;
-
     [SerializeField] private float resizeSpeed = 3f;
-    [HideInInspector]
-    public float spread;
-    public float locomotionSpread;
-    public float bulletSpread;
-    public bool enableCrosshair;
+
+    [HideInInspector] public float spread, locomotionSpread, bulletSpread;
+    [HideInInspector] public bool enableCrosshair;
 
     public Parts parts;
 

@@ -51,6 +51,7 @@ public class PlayerMovement : MonoBehaviour
     {
         originalHeight = controller.height;
         canMove = true;
+        GetComponent<IControllable>().OnControllableChanged += (bool controllable) => this.canMove = controllable;
     }
 
     private void Update()

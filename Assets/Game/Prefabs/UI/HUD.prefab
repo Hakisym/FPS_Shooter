@@ -127,6 +127,7 @@ MonoBehaviour:
   KillMarkerSFX: 1
   crosshair: {fileID: 8679749805166140726}
   InteractUI: {fileID: 8679749805402222302}
+  pauseMenu: {fileID: 0}
 --- !u!1001 &21824028355715900
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -493,6 +494,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CrossHair
+      objectReference: {fileID: 0}
+    - target: {fileID: 6078542293870979271, guid: 29fd90dd8ddd8574780c9cbc273bf115,
+        type: 3}
+      propertyPath: runSpread
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 6078542293870979271, guid: 29fd90dd8ddd8574780c9cbc273bf115,
+        type: 3}
+      propertyPath: jumpSpread
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6078542293870979271, guid: 29fd90dd8ddd8574780c9cbc273bf115,
+        type: 3}
+      propertyPath: walkSpread
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 29fd90dd8ddd8574780c9cbc273bf115, type: 3}

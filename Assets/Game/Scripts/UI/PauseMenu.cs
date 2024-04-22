@@ -24,16 +24,18 @@ public class PauseMenu : MonoBehaviour
         OnPausedStateChanged += HandlePause;
     }
 
+    private void OnDisable()
+    {
+        OnPausedStateChanged -= HandlePause;
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             paused = !paused;
-            if (paused) OnPause?.Invoke();
-            if (!paused) OnResume?.Invoke();
             OnPausedStateChanged?.Invoke(paused);
         }
-
         canvasGroup.alpha = paused ? Mathf.Lerp(canvasGroup.alpha, 1, Time.unscaledDeltaTime * 10) : 0;
     }
 
@@ -43,13 +45,15 @@ public class PauseMenu : MonoBehaviour
         Cursor.lockState = paused ? CursorLockMode.None : CursorLockMode.Locked;
         Cursor.visible = paused;
 
+        if (paused) OnPause?.Invoke();
+        if (!paused) OnResume?.Invoke();
+
         if (freezOnPause) Time.timeScale = paused ? 0 : 1;
     }
 
     public void Resume()
     {
         paused = false;
-        OnResume?.Invoke();
         OnPausedStateChanged?.Invoke(paused);
     }
 

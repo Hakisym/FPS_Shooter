@@ -408,7 +408,6 @@ MonoBehaviour:
   reloading: 0
   aiming: 0
   canShoot: 0
-  shootState: 0
   playerCam: {fileID: 1700024202367906406}
   prefabHolder: {fileID: 0}
   muzzlePoint: {fileID: 0}

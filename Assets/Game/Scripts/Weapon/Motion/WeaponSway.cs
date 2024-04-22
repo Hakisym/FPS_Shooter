@@ -21,6 +21,7 @@ public class WeaponSway : WeaponMotionBase
     public bool rotationZ = true;
     public float aimMultiplier = 0.2f;
     private float currentAimMultiplier;
+    private bool controllable;
 
     private Vector3 initialPosition;
     private Quaternion initialRotation;
@@ -32,6 +33,9 @@ public class WeaponSway : WeaponMotionBase
     {
         initialPosition = target.localPosition;
         initialRotation = target.localRotation;
+
+        controllable = true;
+        wc.GetComponent<IControllable>().OnControllableChanged += (bool controllable) => this.controllable = controllable;
     }
 
     private void Update()
@@ -45,6 +49,7 @@ public class WeaponSway : WeaponMotionBase
 
     private void CheckInput()
     {
+        if (!controllable) return;
         // Controls
         inputX = Input.GetAxis("Mouse X");
         inputY = Input.GetAxis("Mouse Y");

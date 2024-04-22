@@ -5578,21 +5578,6 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 575094083}
-    - target: {fileID: 8679749805166140726, guid: 85e7178033a3ddb4993021003e306435,
-        type: 3}
-      propertyPath: runSpread
-      value: 80
-      objectReference: {fileID: 0}
-    - target: {fileID: 8679749805166140726, guid: 85e7178033a3ddb4993021003e306435,
-        type: 3}
-      propertyPath: jumpSpread
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 8679749805166140726, guid: 85e7178033a3ddb4993021003e306435,
-        type: 3}
-      propertyPath: walkSpread
-      value: 50
-      objectReference: {fileID: 0}
     - target: {fileID: 8679749805454465973, guid: 85e7178033a3ddb4993021003e306435,
         type: 3}
       propertyPath: m_Pivot.x

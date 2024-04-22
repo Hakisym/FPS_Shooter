@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour
 
     [HideInInspector] public CrossHair crosshair;
     [HideInInspector] public InteractHUD InteractUI;
+    [HideInInspector] public PauseMenu pauseMenu;
     private HitMarker hitMarker;
     private KillFeed killFeed;
     private DamageIndicator damageIndicator;
@@ -29,6 +30,7 @@ public class UIManager : MonoBehaviour
         instance = this;
         crosshair = GetComponentInChildren<CrossHair>();
         InteractUI = GetComponentInChildren<InteractHUD>();
+        pauseMenu = GetComponentInChildren<PauseMenu>();
         hitMarker = GetComponentInChildren<HitMarker>();
         killFeed = GetComponentInChildren<KillFeed>();
         damageIndicator = GetComponentInChildren<DamageIndicator>();
@@ -52,7 +54,7 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        crosshair.enableCrosshair = Crosshair;
+        crosshair.enableCrosshair = Crosshair && !pauseMenu.paused;
         hitMarker.enableKillMarker = KillMarker;
     }
 

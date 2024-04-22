@@ -6,16 +6,23 @@ public class MouseLook : MonoBehaviour
 {
     public float mouseSensitivity = 100f;
     public Transform playerBody;
+    private bool controllable;
 
     private float xRotation = 0f;
 
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+        controllable = true;
+        GetComponentInParent<IControllable>().OnControllableChanged += (bool controllable) => this.controllable = controllable;
     }
 
     private void Update()
     {
+        if (!controllable) return;
+
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 

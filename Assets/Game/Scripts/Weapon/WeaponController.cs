@@ -12,7 +12,7 @@ public class WeaponController : MonoBehaviour
     [Header("Gun states")]
     [HideInInspector]public bool reloading, aiming;
     [HideInInspector] public bool canShoot;
-    [HideInInspector] public bool shootState;
+    [HideInInspector] public bool shootState { get => !readyToShoot; }
     private bool readyToShoot;
     private bool shooting;
 
@@ -47,10 +47,11 @@ public class WeaponController : MonoBehaviour
     private float maxLifetime = 3.0f;
     private List<Bullet> bullets = new List<Bullet>();
 
-    private void Awake()
+    private void Start()
     {
         readyToShoot = true;
         canShoot = true;
+        GetComponent<IControllable>().OnControllableChanged += (bool controllable) => this.readyToShoot = controllable;
     }
 
     private void Update()
@@ -91,7 +92,7 @@ public class WeaponController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R) && !reloading && bulletsLeft < wd.gunStats.magazineSize && !inventory.switching) Reload();
 
-        if (readyToShoot && shooting && !reloading && bulletsLeft > 0 && !inventory.switching)
+        if (readyToShoot && shooting && canShoot)
         {
             bulletsShot = wd.gunStats.bulletsPerTap;
             Shoot();
@@ -107,7 +108,6 @@ public class WeaponController : MonoBehaviour
     private void Shoot()
     {
         readyToShoot = false;
-        shootState = true;
         CancelInvoke("ResetShootMode");
 
         //Spread
@@ -191,11 +191,7 @@ public class WeaponController : MonoBehaviour
             Invoke("Shoot", wd.gunStats.timeBetweenShots);
     }
 
-    private void ResetShoot()
-    {
-        readyToShoot = true;
-        shootState = false;
-    }
+    private void ResetShoot() => readyToShoot = true;
 
     private void Reload()
     {
@@ -265,8 +261,5 @@ public class WeaponController : MonoBehaviour
         }
     }
 
-    public void CanShoot()
-    {
-        canShoot = true;
-    }
+    public void CanShoot() => canShoot = true;
 }
