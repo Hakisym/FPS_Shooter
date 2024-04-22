@@ -6,13 +6,11 @@ using System;
 
 public class UIManager : MonoBehaviour
 {
-    public bool Crosshair;
     public bool HitMarker;
     public bool HitMarkerSFX;
     public bool KillMarker;
     public bool KillMarkerSFX;
 
-    [HideInInspector] public CrossHair crosshair;
     [HideInInspector] public InteractHUD InteractUI;
     [HideInInspector] public PauseMenu pauseMenu;
     private HitMarker hitMarker;
@@ -28,7 +26,6 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        crosshair = GetComponentInChildren<CrossHair>();
         InteractUI = GetComponentInChildren<InteractHUD>();
         pauseMenu = GetComponentInChildren<PauseMenu>();
         hitMarker = GetComponentInChildren<HitMarker>();
@@ -54,7 +51,6 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        crosshair.enableCrosshair = Crosshair && !pauseMenu.paused;
         hitMarker.enableKillMarker = KillMarker;
     }
 

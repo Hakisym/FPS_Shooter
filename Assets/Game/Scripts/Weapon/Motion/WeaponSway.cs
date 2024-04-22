@@ -35,7 +35,7 @@ public class WeaponSway : WeaponMotionBase
         initialRotation = target.localRotation;
 
         controllable = true;
-        wc.GetComponent<IControllable>().OnControllableChanged += (bool controllable) => this.controllable = controllable;
+        UIManager.instance.pauseMenu.OnPausedStateChanged += (bool paused) => this.controllable = !paused;
     }
 
     private void Update()

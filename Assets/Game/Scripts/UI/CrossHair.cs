@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CrossHair : MonoBehaviour
 {
-    [Tooltip("Attach your PlayerMovement player "), SerializeField]
     private PlayerMovement player;
     private WeaponController weaponController;
 
@@ -29,11 +28,6 @@ public class CrossHair : MonoBehaviour
     public class Parts
     {
         public bool topPart, downPart, leftPart, rightPart, center;
-    }
-
-    private void Awake()
-    {
-        weaponController = player.GetComponent<WeaponController>();
     }
 
     void Update()
@@ -63,6 +57,12 @@ public class CrossHair : MonoBehaviour
     public void Fire()
     {
         bulletSpread += weaponController.wd.crosshairResize;
+    }
+
+    public void GetReference(WeaponController wc,PlayerMovement pm)
+    {
+        this.weaponController = wc;
+        this.player = pm;
     }
 
     private void OnGUI()

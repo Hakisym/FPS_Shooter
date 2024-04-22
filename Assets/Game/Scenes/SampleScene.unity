@@ -613,18 +613,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &575094083 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1700024202281320435, guid: 697ef857e7c44a44aaf2aa0f3ea4867e,
-    type: 3}
-  m_PrefabInstance: {fileID: 1700024202574227375}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5efa52bcbbcf6a4cada36b66cc48522, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -736,7 +724,7 @@ GameObject:
   - component: {fileID: 948097433}
   - component: {fileID: 948097434}
   m_Layer: 0
-  m_Name: GeneralManagers
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2960,11 +2948,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1700024202281320399, guid: 697ef857e7c44a44aaf2aa0f3ea4867e,
-        type: 3}
-      propertyPath: prefabHolder
-      value: 
-      objectReference: {fileID: 948097431}
     - target: {fileID: 1700024202281320437, guid: 697ef857e7c44a44aaf2aa0f3ea4867e,
         type: 3}
       propertyPath: m_RootOrder
@@ -5573,11 +5556,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8679749805166140726, guid: 85e7178033a3ddb4993021003e306435,
-        type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 575094083}
     - target: {fileID: 8679749805454465973, guid: 85e7178033a3ddb4993021003e306435,
         type: 3}
       propertyPath: m_Pivot.x

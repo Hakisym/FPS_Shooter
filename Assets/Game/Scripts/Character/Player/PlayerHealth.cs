@@ -3,23 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerHealth : MonoBehaviour,IDamageable,IControllable
+public class PlayerHealth : MonoBehaviour,IDamageable
 {
     public int maxHealth;
     public int currentHealth;
     private ImpactManager impactManager;
 
-    public Action<bool> OnControllableChanged { get; set; }
-
     private void Start()
     {
         currentHealth = maxHealth;
         impactManager = GetComponent<ImpactManager>();
-
-        UIManager.instance.pauseMenu.OnPausedStateChanged += HandleControl;
     }
-
-    private void OnDisable() => UIManager.instance.pauseMenu.OnPausedStateChanged -= HandleControl;
 
     public void TakeDamage(int amount, DamageInfo info)
     {
@@ -33,10 +27,5 @@ public class PlayerHealth : MonoBehaviour,IDamageable,IControllable
         {
             Debug.Log("Player is dead!");
         }
-    }
-
-    public void HandleControl(bool paused)
-    {
-        OnControllableChanged?.Invoke(!paused);
     }
 }

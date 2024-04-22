@@ -24,7 +24,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6078542293870979270}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -49,18 +49,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f01a22ceac350c041965e878836f1b06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
   size: 10
   width: 2
   defaultSpread: 20
-  walkSpread: 200
-  runSpread: 240
+  walkSpread: 50
+  runSpread: 80
   crouchSpread: 18
-  jumpSpread: 500
+  jumpSpread: 100
   resizeSpeed: 50
   spread: 0
   locomotionSpread: 0
   bulletSpread: 0
+  enableCrosshair: 0
   parts:
     topPart: 1
     downPart: 1

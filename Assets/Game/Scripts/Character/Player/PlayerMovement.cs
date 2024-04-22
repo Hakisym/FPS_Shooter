@@ -51,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
     {
         originalHeight = controller.height;
         canMove = true;
-        GetComponent<IControllable>().OnControllableChanged += (bool controllable) => this.canMove = controllable;
+        UIManager.instance.pauseMenu.OnPausedStateChanged += (bool paused) => this.canMove = !paused;
     }
 
     private void Update()

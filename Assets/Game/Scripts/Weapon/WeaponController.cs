@@ -7,59 +7,66 @@ using Random = UnityEngine.Random;
 public class WeaponController : MonoBehaviour
 {
     [Header("WeaponData")]
-    [HideInInspector]public WeaponData wd;
+    [HideInInspector] public WeaponData wd;
 
     [Header("Gun states")]
-    [HideInInspector]public bool reloading, aiming;
+    [HideInInspector] public bool reloading, aiming;
     [HideInInspector] public bool canShoot;
     [HideInInspector] public bool shootState { get => !readyToShoot; }
     private bool readyToShoot;
     private bool shooting;
 
     [Header("Reference")]
+    private Transform muzzlePoint;
+    private Transform castingPoint;
+    [HideInInspector] public Transform prefabHolder;
+    [Space(5)]
     public Camera playerCam;
-    public Transform prefabHolder;
-    public Transform muzzlePoint;
-    public Transform castingPoint;
-    public ParticleSystem[] muzzleVFX;
     public LayerMask whatIsShootable;
     public Animator animator;
+    [Space(5)]
     public CameraRecoil cameraRecoil;
-    public WeaponRecoil weaponRecoil;
     public RecoilPoint recoilPoint;
     public Inventory inventory;
-    public PlayerMovement pm;
+    [HideInInspector] public WeaponRecoil weaponRecoil;
+    [HideInInspector] public PlayerMovement pm;
+    private PlayerHUD weaponHUD;
 
     [Header("Visuals")]
     public GameObject metalImpact;
     public GameObject bloodImpact;
     public TrailRenderer bulletTrail;
     public GameObject bulletCasting;
+    private ParticleSystem[] muzzleVFX;
 
     [Header("Sounds")]
     public AudioSource mainAudioSource;
     public AudioSource shootAudioSource;
     private AudioClip shootSound;
 
-    public int bulletsLeft;
+    [HideInInspector] public int bulletsLeft;
     private int bulletsShot;
     private float timeBetweenShooting;
     private float maxLifetime = 3.0f;
     private List<Bullet> bullets = new List<Bullet>();
 
+    private void Awake()
+    {
+        prefabHolder = FindObjectOfType<PoolManager>().transform;
+        pm = GetComponent<PlayerMovement>();
+        weaponHUD = GetComponentInChildren<PlayerHUD>();
+    }
+
     private void Start()
     {
         readyToShoot = true;
         canShoot = true;
-        GetComponent<IControllable>().OnControllableChanged += (bool controllable) => this.readyToShoot = controllable;
+        UIManager.instance.pauseMenu.OnPausedStateChanged += (bool paused) => this.readyToShoot = !paused;
     }
 
     private void Update()
     {
         MyInput();
-
-        //debug for bpm
-        timeBetweenShooting = 60f / wd.gunStats.fireRate;
     }
 
     private void FixedUpdate()
@@ -117,13 +124,13 @@ public class WeaponController : MonoBehaviour
         else
         {
             //stand spread
-            if (UIManager.instance.crosshair.locomotionSpread == UIManager.instance.crosshair.defaultSpread)
-                bulletSpread = (UIManager.instance.crosshair.bulletSpread + wd.gunStats.bulletAccuracy) / 1000;
+            if (weaponHUD.crosshair.locomotionSpread == weaponHUD.crosshair.defaultSpread)
+                bulletSpread = (weaponHUD.crosshair.bulletSpread + wd.gunStats.bulletAccuracy) / 1000;
             //crouch spread
-            else if (UIManager.instance.crosshair.locomotionSpread == UIManager.instance.crosshair.crouchSpread)
-                bulletSpread = (UIManager.instance.crosshair.bulletSpread + wd.gunStats.bulletAccuracy) / 1200;
+            else if (weaponHUD.crosshair.locomotionSpread == weaponHUD.crosshair.crouchSpread)
+                bulletSpread = (weaponHUD.crosshair.bulletSpread + wd.gunStats.bulletAccuracy) / 1200;
             else
-                bulletSpread = UIManager.instance.crosshair.spread / 1000;
+                bulletSpread = weaponHUD.crosshair.spread / 1000;
         }
 
         var spread = HenryUtilities.GetSpreadDirection(bulletSpread / 2, playerCam);
@@ -166,7 +173,7 @@ public class WeaponController : MonoBehaviour
         Instantiate(bulletCasting, castingPoint.position, castingPoint.rotation, prefabHolder);
 
         //crosshair
-        UIManager.instance.crosshair.Fire();
+        weaponHUD.crosshair.Fire();
 
         //cam shake
         CamShake.instance.ShootShake(wd.camShakeIntensity);
