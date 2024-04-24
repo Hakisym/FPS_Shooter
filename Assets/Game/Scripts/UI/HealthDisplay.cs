@@ -6,15 +6,15 @@ using TMPro;
 public class HealthDisplay : MonoBehaviour
 {
     public TextMeshProUGUI healthReserve;
-    private PlayerHealth playerHealth;
+    private HealthSystem healthSystem;
 
     private void Update()
     {
-        healthReserve.text = playerHealth.currentHealth.ToString();
+        healthReserve.text = healthSystem.currentHealth.ToString();
     }
 
-    public void GetReference(PlayerHealth ph)
+    public void GetReference(HealthSystem ph)
     {
-        this.playerHealth = ph;
+        this.healthSystem = ph;
     }
 }

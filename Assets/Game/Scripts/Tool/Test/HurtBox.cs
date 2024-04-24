@@ -8,7 +8,7 @@ public class HurtBox : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            other.GetComponent<IDamageable>().TakeDamage(10);
+            other.GetComponent<IDamageable>().TakeDamage(10, new DamageInfo(DamageType.trap, Vector3.zero, null, null));
         }
     }
 }

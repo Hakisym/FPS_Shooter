@@ -20,7 +20,7 @@ public class UIManager : MonoBehaviour
     public static UIManager instance;
 
     public Action<bool,bool> OnEnemyHit;
-    public Action OnEnemyKill;
+    public Action<Actor,Actor> OnEnemyKill;
     public Action OnReceiveDamage;
 
     private void Awake()
@@ -59,9 +59,10 @@ public class UIManager : MonoBehaviour
         hitMarker.Show(HitMarker && showMarker, HitMarkerSFX, isKill);
     }
 
-    private void HandleKillFeed()
+    private void HandleKillFeed(Actor killer,Actor victim)
     {
-        killFeed.Show();
+        killFeed.Show(killer,victim);
+        hitMarker.Show(HitMarker, HitMarkerSFX, true);
     }
 
     private void HandleDamageIndicator()

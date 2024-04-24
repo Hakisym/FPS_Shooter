@@ -24,7 +24,7 @@ public class PlayerHUD : MonoBehaviour
         weaponHUD.GetReference(wc);
 
         healthDisplay = GetComponentInChildren<HealthDisplay>();
-        healthDisplay.GetReference(wc.GetComponent<PlayerHealth>());
+        healthDisplay.GetReference(wc.GetComponent<HealthSystem>());
     }
 
     private void Update()

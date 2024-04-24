@@ -69,21 +69,11 @@ public class ZombieStateController : MonoBehaviour
 
     private void OnEnable()
     {
-        GetComponent<EnemyHealth>().OnDie += DeathHandler;
-        GetComponent<AnimationEventHandler>().OnAnimFinish += AnimFinishHandler;
+        GetComponent<HealthSystem>().OnDead.AddListener(DeathHandler);
+        GetComponent<AnimationEventHandler>().OnAnimFinish.AddListener(AnimFinishHandler);
         foreach (var grab in grabHandlers)
         {
-            grab.OnGrabSuccess += GrabSuccessHandler;
-        }
-    }
-
-    private void OnDisable()
-    {
-        GetComponent<EnemyHealth>().OnDie -= DeathHandler;
-        GetComponent<AnimationEventHandler>().OnAnimFinish -= AnimFinishHandler;
-        foreach (var grab in grabHandlers)
-        {
-            grab.OnGrabSuccess += GrabSuccessHandler;
+            grab.OnGrabSuccess.AddListener(GrabSuccessHandler);
         }
     }
 

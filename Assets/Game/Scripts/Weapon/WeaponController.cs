@@ -30,6 +30,7 @@ public class WeaponController : MonoBehaviour
     public Inventory inventory;
     [HideInInspector] public WeaponRecoil weaponRecoil;
     [HideInInspector] public PlayerMovement pm;
+    private Actor actor;
     private PlayerHUD weaponHUD;
 
     [Header("Visuals")]
@@ -55,6 +56,7 @@ public class WeaponController : MonoBehaviour
         prefabHolder = FindObjectOfType<PoolManager>().transform;
         pm = GetComponent<PlayerMovement>();
         weaponHUD = GetComponentInChildren<PlayerHUD>();
+        actor = GetComponent<Actor>();
     }
 
     private void Start()
@@ -147,7 +149,14 @@ public class WeaponController : MonoBehaviour
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("EnemyHit"))
             {
                 Instantiate(bloodImpact, hit.point, Quaternion.LookRotation(hit.normal),prefabHolder);
-                hit.collider.GetComponentInParent<IDamageable>().TakeDamage(wd.gunStats.damage, new DamageInfo(wd.gunStats.bulletImpactForce, dir, hit.collider));
+
+                IDamageable damageable = hit.collider.GetComponentInParent<IDamageable>();
+                DamageInfo info = new DamageInfo(DamageType.bullet, -hit.normal * wd.gunStats.bulletImpactForce, hit.collider, this.actor);
+
+                damageable.TakeDamage(wd.gunStats.damage,info);
+
+                if(GetComponent<Actor>().isLocallyMine && !damageable.IsDead()) 
+                    UIManager.instance.OnEnemyHit.Invoke(false, true);
             }
 
             //bullet impact hit

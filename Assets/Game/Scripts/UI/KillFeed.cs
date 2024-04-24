@@ -14,8 +14,11 @@ public class KillFeed : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    public void Show()
+    public void Show(Actor killer, Actor victim)
     {
+        int kills = killer.actorManager.kills;
+        counter.text = "TOTAL KILLS " + kills;
+        tag.text = "YOU KILLED " + victim.actorName;
         animator.Play("Show", 0, 0f);
     }
 }

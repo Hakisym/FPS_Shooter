@@ -2,19 +2,29 @@ using UnityEngine;
 
 public interface IDamageable
 {
-    public void TakeDamage(int amount, DamageInfo info = null) { }
+    public void TakeDamage(int amount,DamageInfo info);
+    public bool IsDead();
 }
 
 public class DamageInfo
 {
-    public float force;
-    public Vector3 direction;
+    public DamageType type;
+    public Vector3 deathForce;
     public Collider bodyPart;
+    public Actor source;
 
-    public DamageInfo(float force,Vector3 direction, Collider bodypart)
+    public DamageInfo(DamageType type, Vector3 force, Collider bodypart, Actor damageSource)
     {
-        this.force = force;
-        this.direction = direction;
+        this.type = type;
+        this.deathForce = force;
         this.bodyPart = bodypart;
+        this.source = damageSource;
     }
+}
+
+public enum DamageType
+{
+    bullet,
+    melee,
+    trap
 }

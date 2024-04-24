@@ -117,6 +117,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d78d0037fdd185041a7d0f5b58d612a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnGrabSuccess:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2099522713942219356
 GameObject:
   m_ObjectHideFlags: 0
@@ -429,12 +432,14 @@ GameObject:
   m_Component:
   - component: {fileID: 2102954227345991666}
   - component: {fileID: 2050530263575110506}
-  - component: {fileID: 664612986}
+  - component: {fileID: 1600495579396264496}
   - component: {fileID: 2098938289177471884}
   - component: {fileID: 2098938289177471888}
   - component: {fileID: 759587099}
   - component: {fileID: 3285928317795736046}
   - component: {fileID: 1357060238}
+  - component: {fileID: 8489490773615744104}
+  - component: {fileID: 8105101693963456773}
   m_Layer: 7
   m_Name: Zombie_Clown_Male_01
   m_TagString: Enemy
@@ -450,7 +455,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2099612773015049234}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -5.83}
+  m_LocalPosition: {x: 0, y: 0, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -528,7 +533,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &664612986
+--- !u!114 &1600495579396264496
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -537,12 +542,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2099612773015049234}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30dac1396fa2e224686d74bba4bcba0e, type: 3}
+  m_Script: {fileID: 11500000, guid: 8dcda5808aa2c9c4c82b6ff41dc57b17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 80
+  maxHealth: 100
   dead: 0
-  ragdollShootForce: 100
+  OnDead:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!195 &2098938289177471884
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -730,6 +737,35 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ade152819eb251d4bb6011d38c9bc6a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnAnimFinish:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &8489490773615744104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2099612773015049234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53c973365e6dc9349a594398081b9828, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actorName: zombie
+  isLocallyMine: 0
+--- !u!114 &8105101693963456773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2099612773015049234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b7f5956fd1141b409c86c06a8ca3a1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2099617674367493832
@@ -9720,3 +9756,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d78d0037fdd185041a7d0f5b58d612a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnGrabSuccess:
+    m_PersistentCalls:
+      m_Calls: []

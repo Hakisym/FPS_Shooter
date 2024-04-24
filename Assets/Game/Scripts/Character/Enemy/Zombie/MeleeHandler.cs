@@ -16,8 +16,10 @@ public class MeleeHandler : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            DamageInfo info = new DamageInfo(attack.knockForce, other.transform.position - enemy.transform.position, other);
+            var dir = other.transform.position - enemy.transform.position;
+            DamageInfo info = new DamageInfo(DamageType.melee, dir * attack.knockForce, other, null);
             other.GetComponent<IDamageable>().TakeDamage(attack.regularDamage, info);
+            other.GetComponent<ImpactManager>()?.AddImpact(dir, attack.knockForce);
         }
     }
 }

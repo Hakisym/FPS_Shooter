@@ -21,6 +21,7 @@ public class CrossHair : MonoBehaviour
 
     [HideInInspector] public float spread, locomotionSpread, bulletSpread;
     [HideInInspector] public bool enableCrosshair;
+    private float currentMoveSpread;
 
     public Parts parts;
 
@@ -35,23 +36,18 @@ public class CrossHair : MonoBehaviour
         // Manage different sizes
         if (player.isGrounded)
         {
-            if (player.currentSpeed == player.sprintSpeed) locomotionSpread = runSpread;
-            else
-            {
-                if (player.currentSpeed == player.walkSpeed)
-                {
-                    if (player.moveVel < .2f) locomotionSpread = defaultSpread;
-                    else locomotionSpread = walkSpread;
-                }
-
-                if (player.currentSpeed == player.crouchSpeed) locomotionSpread = crouchSpread;
-            }
+            if (player.currentSpeed == player.crouchSpeed) locomotionSpread = crouchSpread;
+            else if (player.moveVel < 0.2f) locomotionSpread = defaultSpread;
+            else if (player.currentSpeed == player.walkSpeed) locomotionSpread = walkSpread;
+            else if (player.currentSpeed == player.sprintSpeed) locomotionSpread = runSpread;
         }
         else locomotionSpread = jumpSpread;
 
+        currentMoveSpread = Mathf.Lerp(currentMoveSpread, locomotionSpread, Time.deltaTime * 10);
+
         bulletSpread = Mathf.Lerp(bulletSpread, 0f, weaponController.wd.crosshairResizeSpeed * Time.deltaTime);
 
-        spread = Mathf.Lerp(spread, locomotionSpread + bulletSpread, resizeSpeed * Time.deltaTime);
+        spread = Mathf.Lerp(spread, currentMoveSpread + bulletSpread, resizeSpeed * Time.deltaTime);
     }
 
     public void Fire()

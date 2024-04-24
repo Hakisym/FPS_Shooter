@@ -2,10 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GrabHandler : MonoBehaviour
 {
-    public Action OnGrabSuccess;
+    public UnityEvent OnGrabSuccess;
     private ZombieStateController enemy;
 
     private void Start()

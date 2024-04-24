@@ -105,6 +105,8 @@ public class PlayerMovement : MonoBehaviour
         mouseX = Input.GetAxis("Horizontal");
         mouseY = Input.GetAxis("Vertical");
         moveDirection = transform.right * mouseX + transform.forward * mouseY;
+        // Clamp movement
+        moveDirection = Vector3.ClampMagnitude(moveDirection, 1f);
 
         // Sprint input
         if (Input.GetKeyDown(KeyCode.LeftShift) && isGrounded && mouseY > 0)
@@ -158,11 +160,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-        // Clamp movement
-        Vector3 movement = Vector3.ClampMagnitude(moveDirection, 1f);
-
         // Move
-        controller.Move(movement * speed * Time.deltaTime);
+        controller.Move(moveDirection * speed * Time.deltaTime);
     }
 
     private void Jump()

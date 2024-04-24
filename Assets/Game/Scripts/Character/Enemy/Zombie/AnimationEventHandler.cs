@@ -2,10 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class AnimationEventHandler : MonoBehaviour
 {
-    public Action OnAnimFinish;
+    public UnityEvent OnAnimFinish;
     private ZombieStateController stateController;
 
     private void Start()
