@@ -11,7 +11,8 @@ public class SoundManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        src = GetComponent<AudioSource>();
+        GameObject obj = new GameObject("SFX");
+        src = obj.AddComponent<AudioSource>();
     }
 
     public void PlaySound(AudioClip clip,float delay,float pitchAdded,bool randomPitch,float spatialBlend)

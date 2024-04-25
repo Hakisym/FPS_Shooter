@@ -120,23 +120,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 3755187150427722618, guid: 697ef857e7c44a44aaf2aa0f3ea4867e,
-        type: 3}
-      propertyPath: actorName
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 3755187150427722618, guid: 697ef857e7c44a44aaf2aa0f3ea4867e,
-        type: 3}
-      propertyPath: isLocallyMine
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5693298499012760513, guid: 697ef857e7c44a44aaf2aa0f3ea4867e,
-        type: 3}
-      propertyPath: destroyDelay
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 7102522014006773767, guid: 697ef857e7c44a44aaf2aa0f3ea4867e, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 697ef857e7c44a44aaf2aa0f3ea4867e, type: 3}
 --- !u!4 &580576727178149972 stripped
 Transform:

@@ -18,7 +18,7 @@ public class MeleeHandler : MonoBehaviour
         {
             var dir = other.transform.position - enemy.transform.position;
             DamageInfo info = new DamageInfo(DamageType.melee, dir * attack.knockForce, other, null);
-            other.GetComponent<IDamageable>().TakeDamage(attack.regularDamage, info);
+            other.GetComponent<IDamageable>().TakeDamage(attack.regularDamage, enemy.GetComponent<Actor>());
             other.GetComponent<ImpactManager>()?.AddImpact(dir, attack.knockForce);
         }
     }

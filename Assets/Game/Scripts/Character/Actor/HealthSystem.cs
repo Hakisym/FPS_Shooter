@@ -7,87 +7,93 @@ using UnityEngine.Events;
 
 public class HealthSystem : MonoBehaviour, IDamageable
 {
-    public int maxHealth;
+    public float maxHealth;
     public float destroyDelay;
+    public float destroyRagdollDelay;
     public bool dead;
     public UnityEvent OnDead;
 
-    public int currentHealth { get; set; }
-    private float headshotMultiplier = 1.5f;
-    private float ragdollShootForce = 100f;
+    public float currentHealth { get; set; }
 
-    private Ragdoll ragdoll;
-    private Actor actor;
+    public Actor Actor { get; set; }
+    public bool deadConfirmed { get; set; }
+    public Vector3 deathForce { get; set; }
+    private Actor killer;
+
+    public Ragdoll ragdoll;
+    private DeathCamera deathcamera;
 
     private void Start()
     {
         currentHealth = maxHealth;
-        ragdoll = GetComponent<Ragdoll>();
-        actor = GetComponent<Actor>();
+
+        if (!ragdoll) ragdoll = GetComponent<Ragdoll>();
+        Actor = GetComponent<Actor>();
+
+        if (FindObjectOfType<GameManager>()) deathcamera = FindObjectOfType<GameManager>().DeathCamera;
+        if (Actor && Actor.isLocallyMine) deathcamera?.Disable(); 
+
     }
 
-    public void TakeDamage(int amount, DamageInfo info)
+    public void TakeDamage(float amount, Actor source)
     {
-        if (info.type == DamageType.bullet)
-        {
-            //critical body part
-            if (info.bodyPart.CompareTag("Head"))
-            {
-                currentHealth -= (int)(amount * headshotMultiplier);
-            }
-            else
-            {
-                currentHealth -= amount;
-            }
-        }
-        else
-            currentHealth -= amount;
+        currentHealth -= amount;
+        this.killer = source;
 
         //check health below 0
         if (currentHealth <= 0)
         {
             if (!dead)
-            {
-                //confirm actor kill
-                info.source?.onKill(this.GetComponent<Actor>());
                 Die();
-                if (ragdoll) ragdoll.RagdollForce(info.bodyPart, info.deathForce);
-            }
-            else
-                if (ragdoll) ragdoll.RagdollForce(info.bodyPart, info.deathForce.normalized * ragdollShootForce);
         }
 
-        if (actor != null)
-            if(actor.isLocallyMine) UIManager.instance.OnReceiveDamage();
+        if (Actor != null && Actor.isLocallyMine) UIManager.instance.OnReceiveDamage();
     }
 
     private void Die()
     {
         OnDead?.Invoke();
 
-        //disable controller and navmesh
+        ////disable controller and navmesh
         //foreach (var mb in this.GetComponents<MonoBehaviour>())
         //{
-        //    if (this != mb)
+        //    if (mb != this && mb!=actor)
         //        Destroy(mb);
         //}
-        //GetComponent<NavMeshAgent>().enabled = false;
+        //Destroy(GetComponent<NavMeshAgent>());
 
+        GetComponent<Collider>().enabled = false;
+
+        if (ragdoll.transform != this.transform)
+        {
+            ragdoll.transform.parent = transform.parent;
+            Destroy(ragdoll.gameObject, destroyRagdollDelay);
+        }
+        
         Destroy(gameObject, destroyDelay);
+        if (ragdoll) ragdoll.Enable(deathForce);
 
         Respawn();
 
-        if (ragdoll) ragdoll.EnableRagdoll();
         dead = true;
     }
 
     private void Respawn()
     {
-        if (actor.actorManager && actor.actorManager.respawnable) actor.actorManager.Respawn();
+        if (Actor.actorManager && Actor.actorManager.respawnable) Actor.actorManager.Respawn();
+
+        if (Actor.isLocallyMine) deathcamera.Enable();
+        if (Actor.isLocallyMine) ragdoll.GetComponent<ThirdPersonController>().Enable();
+
     }
 
     public bool IsDead()
     {
         return dead;
+    }
+
+    public Actor GetActor()
+    {
+        return Actor;
     }
 }

@@ -2,8 +2,11 @@ using UnityEngine;
 
 public interface IDamageable
 {
-    public void TakeDamage(int amount,DamageInfo info);
+    public void TakeDamage(float amount,Actor source);
+    public Actor GetActor();
     public bool IsDead();
+    public bool deadConfirmed { get; set; }
+    public Vector3 deathForce { get; set; }
 }
 
 public class DamageInfo

@@ -5,34 +5,58 @@ using UnityEngine;
 
 public class Ragdoll : MonoBehaviour
 {
+    public Rigidbody[] rigidbodies { get; set; }
+    public Animator animator;
+
+
     private void Start()
     {
-        //Disable ragdoll physics
-        foreach (var member in GetComponentsInChildren<Rigidbody>())
+        rigidbodies = GetComponentsInChildren<Rigidbody>();
+        if (!animator) animator = GetComponent<Animator>();
+
+        foreach (var rb in rigidbodies)
         {
-            member.isKinematic = true;
+            //rb.interpolation = RigidbodyInterpolation.Interpolate;
+            rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
+        }
+
+        Disable();
+    }
+
+    public void Enable()
+    {
+        if (animator) animator.enabled = false;
+
+        //Enable ragdoll
+        foreach (var rb in rigidbodies)
+        {
+            rb.isKinematic = false;
+            rb.velocity = Vector3.zero;
         }
     }
 
-    public void RagdollForce(Collider bodyPart,Vector3 deathForce)
+    public void Enable(Vector3 deathForce)
     {
-        bodyPart.GetComponent<Rigidbody>().AddForce(deathForce, ForceMode.Impulse);
-    }
+        if (animator) animator.enabled = false;
 
-    public void EnableRagdoll()
-    {
-        RemoveAllForces();
-        GetComponent<Animator>().enabled = false;
-        GetComponent<Collider>().enabled = false;
-    }
-
-    private void RemoveAllForces()
-    {
         //Enable ragdoll
-        foreach (var member in GetComponentsInChildren<Rigidbody>())
+        foreach (var rb in rigidbodies)
         {
-            member.isKinematic = false;
-            member.velocity = Vector3.zero;
+            rb.isKinematic = false;
+            rb.velocity = Vector3.zero;
+
+            rb.AddForce(deathForce, ForceMode.VelocityChange);
+        }
+    }
+
+    public void Disable()
+    {
+        if (animator) animator.enabled = true;
+
+        //Disable ragdoll physics
+        foreach (var rb in rigidbodies)
+        {
+            rb.isKinematic = true;
         }
     }
 }

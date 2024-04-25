@@ -6,7 +6,7 @@ using UnityEngine;
 public class PoolManager : MonoBehaviour
 {
     public static PoolManager instance;
-    public Transform poolHolder;
+    public Transform poolHolder { get; set; }
     [SerializeField] List<PoolData> pd;
 
     private Dictionary<PoolTag, GameObjectPool> pools = new Dictionary<PoolTag, GameObjectPool>();
@@ -22,6 +22,7 @@ public class PoolManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        poolHolder = new GameObject("Pool").transform;
     }
 
     private void Start()

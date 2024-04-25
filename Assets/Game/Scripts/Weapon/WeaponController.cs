@@ -30,7 +30,7 @@ public class WeaponController : MonoBehaviour
     public Inventory inventory;
     [HideInInspector] public WeaponRecoil weaponRecoil;
     [HideInInspector] public PlayerMovement pm;
-    private Actor actor;
+    public Actor Actor { get; set; }
     private PlayerHUD weaponHUD;
 
     [Header("Visuals")]
@@ -53,16 +53,16 @@ public class WeaponController : MonoBehaviour
 
     private void Awake()
     {
-        prefabHolder = FindObjectOfType<PoolManager>().transform;
         pm = GetComponent<PlayerMovement>();
         weaponHUD = GetComponentInChildren<PlayerHUD>();
-        actor = GetComponent<Actor>();
+        Actor = GetComponent<Actor>();
     }
 
     private void Start()
     {
         readyToShoot = true;
         canShoot = true;
+        prefabHolder = FindObjectOfType<PoolManager>().poolHolder;
         UIManager.instance.pauseMenu.OnPausedStateChanged += (bool paused) => this.readyToShoot = !paused;
     }
 
@@ -145,26 +145,46 @@ public class WeaponController : MonoBehaviour
         // Hitscan shoot
         if (Physics.Raycast(playerCam.transform.position, dir, out hit, wd.gunStats.bulletRange, whatIsShootable))
         {
-            //hit damageable
+            //damageable group
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("EnemyHit"))
             {
+                //decal
                 Instantiate(bloodImpact, hit.point, Quaternion.LookRotation(hit.normal),prefabHolder);
 
+                //check damageable
                 IDamageable damageable = hit.collider.GetComponentInParent<IDamageable>();
-                DamageInfo info = new DamageInfo(DamageType.bullet, -hit.normal * wd.gunStats.bulletImpactForce, hit.collider, this.actor);
+                bool isAlive = damageable != null ? !damageable.IsDead() : false;
 
-                damageable.TakeDamage(wd.gunStats.damage,info);
+                //deal damage
+                if (isAlive)
+                {
+                    float damageMultiplier = hit.collider.CompareTag("Head") ? 1.5f : 1f;
+                    float damageResult = wd.gunStats.damage * damageMultiplier;
 
-                if(GetComponent<Actor>().isLocallyMine && !damageable.IsDead()) 
-                    UIManager.instance.OnEnemyHit.Invoke(false, true);
+                    damageable.TakeDamage(damageResult, Actor);
+
+                    if (Actor.isLocallyMine)
+                        UIManager.instance.OnEnemyHit.Invoke(false, true);
+                }
+
+                //verify kill
+                if (!damageable.deadConfirmed && damageable.IsDead())
+                {
+                    if(Actor)
+                        Actor?.onKill?.Invoke(damageable.GetActor());
+
+                    damageable.deadConfirmed = true;
+                }
+
+                if (hit.rigidbody)
+                {
+                    hit.rigidbody.AddForceAtPosition(-hit.normal * wd.gunStats.bulletImpactForce, hit.point, ForceMode.Impulse);
+                }
             }
 
-            //bullet impact hit
+            //bullet impact
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Environment"))
                 PoolManager.instance.SpawnGameObject(PoolTag.BulletImpact, hit.point, Quaternion.LookRotation(hit.normal));
-
-            //bulletDir = (hit.point - muzzlePoint.position).normalized;
-            //Debug.DrawLine(playerCam.transform.position, hit.point, Color.red, 3.0f);
         }
         else
         {
