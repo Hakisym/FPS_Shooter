@@ -32,6 +32,8 @@ public class CrossHair : MonoBehaviour
 
     void Update()
     {
+        if (!weaponController.wd) return;
+
         // Manage different sizes
         if (player.isGrounded)
         {

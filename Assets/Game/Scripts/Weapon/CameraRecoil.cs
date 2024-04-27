@@ -12,6 +12,8 @@ public class CameraRecoil : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!wc.wd) return;
+
         if (!wc.shootState || !wc.canShoot)
         {
             evaluationProgress = 0;

@@ -94,6 +94,8 @@ public class WeaponController : MonoBehaviour
 
     private void MyInput()
     {
+        if (!wd) return;
+
         if(wd.gunStats.allowButtonHold) shooting = Input.GetKey(KeyCode.Mouse0);
         else shooting = Input.GetKeyDown(KeyCode.Mouse0);
 

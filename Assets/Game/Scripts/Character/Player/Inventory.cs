@@ -13,7 +13,7 @@ public class Inventory : MonoBehaviour
     public int inventorySize;
     public float dropForce = 10f;
     public Transform dropPoint;
-    private int weaponIndex = 0;
+    private int weaponIndex;
 
     [Header("Animation")]
     public Animator animator;
@@ -39,7 +39,9 @@ public class Inventory : MonoBehaviour
         {
             PickupWeapon(weapon);
         }
-        Equip(weaponIndex);
+
+        weaponIndex = 0;
+        if (initialWeapons.Length > 0) Equip(weaponIndex);
     }
 
     private void Update()

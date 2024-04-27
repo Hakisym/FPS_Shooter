@@ -11,6 +11,8 @@ public class WeaponHUD : MonoBehaviour
 
     void Update()
     {
+        if (!weaponController.wd) return;
+
         ammoReserve.text = weaponController.bulletsLeft.ToString();
         ammoAmount.text = weaponController.wd.gunStats.magazineSize.ToString();
     }
