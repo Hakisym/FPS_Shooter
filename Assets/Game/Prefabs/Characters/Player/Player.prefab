@@ -446,6 +446,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b7f5956fd1141b409c86c06a8ca3a1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
 --- !u!114 &6017247141410299489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -459,6 +460,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speedChangeRate: 5
+  fallTimeout: 0.5
 --- !u!1 &1113761050957016622
 GameObject:
   m_ObjectHideFlags: 0
@@ -1195,6 +1197,12 @@ MonoBehaviour:
   runSound: {fileID: 8300000, guid: 15d2b028de199834e9cbb463b99d4aaf, type: 3}
   animator: {fileID: 1700024203204091687}
   wc: {fileID: 1700024202281320399}
+  OnJump:
+    m_PersistentCalls:
+      m_Calls: []
+  OnLand:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &3755187150427722618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1883,8 +1891,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fdcded947e9d8847af1877ab2da9a2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialWeapons:
-  - {fileID: 11400000, guid: 7a7dcc522ac3544448973d2ed5ab109f, type: 2}
+  initialWeapons: []
   weapons: []
   currentWeapon: {fileID: 0}
   inventorySize: 2

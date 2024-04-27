@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -38,6 +39,9 @@ public class PlayerMovement : MonoBehaviour
     [Header("Reference")]
     public Animator animator;
     public WeaponController wc;
+
+    public UnityEvent OnJump;
+    public UnityEvent OnLand;
 
     public float currentSpeed { get => speed; }
     public float moveVel { get => moveDirection.sqrMagnitude; }
@@ -166,6 +170,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
+        OnJump?.Invoke();
         velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
     }
 

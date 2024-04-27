@@ -13,7 +13,7 @@ public class Inventory : MonoBehaviour
     public int inventorySize;
     public float dropForce = 10f;
     public Transform dropPoint;
-    private int weaponIndex;
+    private int weaponIndex = -1;
 
     [Header("Animation")]
     public Animator animator;
@@ -40,8 +40,7 @@ public class Inventory : MonoBehaviour
             PickupWeapon(weapon);
         }
 
-        weaponIndex = 0;
-        if (initialWeapons.Length > 0) Equip(weaponIndex);
+        if (initialWeapons.Length > 0) Equip(0);
     }
 
     private void Update()
@@ -157,13 +156,15 @@ public class Inventory : MonoBehaviour
         weapons.Add(newWeapon);
         newWeapon.gameObject.SetActive(false);
 
+        if (!currentWeapon) Equip(0);
+
         return true;
     }
 
     public void DropGun()
     {
         //one gun remaining
-        if (switching || weapons.Count <= 1) return;
+        if (switching || weapons.Count == 0) return;
 
         //spawn pickup GO
         var pickupGO = Instantiate(pickupPrefab, dropPoint.position, dropPoint.rotation);
@@ -176,6 +177,7 @@ public class Inventory : MonoBehaviour
         Destroy(currentWeapon.gameObject);
         currentWeapon = null;
 
-        Equip(weaponIndex + 1);
+        if (weapons.Count > 0) Equip(weaponIndex + 1);
+        else wc.wd = null;
     }
 }
