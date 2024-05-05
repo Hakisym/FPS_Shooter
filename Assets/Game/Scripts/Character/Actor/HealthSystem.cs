@@ -23,16 +23,18 @@ public class HealthSystem : MonoBehaviour, IDamageable
     public Ragdoll ragdoll;
     private DeathCamera deathcamera;
 
-    private void Start()
+    private void Awake()
     {
         currentHealth = maxHealth;
 
         if (!ragdoll) ragdoll = GetComponent<Ragdoll>();
         Actor = GetComponent<Actor>();
+    }
 
+    private void Start()
+    {
         if (FindObjectOfType<GameManager>()) deathcamera = FindObjectOfType<GameManager>().DeathCamera;
-        if (Actor && Actor.isLocallyMine) deathcamera?.Disable(); 
-
+        if (Actor && Actor.isLocallyMine) deathcamera?.Disable();
     }
 
     public void TakeDamage(float amount, Actor source)
@@ -64,11 +66,7 @@ public class HealthSystem : MonoBehaviour, IDamageable
 
         GetComponent<Collider>().enabled = false;
 
-        if (ragdoll.transform != this.transform)
-        {
-            ragdoll.transform.parent = transform.parent;
-            Destroy(ragdoll.gameObject, destroyRagdollDelay);
-        }
+        if (destroyRagdollDelay != 0) Destroy(ragdoll.gameObject, destroyRagdollDelay);
         
         Destroy(gameObject, destroyDelay);
         if (ragdoll) ragdoll.Enable(deathForce);

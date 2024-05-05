@@ -25,7 +25,7 @@ public class Inventory : MonoBehaviour
     public GameObject pickupPrefab;
     public WeaponController wc;
     public static Inventory instance;
-    public Action OnEquipWeapon;
+    public Action<WeaponData> OnEquipWeapon;
 
     private void Awake()
     {
@@ -132,7 +132,7 @@ public class Inventory : MonoBehaviour
         currentWeapon.gameObject.SetActive(true);
         wc.GetWeaponData(currentWeapon);
 
-        OnEquipWeapon?.Invoke();
+        OnEquipWeapon?.Invoke(currentWeapon.wd);
 
         //play take out sound
         wc.mainAudioSource.clip = currentWeapon.wd.soundClips.takeOutSound;

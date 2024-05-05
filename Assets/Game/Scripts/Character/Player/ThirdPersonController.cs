@@ -6,10 +6,15 @@ public class ThirdPersonController : MonoBehaviour
 {
     public Actor Actor { get; set; }
     private Animator animator;
+    private CharacterManager characterManager;
     private PlayerMovement pm;
     private WeaponController wc;
     private SkinnedMeshRenderer meshRenderer;
+    private Ragdoll ragdoll;
 
+    public Transform ikHandGun;
+    public Transform ikRotation;
+    public Transform ikRotationAim;
     public float speedChangeRate;
     public float fallTimeout;
 
@@ -20,20 +25,18 @@ public class ThirdPersonController : MonoBehaviour
     private Vector3 initialChestRotation;
     private Quaternion lastRotation;
 
+    private Vector3 _targetDirection;
     private Vector2 targetMove;
     private float _animationBlend;
     private float _fallTimeoutDelta;
 
     private void Awake()
     {
-        Actor = GetComponentInParent<Actor>();
-
         meshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
         //if (Actor.isLocallyMine) meshRenderer.enabled = false;
 
         animator = GetComponent<Animator>();
-        pm = GetComponentInParent<PlayerMovement>();
-        wc = GetComponentInParent<WeaponController>();
+        ragdoll = GetComponent<Ragdoll>();
 
         //get avatar bones
         hips = animator.GetBoneTransform(HumanBodyBones.Hips);
@@ -47,10 +50,26 @@ public class ThirdPersonController : MonoBehaviour
         initialChestRotation = chest.localEulerAngles;
     }
 
+    public void Setup(CharacterManager _characterManager)
+    {
+        characterManager = _characterManager;
+        Actor = _characterManager.actor;
+        pm = _characterManager.playerMovement;
+        wc = _characterManager.weaponController;
+
+        //setup ragdoll
+        HealthSystem healthSystem = (HealthSystem)characterManager.damageable;
+        healthSystem.ragdoll = this.ragdoll;
+    }
+
     private void Start()
     {
         pm.OnJump.AddListener(JumpManagement);
-        wc.inventory.OnEquipWeapon += () => animator.SetTrigger("ChangeWeapon");
+        wc.inventory.OnEquipWeapon += (WeaponData wd) =>
+        {
+            animator.SetTrigger("ChangeWeapon");
+            Instantiate(wd.pickUpGraphics, ikHandGun);
+        };
     }
 
     private void Update()
@@ -103,24 +122,36 @@ public class ThirdPersonController : MonoBehaviour
 
     private void LateUpdate()
     {
-        Quaternion targetRotation = Quaternion.LookRotation(wc.playerCam.transform.forward);
+        //Vector3 playerHeadEulerAngles = wc.aiming ? ikRotationAim.rotation.eulerAngles : ikRotation.rotation.eulerAngles;
+        //playerHeadEulerAngles.x = ModularClamp(playerHeadEulerAngles.x, 60, 300);
+        //Quaternion playerHead = Quaternion.Euler(playerHeadEulerAngles);
 
-        //calculate bone transform(root->hips->spine)
-        targetRotation *= Quaternion.Euler(initialRootRotation);
-        targetRotation *= Quaternion.Euler(initialHipsRotation);
-        targetRotation *= Quaternion.Euler(initialSpineRotation);
+        //Vector3 playerHeadForward = playerHead * Vector3.forward;
+        //playerHeadForward.Normalize();
 
-        //limit spine rotation
-        if (Quaternion.Angle(targetRotation, hips.rotation) <= 60f)
+        //_targetDirection = Vector3.Lerp(_targetDirection, playerHeadForward, Time.deltaTime * speedChangeRate);
+
+        //Quaternion targetRotation = Quaternion.LookRotation(_targetDirection);
+
+        ////calculate bone transform(root->hips->spine)
+        //targetRotation *= Quaternion.Euler(initialRootRotation);
+        //targetRotation *= Quaternion.Euler(initialHipsRotation);
+        //targetRotation *= Quaternion.Euler(initialSpineRotation);
+
+        //chest.rotation = targetRotation * Quaternion.Euler(initialChestRotation);
+    }
+
+    float ModularClamp(float val, float min, float max)
+    {
+        if (val <= 180)
         {
-            chest.rotation = targetRotation * Quaternion.Euler(initialChestRotation);
-            lastRotation = chest.localRotation;
+            if (val > min) val = min;
         }
         else
         {
-            chest.localEulerAngles =  new Vector3(lastRotation.eulerAngles.x, chest.localEulerAngles.y, chest.localEulerAngles.z);
+            if (val < max) val = max;
         }
-
+        return val;
     }
 
     private void JumpManagement()
