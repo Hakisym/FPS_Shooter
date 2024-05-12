@@ -27,7 +27,7 @@ public class Actor : MonoBehaviour
     {
         if (isLocallyMine)
         {
-            var thirdPersonController = Instantiate(tpc, transform.parent);
+            var thirdPersonController = Instantiate(tpc);
             thirdPersonController.Setup(characterManager);
         }
 

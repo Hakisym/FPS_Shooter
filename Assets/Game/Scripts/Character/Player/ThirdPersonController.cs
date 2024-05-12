@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 
 public class ThirdPersonController : MonoBehaviour
 {
     public Actor Actor { get; set; }
+    public Rig rig;
     private Animator animator;
     private CharacterManager characterManager;
     private PlayerMovement pm;
@@ -12,20 +15,12 @@ public class ThirdPersonController : MonoBehaviour
     private SkinnedMeshRenderer meshRenderer;
     private Ragdoll ragdoll;
 
-    public Transform ikHandGun;
-    public Transform ikRotation;
-    public Transform ikRotationAim;
+    public Transform handIk;
+    public Transform aimTarget;
+
     public float speedChangeRate;
     public float fallTimeout;
 
-    private Transform hips, spine, chest;
-    private Vector3 initialRootRotation;
-    private Vector3 initialHipsRotation;
-    private Vector3 initialSpineRotation;
-    private Vector3 initialChestRotation;
-    private Quaternion lastRotation;
-
-    private Vector3 _targetDirection;
     private Vector2 targetMove;
     private float _animationBlend;
     private float _fallTimeoutDelta;
@@ -37,17 +32,6 @@ public class ThirdPersonController : MonoBehaviour
 
         animator = GetComponent<Animator>();
         ragdoll = GetComponent<Ragdoll>();
-
-        //get avatar bones
-        hips = animator.GetBoneTransform(HumanBodyBones.Hips);
-        spine = animator.GetBoneTransform(HumanBodyBones.Spine);
-        chest = animator.GetBoneTransform(HumanBodyBones.Chest);
-        Transform root = hips.parent;
-
-        initialRootRotation = root.localEulerAngles;
-        initialHipsRotation = hips.localEulerAngles;
-        initialSpineRotation = spine.localEulerAngles;
-        initialChestRotation = chest.localEulerAngles;
     }
 
     public void Setup(CharacterManager _characterManager)
@@ -68,7 +52,10 @@ public class ThirdPersonController : MonoBehaviour
         wc.inventory.OnEquipWeapon += (WeaponData wd) =>
         {
             animator.SetTrigger("ChangeWeapon");
-            Instantiate(wd.pickUpGraphics, ikHandGun);
+            var obj = Instantiate(wd.pickUpGraphics, handIk);
+
+            // Destroy all colliders in the instantiated object using lambda expression
+            obj.GetComponentsInChildren<Collider>().ToList().ForEach(childCollider => Destroy(childCollider));
         };
     }
 
@@ -98,7 +85,6 @@ public class ThirdPersonController : MonoBehaviour
         {
             //reset fall time
             _fallTimeoutDelta = fallTimeout;
-            animator.SetBool("Jump", false);
             animator.SetBool("FreeFall", false);
         }
         else
@@ -117,46 +103,24 @@ public class ThirdPersonController : MonoBehaviour
         animator.SetInteger("Weapon", (wc.wd) ? 1 : 0);
         animator.SetBool("Aim", wc.aiming);
 
+        rig.weight = wc.aiming ? 1 : 0;
 
-    }
 
-    private void LateUpdate()
-    {
-        //Vector3 playerHeadEulerAngles = wc.aiming ? ikRotationAim.rotation.eulerAngles : ikRotation.rotation.eulerAngles;
-        //playerHeadEulerAngles.x = ModularClamp(playerHeadEulerAngles.x, 60, 300);
-        //Quaternion playerHead = Quaternion.Euler(playerHeadEulerAngles);
+        if (characterManager == null) return;
 
-        //Vector3 playerHeadForward = playerHead * Vector3.forward;
-        //playerHeadForward.Normalize();
+        //sync horizontal position
+        transform.position = Vector3.Lerp(transform.position, new Vector3(characterManager.transform.position.x, transform.position.y, characterManager.transform.position.z) , Time.deltaTime * 10);
+        //sync vertical position
+        transform.position = new Vector3(transform.position.x, characterManager.transform.position.y, transform.position.z);
+        //sync rotation
+        transform.rotation = Quaternion.Slerp(transform.rotation, characterManager.transform.rotation, Time.deltaTime * 10);
 
-        //_targetDirection = Vector3.Lerp(_targetDirection, playerHeadForward, Time.deltaTime * speedChangeRate);
-
-        //Quaternion targetRotation = Quaternion.LookRotation(_targetDirection);
-
-        ////calculate bone transform(root->hips->spine)
-        //targetRotation *= Quaternion.Euler(initialRootRotation);
-        //targetRotation *= Quaternion.Euler(initialHipsRotation);
-        //targetRotation *= Quaternion.Euler(initialSpineRotation);
-
-        //chest.rotation = targetRotation * Quaternion.Euler(initialChestRotation);
-    }
-
-    float ModularClamp(float val, float min, float max)
-    {
-        if (val <= 180)
-        {
-            if (val > min) val = min;
-        }
-        else
-        {
-            if (val < max) val = max;
-        }
-        return val;
+        aimTarget.position = characterManager.aimTarget.position;
     }
 
     private void JumpManagement()
     {
-        animator.SetBool("Jump", true);
+        animator.SetTrigger("Jump");
     }
 
     public void Enable()

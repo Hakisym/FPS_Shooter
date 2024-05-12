@@ -6,8 +6,12 @@ public class MouseLook : MonoBehaviour
 {
     public float mouseSensitivity = 100f;
     public Transform playerBody;
-    private bool controllable;
 
+    public Transform aimTarget;
+    public LayerMask aimMask;
+    private Camera mainCamera;
+
+    private bool controllable;
     private float xRotation = 0f;
 
     private void Start()
@@ -17,6 +21,8 @@ public class MouseLook : MonoBehaviour
 
         controllable = true;
         UIManager.instance.pauseMenu.OnPausedStateChanged += (bool paused) => this.controllable = !paused;
+
+        mainCamera = Camera.main;
     }
 
     private void Update()
@@ -33,5 +39,18 @@ public class MouseLook : MonoBehaviour
         // Rotate player and camera
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         playerBody.Rotate(Vector3.up * mouseX);
+
+        Ray ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
+
+        RaycastHit hitInfo;
+
+        if (Physics.Raycast(ray,out hitInfo, Mathf.Infinity,aimMask))
+        {
+            aimTarget.position = hitInfo.point;
+        }
+        else
+        {
+            aimTarget.position = ray.GetPoint(50);
+        }
     }
 }

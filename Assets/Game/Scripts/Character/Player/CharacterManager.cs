@@ -10,6 +10,8 @@ public class CharacterManager : MonoBehaviour
     public IDamageable damageable { get; set; }
     public Inventory inventory { get; set; }
 
+    public Transform aimTarget;
+
     private void Awake()
     {
         actor = GetComponent<Actor>();

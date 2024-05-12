@@ -10,6 +10,7 @@ public class WeaponController : MonoBehaviour
     [HideInInspector] public WeaponData wd;
 
     [Header("Gun states")]
+    [SerializeField] bool holdAim;
     [HideInInspector] public bool reloading, aiming;
     [HideInInspector] public bool canShoot;
     [HideInInspector] public bool shootState { get => !readyToShoot; }
@@ -99,7 +100,8 @@ public class WeaponController : MonoBehaviour
         if(wd.gunStats.allowButtonHold) shooting = Input.GetKey(KeyCode.Mouse0);
         else shooting = Input.GetKeyDown(KeyCode.Mouse0);
 
-        aiming = Input.GetMouseButton(1) && !pm.isSprinting;
+        if (holdAim) aiming = Input.GetMouseButton(1) && !pm.isSprinting;
+        else if (Input.GetMouseButtonDown(1)) aiming = !aiming;
 
         if (Input.GetKeyDown(KeyCode.R) && !reloading && bulletsLeft < wd.gunStats.magazineSize && !inventory.switching) Reload();
 
