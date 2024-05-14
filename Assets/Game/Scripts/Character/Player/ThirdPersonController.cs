@@ -7,7 +7,6 @@ using UnityEngine.Animations.Rigging;
 public class ThirdPersonController : MonoBehaviour
 {
     public Actor Actor { get; set; }
-    public Rig rig;
     private Animator animator;
     private CharacterManager characterManager;
     private PlayerMovement pm;
@@ -15,16 +14,24 @@ public class ThirdPersonController : MonoBehaviour
     private SkinnedMeshRenderer meshRenderer;
     private Ragdoll ragdoll;
 
+    public Rig aimRig;
+    public MultiAimConstraint chestConstrain;
+    public MultiAimConstraint upperChestConstrain;
+
     public Transform handIk;
     public Transform aimTarget;
+    public Transform rightHandTarget;
 
     public float speedChangeRate;
     public float fallTimeout;
 
+    public Vector3 aimConstrainOffset;
+    public Vector3 handTargetPos;
+    private Vector3 _originalRigOffset;
+
     private Vector2 targetMove;
     private float _animationBlend;
     private float _fallTimeoutDelta;
-    private float _aimRigWeight;
 
     private void Awake()
     {
@@ -33,6 +40,8 @@ public class ThirdPersonController : MonoBehaviour
 
         animator = GetComponent<Animator>();
         ragdoll = GetComponent<Ragdoll>();
+
+        _originalRigOffset = chestConstrain.data.offset;
     }
 
     public void Setup(CharacterManager _characterManager)
@@ -109,9 +118,15 @@ public class ThirdPersonController : MonoBehaviour
         animator.SetInteger("Weapon", (wc.wd) ? 1 : 0);
         animator.SetBool("Aim", wc.aiming);
 
-        //apply aim ik
-        _aimRigWeight = wc.aiming ? 1 : 0;
-        rig.weight = Mathf.Lerp(rig.weight, _aimRigWeight, Time.deltaTime * speedChangeRate);
+        bool ikEnable = wc.aiming || (move == Vector2.zero && wc.wd);
+
+        //rig weight
+        var _aimRigWeight = ikEnable ? 1 : 0;
+        aimRig.weight = Mathf.Lerp(aimRig.weight, _aimRigWeight, Time.deltaTime * speedChangeRate);
+        //constrain offset
+        var _bodyRigOffset = ikEnable ? aimConstrainOffset : _originalRigOffset;
+        chestConstrain.data.offset = Vector3.Lerp(chestConstrain.data.offset, _bodyRigOffset, Time.deltaTime * speedChangeRate);
+        upperChestConstrain.data.offset = Vector3.Lerp(upperChestConstrain.data.offset, _bodyRigOffset, Time.deltaTime * speedChangeRate);
 
 
         if (characterManager == null) return;
