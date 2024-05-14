@@ -28,6 +28,7 @@ public class ThirdPersonController : MonoBehaviour
     public Vector3 aimConstrainOffset;
     public Vector3 handTargetPos;
     private Vector3 _originalRigOffset;
+    private Vector3 _originalhandPos;
 
     private Vector2 targetMove;
     private float _animationBlend;
@@ -42,6 +43,7 @@ public class ThirdPersonController : MonoBehaviour
         ragdoll = GetComponent<Ragdoll>();
 
         _originalRigOffset = chestConstrain.data.offset;
+        _originalhandPos = rightHandTarget.localPosition;
     }
 
     public void Setup(CharacterManager _characterManager)
@@ -118,25 +120,27 @@ public class ThirdPersonController : MonoBehaviour
         animator.SetInteger("Weapon", (wc.wd) ? 1 : 0);
         animator.SetBool("Aim", wc.aiming);
 
-        bool ikEnable = wc.aiming || (move == Vector2.zero && wc.wd);
+        // enable ik if aiming,idle or shooting
+        bool ikEnable = wc.aiming || (move == Vector2.zero && wc.wd) || wc.shootState;
 
-        //rig weight
+        // apply hand ik with smooth lerp
         var _aimRigWeight = ikEnable ? 1 : 0;
         aimRig.weight = Mathf.Lerp(aimRig.weight, _aimRigWeight, Time.deltaTime * speedChangeRate);
-        //constrain offset
+
+        // apply spine offset in aim pose
         var _bodyRigOffset = ikEnable ? aimConstrainOffset : _originalRigOffset;
         chestConstrain.data.offset = Vector3.Lerp(chestConstrain.data.offset, _bodyRigOffset, Time.deltaTime * speedChangeRate);
         upperChestConstrain.data.offset = Vector3.Lerp(upperChestConstrain.data.offset, _bodyRigOffset, Time.deltaTime * speedChangeRate);
 
+        // change hand ik position between hipfire and aiming
+        var _handTargetPos = wc.aiming ? _originalhandPos : handTargetPos;
+        rightHandTarget.localPosition = Vector3.Lerp(rightHandTarget.localPosition, _handTargetPos, Time.deltaTime * speedChangeRate);
 
         if (characterManager == null) return;
 
-        //sync horizontal position
-        transform.position = Vector3.Lerp(transform.position, new Vector3(characterManager.transform.position.x, transform.position.y, characterManager.transform.position.z) , Time.deltaTime * 10);
-        //sync vertical position
-        transform.position = new Vector3(transform.position.x, characterManager.transform.position.y, transform.position.z);
-        //sync rotation
-        transform.rotation = Quaternion.Slerp(transform.rotation, characterManager.transform.rotation, Time.deltaTime * 10);
+        //sync position and rotation
+        transform.position = characterManager.transform.position;
+        transform.rotation = characterManager.transform.rotation;
 
         aimTarget.position = characterManager.aimTarget.position;
     }

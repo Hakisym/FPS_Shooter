@@ -2682,7 +2682,7 @@ MonoBehaviour:
   speedChangeRate: 5
   fallTimeout: 0.5
   aimConstrainOffset: {x: 30, y: 20, z: 5}
-  handTargetPos: {x: 0, y: 0, z: 0}
+  handTargetPos: {x: -0.006, y: -0.072, z: 0.073}
 --- !u!114 &173570480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2963,7 +2963,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7160100810126294282}
   m_LocalRotation: {x: -0.17152084, y: -0.099647485, z: -0.023686366, w: -0.9798418}
-  m_LocalPosition: {x: 0.017, y: 0.004, z: 0.064}
+  m_LocalPosition: {x: -0.0085, y: -0.0449, z: -0.0273}
   m_LocalScale: {x: 0.1, y: 0.099999994, z: 0.100000046}
   m_ConstrainProportionsScale: 0
   m_Children: []
