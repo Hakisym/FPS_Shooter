@@ -24,6 +24,7 @@ public class ThirdPersonController : MonoBehaviour
     private Vector2 targetMove;
     private float _animationBlend;
     private float _fallTimeoutDelta;
+    private float _aimRigWeight;
 
     private void Awake()
     {
@@ -52,11 +53,16 @@ public class ThirdPersonController : MonoBehaviour
         wc.inventory.OnEquipWeapon += (WeaponData wd) =>
         {
             animator.SetTrigger("ChangeWeapon");
-            var obj = Instantiate(wd.pickUpGraphics, handIk);
 
-            // Destroy all colliders in the instantiated object using lambda expression
+            //destroy current weapon
+            foreach (Transform child in handIk) 
+                Destroy(child.gameObject);
+            var obj = Instantiate(wd.pickUpGraphics, handIk);
+            // Destroy all colliders
             obj.GetComponentsInChildren<Collider>().ToList().ForEach(childCollider => Destroy(childCollider));
         };
+
+        wc.OnFire.AddListener(() => animator.SetTrigger("Fire"));
     }
 
     private void Update()
@@ -103,7 +109,9 @@ public class ThirdPersonController : MonoBehaviour
         animator.SetInteger("Weapon", (wc.wd) ? 1 : 0);
         animator.SetBool("Aim", wc.aiming);
 
-        rig.weight = wc.aiming ? 1 : 0;
+        //apply aim ik
+        _aimRigWeight = wc.aiming ? 1 : 0;
+        rig.weight = Mathf.Lerp(rig.weight, _aimRigWeight, Time.deltaTime * speedChangeRate);
 
 
         if (characterManager == null) return;

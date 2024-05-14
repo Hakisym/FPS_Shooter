@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
 public class WeaponController : MonoBehaviour
@@ -52,6 +53,8 @@ public class WeaponController : MonoBehaviour
     private float maxLifetime = 3.0f;
     private List<Bullet> bullets = new List<Bullet>();
 
+    public UnityEvent OnFire;
+
     private void Awake()
     {
         pm = GetComponent<PlayerMovement>();
@@ -65,6 +68,9 @@ public class WeaponController : MonoBehaviour
         canShoot = true;
         prefabHolder = FindObjectOfType<PoolManager>().poolHolder;
         UIManager.instance.pauseMenu.OnPausedStateChanged += (bool paused) => this.readyToShoot = !paused;
+
+        //disable aim on sprint
+        pm.OnSprint.AddListener(() => aiming = false);
     }
 
     private void Update()
@@ -122,6 +128,8 @@ public class WeaponController : MonoBehaviour
     {
         readyToShoot = false;
         CancelInvoke("ResetShootMode");
+
+        OnFire?.Invoke();
 
         //Spread
         float bulletSpread;

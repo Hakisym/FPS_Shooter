@@ -42,6 +42,7 @@ public class PlayerMovement : MonoBehaviour
 
     public UnityEvent OnJump;
     public UnityEvent OnLand;
+    public UnityEvent OnSprint;
 
     public float currentSpeed { get => speed; }
     public float moveVel { get => moveDirection.sqrMagnitude; }
@@ -114,7 +115,10 @@ public class PlayerMovement : MonoBehaviour
 
         // Sprint input
         if (Input.GetKeyDown(KeyCode.LeftShift) && isGrounded && mouseY > 0)
+        {
+            if (!isSprinting) OnSprint?.Invoke();
             isSprinting = !isSprinting;
+        }
 
         // Crouch input
         if (Input.GetKeyDown(KeyCode.LeftControl) && isGrounded && !isSprinting)
