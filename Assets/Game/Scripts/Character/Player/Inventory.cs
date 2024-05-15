@@ -26,6 +26,7 @@ public class Inventory : MonoBehaviour
     public WeaponController wc;
     public static Inventory instance;
     public Action<WeaponData> OnEquipWeapon;
+    public Action OnDropWeapon;
 
     private void Awake()
     {
@@ -98,7 +99,7 @@ public class Inventory : MonoBehaviour
         switching = true;
         weaponIndex = index;
 
-        //if currently holding a gun
+        //holding a weapon
         if (currentWeapon != null)
         {
             //hoster current gun
@@ -107,7 +108,7 @@ public class Inventory : MonoBehaviour
             wc.mainAudioSource.clip = currentWeapon.wd.soundClips.holsterSound;
             wc.mainAudioSource.Play();
         }
-        //if currently empty
+        //empty-handed
         else
         {
             //take out new weapon
@@ -118,7 +119,7 @@ public class Inventory : MonoBehaviour
         
     }
 
-    //take out new weapon
+    //animation event
     public void TakeOutWeapon()
     {
         //disable old weapon
@@ -132,6 +133,7 @@ public class Inventory : MonoBehaviour
         currentWeapon.gameObject.SetActive(true);
         wc.GetWeaponData(currentWeapon);
 
+        //callback event
         OnEquipWeapon?.Invoke(currentWeapon.wd);
 
         //play take out sound
@@ -139,13 +141,14 @@ public class Inventory : MonoBehaviour
         wc.mainAudioSource.Play();
     }
 
-    //when finish taking out weapon
+    //animation event
     public void ResetEquip()
     {
         switching = false;
         wc.CanShoot();
     }
 
+    //two methods for pickup & drop gun
     public bool PickupWeapon(WeaponData weaponSO)
     {
         //create new gun
@@ -165,6 +168,8 @@ public class Inventory : MonoBehaviour
     {
         //one gun remaining
         if (switching || weapons.Count == 0) return;
+
+        OnDropWeapon?.Invoke();
 
         //spawn pickup GO
         var pickupGO = Instantiate(pickupPrefab, dropPoint.position, dropPoint.rotation);

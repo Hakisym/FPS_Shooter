@@ -14,6 +14,12 @@ public class ThirdPersonController : MonoBehaviour
     private SkinnedMeshRenderer meshRenderer;
     private Ragdoll ragdoll;
 
+    private GameObject bulletCasting;
+    private Transform prefabHolder;
+    private Animator gunAnim;
+    private ParticleSystem muzzleVFX;
+    private Transform castPoint;
+
     public Rig aimRig;
     public MultiAimConstraint chestConstrain;
     public MultiAimConstraint upperChestConstrain;
@@ -60,7 +66,10 @@ public class ThirdPersonController : MonoBehaviour
 
     private void Start()
     {
+        prefabHolder = FindObjectOfType<PoolManager>().poolHolder;
+
         pm.OnJump.AddListener(JumpManagement);
+
         wc.inventory.OnEquipWeapon += (WeaponData wd) =>
         {
             animator.SetTrigger("ChangeWeapon");
@@ -68,12 +77,23 @@ public class ThirdPersonController : MonoBehaviour
             //destroy current weapon
             foreach (Transform child in handIk) 
                 Destroy(child.gameObject);
-            var obj = Instantiate(wd.pickUpGraphics, handIk);
-            // Destroy all colliders
-            obj.GetComponentsInChildren<Collider>().ToList().ForEach(childCollider => Destroy(childCollider));
+            var obj = Instantiate(wd.gunModel, handIk);
+            GunSetup(obj.transform, wd);
         };
 
-        wc.OnFire.AddListener(() => animator.SetTrigger("Fire"));
+        wc.inventory.OnDropWeapon += () =>
+        {
+            foreach (Transform child in handIk)
+                Destroy(child.gameObject);
+        };
+
+        wc.OnFire += () =>
+        {
+            animator.SetTrigger("Fire");
+            gunAnim.Play("Fire");
+            muzzleVFX.Play();
+            Instantiate(bulletCasting, castPoint.position, castPoint.rotation, prefabHolder);
+        };
     }
 
     private void Update()
@@ -163,5 +183,13 @@ public class ThirdPersonController : MonoBehaviour
     private void OnFootstep(AnimationEvent animationEvent)
     {
         if (animationEvent.animatorClipInfo.weight > 0.5f) { }
+    }
+
+    private void GunSetup(Transform gun,WeaponData wd)
+    {
+        gunAnim = gun.GetComponent<Animator>();
+        muzzleVFX = gun.Find("muzzle").GetComponentInChildren<ParticleSystem>();
+        castPoint = gun.Find("castPoint");
+        bulletCasting = wd.bulletCasting;
     }
 }

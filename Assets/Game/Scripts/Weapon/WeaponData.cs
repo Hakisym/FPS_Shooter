@@ -8,15 +8,17 @@ public class WeaponData : ScriptableObject
     [Header("Gun Settings")]
     public string gunName;
     public GameObject gunPrefab;
+    public GameObject gunModel;
     public GameObject pickUpGraphics;
     public GunStats gunStats;
 
     [Header("Recoil Settings")]
     public WeaponRecoilParameters weaponRecoilParameters;
     public CameraRecoilParameters cameraRecoilParameters;
+    public float camShakeIntensity;
 
     [Header("Visual")]
-    public float camShakeIntensity;
+    public GameObject bulletCasting;
 
     [Header("Audio")]
     public AudioClips soundClips;

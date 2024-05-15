@@ -40,7 +40,7 @@ public class WeaponController : MonoBehaviour
     public GameObject bloodImpact;
     public TrailRenderer bulletTrail;
     public GameObject bulletCasting;
-    private ParticleSystem[] muzzleVFX;
+    private ParticleSystem muzzleVFX;
 
     [Header("Sounds")]
     public AudioSource mainAudioSource;
@@ -53,7 +53,7 @@ public class WeaponController : MonoBehaviour
     private float maxLifetime = 3.0f;
     private List<Bullet> bullets = new List<Bullet>();
 
-    public UnityEvent OnFire;
+    public Action OnFire;
 
     private void Awake()
     {
@@ -90,7 +90,7 @@ public class WeaponController : MonoBehaviour
         castingPoint = wid.castPoint;
 
         //attach muzzle flash
-        muzzleVFX = muzzlePoint.GetComponentsInChildren<ParticleSystem>();
+        muzzleVFX = muzzlePoint.GetComponentInChildren<ParticleSystem>();
 
         weaponRecoil = wid.GetComponentInChildren<WeaponRecoil>();
 
@@ -207,8 +207,7 @@ public class WeaponController : MonoBehaviour
         }
 
         //muzzle flash
-        foreach (var particle in muzzleVFX)
-            particle.Play();
+        muzzleVFX.Play();
 
         //bullet cast
         Instantiate(bulletCasting, castingPoint.position, castingPoint.rotation, prefabHolder);
