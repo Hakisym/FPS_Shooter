@@ -29,10 +29,12 @@ public class WeaponController : MonoBehaviour
     [Space(5)]
     public CameraRecoil cameraRecoil;
     public RecoilPoint recoilPoint;
-    public Inventory inventory;
-    [HideInInspector] public WeaponRecoil weaponRecoil;
-    [HideInInspector] public PlayerMovement pm;
     public Actor Actor { get; set; }
+    private CharacterManager characterManager;
+    private Inventory inventory;
+    private PlayerMovement pm;
+    private HealthSystem healthSystem;
+    private WeaponRecoil weaponRecoil;
     private PlayerHUD weaponHUD;
 
     [Header("Visuals")]
@@ -57,13 +59,17 @@ public class WeaponController : MonoBehaviour
 
     private void Awake()
     {
-        pm = GetComponent<PlayerMovement>();
+        characterManager = GetComponent<CharacterManager>();
         weaponHUD = GetComponentInChildren<PlayerHUD>();
-        Actor = GetComponent<Actor>();
     }
 
     private void Start()
     {
+        pm = characterManager.playerMovement;
+        Actor = characterManager.actor;
+        inventory = characterManager.inventory;
+        healthSystem = characterManager.damageable as HealthSystem;
+
         readyToShoot = true;
         canShoot = true;
         prefabHolder = FindObjectOfType<PoolManager>().poolHolder;
@@ -71,6 +77,7 @@ public class WeaponController : MonoBehaviour
 
         //disable aim on sprint
         pm.OnSprint.AddListener(() => aiming = false);
+        healthSystem.OnDead.AddListener(() => inventory.DropGun());
     }
 
     private void Update()

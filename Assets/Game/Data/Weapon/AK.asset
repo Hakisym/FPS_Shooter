@@ -15,6 +15,8 @@ MonoBehaviour:
   gunName: AK
   gunPrefab: {fileID: 6236459585021328576, guid: decb46954535e5e49b96069cf84c92d2,
     type: 3}
+  gunModel: {fileID: 4500482033252313852, guid: 50e21d959129cfe4ebb107ac4c2049fd,
+    type: 3}
   pickUpGraphics: {fileID: 2641351572177420201, guid: 70beeaeaec2b98d4aadce0c3a9baf04d,
     type: 3}
   gunStats:
@@ -32,7 +34,7 @@ MonoBehaviour:
     allowButtonHold: 1
   weaponRecoilParameters:
     recoilRotation: {x: 1, y: 1, z: 2}
-    recoilKickback: {x: 0, y: 0, z: -0.07}
+    recoilKickback: {x: 0, y: 0, z: -0.1}
     recoilRotationAim: {x: 1, y: 1, z: 1}
     recoilKickbackAim: {x: 0, y: 0, z: -0.07}
     positionalRecoilSpeed: 20
@@ -114,6 +116,8 @@ MonoBehaviour:
     xRecoilAmount: 5
     yRecoilAmount: 5
   camShakeIntensity: 0.5
+  bulletCasting: {fileID: 8360084055759571751, guid: 47e2dad834f38dc43a2622d3db1e283b,
+    type: 3}
   soundClips:
     shootSound: {fileID: 8300000, guid: c2763216fc6f5a24897c6f5f499a3955, type: 3}
     holsterSound: {fileID: 8300000, guid: 8c448a769001a1d439bea75de9da7205, type: 3}

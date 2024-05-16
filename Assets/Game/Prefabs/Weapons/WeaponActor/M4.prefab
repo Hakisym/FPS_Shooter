@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 5960381454378284264}
   - component: {fileID: 3504052664582760633}
   - component: {fileID: 1331482994473972696}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Motion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -170,7 +170,7 @@ GameObject:
   m_Component:
   - component: {fileID: 573339908886308845}
   - component: {fileID: 573339908886308846}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: M4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -257,7 +257,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1700024201923230975}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Jumping
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -289,7 +289,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1700024202380859644}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bobbing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -321,7 +321,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1700024202636786039}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Aiming
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -436,7 +436,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8776897165959692482}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -468,7 +468,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3978234631846783132}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sway
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -583,7 +583,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 559509382328221341}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sprinting
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -615,7 +615,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3491081918615035098}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Transform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -813,7 +813,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 403446498131014849}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Recoil
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1043,7 +1043,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5856637819576537719}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Crouch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1276,6 +1276,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: muzzleFlash
+      objectReference: {fileID: 0}
+    - target: {fileID: 3870400677295699170, guid: 2aa0e578ed9db9c41a5c808a64c0f83e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2aa0e578ed9db9c41a5c808a64c0f83e, type: 3}

@@ -66,10 +66,11 @@ public class HealthSystem : MonoBehaviour, IDamageable
 
         GetComponent<Collider>().enabled = false;
 
-        if (destroyRagdollDelay != 0) Destroy(ragdoll.gameObject, destroyRagdollDelay);
-        
         Destroy(gameObject, destroyDelay);
+
         if (ragdoll) ragdoll.Enable(deathForce);
+
+        if (destroyRagdollDelay != 0) Destroy(ragdoll.gameObject, destroyRagdollDelay);
 
         Respawn();
 

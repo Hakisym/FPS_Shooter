@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3870400677295699169}
   - component: {fileID: 3870400677295699103}
   - component: {fileID: 3870400677295699168}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: muzzleFlash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9859,6 +9859,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: muzzleSmoke
+      objectReference: {fileID: 0}
+    - target: {fileID: 6622686052998093919, guid: 48f30f01f360d0e48a904a9698a3b810,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6696474496404402709, guid: 48f30f01f360d0e48a904a9698a3b810,
         type: 3}

@@ -77,7 +77,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.12400333
+  m_Radius: 0.08
   m_Height: 0.4133444
   m_Direction: 1
   m_Center: {x: 0, y: 0.2066722, z: 0}
@@ -765,7 +765,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.122561485
+  m_Radius: 0.07
   m_Height: 0.49024594
   m_Direction: 1
   m_Center: {x: 0, y: -0.24512297, z: 0}
@@ -1038,7 +1038,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.07806385
+  m_Radius: 0.06
   m_Height: 0.39031926
   m_Direction: 1
   m_Center: {x: 0, y: 0.19515963, z: 0}
@@ -1149,7 +1149,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.12256149
+  m_Radius: 0.07
   m_Height: 0.49024597
   m_Direction: 1
   m_Center: {x: 0, y: 0.24512298, z: 0}
@@ -1515,7 +1515,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.07806374
+  m_Radius: 0.06
   m_Height: 0.3903187
   m_Direction: 1
   m_Center: {x: 0, y: -0.19515935, z: 0}
@@ -1698,6 +1698,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actorName: 
   isLocallyMine: 0
+  tpc: {fileID: 0}
 --- !u!114 &6690392630778732701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1711,11 +1712,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  destroyDelay: 4
+  destroyDelay: 3
+  destroyRagdollDelay: 0
   dead: 0
   OnDead:
     m_PersistentCalls:
       m_Calls: []
+  ragdoll: {fileID: 0}
 --- !u!114 &6146906068487570740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1728,6 +1731,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b7f5956fd1141b409c86c06a8ca3a1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
 --- !u!1 &4917241795264852152
 GameObject:
   m_ObjectHideFlags: 0
@@ -2075,7 +2079,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.07127124
+  m_Radius: 0.06
   m_Height: 0.28508496
   m_Direction: 1
   m_Center: {x: 0, y: -0.14254248, z: 0}
@@ -2563,7 +2567,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.12400325
+  m_Radius: 0.08
   m_Height: 0.41334414
   m_Direction: 1
   m_Center: {x: 0, y: -0.20667207, z: 0}
@@ -2676,8 +2680,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.32689846, y: 0.11168754, z: 0.24770999}
-  m_Center: {x: -0.00000025331974, y: 0.0023856163, z: -0.022583067}
+  m_Size: {x: 0.32689846, y: 0.11168754, z: 0.20919591}
+  m_Center: {x: -0.00000025337638, y: 0.0023856163, z: -0.0033259983}
 --- !u!54 &3928212731425921236
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2771,8 +2775,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.32689846, y: 0.47920704, z: 0.24770999}
-  m_Center: {x: -0.00000025331974, y: 0.23960352, z: -0.023194551}
+  m_Size: {x: 0.32689846, y: 0.47920704, z: 0.20883541}
+  m_Center: {x: -0.00000025161538, y: 0.23960352, z: -0.003757232}
 --- !u!54 &4136342168842621766
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2912,7 +2916,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.07127017
+  m_Radius: 0.06
   m_Height: 0.28508067
   m_Direction: 1
   m_Center: {x: 0, y: 0.14254034, z: 0}

@@ -15,6 +15,7 @@ MonoBehaviour:
   gunName: M4
   gunPrefab: {fileID: 573339908886308818, guid: b661e1dd3c074fc4c8e87590b42b1c5e,
     type: 3}
+  gunModel: {fileID: 262710668311934605, guid: 8b999e00eebee1e44963efb260d337f1, type: 3}
   pickUpGraphics: {fileID: 2583026070758056353, guid: 36682f6803732e540b9c302873ad000d,
     type: 3}
   gunStats:
@@ -32,7 +33,7 @@ MonoBehaviour:
     allowButtonHold: 1
   weaponRecoilParameters:
     recoilRotation: {x: 1, y: 1, z: 2}
-    recoilKickback: {x: 0, y: 0, z: -0.07}
+    recoilKickback: {x: 0, y: 0, z: -0.1}
     recoilRotationAim: {x: 1, y: 1, z: 1}
     recoilKickbackAim: {x: 0, y: 0, z: -0.07}
     positionalRecoilSpeed: 20
@@ -114,6 +115,8 @@ MonoBehaviour:
     xRecoilAmount: 5
     yRecoilAmount: 5
   camShakeIntensity: 0.4
+  bulletCasting: {fileID: 8360084055759571751, guid: 47e2dad834f38dc43a2622d3db1e283b,
+    type: 3}
   soundClips:
     shootSound: {fileID: 8300000, guid: c2763216fc6f5a24897c6f5f499a3955, type: 3}
     holsterSound: {fileID: 8300000, guid: 8c448a769001a1d439bea75de9da7205, type: 3}

@@ -70,7 +70,7 @@ public class ThirdPersonController : MonoBehaviour
 
         pm.OnJump.AddListener(JumpManagement);
 
-        wc.inventory.OnEquipWeapon += (WeaponData wd) =>
+        characterManager.inventory.OnEquipWeapon += (WeaponData wd) =>
         {
             animator.SetTrigger("ChangeWeapon");
 
@@ -81,7 +81,7 @@ public class ThirdPersonController : MonoBehaviour
             GunSetup(obj.transform, wd);
         };
 
-        wc.inventory.OnDropWeapon += () =>
+        characterManager.inventory.OnDropWeapon += () =>
         {
             foreach (Transform child in handIk)
                 Destroy(child.gameObject);
