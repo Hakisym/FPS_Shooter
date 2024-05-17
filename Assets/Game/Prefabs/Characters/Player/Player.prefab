@@ -412,6 +412,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wd: {fileID: 0}
+  holdAim: 0
   reloading: 0
   aiming: 0
   canShoot: 0
@@ -423,14 +424,13 @@ MonoBehaviour:
   animator: {fileID: 1700024203204091687}
   cameraRecoil: {fileID: 7916176192214243588}
   recoilPoint: {fileID: 772179571}
-  inventory: {fileID: 1700024203204091686}
-  weaponRecoil: {fileID: 0}
-  pm: {fileID: 1700024202281320435}
   metalImpact: {fileID: 1709698631529194, guid: 72b8f08b2b4dbbc439ccbb6402928ad1,
     type: 3}
   bloodImpact: {fileID: 6898028267083706492, guid: 6243fad3610020f4c9307c7ba631a1f5,
     type: 3}
   bulletTrail: {fileID: 8307662755226880606, guid: 7f4575879a32f1b429f2ce2940423983,
+    type: 3}
+  bulletTrailFar: {fileID: 8307662755226880606, guid: 13691fdc5b3afb04394a19d105626e7c,
     type: 3}
   bulletCasting: {fileID: 8360084055759571751, guid: 47e2dad834f38dc43a2622d3db1e283b,
     type: 3}
@@ -476,6 +476,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnLand:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSprint:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &3755187150427722618

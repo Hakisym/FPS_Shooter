@@ -41,6 +41,7 @@ public class WeaponController : MonoBehaviour
     public GameObject metalImpact;
     public GameObject bloodImpact;
     public TrailRenderer bulletTrail;
+    public TrailRenderer bulletTrailFar;
     public GameObject bulletCasting;
     private ParticleSystem muzzleVFX;
 
@@ -160,9 +161,11 @@ public class WeaponController : MonoBehaviour
 
         RaycastHit hit;
         Vector3 bulletDir;
+        Ray ray = new Ray(playerCam.transform.position, dir);
+
 
         // Hitscan shoot
-        if (Physics.Raycast(playerCam.transform.position, dir, out hit, wd.gunStats.bulletRange, whatIsShootable))
+        if (Physics.Raycast(ray, out hit, wd.gunStats.bulletRange, whatIsShootable))
         {
             //damageable group
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("EnemyHit"))
@@ -204,12 +207,20 @@ public class WeaponController : MonoBehaviour
             //bullet impact
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Environment"))
                 PoolManager.instance.SpawnGameObject(PoolTag.BulletImpact, hit.point, Quaternion.LookRotation(hit.normal));
+
+            //bullet tracer
+            bulletDir = (hit.point - muzzlePoint.position).normalized;
+            var bullet = new Bullet(muzzlePoint.position, bulletDir * wd.gunStats.bulletSpeed, bulletTrail, prefabHolder);
+            bullets.Add(bullet);
         }
         else
         {
-            bulletDir = (HenryUtilities.GetDirectionToCenterScreen() + spread).normalized;
+            //get ray point from distance
+            bulletDir = (ray.GetPoint(50) - muzzlePoint.position).normalized;
+            //check obstacle between muzzle and hit point
+            bool hasHit = Physics.Raycast(muzzlePoint.position, bulletDir, whatIsShootable);
             //render the bullet from the muzzle
-            var bullet = new Bullet(muzzlePoint.position, bulletDir * wd.gunStats.bulletSpeed, true, this);
+            var bullet = new Bullet(muzzlePoint.position, bulletDir * wd.gunStats.bulletSpeed, hasHit ? bulletTrail: bulletTrailFar, prefabHolder);
             bullets.Add(bullet);
         }
 

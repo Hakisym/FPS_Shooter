@@ -23,7 +23,7 @@ MonoBehaviour:
     magazineSize: 30
     fireRate: 600
     reloadTime: 2
-    bulletImpactForce: 100
+    bulletImpactForce: 50
     bulletSpeed: 1000
     bulletDrop: 0
     bulletRange: 100

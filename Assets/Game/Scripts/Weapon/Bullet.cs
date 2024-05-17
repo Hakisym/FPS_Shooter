@@ -10,13 +10,13 @@ public class Bullet
     public bool hasTracer;
     private TrailRenderer tracer;
 
-    public Bullet(Vector3 position, Vector3 velocity, bool hasTracer, WeaponController wc)
+    public Bullet(Vector3 _position, Vector3 _velocity, TrailRenderer _trailRenderer = null, Transform _prefabHolder = null)
     {
-        initialPosition = position;
-        initialVelocity = velocity;
+        initialPosition = _position;
+        initialVelocity = _velocity;
         time = 0.0f;
-        this.hasTracer = hasTracer;
-        if (hasTracer) AddTracer(wc.bulletTrail, position, wc.prefabHolder);
+        hasTracer = _trailRenderer;
+        if (hasTracer) AddTracer(_trailRenderer, _position, _prefabHolder);
     }
 
     public void AddTracer(TrailRenderer tr, Vector3 position, Transform holder)

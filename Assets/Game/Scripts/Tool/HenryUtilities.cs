@@ -4,14 +4,6 @@ using UnityEngine;
 
 public static class HenryUtilities
 {
-    public static Vector3 GetDirectionToCenterScreen()
-    {
-        Vector3 centerScreen = new Vector3(Screen.width / 2f, Screen.height / 2f, 0f);
-
-        Ray ray = Camera.main.ScreenPointToRay(centerScreen);
-        return ray.direction.normalized;
-    }
-
     public static Vector3 GetSpreadDirection(float amount, Camera camera)
     {
         float horSpread = Random.Range(-amount, amount);
