@@ -217,8 +217,10 @@ public class WeaponController : MonoBehaviour
         {
             //get ray point from distance
             bulletDir = (ray.GetPoint(50) - muzzlePoint.position).normalized;
+
             //check obstacle between muzzle and hit point
             bool hasHit = Physics.Raycast(muzzlePoint.position, bulletDir, whatIsShootable);
+
             //render the bullet from the muzzle
             var bullet = new Bullet(muzzlePoint.position, bulletDir * wd.gunStats.bulletSpeed, hasHit ? bulletTrail: bulletTrailFar, prefabHolder);
             bullets.Add(bullet);

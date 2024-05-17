@@ -15,7 +15,9 @@ public class Actor : MonoBehaviour
 
     public bool isLocallyMine;
 
-    public ThirdPersonController tpc;
+    [SerializeField] ThirdPersonController tpc_prefab;
+
+    public ThirdPersonController tpc { get; set; }
 
     private void Awake()
     {
@@ -27,8 +29,8 @@ public class Actor : MonoBehaviour
     {
         if (isLocallyMine)
         {
-            var thirdPersonController = Instantiate(tpc);
-            thirdPersonController.Setup(characterManager);
+            tpc = Instantiate(tpc_prefab);
+            tpc.Setup(characterManager);
         }
 
         onKill = ConfirmKill;

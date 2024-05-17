@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Animations.Rigging;
 using UnityEngine.Events;
 
 public class HealthSystem : MonoBehaviour, IDamageable
@@ -56,21 +57,29 @@ public class HealthSystem : MonoBehaviour, IDamageable
     {
         OnDead?.Invoke();
 
-        ////disable controller and navmesh
-        //foreach (var mb in this.GetComponents<MonoBehaviour>())
-        //{
-        //    if (mb != this && mb!=actor)
-        //        Destroy(mb);
-        //}
-        //Destroy(GetComponent<NavMeshAgent>());
-
+        //disable collider and navmesh
+        Destroy(GetComponent<NavMeshAgent>());
         GetComponent<Collider>().enabled = false;
 
+        //disable controller
+        var tpc = Actor.tpc;
+        if (tpc)
+        {
+            Destroy(tpc);
+
+            //disable rig ik
+            tpc.GetComponent<RigBuilder>().enabled = false;
+
+            //destroy third person actor
+            Destroy(tpc.gameObject, destroyRagdollDelay);
+        }
+        else GetComponent<RigBuilder>().enabled = false;
+
+        //destroy actor after delay
         Destroy(gameObject, destroyDelay);
 
+        //enable ragdoll
         if (ragdoll) ragdoll.Enable(deathForce);
-
-        if (destroyRagdollDelay != 0) Destroy(ragdoll.gameObject, destroyRagdollDelay);
 
         Respawn();
 
