@@ -8,22 +8,21 @@ public class Bullet
     public Vector3 initialPosition;
     public Vector3 initialVelocity;
     public bool hasTracer;
-    private TrailRenderer tracer;
+    private ParticleSystem tracer;
 
-    public Bullet(Vector3 _position, Vector3 _velocity, TrailRenderer _trailRenderer = null, Transform _prefabHolder = null)
+    public Bullet(Vector3 _position, Vector3 _velocity, ParticleSystem _tracer = null, Transform _prefabHolder = null)
     {
         initialPosition = _position;
         initialVelocity = _velocity;
         time = 0.0f;
-        hasTracer = _trailRenderer;
-        if (hasTracer) AddTracer(_trailRenderer, _position, _prefabHolder);
+        hasTracer = _tracer;
+        if (hasTracer) AddTracer(_tracer, _position, _prefabHolder);
     }
 
-    public void AddTracer(TrailRenderer tr, Vector3 position, Transform holder)
+    public void AddTracer(ParticleSystem _tracer, Vector3 position, Transform holder)
     {
         //bullet trail
-        tracer = GameObject.Instantiate(tr, position, Quaternion.identity, holder);
-        tracer.AddPosition(position);
+        tracer = GameObject.Instantiate(_tracer, position, Quaternion.identity, holder);
     }
 
     public void UpdateTracer(Vector3 newPos)
@@ -35,7 +34,7 @@ public class Bullet
     public void OnDestroy()
     {
         //destroy bullet tracer after certain frame
-        if (hasTracer) GameObject.Destroy(tracer.gameObject, Time.deltaTime * 5f);
+        //if (hasTracer) GameObject.Destroy(tracer.gameObject, Time.deltaTime * 5f);
     }
 
     public Vector3 GetPosition(float bulletDrop)

@@ -26,7 +26,7 @@ MonoBehaviour:
     bulletImpactForce: 50
     bulletSpeed: 1000
     bulletDrop: 0
-    bulletRange: 100
+    bulletRange: 300
     bulletAccuracy: 12
     bulletsPerTap: 1
     timeBetweenShots: 0
@@ -128,3 +128,4 @@ MonoBehaviour:
     aimSound: {fileID: 8300000, guid: acaebc89b98b82142bd2b24edb6081e4, type: 3}
   crosshairResize: 10
   crosshairResizeSpeed: 5
+  ikHandPos: {x: 0, y: 0, z: 0}

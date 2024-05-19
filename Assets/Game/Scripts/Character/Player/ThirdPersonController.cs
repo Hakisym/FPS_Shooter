@@ -74,10 +74,13 @@ public class ThirdPersonController : MonoBehaviour
         {
             animator.SetTrigger("ChangeWeapon");
 
-            //destroy current weapon
+            //reset current weapon
             foreach (Transform child in handIk) 
                 Destroy(child.gameObject);
+            //create weapon in third person
             var obj = Instantiate(wd.gunModel, handIk);
+            obj.transform.localPosition = wd.ikHandPos;
+
             GunSetup(obj.transform, wd);
         };
 

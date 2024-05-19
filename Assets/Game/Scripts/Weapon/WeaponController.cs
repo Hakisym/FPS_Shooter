@@ -40,9 +40,8 @@ public class WeaponController : MonoBehaviour
     [Header("Visuals")]
     public GameObject metalImpact;
     public GameObject bloodImpact;
-    public TrailRenderer bulletTrail;
-    public TrailRenderer bulletTrailFar;
-    public GameObject bulletCasting;
+    public ParticleSystem bulletTrail;
+    private GameObject bulletCasting;
     private ParticleSystem muzzleVFX;
 
     [Header("Sounds")]
@@ -97,8 +96,9 @@ public class WeaponController : MonoBehaviour
         muzzlePoint = wid.muzzle;
         castingPoint = wid.castPoint;
 
-        //attach muzzle flash
+        //get muzzle flash
         muzzleVFX = muzzlePoint.GetComponentInChildren<ParticleSystem>();
+        bulletCasting = wd.bulletCasting;
 
         weaponRecoil = wid.GetComponentInChildren<WeaponRecoil>();
 
@@ -222,7 +222,7 @@ public class WeaponController : MonoBehaviour
             bool hasHit = Physics.Raycast(muzzlePoint.position, bulletDir, whatIsShootable);
 
             //render the bullet from the muzzle
-            var bullet = new Bullet(muzzlePoint.position, bulletDir * wd.gunStats.bulletSpeed, hasHit ? bulletTrail: bulletTrailFar, prefabHolder);
+            var bullet = new Bullet(muzzlePoint.position, bulletDir * wd.gunStats.bulletSpeed, bulletTrail, prefabHolder);
             bullets.Add(bullet);
         }
 

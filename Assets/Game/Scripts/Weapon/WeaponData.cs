@@ -27,6 +27,9 @@ public class WeaponData : ScriptableObject
     public float crosshairResize;
     public float crosshairResizeSpeed;
 
+    [Header("Third Person")]
+    public Vector3 ikHandPos;
+
     [System.Serializable]
     public class WeaponRecoilParameters
     {
