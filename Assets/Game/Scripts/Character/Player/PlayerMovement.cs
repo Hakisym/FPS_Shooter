@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Random = UnityEngine.Random;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     public float crouchSpeed = 2f;
     public float gravity = -9.81f;
     public float jumpHeight = 3f;
+    public float stepInterval = 7;
     [Space]
     [Header("Ground Check")]
     public Transform groundCheck;
@@ -35,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip walkSound;
     public AudioClip runSound;
+    public AudioProfile[] footstepsSFX;
     [Space]
     [Header("Reference")]
     public Animator animator;
@@ -46,11 +49,21 @@ public class PlayerMovement : MonoBehaviour
 
     public float currentSpeed { get => speed; }
     public float moveVel { get => moveDirection.sqrMagnitude; }
+
     private Vector3 moveDirection;
     private float originalHeight;
     private float speed;
     private float mouseX;
     private float mouseY;
+
+    private Audio footstepsAudio = new Audio();
+    private float stepCycle;
+    private float nextStep;
+
+    private void Awake()
+    {
+        footstepsAudio.Equip(gameObject, null);
+    }
 
     private void Start()
     {
@@ -74,8 +87,11 @@ public class PlayerMovement : MonoBehaviour
         HandleVelocity();
 
         Move();
+    }
 
-        HandleSFX();
+    private void FixedUpdate()
+    {
+        ProgressStepCycle(speed);
     }
 
     private void CheckGround()
@@ -178,20 +194,31 @@ public class PlayerMovement : MonoBehaviour
         velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
     }
 
-    private void HandleSFX()
+    private void ProgressStepCycle(float speed)
     {
-        // Play foot sound
-        if (isGrounded && moveDirection.sqrMagnitude > 0)
+        //stop if not grounded
+        if (!isGrounded || footstepsSFX.Length <= 0) return;
+
+        //check if taking input
+        if (velocity.sqrMagnitude > 0 && (Input.GetAxisRaw("Horizontal") != 0) || Input.GetAxisRaw("Vertical") != 0)
         {
-            audioSource.clip = isSprinting ? runSound : walkSound;
-            if (!audioSource.isPlaying)
-            {
-                audioSource.Play();
-            }
+            //update step cycle
+            stepCycle += (velocity.magnitude + speed) * Time.fixedDeltaTime;
         }
-        else
+
+        //check step cycle not equal to next step in order to update right
+        if (!(stepCycle > nextStep))
         {
-            audioSource.Pause();
+            return;
+        }
+
+        nextStep = stepCycle + stepInterval;
+
+        if (footstepsSFX != null)
+        {
+            AudioProfile audioProfile = footstepsSFX[Random.Range(0, footstepsSFX.Length)];
+            footstepsAudio.Update(audioProfile);
+            footstepsAudio.PlayOneShot(audioProfile);
         }
     }
 }

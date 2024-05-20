@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Attack",menuName = "Enemy/Attack/AttackRegular")]
+[CreateAssetMenu(fileName = "New Attack",menuName = "Enemy/Attack/Attack Profile")]
 public class Attack : ScriptableObject
 {
     public AnimationClip animationClip;

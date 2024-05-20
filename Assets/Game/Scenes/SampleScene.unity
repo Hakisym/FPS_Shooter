@@ -2527,12 +2527,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 580576727178149998, guid: d9297b61db9b0834895c5ff7d261dea0,
+    - target: {fileID: 580576727178149970, guid: d9297b61db9b0834895c5ff7d261dea0,
         type: 3}
-      propertyPath: bulletTrail
+      propertyPath: audioSource
       value: 
-      objectReference: {fileID: 1311976310380469947, guid: 586e3e9b0a73c014abf8e5031e1f34d4,
-        type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 2276899965236523399, guid: d9297b61db9b0834895c5ff7d261dea0,
         type: 3}
       propertyPath: m_RootOrder
