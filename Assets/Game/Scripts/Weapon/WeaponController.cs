@@ -45,9 +45,10 @@ public class WeaponController : MonoBehaviour
     private ParticleSystem muzzleVFX;
 
     [Header("Sounds")]
-    public AudioSource mainAudioSource;
-    public AudioSource shootAudioSource;
-    private AudioClip shootSound;
+    public Audio fireAudio = new Audio(); 
+    public Audio fireTailAudio = new Audio(); 
+    public Audio reloadAudio = new Audio(); 
+    private AudioProfile currentFireAudio;
 
     [HideInInspector] public int bulletsLeft;
     private int bulletsShot;
@@ -61,6 +62,10 @@ public class WeaponController : MonoBehaviour
     {
         characterManager = GetComponent<CharacterManager>();
         weaponHUD = GetComponentInChildren<PlayerHUD>();
+
+        fireAudio.Equip(gameObject, null);
+        fireTailAudio.Equip(gameObject, null);
+        reloadAudio.Equip(gameObject, null);
     }
 
     private void Start()
@@ -101,8 +106,8 @@ public class WeaponController : MonoBehaviour
         bulletCasting = wd.bulletCasting;
 
         weaponRecoil = wid.GetComponentInChildren<WeaponRecoil>();
+        currentFireAudio = wd.soundClips.shootSound;
 
-        shootSound = wd.soundClips.shootSound;
         bulletsLeft = wd.gunStats.magazineSize;
         timeBetweenShooting = 60f / wd.gunStats.fireRate;
     }
@@ -243,8 +248,11 @@ public class WeaponController : MonoBehaviour
         weaponRecoil.Fire();
 
         //play shoot sound
-        shootAudioSource.clip = shootSound;
-        shootAudioSource.Play();
+        fireAudio.Update(currentFireAudio);
+        fireAudio.PlayOneShot(currentFireAudio);
+
+        fireTailAudio.Stop();
+        fireTailAudio.PlayOneShot(wd.soundClips.fireTail);
 
         //gun animation
         inventory.currentWeapon.animator.Play("Fire");
@@ -266,8 +274,7 @@ public class WeaponController : MonoBehaviour
         animator.SetTrigger("reloading");
 
         //play reload sound
-        mainAudioSource.clip = wd.soundClips.reloadSoundAmmoLeft;
-        mainAudioSource.Play();
+        reloadAudio.PlayOneShot(wd.soundClips.reloadSoundAmmoLeft);
 
         Invoke("ReloadFinished", wd.gunStats.reloadTime);
     }

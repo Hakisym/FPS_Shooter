@@ -87,13 +87,14 @@ public class WeaponData : ScriptableObject
     [System.Serializable]
     public class AudioClips
     {
-        public AudioClip shootSound;
-        public AudioClip holsterSound;
-        public AudioClip takeOutSound;
-        public AudioClip reloadSoundAmmoLeft;
-        public AudioClip reloadSoundOutOfAmmo;
-        public AudioClip emptyMagShoot;
-        public AudioClip aimSound;
+        public AudioProfile shootSound;
+        public AudioProfile fireTail;
+        public AudioProfile holsterSound;
+        public AudioProfile takeOutSound;
+        public AudioProfile reloadSoundAmmoLeft;
+        public AudioProfile reloadSoundOutOfAmmo;
+        public AudioProfile emptyMagShoot;
+        public AudioProfile aimSound;
     }
 }
 

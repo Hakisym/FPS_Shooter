@@ -99,24 +99,29 @@ public class Inventory : MonoBehaviour
         switching = true;
         weaponIndex = index;
 
-        //holding a weapon
-        if (currentWeapon != null)
-        {
-            //hoster current gun
-            animator.SetTrigger("hoster");
-            //play hoster sound
-            wc.mainAudioSource.clip = currentWeapon.wd.soundClips.holsterSound;
-            wc.mainAudioSource.Play();
-        }
-        //empty-handed
-        else
-        {
-            //take out new weapon
-            TakeOutWeapon();
-            //play take out animation
-            animator.SetTrigger("unhoster");
-        }
-        
+        ////holding a weapon
+        //if (currentWeapon != null)
+        //{
+        //    //hoster current gun
+        //    animator.SetTrigger("hoster");
+        //    //play hoster sound
+        //    //wc.mainAudioSource.clip = currentWeapon.wd.soundClips.holsterSound;
+        //    //wc.mainAudioSource.Play();
+        //}
+        ////empty-handed
+        //else
+        //{
+        //    //take out new weapon
+        //    TakeOutWeapon();
+        //    //play take out animation
+        //    animator.SetTrigger("unhoster");
+        //}
+
+        //take out new weapon
+        TakeOutWeapon();
+        //play take out animation
+        animator.SetTrigger("unhoster");
+
     }
 
     //animation event
@@ -137,8 +142,8 @@ public class Inventory : MonoBehaviour
         OnEquipWeapon?.Invoke(currentWeapon.wd);
 
         //play take out sound
-        wc.mainAudioSource.clip = currentWeapon.wd.soundClips.takeOutSound;
-        wc.mainAudioSource.Play();
+        //wc.mainAudioSource.clip = currentWeapon.wd.soundClips.takeOutSound;
+        //wc.mainAudioSource.Play();
     }
 
     //animation event

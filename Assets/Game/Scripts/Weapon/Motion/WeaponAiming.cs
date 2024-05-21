@@ -36,8 +36,8 @@ public class WeaponAiming : WeaponMotionBase
             //play aim sound
             if (!soundHasPlayed)
             {
-                wc.mainAudioSource.clip = wid.wd.soundClips.aimSound;
-                wc.mainAudioSource.Play();
+                //wc.mainAudioSource.clip = wid.wd.soundClips.aimSound;
+                //wc.mainAudioSource.Play();
                 soundHasPlayed = true;
             }
         }

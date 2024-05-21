@@ -72,4 +72,10 @@ public class Audio
 
         return audioProfile.pitch;
     }
+
+    public void Stop()
+    {
+        if (audioSource)
+            audioSource.Stop();
+    }
 }

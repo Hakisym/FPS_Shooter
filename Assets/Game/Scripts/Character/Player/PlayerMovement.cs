@@ -34,9 +34,6 @@ public class PlayerMovement : MonoBehaviour
     public float crouchHeight;
     [Space]
     [Header("Sounds")]
-    public AudioSource audioSource;
-    public AudioClip walkSound;
-    public AudioClip runSound;
     public AudioProfile[] footstepsSFX;
     [Space]
     [Header("Reference")]
