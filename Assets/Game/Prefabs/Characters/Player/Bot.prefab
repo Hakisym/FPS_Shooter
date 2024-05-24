@@ -181,7 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dcda5808aa2c9c4c82b6ff41dc57b17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 150
+  maxHealth: 200
   destroyDelay: 3
   destroyRagdollDelay: 0
   dead: 0
@@ -203,7 +203,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actorName: 
   isLocallyMine: 0
-  tpc: {fileID: 0}
+  tpc_prefab: {fileID: 0}
 --- !u!1 &552332879952153221
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,6 +12,7 @@ public class WeaponController : MonoBehaviour
 
     [Header("Gun states")]
     [SerializeField] bool holdAim;
+    [SerializeField] bool crosshairFollowRecoil;
     [HideInInspector] public bool reloading, aiming;
     [HideInInspector] public bool canShoot;
     [HideInInspector] public bool shootState { get => !readyToShoot; }
@@ -140,7 +141,6 @@ public class WeaponController : MonoBehaviour
     private void Shoot()
     {
         readyToShoot = false;
-        CancelInvoke("ResetShootMode");
 
         OnFire?.Invoke();
 
@@ -152,17 +152,19 @@ public class WeaponController : MonoBehaviour
         {
             //stand spread
             if (weaponHUD.crosshair.locomotionSpread == weaponHUD.crosshair.defaultSpread)
-                bulletSpread = (weaponHUD.crosshair.bulletSpread + wd.gunStats.bulletAccuracy) / 1000;
+                bulletSpread = (weaponHUD.crosshair.bulletSpread + wd.gunStats.accuracy) / 1000;
             //crouch spread
             else if (weaponHUD.crosshair.locomotionSpread == weaponHUD.crosshair.crouchSpread)
-                bulletSpread = (weaponHUD.crosshair.bulletSpread + wd.gunStats.bulletAccuracy) / 1200;
+                bulletSpread = (weaponHUD.crosshair.bulletSpread + wd.gunStats.accuracy) / 1200;
             else
                 bulletSpread = weaponHUD.crosshair.spread / 1000;
         }
 
         var spread = HenryUtilities.GetSpreadDirection(bulletSpread / 2, playerCam);
 
-        Vector3 dir = aiming ? (playerCam.transform.forward + spread).normalized : (recoilPoint.transform.forward + spread).normalized;
+        Vector3 dir;
+        if (!crosshairFollowRecoil) dir = (playerCam.transform.forward + spread).normalized;
+        else dir = aiming ? (playerCam.transform.forward + spread).normalized : (recoilPoint.transform.forward + spread).normalized;
 
         RaycastHit hit;
         Vector3 bulletDir;

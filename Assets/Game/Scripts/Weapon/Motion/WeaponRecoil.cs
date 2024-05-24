@@ -8,16 +8,16 @@ public class WeaponRecoil : WeaponMotionBase
     private Vector3 positionalRecoil;
     private Vector3 rot;
 
-    private void FixedUpdate()
+    private void Update()
     {
         //Return interpolation
         rotationalRecoil = Vector3.Lerp(rotationalRecoil, Vector3.zero, wid.wd.weaponRecoilParameters.rotationalReturnSpeed * Time.deltaTime);
         positionalRecoil = Vector3.Lerp(positionalRecoil, Vector3.zero, wid.wd.weaponRecoilParameters.positionalReturnSpeed * Time.deltaTime);
 
         //Smooth lerp to current position
-        target.localPosition = Vector3.Slerp(target.localPosition, positionalRecoil, wid.wd.weaponRecoilParameters.positionalRecoilSpeed * Time.fixedDeltaTime);
+        target.localPosition = Vector3.Slerp(target.localPosition, positionalRecoil, wid.wd.weaponRecoilParameters.positionalRecoilSpeed * Time.deltaTime);
         //Smooth rotate to current rotation
-        rot = Vector3.Slerp(rot, rotationalRecoil, wid.wd.weaponRecoilParameters.rotationalRecoilSpeed * Time.fixedDeltaTime);
+        rot = Vector3.Slerp(rot, rotationalRecoil, wid.wd.weaponRecoilParameters.rotationalRecoilSpeed * Time.deltaTime);
         target.localRotation = Quaternion.Euler(rot);
     }
 

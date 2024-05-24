@@ -44,14 +44,14 @@ public class CrossHair : MonoBehaviour
         }
         else locomotionSpread = jumpSpread;
 
-        bulletSpread = Mathf.Lerp(bulletSpread, 0f, weaponController.wd.crosshairResizeSpeed * Time.deltaTime);
+        bulletSpread = Mathf.Lerp(bulletSpread, 0f, weaponController.wd.gunStats.bulletSpreadResizeSpeed * Time.deltaTime);
 
         spread = Mathf.Lerp(spread, locomotionSpread + bulletSpread, resizeSpeed * Time.deltaTime);
     }
 
     public void Fire()
     {
-        bulletSpread += weaponController.wd.crosshairResize;
+        bulletSpread += weaponController.wd.gunStats.bulletSpreadOneShot;
     }
 
     public void GetReference(WeaponController wc,PlayerMovement pm)

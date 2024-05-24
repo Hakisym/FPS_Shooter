@@ -62,7 +62,7 @@ public class HealthSystem : MonoBehaviour, IDamageable
         GetComponent<Collider>().enabled = false;
 
         //disable controller
-        var tpc = Actor.tpc;
+        ThirdPersonController tpc = Actor.tpc;
         if (tpc)
         {
             Destroy(tpc);

@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class WeaponBobbing : WeaponMotionBase
 {
-    public float effectIntensity = 0.02f;
-    public float effectSpeed = 18f;
+    public float effectIntensity = 0.01f;
+    public float effectSpeed = 10f;
     public float smoothTime = 0.1f;
 
-    public float sprintMultiplier = 1.5f;
-    public float aimMultiplier = 0.5f;
-    public float aimAmount = 0.1f;
+    [Space]
+    public float sprintBobingSpeed = 1.5f;
+    public float sprintIntensity = 0.03f;
+    public float aimBobbingSpeed = 0.8f;
+    public float aimIntensity = 0.2f;
 
     private PlayerMovement pm;
 
@@ -34,12 +36,12 @@ public class WeaponBobbing : WeaponMotionBase
         // Change bobbing speed with aiming & moving
         if (pm.isSprinting)
         {
-            //bobbingIntensity = effectIntensity + 0.01f;
-            bobbingSpeed = effectSpeed * sprintMultiplier;
+            bobbingIntensity = effectIntensity + sprintIntensity;
+            bobbingSpeed = effectSpeed * sprintBobingSpeed;
         }
         else if (wc.aiming)
         {
-            bobbingSpeed = effectSpeed * aimMultiplier;
+            bobbingSpeed = effectSpeed * aimBobbingSpeed;
         }
         else
         {
@@ -51,8 +53,8 @@ public class WeaponBobbing : WeaponMotionBase
         float idleMultiplier = inputVector.sqrMagnitude > 0f && pm.isGrounded ? 1f : 0f;
 
         // Calculate bobbing position with a Mobius pattern
-        float sinAmountY = Mathf.Sin(sinTime) * bobbingIntensity * (wc.aiming ? aimAmount : 1f) * idleMultiplier;
-        float sinAmountX = Mathf.Sin(sinTime/2) * bobbingIntensity * (wc.aiming ? aimAmount : 1f) * idleMultiplier;
+        float sinAmountY = Mathf.Sin(sinTime) * bobbingIntensity * (wc.aiming ? aimIntensity : 1f) * idleMultiplier;
+        float sinAmountX = Mathf.Sin(sinTime/2) * bobbingIntensity * (wc.aiming ? aimIntensity : 1f) * idleMultiplier;
 
         Vector3 finalPosition = originalPosition + Vector3.up * sinAmountY + Vector3.right * sinAmountX;
 

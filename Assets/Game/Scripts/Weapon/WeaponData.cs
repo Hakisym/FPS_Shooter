@@ -24,8 +24,6 @@ public class WeaponData : ScriptableObject
     public AudioClips soundClips;
 
     [Header("UI")]
-    public float crosshairResize;
-    public float crosshairResizeSpeed;
 
     [Header("Third Person")]
     public Vector3 ikHandPos;
@@ -76,10 +74,13 @@ public class WeaponData : ScriptableObject
         public float bulletSpeed;
         public float bulletDrop;
         public float bulletRange;
-        public float bulletAccuracy;
         [Header("Shoot Mode")]
         public int bulletsPerTap;
         public float timeBetweenShots;
+        [Header("Spread")]
+        public float accuracy;
+        public float bulletSpreadOneShot;
+        public float bulletSpreadResizeSpeed;
         [Header("Misc")]
         public bool allowButtonHold;
     }

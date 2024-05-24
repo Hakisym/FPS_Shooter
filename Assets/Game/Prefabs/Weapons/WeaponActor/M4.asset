@@ -22,14 +22,16 @@ MonoBehaviour:
     damage: 25
     magazineSize: 30
     fireRate: 600
-    reloadTime: 2
-    bulletImpactForce: 50
+    reloadTime: 1.5
+    bulletImpactForce: 30
     bulletSpeed: 1000
     bulletDrop: 0
     bulletRange: 300
-    bulletAccuracy: 12
     bulletsPerTap: 1
     timeBetweenShots: 0
+    accuracy: 12
+    bulletSpreadOneShot: 10
+    bulletSpreadResizeSpeed: 5
     allowButtonHold: 1
   weaponRecoilParameters:
     recoilRotation: {x: 1, y: 1, z: 2}
@@ -41,11 +43,11 @@ MonoBehaviour:
     positionalReturnSpeed: 20
     rotationalReturnSpeed: 20
   cameraRecoilParameters:
-    type: 1
+    type: 0
     rotationSpeed: 20
-    returnSpeed: 5
-    recoilRotation: {x: 0, y: 0, z: 0}
-    recoilRotationAiming: {x: 0, y: 0, z: 0}
+    returnSpeed: 10
+    recoilRotation: {x: 1, y: 0.5, z: 0}
+    recoilRotationAiming: {x: 0.7, y: 0.7, z: 0}
     recoilX:
       serializedVersion: 2
       m_Curve:
@@ -127,6 +129,4 @@ MonoBehaviour:
     reloadSoundOutOfAmmo: {fileID: 0}
     emptyMagShoot: {fileID: 0}
     aimSound: {fileID: 0}
-  crosshairResize: 10
-  crosshairResizeSpeed: 5
   ikHandPos: {x: 0, y: 0, z: 0}

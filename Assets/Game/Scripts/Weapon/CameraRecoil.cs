@@ -10,7 +10,7 @@ public class CameraRecoil : MonoBehaviour
     private Vector3 currentRotation, rot;
     private float evaluationProgress, evaluationProgressX;
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (!wc.wd) return;
 
@@ -19,7 +19,7 @@ public class CameraRecoil : MonoBehaviour
             evaluationProgress = 0;
             evaluationProgressX = 0;
             //Return interpolation
-            currentRotation = Vector3.Lerp(currentRotation, Vector3.zero, wc.wd.cameraRecoilParameters.returnSpeed * Time.fixedDeltaTime);
+            currentRotation = Vector3.Lerp(currentRotation, Vector3.zero, wc.wd.cameraRecoilParameters.returnSpeed * Time.deltaTime);
         }
 
         if (wc.canShoot && wc.shootState)
@@ -31,7 +31,7 @@ public class CameraRecoil : MonoBehaviour
             }
 
         //Smooth rotate to current rotation
-        rot = Vector3.Slerp(rot, currentRotation, wc.wd.cameraRecoilParameters.rotationSpeed * Time.fixedDeltaTime);
+        rot = Vector3.Slerp(rot, currentRotation, wc.wd.cameraRecoilParameters.rotationSpeed * Time.deltaTime);
         transform.localRotation = Quaternion.Euler(rot);
     }
 

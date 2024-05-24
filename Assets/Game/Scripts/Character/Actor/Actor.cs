@@ -27,7 +27,7 @@ public class Actor : MonoBehaviour
 
     private void Start()
     {
-        if (isLocallyMine)
+        if (isLocallyMine && tpc_prefab)
         {
             tpc = Instantiate(tpc_prefab);
             tpc.Setup(characterManager);

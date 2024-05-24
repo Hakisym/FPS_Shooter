@@ -24,13 +24,15 @@ MonoBehaviour:
     magazineSize: 30
     fireRate: 600
     reloadTime: 2
-    bulletImpactForce: 50
+    bulletImpactForce: 30
     bulletSpeed: 1000
     bulletDrop: 0
     bulletRange: 300
-    bulletAccuracy: 18
     bulletsPerTap: 1
     timeBetweenShots: 0
+    accuracy: 18
+    bulletSpreadOneShot: 10
+    bulletSpreadResizeSpeed: 5
     allowButtonHold: 1
   weaponRecoilParameters:
     recoilRotation: {x: 1, y: 1, z: 2}
@@ -119,14 +121,13 @@ MonoBehaviour:
   bulletCasting: {fileID: 8360084055759571751, guid: 47e2dad834f38dc43a2622d3db1e283b,
     type: 3}
   soundClips:
-    shootSound: {fileID: 8300000, guid: c2763216fc6f5a24897c6f5f499a3955, type: 3}
-    holsterSound: {fileID: 8300000, guid: 8c448a769001a1d439bea75de9da7205, type: 3}
-    takeOutSound: {fileID: 8300000, guid: ada72bc0b7b70b84ba17374e23a130fe, type: 3}
-    reloadSoundAmmoLeft: {fileID: 8300000, guid: f7ce534a0633b9847910ba117e2245d1,
-      type: 3}
+    shootSound: {fileID: 11400000, guid: 0bd1582c85a4cd349b9c21e8c266087b, type: 2}
+    fireTail: {fileID: 11400000, guid: e3058399fe37b4a4fa016a337f716379, type: 2}
+    holsterSound: {fileID: 0}
+    takeOutSound: {fileID: 0}
+    reloadSoundAmmoLeft: {fileID: 11400000, guid: 09eed48d083ced24e9830ddb482e24bf,
+      type: 2}
     reloadSoundOutOfAmmo: {fileID: 0}
     emptyMagShoot: {fileID: 0}
-    aimSound: {fileID: 8300000, guid: acaebc89b98b82142bd2b24edb6081e4, type: 3}
-  crosshairResize: 15
-  crosshairResizeSpeed: 5
+    aimSound: {fileID: 0}
   ikHandPos: {x: 0, y: 0, z: 0}

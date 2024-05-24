@@ -111,9 +111,10 @@ MonoBehaviour:
   effectIntensity: 0.01
   effectSpeed: 10
   smoothTime: 0.1
-  sprintMultiplier: 1.5
-  aimMultiplier: 0.8
-  aimAmount: 0.2
+  sprintBobingSpeed: 1.5
+  sprintIntensity: 0.03
+  aimBobbingSpeed: 0.8
+  aimIntensity: 0.2
 --- !u!114 &5960381454378284264
 MonoBehaviour:
   m_ObjectHideFlags: 0
