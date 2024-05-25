@@ -78,7 +78,11 @@ public class WeaponData : ScriptableObject
         public int bulletsPerTap;
         public float timeBetweenShots;
         [Header("Spread")]
-        public float accuracy;
+        public float defaultSpread;
+        public float crouchSpread;
+        public float walkSpread;
+        public float runSpread;
+        public float jumpSpread;
         public float bulletSpreadOneShot;
         public float bulletSpreadResizeSpeed;
         [Header("Misc")]

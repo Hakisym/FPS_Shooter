@@ -149,16 +149,7 @@ public class WeaponController : MonoBehaviour
         if (aiming)
             bulletSpread = 0;
         else
-        {
-            //stand spread
-            if (weaponHUD.crosshair.locomotionSpread == weaponHUD.crosshair.defaultSpread)
-                bulletSpread = (weaponHUD.crosshair.bulletSpread + wd.gunStats.accuracy) / 1000;
-            //crouch spread
-            else if (weaponHUD.crosshair.locomotionSpread == weaponHUD.crosshair.crouchSpread)
-                bulletSpread = (weaponHUD.crosshair.bulletSpread + wd.gunStats.accuracy) / 1200;
-            else
-                bulletSpread = weaponHUD.crosshair.spread / 1000;
-        }
+            bulletSpread = weaponHUD.crosshair.spread / 1000;
 
         var spread = HenryUtilities.GetSpreadDirection(bulletSpread / 2, playerCam);
 

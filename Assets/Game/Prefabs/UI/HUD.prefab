@@ -123,6 +123,7 @@ MonoBehaviour:
   HitMarkerSFX: 1
   KillMarker: 1
   KillMarkerSFX: 1
+  KillFeed: 0
   InteractUI: {fileID: 0}
   pauseMenu: {fileID: 0}
 --- !u!1001 &288050918958813313

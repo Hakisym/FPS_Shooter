@@ -856,6 +856,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1700024202281320437}
     m_Modifications:
+    - target: {fileID: 615417547136062387, guid: 356072c59c08c884f99372bb1e3e9a3e,
+        type: 3}
+      propertyPath: Crosshair
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4109144165991475854, guid: 356072c59c08c884f99372bb1e3e9a3e,
         type: 3}
       propertyPath: parts.center

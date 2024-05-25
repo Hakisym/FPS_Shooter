@@ -30,7 +30,11 @@ MonoBehaviour:
     bulletRange: 50
     bulletsPerTap: 8
     timeBetweenShots: 0
-    accuracy: 100
+    defaultSpread: 200
+    crouchSpread: 150
+    walkSpread: 400
+    runSpread: 500
+    jumpSpread: 600
     bulletSpreadOneShot: 10
     bulletSpreadResizeSpeed: 5
     allowButtonHold: 0

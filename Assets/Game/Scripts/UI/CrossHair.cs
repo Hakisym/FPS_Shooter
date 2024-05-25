@@ -13,10 +13,6 @@ public class CrossHair : MonoBehaviour
     [Tooltip(" Thickness of the crosshair  "), SerializeField]
     private float width = 2f;
 
-    [Tooltip(" Original spread you want to start with "), SerializeField]
-    public float defaultSpread = 10f;
-
-    [SerializeField] public float walkSpread, runSpread, crouchSpread, jumpSpread;
     [SerializeField] private float resizeSpeed = 3f;
 
     [HideInInspector] public float spread, locomotionSpread, bulletSpread;
@@ -37,12 +33,12 @@ public class CrossHair : MonoBehaviour
         // Manage different sizes
         if (player.isGrounded)
         {
-            if (player.currentSpeed == player.crouchSpeed) locomotionSpread = crouchSpread;
-            else if (player.moveVel < 0.2f) locomotionSpread = defaultSpread;
-            else if (player.currentSpeed == player.walkSpeed) locomotionSpread = walkSpread;
-            else if (player.currentSpeed == player.sprintSpeed) locomotionSpread = runSpread;
+            if (player.currentSpeed == player.crouchSpeed) locomotionSpread = weaponController.wd.gunStats.crouchSpread;
+            else if (player.moveVel < 0.2f) locomotionSpread = weaponController.wd.gunStats.defaultSpread;
+            else if (player.currentSpeed == player.walkSpeed) locomotionSpread = weaponController.wd.gunStats.walkSpread;
+            else if (player.currentSpeed == player.sprintSpeed) locomotionSpread = weaponController.wd.gunStats.runSpread;
         }
-        else locomotionSpread = jumpSpread;
+        else locomotionSpread = weaponController.wd.gunStats.jumpSpread;
 
         bulletSpread = Mathf.Lerp(bulletSpread, 0f, weaponController.wd.gunStats.bulletSpreadResizeSpeed * Time.deltaTime);
 
