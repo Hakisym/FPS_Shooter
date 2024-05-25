@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     public bool HitMarkerSFX;
     public bool KillMarker;
     public bool KillMarkerSFX;
+    public bool KillFeed;
 
     [HideInInspector] public InteractHUD InteractUI;
     [HideInInspector] public PauseMenu pauseMenu;
@@ -19,7 +20,7 @@ public class UIManager : MonoBehaviour
 
     public static UIManager instance;
 
-    public Action<bool,bool> OnEnemyHit;
+    public Action OnEnemyHit;
     public Action<Actor,Actor> OnEnemyKill;
     public Action OnReceiveDamage;
 
@@ -49,20 +50,15 @@ public class UIManager : MonoBehaviour
         OnReceiveDamage -= HandleDamageIndicator;
     }
 
-    private void Update()
+    private void HandleHitMarker()
     {
-        hitMarker.enableKillMarker = KillMarker;
-    }
-
-    private void HandleHitMarker(bool isKill,bool showMarker)
-    {
-        hitMarker.Show(HitMarker && showMarker, HitMarkerSFX, isKill);
+        hitMarker.Show(HitMarker, HitMarkerSFX, false);
     }
 
     private void HandleKillFeed(Actor killer,Actor victim)
     {
-        killFeed.Show(killer,victim);
-        hitMarker.Show(HitMarker, HitMarkerSFX, true);
+        if (KillFeed) killFeed.Show(killer, victim);
+        hitMarker.Show(KillMarker, KillMarkerSFX, true);
     }
 
     private void HandleDamageIndicator()

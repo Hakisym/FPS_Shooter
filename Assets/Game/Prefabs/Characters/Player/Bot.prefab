@@ -181,7 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dcda5808aa2c9c4c82b6ff41dc57b17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 200
+  maxHealth: 100
   destroyDelay: 3
   destroyRagdollDelay: 0
   dead: 0
@@ -3993,6 +3993,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: AK_model
+      objectReference: {fileID: 0}
+    - target: {fileID: 4500482033252313852, guid: 50e21d959129cfe4ebb107ac4c2049fd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 50e21d959129cfe4ebb107ac4c2049fd, type: 3}

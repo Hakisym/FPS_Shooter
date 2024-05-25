@@ -1,0 +1,133 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ccf1944ed416b9498c99836ead28bcb, type: 3}
+  m_Name: Shotgun
+  m_EditorClassIdentifier: 
+  gunName: M4
+  gunPrefab: {fileID: 573339908886308818, guid: 2a3b03d2d7b966d47987d0158c542ab2,
+    type: 3}
+  gunModel: {fileID: 4801375367146780615, guid: fe07c9799b7334149a7bf2b776012c16,
+    type: 3}
+  pickUpGraphics: {fileID: 4568834173259529912, guid: 537352da98b9d3b40950a2757225200b,
+    type: 3}
+  gunStats:
+    damage: 15
+    magazineSize: 8
+    fireRate: 60
+    reloadTime: 1.5
+    bulletImpactForce: 200
+    bulletSpeed: 400
+    bulletDrop: 0
+    bulletRange: 50
+    bulletsPerTap: 8
+    timeBetweenShots: 0
+    accuracy: 100
+    bulletSpreadOneShot: 10
+    bulletSpreadResizeSpeed: 5
+    allowButtonHold: 0
+  weaponRecoilParameters:
+    recoilRotation: {x: 10, y: 1, z: 2}
+    recoilKickback: {x: 0, y: 0, z: -0.1}
+    recoilRotationAim: {x: 1, y: 1, z: 1}
+    recoilKickbackAim: {x: 0, y: 0, z: -0.07}
+    positionalRecoilSpeed: 20
+    rotationalRecoilSpeed: 20
+    positionalReturnSpeed: 20
+    rotationalReturnSpeed: 20
+  cameraRecoilParameters:
+    type: 0
+    rotationSpeed: 20
+    returnSpeed: 10
+    recoilRotation: {x: 10, y: 0.5, z: 0}
+    recoilRotationAiming: {x: 5, y: 0.7, z: 0}
+    recoilX:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0.59735054
+        outSlope: 0.59735054
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.16635944
+        value: 0.099374905
+        inSlope: -0.053437263
+        outSlope: -0.053437263
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.4577987
+        value: -0.10586392
+        inSlope: -0.25448835
+        outSlope: -0.25448835
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0.19524838
+        outSlope: 0.19524838
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    recoilY:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    xRecoilAmount: 5
+    yRecoilAmount: 5
+  camShakeIntensity: 0.4
+  bulletCasting: {fileID: 8360084055759571751, guid: b793b2554a90b294a92a12df231b670d,
+    type: 3}
+  soundClips:
+    shootSound: {fileID: 11400000, guid: 0bd1582c85a4cd349b9c21e8c266087b, type: 2}
+    fireTail: {fileID: 11400000, guid: e3058399fe37b4a4fa016a337f716379, type: 2}
+    holsterSound: {fileID: 0}
+    takeOutSound: {fileID: 0}
+    reloadSoundAmmoLeft: {fileID: 11400000, guid: 09eed48d083ced24e9830ddb482e24bf,
+      type: 2}
+    reloadSoundOutOfAmmo: {fileID: 0}
+    emptyMagShoot: {fileID: 0}
+    aimSound: {fileID: 0}
+  ikHandPos: {x: 0, y: 0, z: 0}

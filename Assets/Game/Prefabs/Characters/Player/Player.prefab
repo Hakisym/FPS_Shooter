@@ -410,6 +410,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wd: {fileID: 0}
   holdAim: 0
+  crosshairFollowRecoil: 0
   reloading: 0
   aiming: 0
   canShoot: 0
@@ -446,7 +447,7 @@ MonoBehaviour:
   crouchSpeed: 2
   gravity: -19.62
   jumpHeight: 0.75
-  stepInterval: 4
+  stepInterval: 3
   groundCheck: {fileID: 1700024202387569915}
   groundDistance: 0.2
   groundMask:
@@ -487,9 +488,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actorName: Player
-  isLocallyMine: 0
-  tpc_prefab: {fileID: 386825433807013450, guid: 5bdfe9ced7f4aca4f8faac85e21d7bf4,
-    type: 3}
+  isLocallyMine: 1
+  tpc_prefab: {fileID: 0}
 --- !u!114 &1700024202281320432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -856,6 +856,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1700024202281320437}
     m_Modifications:
+    - target: {fileID: 4109144165991475854, guid: 356072c59c08c884f99372bb1e3e9a3e,
+        type: 3}
+      propertyPath: parts.center
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4844194783670129284, guid: 356072c59c08c884f99372bb1e3e9a3e,
         type: 3}
       propertyPath: m_Pivot.x

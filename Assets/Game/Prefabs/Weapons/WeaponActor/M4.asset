@@ -19,11 +19,11 @@ MonoBehaviour:
   pickUpGraphics: {fileID: 2583026070758056353, guid: 36682f6803732e540b9c302873ad000d,
     type: 3}
   gunStats:
-    damage: 25
+    damage: 20
     magazineSize: 30
     fireRate: 600
     reloadTime: 1.5
-    bulletImpactForce: 30
+    bulletImpactForce: 50
     bulletSpeed: 1000
     bulletDrop: 0
     bulletRange: 300

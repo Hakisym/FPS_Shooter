@@ -193,7 +193,7 @@ public class WeaponController : MonoBehaviour
                     damageable.TakeDamage(damageResult, Actor);
 
                     if (Actor.isLocallyMine)
-                        UIManager.instance.OnEnemyHit.Invoke(false, true);
+                        UIManager.instance.OnEnemyHit.Invoke();
                 }
 
                 //verify kill

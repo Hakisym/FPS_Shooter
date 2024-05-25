@@ -20,7 +20,7 @@ MonoBehaviour:
   pickUpGraphics: {fileID: 6416730846052406606, guid: 4b8d6abcc484ebf4a83fa3bcfd929fe5,
     type: 3}
   gunStats:
-    damage: 20
+    damage: 12
     magazineSize: 17
     fireRate: 500
     reloadTime: 1.5
@@ -46,7 +46,7 @@ MonoBehaviour:
   cameraRecoilParameters:
     type: 0
     rotationSpeed: 20
-    returnSpeed: 5
+    returnSpeed: 10
     recoilRotation: {x: 1, y: 1, z: 0}
     recoilRotationAiming: {x: 1, y: 1, z: 0}
     recoilX:
