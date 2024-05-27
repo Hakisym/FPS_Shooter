@@ -41,7 +41,7 @@ public class WeaponController : MonoBehaviour
     [Header("Visuals")]
     public GameObject metalImpact;
     public GameObject bloodImpact;
-    public ParticleSystem bulletTrail;
+    public GameObject bulletTrail;
     private GameObject bulletCasting;
     private ParticleSystem muzzleVFX;
 
@@ -178,13 +178,14 @@ public class WeaponController : MonoBehaviour
                 //deal damage
                 if (isAlive)
                 {
-                    float damageMultiplier = hit.collider.CompareTag("Head") ? 1.5f : 1f;
+                    bool isHeadShot = hit.collider.CompareTag("Head");
+                    float damageMultiplier = isHeadShot ? 1.5f : 1f;
                     float damageResult = wd.gunStats.damage * damageMultiplier;
 
                     damageable.TakeDamage(damageResult, Actor);
 
                     if (Actor.isLocallyMine)
-                        UIManager.instance.OnEnemyHit.Invoke();
+                        UIManager.instance.OnEnemyHit.Invoke(isHeadShot,hit.point);
                 }
 
                 //verify kill

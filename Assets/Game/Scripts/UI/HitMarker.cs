@@ -19,13 +19,17 @@ public class HitMarker : MonoBehaviour
         animator = hitMark.GetComponent<Animator>();
     }
 
-    public void Show(bool enableHUD, bool enableSFX, bool killed)
+    public void Show(bool enableHUD, bool enableSFX, bool critical,Vector3 position)
     {
         if (enableHUD)
         {
-            hitMark.color = killed ? Color.red : Color.white;
+            hitMark.color = critical ? Color.red : Color.white;
 
-            hitMarkContainer.localScale = killed ? killMarkerSize : hitMarkerSize;
+            hitMarkContainer.localScale = critical ? killMarkerSize : hitMarkerSize;
+
+            Vector3 pos = Camera.main.WorldToScreenPoint(position);
+
+            transform.position = pos;
 
             animator.Play("Hit", 0, 0f);
         }

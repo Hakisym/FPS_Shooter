@@ -8,8 +8,6 @@ public class UIManager : MonoBehaviour
 {
     public bool HitMarker;
     public bool HitMarkerSFX;
-    public bool KillMarker;
-    public bool KillMarkerSFX;
     public bool KillFeed;
 
     [HideInInspector] public InteractHUD InteractUI;
@@ -20,7 +18,7 @@ public class UIManager : MonoBehaviour
 
     public static UIManager instance;
 
-    public Action OnEnemyHit;
+    public Action<bool,Vector3> OnEnemyHit;
     public Action<Actor,Actor> OnEnemyKill;
     public Action OnReceiveDamage;
 
@@ -50,15 +48,14 @@ public class UIManager : MonoBehaviour
         OnReceiveDamage -= HandleDamageIndicator;
     }
 
-    private void HandleHitMarker()
+    private void HandleHitMarker(bool critical,Vector3 position)
     {
-        hitMarker.Show(HitMarker, HitMarkerSFX, false);
+        hitMarker.Show(HitMarker, HitMarkerSFX, critical,position);
     }
 
     private void HandleKillFeed(Actor killer,Actor victim)
     {
         if (KillFeed) killFeed.Show(killer, victim);
-        hitMarker.Show(KillMarker, KillMarkerSFX, true);
     }
 
     private void HandleDamageIndicator()

@@ -8,9 +8,9 @@ public class Bullet
     public Vector3 initialPosition;
     public Vector3 initialVelocity;
     public bool hasTracer;
-    private ParticleSystem tracer;
+    private GameObject tracer;
 
-    public Bullet(Vector3 _position, Vector3 _velocity, ParticleSystem _tracer = null, Transform _prefabHolder = null)
+    public Bullet(Vector3 _position, Vector3 _velocity, GameObject _tracer = null, Transform _prefabHolder = null)
     {
         initialPosition = _position;
         initialVelocity = _velocity;
@@ -19,7 +19,7 @@ public class Bullet
         if (hasTracer) AddTracer(_tracer, _position, _prefabHolder);
     }
 
-    public void AddTracer(ParticleSystem _tracer, Vector3 position, Transform holder)
+    public void AddTracer(GameObject _tracer, Vector3 position, Transform holder)
     {
         //bullet trail
         tracer = GameObject.Instantiate(_tracer, position, Quaternion.identity, holder);
