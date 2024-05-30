@@ -28,21 +28,23 @@ MonoBehaviour:
     bulletSpeed: 400
     bulletDrop: 0
     bulletRange: 50
-    bulletsPerTap: 8
+    fireMode: 2
+    bulletsPerTap: 1
+    pelletsPerBullet: 8
     timeBetweenShots: 0
-    defaultSpread: 200
-    crouchSpread: 150
-    walkSpread: 400
-    runSpread: 500
-    jumpSpread: 600
+    chamberTime: 0.85
+    defaultSpread: 150
+    crouchSpread: 100
+    walkSpread: 200
+    runSpread: 300
+    jumpSpread: 400
     bulletSpreadOneShot: 10
     bulletSpreadResizeSpeed: 5
-    allowButtonHold: 0
   weaponRecoilParameters:
     recoilRotation: {x: 10, y: 1, z: 2}
     recoilKickback: {x: 0, y: 0, z: -0.5}
-    recoilRotationAim: {x: 1, y: 1, z: 1}
-    recoilKickbackAim: {x: 0, y: 0, z: -0.1}
+    recoilRotationAim: {x: 5, y: 1, z: 1}
+    recoilKickbackAim: {x: 0, y: 0, z: -0.2}
     positionalRecoilSpeed: 20
     rotationalRecoilSpeed: 20
     positionalReturnSpeed: 20
