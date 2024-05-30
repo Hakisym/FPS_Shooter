@@ -40,9 +40,9 @@ MonoBehaviour:
     allowButtonHold: 0
   weaponRecoilParameters:
     recoilRotation: {x: 10, y: 1, z: 2}
-    recoilKickback: {x: 0, y: 0, z: -0.1}
+    recoilKickback: {x: 0, y: 0, z: -0.5}
     recoilRotationAim: {x: 1, y: 1, z: 1}
-    recoilKickbackAim: {x: 0, y: 0, z: -0.07}
+    recoilKickbackAim: {x: 0, y: 0, z: -0.1}
     positionalRecoilSpeed: 20
     rotationalRecoilSpeed: 20
     positionalReturnSpeed: 20

@@ -513,15 +513,65 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8776897165959692482}
     m_Modifications:
+    - target: {fileID: 228197099332780295, guid: fe07c9799b7334149a7bf2b776012c16,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 552730404585943525, guid: fe07c9799b7334149a7bf2b776012c16,
         type: 3}
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 921430206508503641, guid: fe07c9799b7334149a7bf2b776012c16,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2306009232734139306, guid: fe07c9799b7334149a7bf2b776012c16,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2325308884086664088, guid: fe07c9799b7334149a7bf2b776012c16,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3973407990861248710, guid: fe07c9799b7334149a7bf2b776012c16,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4801375367146780615, guid: fe07c9799b7334149a7bf2b776012c16,
         type: 3}
       propertyPath: m_Name
       value: PumpShotgun_model
+      objectReference: {fileID: 0}
+    - target: {fileID: 4801375367146780615, guid: fe07c9799b7334149a7bf2b776012c16,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4813677024900046378, guid: fe07c9799b7334149a7bf2b776012c16,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4841931079762188585, guid: fe07c9799b7334149a7bf2b776012c16,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4912378519341202101, guid: fe07c9799b7334149a7bf2b776012c16,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5027726904421531760, guid: fe07c9799b7334149a7bf2b776012c16,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 5326133116487101821, guid: fe07c9799b7334149a7bf2b776012c16,
         type: 3}
@@ -577,6 +627,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6768604043860106782, guid: fe07c9799b7334149a7bf2b776012c16,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8981804369528672725, guid: fe07c9799b7334149a7bf2b776012c16,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8999168298228329295, guid: fe07c9799b7334149a7bf2b776012c16,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe07c9799b7334149a7bf2b776012c16, type: 3}

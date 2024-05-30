@@ -73,7 +73,8 @@ public class HealthSystem : MonoBehaviour, IDamageable
             //destroy third person actor
             Destroy(tpc.gameObject, destroyRagdollDelay);
         }
-        else GetComponent<RigBuilder>().enabled = false;
+        else if (TryGetComponent<RigBuilder>(out var rig))
+            rig.enabled = false;
 
         //destroy actor after delay
         Destroy(gameObject, destroyDelay);

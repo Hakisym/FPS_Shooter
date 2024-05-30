@@ -14,7 +14,7 @@ public class CameraRecoil : MonoBehaviour
     {
         if (!wc.wd) return;
 
-        if (!wc.shootState || !wc.canShoot)
+        if (!wc.shooting || !wc.canShoot)
         {
             evaluationProgress = 0;
             evaluationProgressX = 0;

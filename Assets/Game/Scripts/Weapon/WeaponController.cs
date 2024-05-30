@@ -16,8 +16,8 @@ public class WeaponController : MonoBehaviour
     [HideInInspector] public bool reloading, aiming;
     [HideInInspector] public bool canShoot;
     [HideInInspector] public bool shootState { get => !readyToShoot; }
+    [HideInInspector] public bool shooting;
     private bool readyToShoot;
-    private bool shooting;
 
     [Header("Reference")]
     private Transform muzzlePoint;
@@ -53,6 +53,7 @@ public class WeaponController : MonoBehaviour
 
     [HideInInspector] public int bulletsLeft;
     private int bulletsShot;
+    private int pelletsShot;
     private float timeBetweenShooting;
     private float maxLifetime = 3.0f;
     private List<Bullet> bullets = new List<Bullet>();
@@ -117,7 +118,7 @@ public class WeaponController : MonoBehaviour
     {
         if (!wd) return;
 
-        if(wd.gunStats.allowButtonHold) shooting = Input.GetKey(KeyCode.Mouse0);
+        if(wd.gunStats.fireMode == ShootMode.Auto) shooting = Input.GetKey(KeyCode.Mouse0);
         else shooting = Input.GetKeyDown(KeyCode.Mouse0);
 
         if (holdAim) aiming = Input.GetMouseButton(1) && !pm.isSprinting;
@@ -128,6 +129,7 @@ public class WeaponController : MonoBehaviour
         if (readyToShoot && shooting && canShoot)
         {
             bulletsShot = wd.gunStats.bulletsPerTap;
+            pelletsShot = wd.gunStats.pelletsPerBullet;
             Shoot();
         }
 
@@ -144,6 +146,55 @@ public class WeaponController : MonoBehaviour
 
         OnFire?.Invoke();
 
+        FireOneShot();
+
+        //muzzle flash
+        muzzleVFX.Play();
+
+        //bullet cast and gun animation
+        if (wd.gunStats.fireMode != ShootMode.BoltAction)
+        {
+            Instantiate(bulletCasting, castingPoint.position, castingPoint.rotation, prefabHolder);
+            inventory.currentWeapon.animator.Play("Fire");
+        }
+
+        //crosshair
+        weaponHUD.crosshair.Fire();
+
+        //cam shake
+        CamShake.instance.ShootShake(wd.camShakeIntensity);
+
+        //Recoil
+        cameraRecoil.Fire();
+        weaponRecoil.Fire();
+
+        //play shoot sound
+        fireAudio.Update(currentFireAudio);
+        fireAudio.PlayOneShot(currentFireAudio);
+
+        fireTailAudio.Stop();
+        fireTailAudio.PlayOneShot(wd.soundClips.fireTail);
+
+        bulletsLeft--;
+        bulletsShot--;
+
+        if (wd.gunStats.fireMode == ShootMode.BoltAction)
+            Invoke("BoldAction", wd.gunStats.chamberTime);
+
+        Invoke("ResetShoot", timeBetweenShooting);
+
+        if (bulletsShot > 0 && bulletsLeft > 0)
+            Invoke("Shoot", wd.gunStats.timeBetweenShots);
+    }
+
+    private void BoldAction()
+    {
+        Instantiate(bulletCasting, castingPoint.position, castingPoint.rotation, prefabHolder);
+        inventory.currentWeapon.animator.Play("Fire");
+    }
+
+    private void FireOneShot()
+    {
         //Spread
         float bulletSpread;
         if (aiming)
@@ -169,7 +220,7 @@ public class WeaponController : MonoBehaviour
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("EnemyHit"))
             {
                 //decal
-                Instantiate(bloodImpact, hit.point, Quaternion.LookRotation(hit.normal),prefabHolder);
+                Instantiate(bloodImpact, hit.point, Quaternion.LookRotation(hit.normal), prefabHolder);
 
                 //check damageable
                 IDamageable damageable = hit.collider.GetComponentInParent<IDamageable>();
@@ -185,13 +236,13 @@ public class WeaponController : MonoBehaviour
                     damageable.TakeDamage(damageResult, Actor);
 
                     if (Actor.isLocallyMine)
-                        UIManager.instance.OnEnemyHit.Invoke(isHeadShot,hit.point);
+                        UIManager.instance.OnEnemyHit.Invoke(isHeadShot, hit.point);
                 }
 
                 //verify kill
                 if (!damageable.deadConfirmed && damageable.IsDead())
                 {
-                    if(Actor)
+                    if (Actor)
                         Actor?.onKill?.Invoke(damageable.GetActor());
 
                     damageable.deadConfirmed = true;
@@ -225,39 +276,10 @@ public class WeaponController : MonoBehaviour
             bullets.Add(bullet);
         }
 
-        //muzzle flash
-        muzzleVFX.Play();
+        pelletsShot--;
 
-        //bullet cast
-        Instantiate(bulletCasting, castingPoint.position, castingPoint.rotation, prefabHolder);
-
-        //crosshair
-        weaponHUD.crosshair.Fire();
-
-        //cam shake
-        CamShake.instance.ShootShake(wd.camShakeIntensity);
-
-        //Recoil
-        cameraRecoil.Fire();
-        weaponRecoil.Fire();
-
-        //play shoot sound
-        fireAudio.Update(currentFireAudio);
-        fireAudio.PlayOneShot(currentFireAudio);
-
-        fireTailAudio.Stop();
-        fireTailAudio.PlayOneShot(wd.soundClips.fireTail);
-
-        //gun animation
-        inventory.currentWeapon.animator.Play("Fire");
-
-        bulletsLeft--;
-        bulletsShot--;
-
-        Invoke("ResetShoot", timeBetweenShooting);
-
-        if (bulletsShot > 0 && bulletsLeft > 0)
-            Invoke("Shoot", wd.gunStats.timeBetweenShots);
+        if (pelletsShot > 0)
+            FireOneShot();
     }
 
     private void ResetShoot() => readyToShoot = true;

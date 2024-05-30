@@ -75,8 +75,11 @@ public class WeaponData : ScriptableObject
         public float bulletDrop;
         public float bulletRange;
         [Header("Shoot Mode")]
+        public ShootMode fireMode;
         public int bulletsPerTap;
+        public int pelletsPerBullet;
         public float timeBetweenShots;
+        public float chamberTime;
         [Header("Spread")]
         public float defaultSpread;
         public float crouchSpread;
@@ -85,8 +88,6 @@ public class WeaponData : ScriptableObject
         public float jumpSpread;
         public float bulletSpreadOneShot;
         public float bulletSpreadResizeSpeed;
-        [Header("Misc")]
-        public bool allowButtonHold;
     }
 
     [System.Serializable]
@@ -101,6 +102,13 @@ public class WeaponData : ScriptableObject
         public AudioProfile emptyMagShoot;
         public AudioProfile aimSound;
     }
+}
+
+public enum ShootMode
+{
+    Semi,
+    Auto,
+    BoltAction
 }
 
 
