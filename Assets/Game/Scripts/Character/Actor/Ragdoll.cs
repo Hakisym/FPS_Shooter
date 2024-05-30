@@ -16,7 +16,7 @@ public class Ragdoll : MonoBehaviour
 
         foreach (var rb in rigidbodies)
         {
-            //rb.interpolation = RigidbodyInterpolation.Interpolate;
+            rb.interpolation = RigidbodyInterpolation.Interpolate;
             rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
         }
 

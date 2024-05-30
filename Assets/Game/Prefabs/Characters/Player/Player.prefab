@@ -414,6 +414,7 @@ MonoBehaviour:
   reloading: 0
   aiming: 0
   canShoot: 0
+  shooting: 0
   prefabHolder: {fileID: 0}
   playerCam: {fileID: 1700024202367906406}
   whatIsShootable:
@@ -426,7 +427,7 @@ MonoBehaviour:
     type: 3}
   bloodImpact: {fileID: 6898028267083706492, guid: 6243fad3610020f4c9307c7ba631a1f5,
     type: 3}
-  bulletTrail: {fileID: 1311976310380469947, guid: 586e3e9b0a73c014abf8e5031e1f34d4,
+  bulletTrail: {fileID: 5617826704567396366, guid: 60caffca5d1f9264bb6fdb5ac795f2ef,
     type: 3}
   bulletsLeft: 0
 --- !u!114 &1700024202281320435

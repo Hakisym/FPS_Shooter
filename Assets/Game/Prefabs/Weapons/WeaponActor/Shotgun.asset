@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ccf1944ed416b9498c99836ead28bcb, type: 3}
   m_Name: Shotgun
   m_EditorClassIdentifier: 
-  gunName: M4
+  gunName: Pump Shotgun
   gunPrefab: {fileID: 573339908886308818, guid: 2a3b03d2d7b966d47987d0158c542ab2,
     type: 3}
   gunModel: {fileID: 4801375367146780615, guid: fe07c9799b7334149a7bf2b776012c16,
@@ -20,7 +20,7 @@ MonoBehaviour:
   pickUpGraphics: {fileID: 4568834173259529912, guid: 537352da98b9d3b40950a2757225200b,
     type: 3}
   gunStats:
-    damage: 15
+    damage: 20
     magazineSize: 8
     fireRate: 60
     reloadTime: 1.5
