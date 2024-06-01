@@ -15,7 +15,9 @@ public class PlayerMovement : MonoBehaviour
     public float crouchSpeed = 2f;
     public float gravity = -9.81f;
     public float jumpHeight = 3f;
-    public float stepInterval = 7;
+    public float stepIntervalWalk = 5;
+    public float stepIntervalSprint = 4;
+    public float stepIntervalCrouch = 3;
     [Space]
     [Header("Ground Check")]
     public Transform groundCheck;
@@ -34,7 +36,9 @@ public class PlayerMovement : MonoBehaviour
     public float crouchHeight;
     [Space]
     [Header("Sounds")]
-    public AudioProfile[] footstepsSFX;
+    public AudioProfile footstepWalk;
+    public AudioProfile footstepSprint;
+    public AudioProfile footstepCrouch;
     [Space]
     [Header("Reference")]
     public Animator animator;
@@ -56,6 +60,7 @@ public class PlayerMovement : MonoBehaviour
     private Audio footstepsAudio = new Audio();
     private float stepCycle;
     private float nextStep;
+    private float lastInterval;
 
     private void Awake()
     {
@@ -88,7 +93,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        ProgressStepCycle(speed);
+        ProgressStepCycle();
     }
 
     private void CheckGround()
@@ -191,16 +196,40 @@ public class PlayerMovement : MonoBehaviour
         velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
     }
 
-    private void ProgressStepCycle(float speed)
+    private void ProgressStepCycle()
     {
         //stop if not grounded
-        if (!isGrounded || footstepsSFX.Length <= 0) return;
+        if (!isGrounded) return;
+
+        AudioProfile footstepSFX;
+        float stepInterval;
+
+        //change step interval
+        if (isSprinting)
+        {
+            footstepSFX = footstepSprint;
+            stepInterval = stepIntervalSprint;
+        }
+        else if (isCrouching || wc.aiming)
+        {
+            footstepSFX = footstepCrouch;
+            stepInterval = stepIntervalCrouch;
+        }
+        else
+        {
+            footstepSFX = footstepWalk;
+            stepInterval = stepIntervalWalk;
+        }
+
+        //play sprint footstep instantly
+        if (lastInterval != stepInterval && stepInterval == stepIntervalSprint) nextStep -= stepInterval;
+        lastInterval = stepInterval;
 
         //check if taking input
         if (velocity.sqrMagnitude > 0 && (Input.GetAxisRaw("Horizontal") != 0) || Input.GetAxisRaw("Vertical") != 0)
         {
             //update step cycle
-            stepCycle += (velocity.magnitude + speed) * Time.fixedDeltaTime;
+            stepCycle += 10 * Time.fixedDeltaTime;
         }
 
         //check step cycle not equal to next step in order to update right
@@ -211,11 +240,7 @@ public class PlayerMovement : MonoBehaviour
 
         nextStep = stepCycle + stepInterval;
 
-        if (footstepsSFX != null)
-        {
-            AudioProfile audioProfile = footstepsSFX[Random.Range(0, footstepsSFX.Length)];
-            footstepsAudio.Update(audioProfile);
-            footstepsAudio.PlayOneShot(audioProfile);
-        }
+        footstepsAudio.Update(footstepSFX);
+        footstepsAudio.PlayOneShot(footstepSFX);
     }
 }
