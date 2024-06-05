@@ -47,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
     public UnityEvent OnJump;
     public UnityEvent OnLand;
     public UnityEvent OnSprint;
+    private bool previouslyGrounded;
 
     public float currentSpeed { get => speed; }
     public float moveVel { get => moveDirection.sqrMagnitude; }
@@ -89,6 +90,8 @@ public class PlayerMovement : MonoBehaviour
         HandleVelocity();
 
         Move();
+
+        HandleMotionEvent();
     }
 
     private void FixedUpdate()
@@ -192,8 +195,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        OnJump?.Invoke();
         velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+    }
+
+    private void HandleMotionEvent()
+    {
+        if (previouslyGrounded && !isGrounded) OnJump?.Invoke();
+        if (!previouslyGrounded && isGrounded) OnLand?.Invoke();
+
+        previouslyGrounded = isGrounded;
     }
 
     private void ProgressStepCycle()

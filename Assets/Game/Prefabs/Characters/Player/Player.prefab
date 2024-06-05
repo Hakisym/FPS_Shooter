@@ -136,7 +136,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1700024201428482309}
-  - component: {fileID: 1700024201428482308}
   m_Layer: 0
   m_Name: CameraContainer
   m_TagString: Untagged
@@ -161,24 +160,6 @@ Transform:
   m_Father: {fileID: 1700024201625776518}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1700024201428482308
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1700024201428482310}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3455e829c6fcc9438a9f43e2fb1448f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  effectIntensity: 3
-  effectIntensityAiming: 1.5
-  smoothTime: 12
-  animationSpeed: 12
-  pm: {fileID: 1700024202281320435}
-  wc: {fileID: 1700024202281320399}
 --- !u!1 &1700024201611054672
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,7 +278,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1700024201625776518}
+  - component: {fileID: 1074407451}
   - component: {fileID: 7916176192214243588}
+  - component: {fileID: 1074407452}
   m_Layer: 0
   m_Name: CameraPivot
   m_TagString: Untagged
@@ -322,6 +305,19 @@ Transform:
   m_Father: {fileID: 1579787928520054014}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1074407451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1700024201625776519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd0f9e81e85fb6249914b8184083bb50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  motions: []
 --- !u!114 &7916176192214243588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,6 +330,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8a58112c0ae02d48915177596b1a630, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wc: {fileID: 1700024202281320399}
+--- !u!114 &1074407452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1700024201625776519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3455e829c6fcc9438a9f43e2fb1448f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effectIntensity: 3
+  effectIntensityAiming: 1.5
+  smoothTime: 12
+  animationSpeed: 12
+  pm: {fileID: 1700024202281320435}
   wc: {fileID: 1700024202281320399}
 --- !u!1 &1700024202281320438
 GameObject:
@@ -448,7 +462,9 @@ MonoBehaviour:
   crouchSpeed: 2
   gravity: -19.62
   jumpHeight: 0.75
-  stepInterval: 3
+  stepIntervalWalk: 5
+  stepIntervalSprint: 4
+  stepIntervalCrouch: 6
   groundCheck: {fileID: 1700024202387569915}
   groundDistance: 0.2
   groundMask:
@@ -461,10 +477,9 @@ MonoBehaviour:
   canMove: 1
   cameraHolder: {fileID: 1579787928520054014}
   crouchHeight: 1.1
-  footstepsSFX:
-  - {fileID: 11400000, guid: e4f894ecb856eb042a23eb659234cdc2, type: 2}
-  - {fileID: 11400000, guid: b7e13fe5bd26f4a47aa2402a9b1e4e78, type: 2}
-  - {fileID: 11400000, guid: 67edbbfe430c4da40b4a572489276ffb, type: 2}
+  footstepWalk: {fileID: 11400000, guid: e4f894ecb856eb042a23eb659234cdc2, type: 2}
+  footstepSprint: {fileID: 11400000, guid: de625106cc9ccbb41872080d61e3ff16, type: 2}
+  footstepCrouch: {fileID: 11400000, guid: fe1502a0d2f4a4c4c8a000f78fc3b39d, type: 2}
   animator: {fileID: 1700024203204091687}
   wc: {fileID: 1700024202281320399}
   OnJump:

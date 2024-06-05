@@ -4779,59 +4779,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 580576727178149970, guid: d9297b61db9b0834895c5ff7d261dea0,
-        type: 3}
-      propertyPath: footstepWalk
-      value: 
-      objectReference: {fileID: 11400000, guid: e4f894ecb856eb042a23eb659234cdc2,
-        type: 2}
-    - target: {fileID: 580576727178149970, guid: d9297b61db9b0834895c5ff7d261dea0,
-        type: 3}
-      propertyPath: stepInterval
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 580576727178149970, guid: d9297b61db9b0834895c5ff7d261dea0,
-        type: 3}
-      propertyPath: footstepCrouch
-      value: 
-      objectReference: {fileID: 11400000, guid: fe1502a0d2f4a4c4c8a000f78fc3b39d,
-        type: 2}
-    - target: {fileID: 580576727178149970, guid: d9297b61db9b0834895c5ff7d261dea0,
-        type: 3}
-      propertyPath: footstepSprint
-      value: 
-      objectReference: {fileID: 11400000, guid: de625106cc9ccbb41872080d61e3ff16,
-        type: 2}
-    - target: {fileID: 580576727178149970, guid: d9297b61db9b0834895c5ff7d261dea0,
-        type: 3}
-      propertyPath: stepIntervalCrouch
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 580576727178149970, guid: d9297b61db9b0834895c5ff7d261dea0,
-        type: 3}
-      propertyPath: stepIntervalCroush
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 580576727178149970, guid: d9297b61db9b0834895c5ff7d261dea0,
-        type: 3}
-      propertyPath: stepIntervalSprint
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 580576727178149970, guid: d9297b61db9b0834895c5ff7d261dea0,
-        type: 3}
-      propertyPath: footstepsSFX.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 580576727178149970, guid: d9297b61db9b0834895c5ff7d261dea0,
-        type: 3}
-      propertyPath: footstepsSFX.Array.data[1]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 580576727178149970, guid: d9297b61db9b0834895c5ff7d261dea0,
-        type: 3}
-      propertyPath: footstepsSFX.Array.data[2]
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 2276899965236523399, guid: d9297b61db9b0834895c5ff7d261dea0,
         type: 3}
       propertyPath: m_RootOrder

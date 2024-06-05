@@ -2,13 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraRecoil : MonoBehaviour
+public class CameraRecoil : CameraMotionBase
 {
-    [Header("Reference")]
-    public WeaponController wc;
-
+    private WeaponController wc;
     private Vector3 currentRotation, rot;
     private float evaluationProgress, evaluationProgressX;
+
+    private void Awake()
+    {
+        wc = GetComponentInParent<WeaponController>();
+    }
 
     private void Update()
     {
@@ -22,17 +25,9 @@ public class CameraRecoil : MonoBehaviour
             currentRotation = Vector3.Lerp(currentRotation, Vector3.zero, wc.wd.cameraRecoilParameters.returnSpeed * Time.deltaTime);
         }
 
-        if (wc.canShoot && wc.shootState)
-            if (wc.wd.cameraRecoilParameters.type == RecoilType.Curve)
-            {
-                var xRecoil = wc.aiming ? wc.wd.cameraRecoilParameters.xRecoilAmount * 2 : wc.wd.cameraRecoilParameters.xRecoilAmount;
-                var yRecoil = wc.aiming ? wc.wd.cameraRecoilParameters.yRecoilAmount * 2 : wc.wd.cameraRecoilParameters.yRecoilAmount;
-                currentRotation = new Vector3(-wc.wd.cameraRecoilParameters.recoilY.Evaluate(evaluationProgress) * yRecoil, -wc.wd.cameraRecoilParameters.recoilX.Evaluate(evaluationProgress) * xRecoil, 0);
-            }
-
         //Smooth rotate to current rotation
         rot = Vector3.Slerp(rot, currentRotation, wc.wd.cameraRecoilParameters.rotationSpeed * Time.deltaTime);
-        transform.localRotation = Quaternion.Euler(rot);
+        targetRotation = rot;
     }
 
     public void Fire()
@@ -53,10 +48,14 @@ public class CameraRecoil : MonoBehaviour
                     Random.Range(-wc.wd.cameraRecoilParameters.recoilRotation.z, wc.wd.cameraRecoilParameters.recoilRotation.z));
             }
         }
-        else
+        else if (wc.wd.cameraRecoilParameters.type == RecoilType.Curve)
         {
             evaluationProgress += 1f / wc.wd.gunStats.magazineSize;
             evaluationProgressX += 1f / wc.wd.gunStats.magazineSize;
+
+            var xRecoil = wc.aiming ? wc.wd.cameraRecoilParameters.xRecoilAmount * 2 : wc.wd.cameraRecoilParameters.xRecoilAmount;
+            var yRecoil = wc.aiming ? wc.wd.cameraRecoilParameters.yRecoilAmount * 2 : wc.wd.cameraRecoilParameters.yRecoilAmount;
+            currentRotation = new Vector3(-wc.wd.cameraRecoilParameters.recoilY.Evaluate(evaluationProgress) * yRecoil, -wc.wd.cameraRecoilParameters.recoilX.Evaluate(evaluationProgress) * xRecoil, 0);
         }
     }
 }
