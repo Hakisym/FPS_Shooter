@@ -1214,6 +1214,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deathCamera: {fileID: 5729932946077750870, guid: e642971370d07284886f9f80aeda46d5,
     type: 3}
+--- !u!1 &1074407448 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 580576727871508006, guid: d9297b61db9b0834895c5ff7d261dea0,
+    type: 3}
+  m_PrefabInstance: {fileID: 2276899963868191263}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1074407453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1074407448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a466217f84ada9458bda6686db85d1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  headBobAmplitude: 0.2
+  headBobFrequency: 8
 --- !u!1 &1200427666
 GameObject:
   m_ObjectHideFlags: 0
@@ -4779,6 +4799,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 580576727871508007, guid: d9297b61db9b0834895c5ff7d261dea0,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2276899965132429245, guid: d9297b61db9b0834895c5ff7d261dea0,
+        type: 3}
+      propertyPath: jumpPosition.y
+      value: -0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2276899965132429245, guid: d9297b61db9b0834895c5ff7d261dea0,
+        type: 3}
+      propertyPath: jumpRotation.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2276899965132429245, guid: d9297b61db9b0834895c5ff7d261dea0,
+        type: 3}
+      propertyPath: landRotation.x
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2276899965236523399, guid: d9297b61db9b0834895c5ff7d261dea0,
         type: 3}
       propertyPath: m_RootOrder

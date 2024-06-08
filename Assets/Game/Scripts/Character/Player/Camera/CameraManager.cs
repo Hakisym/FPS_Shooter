@@ -33,7 +33,6 @@ public class CameraManager : MonoBehaviour
     private void Update()
     {
         transform.localPosition = GetPosition();
-        Quaternion rotation = Quaternion.Euler(GetRotation());
-        transform.localRotation = rotation;
+        transform.localRotation = Quaternion.Euler(GetRotation());
     }
 }
