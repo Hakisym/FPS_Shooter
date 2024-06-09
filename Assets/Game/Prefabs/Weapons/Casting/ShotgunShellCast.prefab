@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8360084054929323127}
   - component: {fileID: 8360084054929323120}
   - component: {fileID: -4964760000848420587}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ShotgunShellCast
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -187,7 +187,7 @@ GameObject:
   - component: {fileID: 206375470132347513}
   - component: {fileID: 8122423411229274102}
   - component: {fileID: 3899689833629479822}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bullet_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}

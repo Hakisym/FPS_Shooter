@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8182810126028276377}
   - component: {fileID: 3644652096126489308}
   - component: {fileID: 7490873585634692603}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bullet_01_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 8360084054929323127}
   - component: {fileID: 8360084054929323120}
   - component: {fileID: -4964760000848420587}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PistolShellCast
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -39,7 +39,7 @@ public class WeaponBobbing : WeaponMotionBase
             bobbingIntensity = effectIntensity + sprintIntensity;
             bobbingSpeed = effectSpeed * sprintBobingSpeed;
         }
-        else if (wc.aiming)
+        else if (wc.aiming || pm.isCrouching)
         {
             bobbingSpeed = effectSpeed * aimBobbingSpeed;
         }
