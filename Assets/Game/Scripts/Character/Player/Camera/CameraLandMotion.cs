@@ -2,13 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraAirMotion : CameraMotionBase
+public class CameraLandMotion : CameraMotionBase
 {
-    public Vector3 jumpPosition = new Vector3(0, 0.2f, 0);
-    public Vector3 jumpRotation = new Vector3(-2, 0, 0);
     public Vector3 landPosition = new Vector3(0, -0.2f, 0);
     public Vector3 landRotation = new Vector3(5, 0, 0);
-    public float returnSpeed = 35f;
+    public float returnSpeed = 10f;
     public float smoothTime = 10f;
 
     private Vector3 currentPosition;
@@ -18,7 +16,6 @@ public class CameraAirMotion : CameraMotionBase
 
     private void Start()
     {
-        GetComponentInParent<PlayerMovement>().OnJump.AddListener(Jump);
         GetComponentInParent<PlayerMovement>().OnLand.AddListener(Land);
     }
 
@@ -33,13 +30,6 @@ public class CameraAirMotion : CameraMotionBase
 
         targetPosition = finalPosition;
         targetRotation = finalRotation;
-    }
-
-    private void Jump()
-    {
-        // Set the jump intensity
-        currentPosition += new Vector3(Random.Range(jumpPosition.x, -jumpPosition.x), Random.Range(jumpPosition.y, -jumpPosition.y), jumpPosition.z);
-        currentRotation += new Vector3(jumpRotation.x, Random.Range(jumpRotation.y, -jumpRotation.y), Random.Range(jumpRotation.z, -jumpRotation.z));
     }
 
     private void Land()

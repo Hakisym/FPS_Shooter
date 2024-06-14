@@ -22,7 +22,7 @@ MonoBehaviour:
   gunStats:
     damage: 20
     magazineSize: 8
-    fireRate: 60
+    fireRate: 100
     reloadTime: 1.5
     bulletImpactForce: 200
     bulletSpeed: 400
@@ -32,7 +32,7 @@ MonoBehaviour:
     bulletsPerTap: 1
     pelletsPerBullet: 8
     timeBetweenShots: 0
-    chamberTime: 0.85
+    chamberTime: 0.3
     defaultSpread: 150
     crouchSpread: 100
     walkSpread: 200

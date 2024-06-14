@@ -2,17 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponJumping : WeaponMotionBase
+public class CameraJumpMotion : CameraMotionBase
 {
-    public Vector3 position = new Vector3(0, -0.2f, 0);
-    public Vector3 rotation = new Vector3(5, 0, 0);
-    public float returnSpeed = 35f;
+    public Vector3 jumpPosition = new Vector3(0, 0.2f, 0);
+    public Vector3 jumpRotation = new Vector3(-5, 0, 0);
+    public float returnSpeed = 10f;
     public float smoothTime = 10f;
 
-    [Space]
-    private PlayerMovement pm;
-
-    private Quaternion originalRotation;
     private Vector3 currentPosition;
     private Vector3 currentRotation;
     private Vector3 finalPosition;
@@ -20,10 +16,7 @@ public class WeaponJumping : WeaponMotionBase
 
     private void Start()
     {
-        pm = wc.GetComponent<PlayerMovement>();
-        pm.OnLand.AddListener(Trigger);
-
-        originalRotation = target.localRotation;
+        GetComponentInParent<PlayerMovement>().OnJump.AddListener(Jump);
     }
 
     private void Update()
@@ -35,16 +28,14 @@ public class WeaponJumping : WeaponMotionBase
         finalPosition = Vector3.Slerp(finalPosition, currentPosition, Time.deltaTime * smoothTime);
         finalRotation = Vector3.Slerp(finalRotation, currentRotation, Time.deltaTime * smoothTime);
 
-        target.localPosition = finalPosition;
-        target.localRotation = originalRotation * Quaternion.Euler(finalRotation);
+        targetPosition = finalPosition;
+        targetRotation = finalRotation;
     }
 
-    public void Trigger()
+    private void Jump()
     {
-        float multiplier = wc.aiming ? 1 : 0.7f;
-
         // Set the jump intensity
-        currentPosition += position * multiplier;
-        currentRotation += rotation * multiplier;
+        currentPosition += new Vector3(Random.Range(jumpPosition.x, -jumpPosition.x), Random.Range(jumpPosition.y, -jumpPosition.y), jumpPosition.z);
+        currentRotation += new Vector3(jumpRotation.x, Random.Range(jumpRotation.y, -jumpRotation.y), Random.Range(jumpRotation.z, -jumpRotation.z));
     }
 }

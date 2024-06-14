@@ -700,6 +700,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &754029297 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 580576727871508006, guid: d9297b61db9b0834895c5ff7d261dea0,
+    type: 3}
+  m_PrefabInstance: {fileID: 2276899963868191263}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &754029303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 754029297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df475be63f78d6f4c920568e8b6b0842, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  landPosition: {x: 0, y: -0.2, z: 0}
+  landRotation: {x: 5, y: 0, z: 0}
+  returnSpeed: 10
+  smoothTime: 10
 --- !u!1001 &818882916
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4793,6 +4815,21 @@ PrefabInstance:
         type: 3}
       propertyPath: headBobFrequency
       value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 2276899965132429245, guid: d9297b61db9b0834895c5ff7d261dea0,
+        type: 3}
+      propertyPath: returnSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2276899965132429245, guid: d9297b61db9b0834895c5ff7d261dea0,
+        type: 3}
+      propertyPath: jumpRotation.x
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2276899965132429245, guid: d9297b61db9b0834895c5ff7d261dea0,
+        type: 3}
+      propertyPath: landRotation.x
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2276899965236523399, guid: d9297b61db9b0834895c5ff7d261dea0,
         type: 3}
