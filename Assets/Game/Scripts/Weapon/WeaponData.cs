@@ -31,13 +31,20 @@ public class WeaponData : ScriptableObject
     [System.Serializable]
     public class WeaponRecoilParameters
     {
-        //hipfire
+        public Vector3 staticRecoilPosition;
+        public Vector3 staticRecoilRotation;
+
+        public Vector3 staticRecoilPositionAim;
+        public Vector3 staticRecoilRotationAim;
+
+        [Space]
+        public Vector3 recoilPosition;
         public Vector3 recoilRotation;
-        public Vector3 recoilKickback;
-        //aiming
+
+        public Vector3 recoilPositionAim;
         public Vector3 recoilRotationAim;
-        public Vector3 recoilKickbackAim;
-        //speed
+
+        [Space]
         public float positionalRecoilSpeed;
         public float rotationalRecoilSpeed;
 

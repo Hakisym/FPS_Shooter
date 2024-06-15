@@ -281,6 +281,7 @@ GameObject:
   - component: {fileID: 1074407451}
   - component: {fileID: 7916176192214243588}
   - component: {fileID: 1074407452}
+  - component: {fileID: 754029303}
   - component: {fileID: 1074407453}
   m_Layer: 0
   m_Name: CameraPivot
@@ -344,10 +345,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpPosition: {x: 0, y: -0.2, z: 0}
-  jumpRotation: {x: 2, y: 0, z: 0}
+  jumpRotation: {x: -5, y: 0, z: 0}
+  returnSpeed: 5
+  smoothTime: 10
+--- !u!114 &754029303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1700024201625776519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df475be63f78d6f4c920568e8b6b0842, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   landPosition: {x: 0, y: -0.2, z: 0}
-  landRotation: {x: 3, y: 0, z: 0}
-  returnSpeed: 35
+  landRotation: {x: 5, y: 0, z: 0}
+  returnSpeed: 10
   smoothTime: 10
 --- !u!114 &1074407453
 MonoBehaviour:
@@ -361,8 +376,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a466217f84ada9458bda6686db85d1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  headBobAmplitude: 0.2
-  headBobFrequency: 8
+  headBobAmplitude: 0.3
+  headBobFrequency: 18
 --- !u!1 &1700024202281320438
 GameObject:
   m_ObjectHideFlags: 0
