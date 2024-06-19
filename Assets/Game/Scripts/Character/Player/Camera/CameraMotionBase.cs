@@ -4,6 +4,6 @@ using UnityEngine;
 
 public abstract class CameraMotionBase : MonoBehaviour
 {
-    public Vector3 targetPosition { get; set; }
-    public Vector3 targetRotation { get; set; }
+    public virtual Vector3 targetPosition { get; set; }
+    public virtual Vector3 targetRotation { get; set; }
 }

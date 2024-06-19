@@ -4839,6 +4839,31 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerActor
       objectReference: {fileID: 0}
+    - target: {fileID: 8233358823089170085, guid: d9297b61db9b0834895c5ff7d261dea0,
+        type: 3}
+      propertyPath: smoothTime
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8233358823089170085, guid: d9297b61db9b0834895c5ff7d261dea0,
+        type: 3}
+      propertyPath: recoilAmount.x
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8233358823089170085, guid: d9297b61db9b0834895c5ff7d261dea0,
+        type: 3}
+      propertyPath: recoilAmount.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8233358823089170085, guid: d9297b61db9b0834895c5ff7d261dea0,
+        type: 3}
+      propertyPath: recoilAmount.z
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8233358823089170085, guid: d9297b61db9b0834895c5ff7d261dea0,
+        type: 3}
+      propertyPath: recoilDampTime
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9297b61db9b0834895c5ff7d261dea0, type: 3}
 --- !u!33 &2797017065676947698

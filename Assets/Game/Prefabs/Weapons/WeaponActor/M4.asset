@@ -21,12 +21,12 @@ MonoBehaviour:
   gunStats:
     damage: 20
     magazineSize: 30
-    fireRate: 600
+    fireRate: 750
     reloadTime: 1.5
-    bulletImpactForce: 50
-    bulletSpeed: 1000
+    impactForce: 50
+    velocity: 1000
     bulletDrop: 0
-    bulletRange: 300
+    range: 300
     fireMode: 1
     bulletsPerTap: 1
     pelletsPerBullet: 0
@@ -40,20 +40,24 @@ MonoBehaviour:
     bulletSpreadOneShot: 10
     bulletSpreadResizeSpeed: 5
   weaponRecoilParameters:
-    recoilRotation: {x: 1, y: 1, z: 2}
-    recoilKickback: {x: 0, y: 0, z: -0.1}
-    recoilRotationAim: {x: 1, y: 1, z: 1}
-    recoilKickbackAim: {x: 0, y: 0, z: -0.07}
-    positionalRecoilSpeed: 20
-    rotationalRecoilSpeed: 20
-    positionalReturnSpeed: 20
-    rotationalReturnSpeed: 20
+    staticRecoilPosition: {x: 0, y: 0, z: -0.3}
+    staticRecoilRotation: {x: -1, y: 2, z: -10}
+    staticRecoilPositionAim: {x: 0, y: 0, z: -0.2}
+    staticRecoilRotationAim: {x: -3, y: 2, z: -10}
+    recoilPosition: {x: 0.01, y: 0.01, z: 0}
+    recoilRotation: {x: -15, y: 15, z: 15}
+    recoilPositionAim: {x: -0.01, y: 0.01, z: 0}
+    recoilRotationAim: {x: -1, y: 3, z: 3}
+    positionalRecoilSpeed: 10
+    rotationalRecoilSpeed: 10
+    positionalReturnSpeed: 35
+    rotationalReturnSpeed: 35
   cameraRecoilParameters:
     type: 0
-    rotationSpeed: 20
+    rotationSpeed: 10
     returnSpeed: 10
-    recoilRotation: {x: 1, y: 0.5, z: 0}
-    recoilRotationAiming: {x: 0.7, y: 0.7, z: 0}
+    recoilRotation: {x: 0.5, y: 0.5, z: 0}
+    recoilRotationAiming: {x: 0.5, y: 0.7, z: 0}
     recoilX:
       serializedVersion: 2
       m_Curve:
@@ -122,7 +126,9 @@ MonoBehaviour:
       m_RotationOrder: 4
     xRecoilAmount: 5
     yRecoilAmount: 5
-  camShakeIntensity: 0.4
+  cameraRecoil: 0.7
+  cameraShake: 0.05
+  cameraFadeoutTime: 0.2
   bulletCasting: {fileID: 8360084055759571751, guid: 47e2dad834f38dc43a2622d3db1e283b,
     type: 3}
   soundClips:

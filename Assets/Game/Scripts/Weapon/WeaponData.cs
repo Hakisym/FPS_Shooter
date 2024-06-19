@@ -15,15 +15,17 @@ public class WeaponData : ScriptableObject
     [Header("Recoil Settings")]
     public WeaponRecoilParameters weaponRecoilParameters;
     public CameraRecoilParameters cameraRecoilParameters;
-    public float camShakeIntensity;
+
+    [Header("Camera")]
+    public float cameraRecoil;
+    public float cameraShake;
+    public float cameraFadeoutTime;
 
     [Header("Visual")]
     public GameObject bulletCasting;
 
     [Header("Audio")]
     public AudioClips soundClips;
-
-    [Header("UI")]
 
     [Header("Third Person")]
     public Vector3 ikHandPos;
@@ -77,10 +79,10 @@ public class WeaponData : ScriptableObject
         public float fireRate;
         public float reloadTime;
         [Header("Bullet")]
-        public float bulletImpactForce;
-        public float bulletSpeed;
+        public float impactForce;
+        public float velocity;
         public float bulletDrop;
-        public float bulletRange;
+        public float range;
         [Header("Shoot Mode")]
         public ShootMode fireMode;
         public int bulletsPerTap;

@@ -162,10 +162,10 @@ public class WeaponController : MonoBehaviour
         weaponHUD.crosshair.Fire();
 
         //cam shake
-        CamShake.instance.ShootShake(wd.camShakeIntensity);
+        //CamShake.instance.ShootShake(wd.camShakeIntensity);
 
         //Recoil
-        cameraRecoil.Fire();
+        cameraRecoil.ApplyRecoil(wd.cameraRecoil);
         weaponRecoil.Fire();
 
         //play shoot sound
@@ -214,7 +214,7 @@ public class WeaponController : MonoBehaviour
 
 
         // Hitscan shoot
-        if (Physics.Raycast(ray, out hit, wd.gunStats.bulletRange, whatIsShootable))
+        if (Physics.Raycast(ray, out hit, wd.gunStats.range, whatIsShootable))
         {
             //damageable group
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("EnemyHit"))
@@ -250,7 +250,7 @@ public class WeaponController : MonoBehaviour
 
                 if (hit.rigidbody)
                 {
-                    hit.rigidbody.AddForceAtPosition(-hit.normal * wd.gunStats.bulletImpactForce, hit.point, ForceMode.Impulse);
+                    hit.rigidbody.AddForceAtPosition(-hit.normal * wd.gunStats.impactForce, hit.point, ForceMode.Impulse);
                 }
             }
 
@@ -260,7 +260,7 @@ public class WeaponController : MonoBehaviour
 
             //bullet tracer
             bulletDir = (hit.point - muzzlePoint.position).normalized;
-            var bullet = new Bullet(muzzlePoint.position, bulletDir * wd.gunStats.bulletSpeed, bulletTrail, prefabHolder);
+            var bullet = new Bullet(muzzlePoint.position, bulletDir * wd.gunStats.velocity, bulletTrail, prefabHolder);
             bullets.Add(bullet);
         }
         else
@@ -272,7 +272,7 @@ public class WeaponController : MonoBehaviour
             bool hasHit = Physics.Raycast(muzzlePoint.position, bulletDir, whatIsShootable);
 
             //render the bullet from the muzzle
-            var bullet = new Bullet(muzzlePoint.position, bulletDir * wd.gunStats.bulletSpeed, bulletTrail, prefabHolder);
+            var bullet = new Bullet(muzzlePoint.position, bulletDir * wd.gunStats.velocity, bulletTrail, prefabHolder);
             bullets.Add(bullet);
         }
 

@@ -24,10 +24,10 @@ MonoBehaviour:
     magazineSize: 17
     fireRate: 500
     reloadTime: 1.5
-    bulletImpactForce: 30
-    bulletSpeed: 300
+    impactForce: 30
+    velocity: 300
     bulletDrop: 0
-    bulletRange: 50
+    range: 50
     fireMode: 0
     bulletsPerTap: 1
     pelletsPerBullet: 1
@@ -41,10 +41,14 @@ MonoBehaviour:
     bulletSpreadOneShot: 10
     bulletSpreadResizeSpeed: 5
   weaponRecoilParameters:
+    staticRecoilPosition: {x: 0, y: 0, z: 0}
+    staticRecoilRotation: {x: 0, y: 0, z: 0}
+    staticRecoilPositionAim: {x: 0, y: 0, z: 0}
+    staticRecoilRotationAim: {x: 0, y: 0, z: 0}
+    recoilPosition: {x: 0, y: 0, z: 0}
     recoilRotation: {x: 15, y: 1, z: 2}
-    recoilKickback: {x: 0, y: 0, z: -0.1}
+    recoilPositionAim: {x: 0, y: 0, z: 0}
     recoilRotationAim: {x: 1, y: 1, z: 1}
-    recoilKickbackAim: {x: 0, y: 0, z: -0.07}
     positionalRecoilSpeed: 20
     rotationalRecoilSpeed: 20
     positionalReturnSpeed: 20
@@ -123,7 +127,9 @@ MonoBehaviour:
       m_RotationOrder: 4
     xRecoilAmount: 5
     yRecoilAmount: 5
-  camShakeIntensity: 0.4
+  cameraRecoil: 0
+  cameraShake: 0
+  cameraFadeoutTime: 0
   bulletCasting: {fileID: 8360084055759571751, guid: 5776f6e05d8dd124194ee2239343602c,
     type: 3}
   soundClips:
