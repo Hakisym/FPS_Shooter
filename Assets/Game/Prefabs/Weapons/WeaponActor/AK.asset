@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: AK
   m_EditorClassIdentifier: 
   gunName: AK
-  gunPrefab: {fileID: 6236459585021328576, guid: decb46954535e5e49b96069cf84c92d2,
+  gunPrefab: {fileID: 573339908886308818, guid: 2295045d68a754b42a8f14265bea0cfc,
     type: 3}
   gunModel: {fileID: 4500482033252313852, guid: 50e21d959129cfe4ebb107ac4c2049fd,
     type: 3}
   pickUpGraphics: {fileID: 2641351572177420201, guid: 70beeaeaec2b98d4aadce0c3a9baf04d,
     type: 3}
   gunStats:
-    damage: 20
+    damage: 25
     magazineSize: 30
     fireRate: 600
     reloadTime: 1.5
@@ -30,7 +30,7 @@ MonoBehaviour:
     range: 300
     fireMode: 1
     bulletsPerTap: 1
-    pelletsPerBullet: 1
+    pelletsPerBullet: 0
     timeBetweenShots: 0
     chamberTime: 0
     defaultSpread: 18
@@ -41,24 +41,24 @@ MonoBehaviour:
     bulletSpreadOneShot: 10
     bulletSpreadResizeSpeed: 5
   weaponRecoilParameters:
-    staticRecoilPosition: {x: 0, y: 0, z: 0}
-    staticRecoilRotation: {x: 0, y: 0, z: 0}
-    staticRecoilPositionAim: {x: 0, y: 0, z: 0}
-    staticRecoilRotationAim: {x: 0, y: 0, z: 0}
-    recoilPosition: {x: 0, y: 0, z: 0}
-    recoilRotation: {x: 1, y: 1, z: 2}
-    recoilPositionAim: {x: 0, y: 0, z: 0}
-    recoilRotationAim: {x: 1, y: 1, z: 1}
-    positionalRecoilSpeed: 20
-    rotationalRecoilSpeed: 20
-    positionalReturnSpeed: 20
-    rotationalReturnSpeed: 20
+    staticRecoilPosition: {x: 0, y: 0, z: -0.3}
+    staticRecoilRotation: {x: -1, y: 2, z: -10}
+    staticRecoilPositionAim: {x: 0, y: 0, z: -0.2}
+    staticRecoilRotationAim: {x: -1, y: 2, z: -10}
+    recoilPosition: {x: 0.01, y: 0.01, z: 0}
+    recoilRotation: {x: -25, y: 15, z: 15}
+    recoilPositionAim: {x: -0.01, y: 0.01, z: 0}
+    recoilRotationAim: {x: -1, y: 3, z: 3}
+    positionalRecoilSpeed: 10
+    rotationalRecoilSpeed: 10
+    positionalReturnSpeed: 35
+    rotationalReturnSpeed: 35
   cameraRecoilParameters:
-    type: 1
+    type: 0
     rotationSpeed: 10
     returnSpeed: 10
-    recoilRotation: {x: 0, y: 0, z: 0}
-    recoilRotationAiming: {x: 0, y: 0, z: 0}
+    recoilRotation: {x: 0.5, y: 0.5, z: 0}
+    recoilRotationAiming: {x: 0.5, y: 0.7, z: 0}
     recoilX:
       serializedVersion: 2
       m_Curve:
@@ -127,9 +127,9 @@ MonoBehaviour:
       m_RotationOrder: 4
     xRecoilAmount: 5
     yRecoilAmount: 5
-  cameraRecoil: 0
-  cameraShake: 0
-  cameraFadeoutTime: 0
+  cameraRecoil: 0.7
+  cameraShake: 0.05
+  cameraFadeoutTime: 0.2
   bulletCasting: {fileID: 8360084055759571751, guid: 47e2dad834f38dc43a2622d3db1e283b,
     type: 3}
   soundClips:

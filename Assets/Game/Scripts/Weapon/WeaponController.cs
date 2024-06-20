@@ -165,7 +165,7 @@ public class WeaponController : MonoBehaviour
         //CamShake.instance.ShootShake(wd.camShakeIntensity);
 
         //Recoil
-        cameraRecoil.ApplyRecoil(wd.cameraRecoil);
+        cameraRecoil.ApplyRecoil(wd.cameraRecoilParameters.verticalRecoil, wd.cameraRecoilParameters.hotizontalRecoil, wd.cameraRecoil, aiming);
         weaponRecoil.Fire();
 
         //play shoot sound

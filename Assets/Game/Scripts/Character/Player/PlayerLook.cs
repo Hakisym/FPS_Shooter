@@ -9,6 +9,7 @@ public class PlayerLook : MonoBehaviour
 
     public Transform aimTarget;
     public LayerMask aimMask;
+    public Vector2 addedLookValue { get; set; }
     private Camera mainCamera;
 
     private bool controllable;
@@ -29,8 +30,10 @@ public class PlayerLook : MonoBehaviour
     {
         if (!controllable) return;
 
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity + addedLookValue.y;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity + addedLookValue.x;
+
+        addedLookValue = Vector2.zero;
 
         xRotation -= mouseY;
         // Clamp pitch
@@ -52,5 +55,10 @@ public class PlayerLook : MonoBehaviour
         {
             aimTarget.position = ray.GetPoint(50);
         }
+    }
+
+    public void AddLookValue(Vector2 value)
+    {
+        addedLookValue += value;
     }
 }

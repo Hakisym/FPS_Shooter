@@ -68,6 +68,10 @@ public class WeaponData : ScriptableObject
         public AnimationCurve recoilX;
         public AnimationCurve recoilY;
         public float xRecoilAmount, yRecoilAmount;
+
+        [Header("Camera Recoil")]
+        public float hotizontalRecoil;
+        public float verticalRecoil;
     }
 
     [System.Serializable]

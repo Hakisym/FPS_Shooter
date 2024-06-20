@@ -6,21 +6,21 @@ public class CameraRecoil : CameraMotionBase
 {
     public Vector3 recoilAmount;
     public float recoilDampTime;
-    public float smoothTime = 0.1f;
 
     public override Vector3 targetRotation { get => targetRotation = resultCameraRotation + resultRecoilRotation; }
 
     private WeaponController wc;
+    private PlayerLook pl;
     private Vector3 currentRotation;
     private Vector3 currentRecoil;
     private Vector3 resultCameraRotation;
     private Vector3 resultRecoilRotation;
     private float evaluationProgress, evaluationProgressX;
-    private Vector3 velocity;
 
     private void Awake()
     {
         wc = GetComponentInParent<WeaponController>();
+        pl = GetComponentInParent<PlayerLook>();
     }
 
     private void Update()
@@ -32,7 +32,7 @@ public class CameraRecoil : CameraMotionBase
             evaluationProgress = 0;
             evaluationProgressX = 0;
             //Return interpolation
-            currentRotation = Vector3.SmoothDamp(currentRotation, Vector3.zero, ref velocity, smoothTime);
+            currentRotation = Vector3.Lerp(currentRotation, Vector3.zero, wc.wd.cameraRecoilParameters.returnSpeed * Time.deltaTime);
         }
     }
 
@@ -40,15 +40,17 @@ public class CameraRecoil : CameraMotionBase
     {
         if (!wc.wd) return;
 
-        currentRecoil = Vector3.Lerp(currentRecoil, Vector3.zero, 35 * Time.deltaTime);
-        resultRecoilRotation = Vector3.Slerp(resultRecoilRotation, currentRecoil, recoilDampTime * Time.fixedDeltaTime);
-
         //Smooth rotate to current rotation
         resultCameraRotation = Vector3.Slerp(resultCameraRotation, currentRotation, wc.wd.cameraRecoilParameters.rotationSpeed * Time.fixedDeltaTime);
+
+        currentRecoil = Vector3.Lerp(currentRecoil, Vector3.zero, 35 * Time.deltaTime);
+        resultRecoilRotation = Vector3.Slerp(resultRecoilRotation, currentRecoil, recoilDampTime * Time.fixedDeltaTime);
     }
 
-    public void ApplyRecoil(float shakeMultiplier)
+    public void ApplyRecoil(float vertical, float horizontal, float shakeMultiplier, bool isAiming = false)
     {
+        float multiplier = isAiming ? 1f : 0.7f;
+
         //Recoil while using procedural pattern
         if (wc.wd.cameraRecoilParameters.type == RecoilType.Procedural)
         {
@@ -66,6 +68,7 @@ public class CameraRecoil : CameraMotionBase
                     Random.Range(-wc.wd.cameraRecoilParameters.recoilRotation.z, wc.wd.cameraRecoilParameters.recoilRotation.z));
             }
         }
+
         //Recoil while using animation curve
         else if (wc.wd.cameraRecoilParameters.type == RecoilType.Curve)
         {
@@ -77,7 +80,13 @@ public class CameraRecoil : CameraMotionBase
             currentRotation = new Vector3(-wc.wd.cameraRecoilParameters.recoilY.Evaluate(evaluationProgress) * yRecoil, -wc.wd.cameraRecoilParameters.recoilX.Evaluate(evaluationProgress) * xRecoil, 0);
         }
 
-        float multiplier = wc.aiming ? 0.7f : 1f;
+        //Recoil while using look value
+        else if (wc.wd.cameraRecoilParameters.type == RecoilType.LookValue)
+        {
+            pl.AddLookValue(new Vector2(vertical, Random.Range(-horizontal, horizontal)) * multiplier);
+        }
+
+        //Recoil shake
         currentRecoil += new Vector3(recoilAmount.x, Random.Range(-recoilAmount.y, recoilAmount.y), Random.Range(-recoilAmount.z, recoilAmount.z)) * multiplier * shakeMultiplier;
     }
 }
@@ -85,5 +94,6 @@ public class CameraRecoil : CameraMotionBase
 public enum RecoilType
 {
     Procedural,
-    Curve
+    Curve,
+    LookValue
 }
