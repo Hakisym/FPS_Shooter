@@ -11,10 +11,10 @@ public class WeaponHUD : MonoBehaviour
 
     void Update()
     {
-        if (!weaponController.wd) return;
+        if (!weaponController.preset) return;
 
         ammoReserve.text = weaponController.bulletsLeft.ToString();
-        ammoAmount.text = weaponController.wd.gunStats.magazineSize.ToString();
+        ammoAmount.text = weaponController.preset.gunStats.magazineSize.ToString();
     }
 
     public void GetReference(WeaponController wc)

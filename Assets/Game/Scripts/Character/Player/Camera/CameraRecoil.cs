@@ -25,23 +25,23 @@ public class CameraRecoil : CameraMotionBase
 
     private void Update()
     {
-        if (!wc.wd) return;
+        if (!wc.preset) return;
 
         if (!wc.shooting || !wc.canShoot)
         {
             evaluationProgress = 0;
             evaluationProgressX = 0;
             //Return interpolation
-            currentRotation = Vector3.Lerp(currentRotation, Vector3.zero, wc.wd.cameraRecoilParameters.returnSpeed * Time.deltaTime);
+            currentRotation = Vector3.Lerp(currentRotation, Vector3.zero, wc.preset.cameraRecoilParameters.returnSpeed * Time.deltaTime);
         }
     }
 
     private void FixedUpdate()
     {
-        if (!wc.wd) return;
+        if (!wc.preset) return;
 
         //Smooth rotate to current rotation
-        resultCameraRotation = Vector3.Slerp(resultCameraRotation, currentRotation, wc.wd.cameraRecoilParameters.rotationSpeed * Time.fixedDeltaTime);
+        resultCameraRotation = Vector3.Slerp(resultCameraRotation, currentRotation, wc.preset.cameraRecoilParameters.rotationSpeed * Time.fixedDeltaTime);
 
         currentRecoil = Vector3.Lerp(currentRecoil, Vector3.zero, 35 * Time.deltaTime);
         resultRecoilRotation = Vector3.Slerp(resultRecoilRotation, currentRecoil, recoilDampTime * Time.fixedDeltaTime);
@@ -52,36 +52,36 @@ public class CameraRecoil : CameraMotionBase
         float multiplier = isAiming ? 1f : 0.7f;
 
         //Recoil while using procedural pattern
-        if (wc.wd.cameraRecoilParameters.type == RecoilType.Procedural)
+        if (wc.preset.cameraRecoilParameters.type == RecoilType.Procedural)
         {
             //Add random offset to current rotation when firing
             if (wc.aiming)
             {
-                currentRotation += new Vector3(-wc.wd.cameraRecoilParameters.recoilRotationAiming.x,
-                    Random.Range(-wc.wd.cameraRecoilParameters.recoilRotationAiming.y, wc.wd.cameraRecoilParameters.recoilRotationAiming.y),
-                    Random.Range(-wc.wd.cameraRecoilParameters.recoilRotationAiming.z, wc.wd.cameraRecoilParameters.recoilRotationAiming.z));
+                currentRotation += new Vector3(-wc.preset.cameraRecoilParameters.recoilRotationAiming.x,
+                    Random.Range(-wc.preset.cameraRecoilParameters.recoilRotationAiming.y, wc.preset.cameraRecoilParameters.recoilRotationAiming.y),
+                    Random.Range(-wc.preset.cameraRecoilParameters.recoilRotationAiming.z, wc.preset.cameraRecoilParameters.recoilRotationAiming.z));
             }
             else
             {
-                currentRotation += new Vector3(-wc.wd.cameraRecoilParameters.recoilRotation.x,
-                    Random.Range(-wc.wd.cameraRecoilParameters.recoilRotation.y, wc.wd.cameraRecoilParameters.recoilRotation.y),
-                    Random.Range(-wc.wd.cameraRecoilParameters.recoilRotation.z, wc.wd.cameraRecoilParameters.recoilRotation.z));
+                currentRotation += new Vector3(-wc.preset.cameraRecoilParameters.recoilRotation.x,
+                    Random.Range(-wc.preset.cameraRecoilParameters.recoilRotation.y, wc.preset.cameraRecoilParameters.recoilRotation.y),
+                    Random.Range(-wc.preset.cameraRecoilParameters.recoilRotation.z, wc.preset.cameraRecoilParameters.recoilRotation.z));
             }
         }
 
         //Recoil while using animation curve
-        else if (wc.wd.cameraRecoilParameters.type == RecoilType.Curve)
+        else if (wc.preset.cameraRecoilParameters.type == RecoilType.Curve)
         {
-            evaluationProgress += 1f / wc.wd.gunStats.magazineSize;
-            evaluationProgressX += 1f / wc.wd.gunStats.magazineSize;
+            evaluationProgress += 1f / wc.preset.gunStats.magazineSize;
+            evaluationProgressX += 1f / wc.preset.gunStats.magazineSize;
 
-            var xRecoil = wc.aiming ? wc.wd.cameraRecoilParameters.xRecoilAmount * 2 : wc.wd.cameraRecoilParameters.xRecoilAmount;
-            var yRecoil = wc.aiming ? wc.wd.cameraRecoilParameters.yRecoilAmount * 2 : wc.wd.cameraRecoilParameters.yRecoilAmount;
-            currentRotation = new Vector3(-wc.wd.cameraRecoilParameters.recoilY.Evaluate(evaluationProgress) * yRecoil, -wc.wd.cameraRecoilParameters.recoilX.Evaluate(evaluationProgress) * xRecoil, 0);
+            var xRecoil = wc.aiming ? wc.preset.cameraRecoilParameters.xRecoilAmount * 2 : wc.preset.cameraRecoilParameters.xRecoilAmount;
+            var yRecoil = wc.aiming ? wc.preset.cameraRecoilParameters.yRecoilAmount * 2 : wc.preset.cameraRecoilParameters.yRecoilAmount;
+            currentRotation = new Vector3(-wc.preset.cameraRecoilParameters.recoilY.Evaluate(evaluationProgress) * yRecoil, -wc.preset.cameraRecoilParameters.recoilX.Evaluate(evaluationProgress) * xRecoil, 0);
         }
 
         //Recoil while using look value
-        else if (wc.wd.cameraRecoilParameters.type == RecoilType.LookValue)
+        else if (wc.preset.cameraRecoilParameters.type == RecoilType.LookValue)
         {
             pl.AddLookValue(new Vector2(vertical, Random.Range(-horizontal, horizontal)) * multiplier);
         }

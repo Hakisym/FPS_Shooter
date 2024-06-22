@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 public class WeaponController : MonoBehaviour
 {
     [Header("WeaponData")]
-    [HideInInspector] public WeaponData wd;
+    [HideInInspector] public WeaponData preset;
 
     [Header("Gun states")]
     [SerializeField] bool holdAim;
@@ -99,37 +99,37 @@ public class WeaponController : MonoBehaviour
 
     public void GetWeaponData(WeaponIdentification wid)
     {
-        wd = wid.wd;
+        preset = wid.preset;
         muzzlePoint = wid.muzzle;
         castingPoint = wid.castPoint;
 
         //get muzzle flash
         muzzleVFX = muzzlePoint.GetComponentInChildren<ParticleSystem>();
-        bulletCasting = wd.bulletCasting;
+        bulletCasting = preset.bulletCasting;
 
         weaponRecoil = wid.GetComponentInChildren<WeaponRecoil>();
-        currentFireAudio = wd.soundClips.shootSound;
+        currentFireAudio = preset.soundClips.shootSound;
 
-        bulletsLeft = wd.gunStats.magazineSize;
-        timeBetweenShooting = 60f / wd.gunStats.fireRate;
+        bulletsLeft = preset.gunStats.magazineSize;
+        timeBetweenShooting = 60f / preset.gunStats.fireRate;
     }
 
     private void MyInput()
     {
-        if (!wd) return;
+        if (!preset) return;
 
-        if(wd.gunStats.fireMode == ShootMode.Auto) shooting = Input.GetKey(KeyCode.Mouse0);
+        if(preset.gunStats.fireMode == ShootMode.Auto) shooting = Input.GetKey(KeyCode.Mouse0);
         else shooting = Input.GetKeyDown(KeyCode.Mouse0);
 
         if (holdAim) aiming = Input.GetMouseButton(1) && !pm.isSprinting;
         else if (Input.GetMouseButtonDown(1)) aiming = !aiming;
 
-        if (Input.GetKeyDown(KeyCode.R) && !reloading && bulletsLeft < wd.gunStats.magazineSize && !inventory.switching) Reload();
+        if (Input.GetKeyDown(KeyCode.R) && !reloading && bulletsLeft < preset.gunStats.magazineSize && !inventory.switching) Reload();
 
         if (readyToShoot && shooting && canShoot)
         {
-            bulletsShot = wd.gunStats.bulletsPerTap;
-            pelletsShot = wd.gunStats.pelletsPerBullet;
+            bulletsShot = preset.gunStats.bulletsPerTap;
+            pelletsShot = preset.gunStats.pelletsPerBullet;
             Shoot();
         }
 
@@ -152,7 +152,7 @@ public class WeaponController : MonoBehaviour
         muzzleVFX.Play();
 
         //bullet cast and gun animation
-        if (wd.gunStats.fireMode != ShootMode.BoltAction)
+        if (preset.gunStats.fireMode != ShootMode.BoltAction)
         {
             Instantiate(bulletCasting, castingPoint.position, castingPoint.rotation, prefabHolder);
             inventory.currentWeapon.animator.Play("Fire");
@@ -162,10 +162,10 @@ public class WeaponController : MonoBehaviour
         weaponHUD.crosshair.Fire();
 
         //cam shake
-        //CamShake.instance.ShootShake(wd.camShakeIntensity);
+        characterManager.cameraManager.ShakeCameras(preset.cameraShake,preset.cameraFadeoutTime);
 
         //Recoil
-        cameraRecoil.ApplyRecoil(wd.cameraRecoilParameters.verticalRecoil, wd.cameraRecoilParameters.hotizontalRecoil, wd.cameraRecoil, aiming);
+        cameraRecoil.ApplyRecoil(preset.cameraRecoilParameters.verticalRecoil, preset.cameraRecoilParameters.hotizontalRecoil, preset.cameraRecoil, aiming);
         weaponRecoil.Fire();
 
         //play shoot sound
@@ -173,18 +173,18 @@ public class WeaponController : MonoBehaviour
         fireAudio.PlayOneShot(currentFireAudio);
 
         fireTailAudio.Stop();
-        fireTailAudio.PlayOneShot(wd.soundClips.fireTail);
+        fireTailAudio.PlayOneShot(preset.soundClips.fireTail);
 
         bulletsLeft--;
         bulletsShot--;
 
-        if (wd.gunStats.fireMode == ShootMode.BoltAction)
-            Invoke("BoldAction", wd.gunStats.chamberTime);
+        if (preset.gunStats.fireMode == ShootMode.BoltAction)
+            Invoke("BoldAction", preset.gunStats.chamberTime);
 
         Invoke("ResetShoot", timeBetweenShooting);
 
         if (bulletsShot > 0 && bulletsLeft > 0)
-            Invoke("Shoot", wd.gunStats.timeBetweenShots);
+            Invoke("Shoot", preset.gunStats.timeBetweenShots);
     }
 
     private void BoldAction()
@@ -214,7 +214,7 @@ public class WeaponController : MonoBehaviour
 
 
         // Hitscan shoot
-        if (Physics.Raycast(ray, out hit, wd.gunStats.range, whatIsShootable))
+        if (Physics.Raycast(ray, out hit, preset.gunStats.range, whatIsShootable))
         {
             //damageable group
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("EnemyHit"))
@@ -231,7 +231,7 @@ public class WeaponController : MonoBehaviour
                 {
                     bool isHeadShot = hit.collider.CompareTag("Head");
                     float damageMultiplier = isHeadShot ? 1.5f : 1f;
-                    float damageResult = wd.gunStats.damage * damageMultiplier;
+                    float damageResult = preset.gunStats.damage * damageMultiplier;
 
                     damageable.TakeDamage(damageResult, Actor);
 
@@ -250,7 +250,7 @@ public class WeaponController : MonoBehaviour
 
                 if (hit.rigidbody)
                 {
-                    hit.rigidbody.AddForceAtPosition(-hit.normal * wd.gunStats.impactForce, hit.point, ForceMode.Impulse);
+                    hit.rigidbody.AddForceAtPosition(-hit.normal * preset.gunStats.impactForce, hit.point, ForceMode.Impulse);
                 }
             }
 
@@ -260,7 +260,7 @@ public class WeaponController : MonoBehaviour
 
             //bullet tracer
             bulletDir = (hit.point - muzzlePoint.position).normalized;
-            var bullet = new Bullet(muzzlePoint.position, bulletDir * wd.gunStats.velocity, bulletTrail, prefabHolder);
+            var bullet = new Bullet(muzzlePoint.position, bulletDir * preset.gunStats.velocity, bulletTrail, prefabHolder);
             bullets.Add(bullet);
         }
         else
@@ -272,7 +272,7 @@ public class WeaponController : MonoBehaviour
             bool hasHit = Physics.Raycast(muzzlePoint.position, bulletDir, whatIsShootable);
 
             //render the bullet from the muzzle
-            var bullet = new Bullet(muzzlePoint.position, bulletDir * wd.gunStats.velocity, bulletTrail, prefabHolder);
+            var bullet = new Bullet(muzzlePoint.position, bulletDir * preset.gunStats.velocity, bulletTrail, prefabHolder);
             bullets.Add(bullet);
         }
 
@@ -290,14 +290,14 @@ public class WeaponController : MonoBehaviour
         animator.SetTrigger("reloading");
 
         //play reload sound
-        reloadAudio.PlayOneShot(wd.soundClips.reloadSoundAmmoLeft);
+        reloadAudio.PlayOneShot(preset.soundClips.reloadSoundAmmoLeft);
 
-        Invoke("ReloadFinished", wd.gunStats.reloadTime);
+        Invoke("ReloadFinished", preset.gunStats.reloadTime);
     }
 
     private void ReloadFinished()
     {
-        bulletsLeft = wd.gunStats.magazineSize;
+        bulletsLeft = preset.gunStats.magazineSize;
 
         canShoot =true;
         reloading = false;
@@ -327,9 +327,9 @@ public class WeaponController : MonoBehaviour
     {
         bullets.ForEach(bullet =>
         {
-            Vector3 p0 = bullet.GetPosition(wd.gunStats.bulletDrop);
+            Vector3 p0 = bullet.GetPosition(preset.gunStats.bulletDrop);
             bullet.time += deltaTime;
-            Vector3 p1 = bullet.GetPosition(wd.gunStats.bulletDrop);
+            Vector3 p1 = bullet.GetPosition(preset.gunStats.bulletDrop);
             RaycastSegment(p0, p1, bullet);
         });
     }

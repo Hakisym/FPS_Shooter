@@ -12,4 +12,13 @@ public static class HenryUtilities
 
         return spread;
     }
+
+    public static Vector3 MultiplyVectors(Vector3 a, Vector3 b)
+    {
+        a.x *= b.x;
+        a.y *= b.y;
+        a.z *= b.z;
+
+        return a;
+    }
 }

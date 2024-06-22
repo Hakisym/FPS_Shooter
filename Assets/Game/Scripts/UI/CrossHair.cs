@@ -28,26 +28,26 @@ public class CrossHair : MonoBehaviour
 
     void Update()
     {
-        if (!weaponController.wd) return;
+        if (!weaponController.preset) return;
 
         // Manage different sizes
         if (player.isGrounded)
         {
-            if (player.currentSpeed == player.crouchSpeed) locomotionSpread = weaponController.wd.gunStats.crouchSpread;
-            else if (player.moveVel < 0.2f) locomotionSpread = weaponController.wd.gunStats.defaultSpread;
-            else if (player.currentSpeed == player.walkSpeed) locomotionSpread = weaponController.wd.gunStats.walkSpread;
-            else if (player.currentSpeed == player.sprintSpeed) locomotionSpread = weaponController.wd.gunStats.runSpread;
+            if (player.currentSpeed == player.crouchSpeed) locomotionSpread = weaponController.preset.gunStats.crouchSpread;
+            else if (player.moveVel < 0.2f) locomotionSpread = weaponController.preset.gunStats.defaultSpread;
+            else if (player.currentSpeed == player.walkSpeed) locomotionSpread = weaponController.preset.gunStats.walkSpread;
+            else if (player.currentSpeed == player.sprintSpeed) locomotionSpread = weaponController.preset.gunStats.runSpread;
         }
-        else locomotionSpread = weaponController.wd.gunStats.jumpSpread;
+        else locomotionSpread = weaponController.preset.gunStats.jumpSpread;
 
-        bulletSpread = Mathf.Lerp(bulletSpread, 0f, weaponController.wd.gunStats.bulletSpreadResizeSpeed * Time.deltaTime);
+        bulletSpread = Mathf.Lerp(bulletSpread, 0f, weaponController.preset.gunStats.bulletSpreadResizeSpeed * Time.deltaTime);
 
         spread = Mathf.Lerp(spread, locomotionSpread + bulletSpread, resizeSpeed * Time.deltaTime);
     }
 
     public void Fire()
     {
-        bulletSpread += weaponController.wd.gunStats.bulletSpreadOneShot;
+        bulletSpread += weaponController.preset.gunStats.bulletSpreadOneShot;
     }
 
     public void GetReference(WeaponController wc,PlayerMovement pm)

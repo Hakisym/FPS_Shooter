@@ -139,7 +139,7 @@ public class Inventory : MonoBehaviour
         wc.GetWeaponData(currentWeapon);
 
         //callback event
-        OnEquipWeapon?.Invoke(currentWeapon.wd);
+        OnEquipWeapon?.Invoke(currentWeapon.preset);
 
         //play take out sound
         //wc.mainAudioSource.clip = currentWeapon.wd.soundClips.takeOutSound;
@@ -179,7 +179,7 @@ public class Inventory : MonoBehaviour
         //spawn pickup GO
         var pickupGO = Instantiate(pickupPrefab, dropPoint.position, dropPoint.rotation);
         pickupGO.GetComponent<Rigidbody>().AddForce(dropPoint.forward * dropForce, ForceMode.Impulse);
-        pickupGO.GetComponent<WeaponPickable>().weaponData = currentWeapon.wd;
+        pickupGO.GetComponent<WeaponPickable>().weaponData = currentWeapon.preset;
 
         //delete from inventory
         weapons.Remove(currentWeapon);
@@ -188,6 +188,6 @@ public class Inventory : MonoBehaviour
         currentWeapon = null;
 
         if (weapons.Count > 0) Equip(weaponIndex + 1);
-        else wc.wd = null;
+        else wc.preset = null;
     }
 }

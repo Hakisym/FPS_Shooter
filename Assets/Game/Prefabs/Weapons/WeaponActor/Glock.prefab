@@ -91,10 +91,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1700024201923230975}
-  effectIntensity: 16
-  effectIntensityAiming: 8
+  jumpPosition: {x: 0, y: -0.06, z: 0}
+  jumpRotation: {x: 3, y: 0, z: 0.5}
+  landPosition: {x: 0, y: -0.1, z: 0}
+  landRotation: {x: 10, y: 0, z: 0}
+  returnSpeed: 10
   smoothTime: 12
-  animationSpeed: 18
 --- !u!114 &4987452574886377230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,9 +113,10 @@ MonoBehaviour:
   effectIntensity: 0.01
   effectSpeed: 10
   smoothTime: 0.1
-  sprintMultiplier: 1.5
-  aimMultiplier: 0.8
-  aimAmount: 0.2
+  sprintBobingSpeed: 1.5
+  sprintIntensity: 0.03
+  aimBobbingSpeed: 0.8
+  aimIntensity: 0.2
 --- !u!114 &5960381454378284264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,7 +266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33789dec0737d524abc32652147df263, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wd: {fileID: 11400000, guid: cb633b98b3c892448b17757d491f572f, type: 2}
+  preset: {fileID: 11400000, guid: cb633b98b3c892448b17757d491f572f, type: 2}
   muzzle: {fileID: 8429680395824958950}
   castPoint: {fileID: 8310277404883759554}
   animator: {fileID: 1879652470021786508}

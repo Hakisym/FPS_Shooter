@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WeaponIdentification : MonoBehaviour
 {
-    public WeaponData wd;
+    public WeaponData preset;
     public Transform muzzle;
     public Transform castPoint;
     public Animator animator;

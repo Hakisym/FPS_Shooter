@@ -7,6 +7,13 @@ public class CameraManager : MonoBehaviour
 {
     public List<CameraMotionBase> motions = new List<CameraMotionBase>();
 
+    [Header("Camera Shake")]
+    public CameraShaker cameraShaker;
+    public float cameraShakeMagnitude = 1.6f;
+    public float cameraShakeRoughness = 7;
+    public float cameraShakeFadeInTime = 0.2f;
+    public float cameraShakeFadeOutTime = 2f;
+
     private void Awake()
     {
         motions = GetComponentsInChildren<CameraMotionBase>().ToList();
@@ -34,5 +41,20 @@ public class CameraManager : MonoBehaviour
     {
         transform.localPosition = GetPosition();
         transform.localRotation = Quaternion.Euler(GetRotation());
+    }
+
+    public void ShakeCameras(float multiplier)
+    {
+        cameraShaker.Shake(cameraShakeMagnitude * multiplier, cameraShakeRoughness, cameraShakeFadeInTime, cameraShakeFadeOutTime);
+    }
+
+    public void ShakeCameras(float multiplier, float fadeOutTime)
+    {
+        cameraShaker.Shake(cameraShakeMagnitude * multiplier, cameraShakeRoughness, cameraShakeFadeInTime, fadeOutTime);
+    }
+
+    public void ShakeCameras(float multiplier,float roughness,float fadeOutTime)
+    {
+        cameraShaker.Shake(cameraShakeMagnitude * multiplier, roughness, cameraShakeFadeInTime, fadeOutTime);
     }
 }

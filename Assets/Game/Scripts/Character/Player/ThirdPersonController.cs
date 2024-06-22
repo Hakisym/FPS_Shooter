@@ -140,11 +140,11 @@ public class ThirdPersonController : MonoBehaviour
             }
         }
 
-        animator.SetInteger("Weapon", (wc.wd) ? 1 : 0);
+        animator.SetInteger("Weapon", (wc.preset) ? 1 : 0);
         animator.SetBool("Aim", wc.aiming);
 
         // enable ik if aiming,idle or shooting
-        bool ikEnable = wc.aiming || (move == Vector2.zero && wc.wd) || wc.shootState;
+        bool ikEnable = wc.aiming || (move == Vector2.zero && wc.preset) || wc.shootState;
 
         // apply hand ik with smooth lerp
         var _aimRigWeight = ikEnable ? 1 : 0;

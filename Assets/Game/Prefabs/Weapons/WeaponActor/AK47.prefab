@@ -508,7 +508,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33789dec0737d524abc32652147df263, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wd: {fileID: 11400000, guid: c48904e4f596248469951dee6222fe6f, type: 2}
+  preset: {fileID: 11400000, guid: c48904e4f596248469951dee6222fe6f, type: 2}
   muzzle: {fileID: 8810654994263770100}
   castPoint: {fileID: 7577367554089360342}
   animator: {fileID: 6631523123199260026}
