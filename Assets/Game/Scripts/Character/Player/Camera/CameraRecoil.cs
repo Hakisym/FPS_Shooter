@@ -7,13 +7,13 @@ public class CameraRecoil : CameraMotionBase
     public Vector3 recoilAmount;
     public float recoilDampTime;
 
-    public override Vector3 targetRotation { get => targetRotation = resultCameraRotation + resultRecoilRotation; }
+    public override Vector3 targetRotation { get => targetRotation = resultRecoilRotation; }
 
     private WeaponController wc;
     private PlayerLook pl;
     private Vector3 currentRotation;
     private Vector3 currentRecoil;
-    private Vector3 resultCameraRotation;
+    public Vector3 resultCameraRotation;
     private Vector3 resultRecoilRotation;
     private float evaluationProgress, evaluationProgressX;
 
@@ -32,7 +32,7 @@ public class CameraRecoil : CameraMotionBase
             evaluationProgress = 0;
             evaluationProgressX = 0;
             //Return interpolation
-            currentRotation = Vector3.Lerp(currentRotation, Vector3.zero, wc.preset.cameraRecoilParameters.returnSpeed * Time.deltaTime);
+            //currentRotation = Vector3.Lerp(currentRotation, Vector3.zero, wc.preset.cameraRecoilParameters.returnSpeed * Time.deltaTime);
         }
     }
 
