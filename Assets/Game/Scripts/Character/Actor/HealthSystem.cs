@@ -55,6 +55,8 @@ public class HealthSystem : MonoBehaviour, IDamageable
 
     private void Die()
     {
+        if (Actor.actorManager && Actor.actorManager.respawnable) Actor.ConfirmDeath();
+
         OnDead?.Invoke();
 
         //disable collider and navmesh
@@ -66,15 +68,12 @@ public class HealthSystem : MonoBehaviour, IDamageable
         if (tpc)
         {
             Destroy(tpc);
-
             //disable rig ik
             tpc.GetComponent<RigBuilder>().enabled = false;
-
             //destroy third person actor
             Destroy(tpc.gameObject, destroyRagdollDelay);
         }
-        else if (TryGetComponent<RigBuilder>(out var rig))
-            rig.enabled = false;
+        else if (TryGetComponent<RigBuilder>(out var rig)) rig.enabled = false;
 
         //destroy actor after delay
         Destroy(gameObject, destroyDelay);

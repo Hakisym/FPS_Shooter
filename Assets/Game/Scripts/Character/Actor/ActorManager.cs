@@ -9,6 +9,7 @@ public class ActorManager : MonoBehaviour
     public Actor actor { get; set; }
 
     public bool respawnable;
+    public bool spawnOnAwake;
     public float spawnDelay;
     public Actor actorPrefab;
 
@@ -22,10 +23,17 @@ public class ActorManager : MonoBehaviour
 
     private void Start()
     {
+        if (!actorPrefab) actorPrefab = GetComponentInChildren<Actor>();
+
         if (randomizeName)
         {
             ActorName = randomNamePrefix + Random.Range(0, 1000);
-            actor.actorName = ActorName;
+        }
+
+        if (spawnOnAwake)
+        {
+            foreach (Transform t in transform) t.gameObject.SetActive(false);
+            SpawnActor();
         }
     }
 
@@ -38,5 +46,6 @@ public class ActorManager : MonoBehaviour
     {
         actor = Instantiate(actorPrefab,transform);
         actor.actorName = ActorName;
+        actor.gameObject.SetActive(true);
     }
 }

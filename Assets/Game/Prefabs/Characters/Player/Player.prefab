@@ -127,6 +127,7 @@ MonoBehaviour:
   aimMask:
     serializedVersion: 2
     m_Bits: 64
+  cameraRecoil: {fileID: 7916176192214243588}
 --- !u!1 &1700024201428482310
 GameObject:
   m_ObjectHideFlags: 0
@@ -136,6 +137,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1700024201428482309}
+  - component: {fileID: 1537672115}
+  - component: {fileID: 1537672116}
   m_Layer: 0
   m_Name: CameraContainer
   m_TagString: Untagged
@@ -160,6 +163,39 @@ Transform:
   m_Father: {fileID: 1700024201625776518}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1537672115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1700024201428482310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1961d79da40d3924f92537b60f4cf52e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprintingFOV: 0
+  sprintingFOVOverlay: 10
+  aimingFOV: -10
+  aimingFOVOverlay: -5
+  cameraFovSmoothing: 10
+  pm: {fileID: 1700024202281320435}
+  wc: {fileID: 1700024202281320399}
+--- !u!114 &1537672116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1700024201428482310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dfa11ec08301ec42b50b493d0892492, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  position: {x: 0, y: 0, z: 0}
+  rotation: {x: 5, y: 5, z: 6}
 --- !u!1 &1700024201611054672
 GameObject:
   m_ObjectHideFlags: 0
@@ -320,6 +356,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   motions: []
+  cameraShaker: {fileID: 1537672116}
+  cameraShakeMagnitude: 1.6
+  cameraShakeRoughness: 7
+  cameraShakeFadeInTime: 0.2
+  cameraShakeFadeOutTime: 2
 --- !u!114 &7916176192214243588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -332,6 +373,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8a58112c0ae02d48915177596b1a630, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  recoilAmount: {x: -3, y: 4, z: 4}
+  recoilDampTime: 10
+  resultCameraRotation: {x: 0, y: 0, z: 0}
 --- !u!114 &1074407452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -451,7 +495,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cfca86db146ec846b5b550c0882fd48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wd: {fileID: 0}
+  preset: {fileID: 0}
   holdAim: 0
   crosshairFollowRecoil: 0
   reloading: 0
@@ -597,7 +641,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26725ac5164e8cb45a02b20592dbf1b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aimTarget: {fileID: 6063389377180028688}
 --- !u!1 &1700024202367906408
 GameObject:
   m_ObjectHideFlags: 0
@@ -610,8 +653,6 @@ GameObject:
   - component: {fileID: 1700024202367906406}
   - component: {fileID: 1700024202367906407}
   - component: {fileID: 1700024202367906404}
-  - component: {fileID: 5947225732923237604}
-  - component: {fileID: 1866357341}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -720,40 +761,6 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!114 &5947225732923237604
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1700024202367906408}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1961d79da40d3924f92537b60f4cf52e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprintingFOV: 0
-  sprintingFOVOverlay: 10
-  aimingFOV: -10
-  aimingFOVOverlay: -5
-  cameraFovSmoothing: 10
-  pm: {fileID: 1700024202281320435}
-  wc: {fileID: 1700024202281320399}
---- !u!114 &1866357341
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1700024202367906408}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5dfa11ec08301ec42b50b493d0892492, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wc: {fileID: 1700024202281320399}
-  effectSpeed: 100
-  returnSpeed: 10
 --- !u!1 &1700024202387569916
 GameObject:
   m_ObjectHideFlags: 0
