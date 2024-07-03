@@ -43,11 +43,11 @@ MonoBehaviour:
     staticRecoilPosition: {x: 0, y: 0, z: -0.3}
     staticRecoilRotation: {x: -1, y: 2, z: -10}
     staticRecoilPositionAim: {x: 0, y: 0, z: -0.2}
-    staticRecoilRotationAim: {x: -1, y: 2, z: -10}
+    staticRecoilRotationAim: {x: -3, y: 0, z: 0}
     recoilPosition: {x: 0.01, y: 0.01, z: 0}
     recoilRotation: {x: -25, y: 15, z: 15}
-    recoilPositionAim: {x: -0.01, y: 0.01, z: 0}
-    recoilRotationAim: {x: -1, y: 3, z: 3}
+    recoilPositionAim: {x: 0, y: 0, z: 0}
+    recoilRotationAim: {x: 0, y: 1, z: 1}
     positionalRecoilSpeed: 10
     rotationalRecoilSpeed: 10
     positionalReturnSpeed: 35
@@ -56,8 +56,8 @@ MonoBehaviour:
     type: 0
     rotationSpeed: 10
     returnSpeed: 5
-    recoilRotation: {x: 0.5, y: 0.1, z: 0}
-    recoilRotationAiming: {x: 0.5, y: 0.1, z: 0}
+    recoilRotation: {x: 0.5, y: 0.2, z: 0}
+    recoilRotationAiming: {x: 0.5, y: 0.2, z: 0}
     recoilX:
       serializedVersion: 2
       m_Curve:

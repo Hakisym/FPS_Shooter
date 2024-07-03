@@ -49,6 +49,7 @@ GameObject:
   - component: {fileID: 5306771034449719026}
   - component: {fileID: 5306771034449719025}
   - component: {fileID: 7992229132624820266}
+  - component: {fileID: 8714981624693754334}
   m_Layer: 5
   m_Name: HitMarkerPrefab
   m_TagString: Untagged
@@ -134,3 +135,15 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!225 &8714981624693754334
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5306771034449719031}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

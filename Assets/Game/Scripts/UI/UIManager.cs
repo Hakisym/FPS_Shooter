@@ -10,6 +10,8 @@ public class UIManager : MonoBehaviour
     public bool HitMarkerSFX;
     public bool KillFeed;
 
+    public RectTransform crosshair;
+
     [HideInInspector] public InteractHUD InteractUI;
     [HideInInspector] public PauseMenu pauseMenu;
     private HitMarker hitMarker;
@@ -46,6 +48,14 @@ public class UIManager : MonoBehaviour
         OnEnemyHit -= HandleHitMarker;
         OnEnemyKill -= HandleKillFeed;
         OnReceiveDamage -= HandleDamageIndicator;
+    }
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(2))
+        {
+            crosshair.gameObject.SetActive(!crosshair.gameObject.activeSelf);
+        }
     }
 
     private void HandleHitMarker(bool critical,Vector3 position)

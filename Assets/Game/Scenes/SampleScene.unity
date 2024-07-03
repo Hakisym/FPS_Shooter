@@ -1940,6 +1940,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e9bf0af180b868f41a895c9dd30d2ec5, type: 3}
+--- !u!224 &1835343801 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8679749804046412728, guid: 85e7178033a3ddb4993021003e306435,
+    type: 3}
+  m_PrefabInstance: {fileID: 8679749804498895199}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1839805081
 GameObject:
   m_ObjectHideFlags: 0
@@ -5150,6 +5156,21 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8679749804046412727, guid: 85e7178033a3ddb4993021003e306435,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8679749804046412729, guid: 85e7178033a3ddb4993021003e306435,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8679749805454465971, guid: 85e7178033a3ddb4993021003e306435,
+        type: 3}
+      propertyPath: crosshair
+      value: 
+      objectReference: {fileID: 1835343801}
     - target: {fileID: 8679749805454465973, guid: 85e7178033a3ddb4993021003e306435,
         type: 3}
       propertyPath: m_Pivot.x
