@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Glock
   m_EditorClassIdentifier: 
   gunName: Glock
-  gunPrefab: {fileID: 573339908886308818, guid: 56ee01656f16a884ab3e398b9829c8ac,
+  gunPrefab: {fileID: 573339908886308818, guid: d4f2a6b7b4bed544ea41c1c6b77aafd6,
     type: 3}
   gunModel: {fileID: 8487044070576919511, guid: c0d36304730a22b4eb9636498ffee703,
     type: 3}
@@ -41,24 +41,24 @@ MonoBehaviour:
     bulletSpreadOneShot: 10
     bulletSpreadResizeSpeed: 5
   weaponRecoilParameters:
-    staticRecoilPosition: {x: 0, y: 0, z: 0}
+    staticRecoilPosition: {x: 0, y: 0, z: -0.3}
     staticRecoilRotation: {x: 0, y: 0, z: 0}
-    staticRecoilPositionAim: {x: 0, y: 0, z: 0}
-    staticRecoilRotationAim: {x: 0, y: 0, z: 0}
+    staticRecoilPositionAim: {x: 0, y: 0, z: -0.3}
+    staticRecoilRotationAim: {x: -10, y: 0, z: 0}
     recoilPosition: {x: 0, y: 0, z: 0}
-    recoilRotation: {x: 15, y: 1, z: 2}
+    recoilRotation: {x: -35, y: 1, z: 2}
     recoilPositionAim: {x: 0, y: 0, z: 0}
-    recoilRotationAim: {x: 1, y: 1, z: 1}
-    positionalRecoilSpeed: 20
-    rotationalRecoilSpeed: 20
-    positionalReturnSpeed: 20
-    rotationalReturnSpeed: 20
+    recoilRotationAim: {x: 0, y: 1, z: 1}
+    positionalRecoilSpeed: 10
+    rotationalRecoilSpeed: 10
+    positionalReturnSpeed: 35
+    rotationalReturnSpeed: 35
   cameraRecoilParameters:
     type: 0
-    rotationSpeed: 20
-    returnSpeed: 10
-    recoilRotation: {x: 1, y: 1, z: 0}
-    recoilRotationAiming: {x: 1, y: 1, z: 0}
+    rotationSpeed: 10
+    returnSpeed: 5
+    recoilRotation: {x: 1, y: 0.2, z: 0}
+    recoilRotationAiming: {x: 1, y: 0.2, z: 0}
     recoilX:
       serializedVersion: 2
       m_Curve:
@@ -127,9 +127,11 @@ MonoBehaviour:
       m_RotationOrder: 4
     xRecoilAmount: 5
     yRecoilAmount: 5
+    hotizontalRecoil: 0
+    verticalRecoil: 0
   cameraRecoil: 0
-  cameraShake: 0
-  cameraFadeoutTime: 0
+  cameraShake: 0.05
+  cameraFadeoutTime: 0.2
   bulletCasting: {fileID: 8360084055759571751, guid: 5776f6e05d8dd124194ee2239343602c,
     type: 3}
   soundClips:
