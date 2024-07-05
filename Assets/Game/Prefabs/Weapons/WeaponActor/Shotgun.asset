@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Shotgun
   m_EditorClassIdentifier: 
   gunName: Pump Shotgun
-  gunPrefab: {fileID: 573339908886308818, guid: 2a3b03d2d7b966d47987d0158c542ab2,
+  gunPrefab: {fileID: 573339908886308818, guid: 95796709b35b12948ac2ed1e5cfc488c,
     type: 3}
   gunModel: {fileID: 4801375367146780615, guid: fe07c9799b7334149a7bf2b776012c16,
     type: 3}
@@ -127,6 +127,8 @@ MonoBehaviour:
       m_RotationOrder: 4
     xRecoilAmount: 5
     yRecoilAmount: 5
+    hotizontalRecoil: 0
+    verticalRecoil: 0
   cameraRecoil: 0
   cameraShake: 0
   cameraFadeoutTime: 0
