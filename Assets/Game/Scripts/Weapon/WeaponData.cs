@@ -29,6 +29,9 @@ public class WeaponData : ScriptableObject
 
     [Header("Third Person")]
     public Vector3 ikHandPos;
+    public Vector3 rightHandTarget;
+    public Vector3 rightHandTargetAim;
+    public Vector3 leftHandTarget;
 
     [System.Serializable]
     public class WeaponRecoilParameters

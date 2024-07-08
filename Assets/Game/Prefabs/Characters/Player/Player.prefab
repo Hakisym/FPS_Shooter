@@ -578,7 +578,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actorName: Player
   isLocallyMine: 1
-  tpc_prefab: {fileID: 0}
+  tpc_prefab: {fileID: 386825433807013450, guid: 5bdfe9ced7f4aca4f8faac85e21d7bf4,
+    type: 3}
 --- !u!114 &1700024202281320432
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -2679,10 +2679,13 @@ MonoBehaviour:
   handIk: {fileID: 1309601123}
   aimTarget: {fileID: 8809919525891656583}
   rightHandTarget: {fileID: 1612430998046065380}
+  leftHandTarget: {fileID: 1976722767}
   speedChangeRate: 5
   fallTimeout: 0.5
   aimConstrainOffset: {x: 30, y: 20, z: 5}
-  handTargetPos: {x: -0.006, y: -0.072, z: 0.073}
+  rightHandTargetPos: {x: 0, y: 0, z: 0}
+  rightHandTargetAim: {x: 0, y: 0, z: 0}
+  leftHandTargetPos: {x: 0, y: 0, z: 0}
 --- !u!114 &173570480
 MonoBehaviour:
   m_ObjectHideFlags: 0

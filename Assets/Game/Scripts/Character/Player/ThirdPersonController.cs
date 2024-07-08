@@ -27,14 +27,16 @@ public class ThirdPersonController : MonoBehaviour
     public Transform handIk;
     public Transform aimTarget;
     public Transform rightHandTarget;
+    public Transform leftHandTarget;
 
     public float speedChangeRate;
     public float fallTimeout;
 
     public Vector3 aimConstrainOffset;
-    public Vector3 handTargetPos;
+    public Vector3 rightHandTargetPos;
+    public Vector3 rightHandTargetAim;
+    public Vector3 leftHandTargetPos;
     private Vector3 _originalRigOffset;
-    private Vector3 _originalhandPos;
 
     private Vector2 targetMove;
     private float _animationBlend;
@@ -49,7 +51,7 @@ public class ThirdPersonController : MonoBehaviour
         ragdoll = GetComponent<Ragdoll>();
 
         _originalRigOffset = chestConstrain.data.offset;
-        _originalhandPos = rightHandTarget.localPosition;
+        rightHandTargetPos = rightHandTarget.localPosition;
     }
 
     public void Setup(CharacterManager _characterManager)
@@ -80,6 +82,9 @@ public class ThirdPersonController : MonoBehaviour
             //create weapon in third person
             var obj = Instantiate(wd.gunModel, handIk);
             obj.transform.localPosition = wd.ikHandPos;
+            rightHandTargetPos = wd.rightHandTarget;
+            rightHandTargetAim = wd.rightHandTargetAim;
+            leftHandTargetPos = wd.leftHandTarget;
 
             GunSetup(obj.transform, wd);
         };
@@ -156,8 +161,9 @@ public class ThirdPersonController : MonoBehaviour
         upperChestConstrain.data.offset = Vector3.Lerp(upperChestConstrain.data.offset, _bodyRigOffset, Time.deltaTime * speedChangeRate);
 
         // change hand ik position between hipfire and aiming
-        var _handTargetPos = wc.aiming ? _originalhandPos : handTargetPos;
+        var _handTargetPos = !wc.aiming ? rightHandTargetPos : rightHandTargetAim;
         rightHandTarget.localPosition = Vector3.Lerp(rightHandTarget.localPosition, _handTargetPos, Time.deltaTime * speedChangeRate);
+        leftHandTarget.localPosition = Vector3.Lerp(leftHandTarget.localPosition, leftHandTargetPos, Time.deltaTime * speedChangeRate);
 
         if (characterManager == null) return;
 

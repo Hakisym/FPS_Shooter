@@ -193,7 +193,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 559509382328221341}
-  sprintPosition: {x: -0.1, y: -0.1, z: -0.1}
+  sprintPosition: {x: -0.2, y: -0.15, z: -0.1}
   sprintRotation: {x: 12.2, y: -40, z: 10}
   sprintSpeed: 8
 --- !u!114 &9156924631484324447
@@ -3314,7 +3314,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8092388772201877825}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b2d8418b0b9634b1892b0268dd9c2743, type: 3}
   m_Name: 

@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respawnable: 1
+  spawnOnAwake: 0
   spawnDelay: 4
   actorPrefab: {fileID: 7694178704335535296, guid: f74213dcd8047f446aa3d875a27261af,
     type: 3}
@@ -119,6 +120,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5456706104095327113, guid: f74213dcd8047f446aa3d875a27261af,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f74213dcd8047f446aa3d875a27261af, type: 3}

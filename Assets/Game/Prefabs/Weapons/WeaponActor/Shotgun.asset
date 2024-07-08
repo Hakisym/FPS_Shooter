@@ -145,3 +145,6 @@ MonoBehaviour:
     emptyMagShoot: {fileID: 0}
     aimSound: {fileID: 0}
   ikHandPos: {x: 0, y: 0, z: 0}
+  rightHandTarget: {x: -0.006, y: 0.1, z: 0.073}
+  rightHandTargetAim: {x: -0.0085, y: 0.08, z: -0.0273}
+  leftHandTarget: {x: 0.0397, y: -0.2826, z: -0.0355}
