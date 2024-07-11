@@ -81,6 +81,7 @@ public class ThirdPersonController : MonoBehaviour
                 Destroy(child.gameObject);
             //create weapon in third person
             var obj = Instantiate(wd.gunModel, handIk);
+            //setup weapon hand ik
             obj.transform.localPosition = wd.ikHandPos;
             rightHandTargetPos = wd.rightHandTarget;
             rightHandTargetAim = wd.rightHandTargetAim;

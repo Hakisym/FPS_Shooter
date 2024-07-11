@@ -24,7 +24,7 @@ MonoBehaviour:
     magazineSize: 8
     fireRate: 100
     reloadTime: 1.5
-    impactForce: 200
+    impactForce: 0
     velocity: 400
     bulletDrop: 0
     range: 50
@@ -147,4 +147,4 @@ MonoBehaviour:
   ikHandPos: {x: 0, y: 0, z: 0}
   rightHandTarget: {x: -0.006, y: 0.1, z: 0.073}
   rightHandTargetAim: {x: -0.0085, y: 0.08, z: -0.0273}
-  leftHandTarget: {x: 0.0397, y: -0.2826, z: -0.0355}
+  leftHandTarget: {x: 0.0397, y: -0.47, z: -0.0355}
