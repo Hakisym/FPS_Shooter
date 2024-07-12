@@ -198,7 +198,7 @@ public class WeaponController : MonoBehaviour
         //Spread
         float bulletSpread;
         if (aiming)
-            bulletSpread = 0;
+            bulletSpread = weaponHUD.crosshair.spread / 1000 * preset.gunStats.aimSpreadMultiplier;
         else
             bulletSpread = weaponHUD.crosshair.spread / 1000;
 

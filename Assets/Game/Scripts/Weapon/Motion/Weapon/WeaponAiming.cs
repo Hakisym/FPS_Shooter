@@ -1,38 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class WeaponAiming : WeaponMotionBase
 {
     public Vector3 aimPosition;
-    public Vector3 aimRotation;
-    public float smoothTime;
-    public float smoothRotation;
+    private float aimDuration;
+    private float timeElapsed = 0f;
 
     private Vector3 originalPosition;
-    private Quaternion originalRotation;
-    private Vector3 velocity;
     private bool soundHasPlayed;
 
-    // Start is called before the first frame update
-    void Start()
+    private CameraFovManager cameraFovManager;
+
+    private void Awake()
     {
+        cameraFovManager = GetComponentInParent<CameraManager>().cameraFovManager;
         originalPosition = target.localPosition;
-        originalRotation = target.localRotation;
     }
 
-    // Update is called once per frame
+    private void Start()
+    {
+        aimDuration = wc.preset.gunStats.adsTime;
+    }
+
     void Update()
     {
-        Vector3 finalPosition;
-        Quaternion finalRotation;
-
         //Update transform to aim position & rotation
         if (wc.aiming)
         {
-            finalPosition = aimPosition;
-            finalRotation = Quaternion.Euler(aimRotation);
-
             //play aim sound
             if (!soundHasPlayed)
             {
@@ -40,19 +37,22 @@ public class WeaponAiming : WeaponMotionBase
                 //wc.mainAudioSource.Play();
                 soundHasPlayed = true;
             }
+
+            timeElapsed += Time.deltaTime;
+            
         }
         else
         {
-            finalPosition = originalPosition;
-            finalRotation = originalRotation;
-
             //reset aim sound
             soundHasPlayed = false;
+
+            timeElapsed -= Time.deltaTime;
         }
 
-        //Smooth interpolate
-        target.localPosition = Vector3.SmoothDamp(target.localPosition, finalPosition, ref velocity, smoothTime);
-        target.localRotation = Quaternion.Slerp(target.localRotation, finalRotation, Time.deltaTime * smoothRotation);
+        timeElapsed = Mathf.Clamp(timeElapsed, 0, aimDuration);
+        float t = timeElapsed / aimDuration;
+        target.localPosition = Vector3.Lerp(originalPosition, aimPosition, t);
 
+        cameraFovManager.UpdateAimFov(t);
     }
 }

@@ -85,6 +85,7 @@ public class WeaponData : ScriptableObject
         public int magazineSize;
         public float fireRate;
         public float reloadTime;
+        public float adsTime;
         [Header("Bullet")]
         public float impactForce;
         public float velocity;
@@ -104,6 +105,7 @@ public class WeaponData : ScriptableObject
         public float jumpSpread;
         public float bulletSpreadOneShot;
         public float bulletSpreadResizeSpeed;
+        public float aimSpreadMultiplier;
     }
 
     [System.Serializable]

@@ -6,6 +6,7 @@ using UnityEngine;
 public class CameraManager : MonoBehaviour
 {
     public List<CameraMotionBase> motions = new List<CameraMotionBase>();
+    public CameraFovManager cameraFovManager;
 
     [Header("Camera Shake")]
     public CameraShaker cameraShaker;

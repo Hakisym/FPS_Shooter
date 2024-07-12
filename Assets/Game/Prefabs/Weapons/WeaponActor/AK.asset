@@ -24,6 +24,7 @@ MonoBehaviour:
     magazineSize: 30
     fireRate: 600
     reloadTime: 1.5
+    adsTime: 0.3
     impactForce: 50
     velocity: 1000
     bulletDrop: 0
@@ -40,6 +41,7 @@ MonoBehaviour:
     jumpSpread: 100
     bulletSpreadOneShot: 10
     bulletSpreadResizeSpeed: 5
+    aimSpreadMultiplier: 0
   weaponRecoilParameters:
     staticRecoilPosition: {x: 0, y: 0, z: -0.3}
     staticRecoilRotation: {x: -1, y: 2, z: -10}

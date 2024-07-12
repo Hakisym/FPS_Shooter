@@ -46,8 +46,11 @@ public class CameraFovManager : MonoBehaviour
             currentMainFov = originalMainFov;
             currentWeaponFov = originalWeaponFov;
         }
+    }
 
-        mainCamera.fieldOfView = Mathf.Lerp(mainCamera.fieldOfView, currentMainFov, Time.deltaTime * cameraFovSmoothing);
-        weaponCamera.fieldOfView = Mathf.Lerp(weaponCamera.fieldOfView, currentWeaponFov, Time.deltaTime * cameraFovSmoothing);
+    public void UpdateAimFov(float percentage)
+    {
+        mainCamera.fieldOfView = Mathf.Lerp(originalMainFov, originalMainFov + aimingFOV, percentage);
+        weaponCamera.fieldOfView = Mathf.Lerp(originalWeaponFov, originalWeaponFov + aimingFOVOverlay, percentage);
     }
 }

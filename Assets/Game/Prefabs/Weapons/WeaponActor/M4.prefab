@@ -209,9 +209,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1700024202636786039}
   aimPosition: {x: -0.066, y: 0.02, z: -0.1}
-  aimRotation: {x: 0, y: 0, z: 0}
-  smoothTime: 0.1
-  smoothRotation: 6
+  duration: 0.4
+  timeElapsed: 0
 --- !u!114 &1331482994473972696
 MonoBehaviour:
   m_ObjectHideFlags: 0
