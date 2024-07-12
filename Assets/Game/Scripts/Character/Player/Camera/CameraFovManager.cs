@@ -20,6 +20,8 @@ public class CameraFovManager : MonoBehaviour
     private float originalWeaponFov;
     private float currentMainFov;
     private float currentWeaponFov;
+    private float targetMainFov;
+    private float targetWeaponFov;
 
     private void Awake()
     {
@@ -36,21 +38,19 @@ public class CameraFovManager : MonoBehaviour
             currentMainFov = originalMainFov + sprintingFOV;
             currentWeaponFov = originalWeaponFov + sprintingFOVOverlay;
         }
-        else if (wc.aiming)
-        {
-            currentMainFov = originalMainFov + aimingFOV;
-            currentWeaponFov = originalWeaponFov + aimingFOVOverlay;
-        }
         else
         {
             currentMainFov = originalMainFov;
             currentWeaponFov = originalWeaponFov;
         }
+
+        targetMainFov = Mathf.Lerp(targetMainFov, currentMainFov, Time.deltaTime * cameraFovSmoothing);
+        targetWeaponFov = Mathf.Lerp(targetWeaponFov, currentWeaponFov, Time.deltaTime * cameraFovSmoothing);
     }
 
     public void UpdateAimFov(float percentage)
     {
-        mainCamera.fieldOfView = Mathf.Lerp(originalMainFov, originalMainFov + aimingFOV, percentage);
-        weaponCamera.fieldOfView = Mathf.Lerp(originalWeaponFov, originalWeaponFov + aimingFOVOverlay, percentage);
+        mainCamera.fieldOfView = Mathf.Lerp(targetMainFov, targetMainFov + aimingFOV, percentage);
+        weaponCamera.fieldOfView = Mathf.Lerp(targetWeaponFov, targetWeaponFov + aimingFOVOverlay, percentage);
     }
 }

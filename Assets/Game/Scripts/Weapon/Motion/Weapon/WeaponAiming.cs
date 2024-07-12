@@ -39,7 +39,6 @@ public class WeaponAiming : WeaponMotionBase
             }
 
             timeElapsed += Time.deltaTime;
-            
         }
         else
         {
@@ -49,7 +48,9 @@ public class WeaponAiming : WeaponMotionBase
             timeElapsed -= Time.deltaTime;
         }
 
+        //clamp ads time
         timeElapsed = Mathf.Clamp(timeElapsed, 0, aimDuration);
+        //ads gradually over time
         float t = timeElapsed / aimDuration;
         target.localPosition = Vector3.Lerp(originalPosition, aimPosition, t);
 
