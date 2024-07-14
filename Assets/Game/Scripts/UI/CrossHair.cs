@@ -13,10 +13,8 @@ public class CrossHair : MonoBehaviour
     [Tooltip(" Thickness of the crosshair  "), SerializeField]
     private float width = 2f;
 
-    [SerializeField] private float resizeSpeed = 3f;
-
-    [HideInInspector] public float spread, locomotionSpread, bulletSpread;
     [HideInInspector] public bool enableCrosshair;
+    public bool showAimCrosshair;
 
     public Parts parts;
 
@@ -24,30 +22,6 @@ public class CrossHair : MonoBehaviour
     public class Parts
     {
         public bool topPart, downPart, leftPart, rightPart, center;
-    }
-
-    void Update()
-    {
-        if (!weaponController.preset) return;
-
-        // Manage different sizes
-        if (player.isGrounded)
-        {
-            if (player.currentSpeed == player.crouchSpeed) locomotionSpread = weaponController.preset.gunStats.crouchSpread;
-            else if (player.moveVel < 0.2f) locomotionSpread = weaponController.preset.gunStats.defaultSpread;
-            else if (player.currentSpeed == player.walkSpeed) locomotionSpread = weaponController.preset.gunStats.walkSpread;
-            else if (player.currentSpeed == player.sprintSpeed) locomotionSpread = weaponController.preset.gunStats.runSpread;
-        }
-        else locomotionSpread = weaponController.preset.gunStats.jumpSpread;
-
-        bulletSpread = Mathf.Lerp(bulletSpread, 0f, weaponController.preset.gunStats.bulletSpreadResizeSpeed * Time.deltaTime);
-
-        spread = Mathf.Lerp(spread, locomotionSpread + bulletSpread, resizeSpeed * Time.deltaTime);
-    }
-
-    public void Fire()
-    {
-        bulletSpread += weaponController.preset.gunStats.bulletSpreadOneShot;
     }
 
     public void GetReference(WeaponController wc,PlayerMovement pm)
@@ -58,20 +32,20 @@ public class CrossHair : MonoBehaviour
 
     private void OnGUI()
     {
-        if (weaponController.aiming || !enableCrosshair) return;
+        if ((weaponController.aiming && !showAimCrosshair) || !enableCrosshair) return;
 
         Texture2D texture = new Texture2D(1, 1);
         texture.SetPixel(0, 0, Color.white);
         texture.wrapMode = TextureWrapMode.Repeat;
         texture.Apply();
 
-        if (parts.downPart) GUI.DrawTexture(new Rect(Screen.width / 2 - width / 2, (Screen.height / 2 - size / 2) + spread / 2, width, size), texture);
+        if (parts.downPart) GUI.DrawTexture(new Rect(Screen.width / 2 - width / 2, (Screen.height / 2 - size / 2) + weaponController.currentSpread / 2, width, size), texture);
 
-        if (parts.topPart) GUI.DrawTexture(new Rect(Screen.width / 2 - width / 2, (Screen.height / 2 - size / 2) - spread / 2, width, size), texture);
+        if (parts.topPart) GUI.DrawTexture(new Rect(Screen.width / 2 - width / 2, (Screen.height / 2 - size / 2) - weaponController.currentSpread / 2, width, size), texture);
 
-        if (parts.rightPart) GUI.DrawTexture(new Rect((Screen.width / 2 - size / 2) + spread / 2, Screen.height / 2 - width / 2, size, width), texture);
+        if (parts.rightPart) GUI.DrawTexture(new Rect((Screen.width / 2 - size / 2) + weaponController.currentSpread / 2, Screen.height / 2 - width / 2, size, width), texture);
 
-        if (parts.leftPart) GUI.DrawTexture(new Rect((Screen.width / 2 - size / 2) - spread / 2, Screen.height / 2 - width / 2, size, width), texture);
+        if (parts.leftPart) GUI.DrawTexture(new Rect((Screen.width / 2 - size / 2) - weaponController.currentSpread / 2, Screen.height / 2 - width / 2, size, width), texture);
 
         if (parts.center)
         {

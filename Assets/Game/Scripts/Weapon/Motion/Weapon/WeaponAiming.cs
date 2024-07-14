@@ -55,5 +55,6 @@ public class WeaponAiming : WeaponMotionBase
         target.localPosition = Vector3.Lerp(originalPosition, aimPosition, t);
 
         cameraFovManager.UpdateAimFov(t);
+        wc.UpdateAimSpread(t);
     }
 }

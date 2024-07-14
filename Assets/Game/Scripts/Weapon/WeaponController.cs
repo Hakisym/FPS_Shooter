@@ -58,6 +58,12 @@ public class WeaponController : MonoBehaviour
     private float maxLifetime = 3.0f;
     private List<Bullet> bullets = new List<Bullet>();
 
+    //gun spread
+    [HideInInspector] public float spread;
+    [HideInInspector] public float currentSpread;
+    private float bulletSpread;
+    [SerializeField] private float resizeSpeed = 3f;
+
     public Action OnFire;
 
     private void Awake()
@@ -90,6 +96,7 @@ public class WeaponController : MonoBehaviour
     private void Update()
     {
         MyInput();
+        UpdateSpread();
     }
 
     private void FixedUpdate()
@@ -158,8 +165,8 @@ public class WeaponController : MonoBehaviour
             inventory.currentWeapon.animator.Play("Fire");
         }
 
-        //crosshair
-        weaponHUD.crosshair.Fire();
+        //spread
+        bulletSpread += preset.gunStats.bulletSpreadOneShot;
 
         //cam shake
         characterManager.cameraManager.ShakeCameras(preset.cameraShake,preset.cameraFadeoutTime);
@@ -195,18 +202,11 @@ public class WeaponController : MonoBehaviour
 
     private void FireOneShot()
     {
-        //Spread
-        float bulletSpread;
-        if (aiming)
-            bulletSpread = weaponHUD.crosshair.spread / 1000 * preset.gunStats.aimSpreadMultiplier;
-        else
-            bulletSpread = weaponHUD.crosshair.spread / 1000;
-
-        var spread = HenryUtilities.GetSpreadDirection(bulletSpread / 2, playerCam);
+        Vector3 _spread = HenryUtilities.GetSpreadDirection(spread / 2, playerCam);
 
         Vector3 dir;
-        if (!crosshairFollowRecoil) dir = (playerCam.transform.forward + spread).normalized;
-        else dir = aiming ? (playerCam.transform.forward + spread).normalized : (recoilPoint.transform.forward + spread).normalized;
+        if (!crosshairFollowRecoil) dir = (playerCam.transform.forward + _spread).normalized;
+        else dir = aiming ? (playerCam.transform.forward + _spread).normalized : (recoilPoint.transform.forward + _spread).normalized;
 
         RaycastHit hit;
         Vector3 bulletDir;
@@ -349,6 +349,34 @@ public class WeaponController : MonoBehaviour
         {
             bullet.UpdateTracer(end);
         }
+    }
+
+    private void UpdateSpread()
+    {
+        if (!preset) return;
+
+        float locomotionSpread = 0;
+
+        // Manage different sizes
+        if (pm.isGrounded)
+        {
+            if (pm.currentSpeed == pm.crouchSpeed) locomotionSpread = preset.gunStats.crouchSpread;
+            else if (pm.moveVel < 0.2f) locomotionSpread = preset.gunStats.defaultSpread;
+            else if (pm.currentSpeed == pm.walkSpeed) locomotionSpread = preset.gunStats.walkSpread;
+            else if (pm.currentSpeed == pm.sprintSpeed) locomotionSpread = preset.gunStats.runSpread;
+        }
+        else locomotionSpread = preset.gunStats.jumpSpread;
+
+        //if (weaponController.aiming) locomotionSpread *= weaponController.preset.gunStats.aimSpreadMultiplier;
+
+        bulletSpread = Mathf.Lerp(bulletSpread, 0f, preset.gunStats.bulletSpreadResizeSpeed * Time.deltaTime);
+
+        currentSpread = Mathf.Lerp(currentSpread, locomotionSpread + bulletSpread, resizeSpeed * Time.deltaTime);
+    }
+
+    public void UpdateAimSpread(float t)
+    {
+        spread = Mathf.Lerp(currentSpread / 1000, currentSpread / 1000 * preset.gunStats.aimSpreadMultiplier, t);
     }
 
     public void CanShoot() => canShoot = true;

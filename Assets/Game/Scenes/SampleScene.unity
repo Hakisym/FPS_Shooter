@@ -4977,6 +4977,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 561740921196996231, guid: d9297b61db9b0834895c5ff7d261dea0,
+        type: 3}
+      propertyPath: showAimCrosshair
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 580576727178149998, guid: d9297b61db9b0834895c5ff7d261dea0,
+        type: 3}
+      propertyPath: holdAim
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 580576727178149998, guid: d9297b61db9b0834895c5ff7d261dea0,
+        type: 3}
+      propertyPath: resizeSpeed
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 2276899965132429242, guid: d9297b61db9b0834895c5ff7d261dea0,
         type: 3}
       propertyPath: cameraFovManager
@@ -5041,6 +5056,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayerActor
+      objectReference: {fileID: 0}
+    - target: {fileID: 3911180849636401082, guid: d9297b61db9b0834895c5ff7d261dea0,
+        type: 3}
+      propertyPath: Crosshair
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9297b61db9b0834895c5ff7d261dea0, type: 3}
