@@ -11,6 +11,8 @@ public class WeaponAiming : WeaponMotionBase
 
     private Vector3 originalPosition;
     private bool soundHasPlayed;
+    private float lastDuration;
+    private bool wasAiming;
 
     private CameraFovManager cameraFovManager;
 
@@ -39,6 +41,8 @@ public class WeaponAiming : WeaponMotionBase
             }
 
             timeElapsed += Time.deltaTime;
+
+            wasAiming = true;
         }
         else
         {
@@ -46,12 +50,19 @@ public class WeaponAiming : WeaponMotionBase
             soundHasPlayed = false;
 
             timeElapsed -= Time.deltaTime;
+
+            if (wasAiming) wc.OnAimCancel?.Invoke();
+            wasAiming = false;
         }
 
         //clamp ads time
         timeElapsed = Mathf.Clamp(timeElapsed, 0, aimDuration);
         //ads gradually over time
         float t = timeElapsed / aimDuration;
+
+        if (t == 1 && lastDuration < 1) wc.OnAimFinish?.Invoke();
+        lastDuration = t;
+
         target.localPosition = Vector3.Lerp(originalPosition, aimPosition, t);
 
         cameraFovManager.UpdateAimFov(t);

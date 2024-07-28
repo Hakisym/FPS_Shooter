@@ -18,7 +18,7 @@ public class PlayerHUD : MonoBehaviour
         wc = GetComponentInParent<WeaponController>();
 
         crosshair = GetComponentInChildren<CrossHair>();
-        crosshair.GetReference(wc, wc.GetComponent<PlayerMovement>());
+        crosshair.GetReference(wc);
 
         weaponHUD = GetComponentInChildren<WeaponHUD>();
         weaponHUD.GetReference(wc);

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CrossHair : MonoBehaviour
 {
-    private PlayerMovement player;
     private WeaponController weaponController;
 
     [Tooltip(" How much space it takes from your screen"), SerializeField]
@@ -24,15 +23,18 @@ public class CrossHair : MonoBehaviour
         public bool topPart, downPart, leftPart, rightPart, center;
     }
 
-    public void GetReference(WeaponController wc,PlayerMovement pm)
+    private bool canShow;
+
+    public void GetReference(WeaponController wc)
     {
         this.weaponController = wc;
-        this.player = pm;
+        wc.OnAimFinish += () => { canShow = false; };
+        wc.OnAimCancel += () => { canShow = true; };
     }
 
     private void OnGUI()
     {
-        if ((weaponController.aiming && !showAimCrosshair) || !enableCrosshair) return;
+        if ((!canShow && !showAimCrosshair) || !enableCrosshair) return;
 
         Texture2D texture = new Texture2D(1, 1);
         texture.SetPixel(0, 0, Color.white);

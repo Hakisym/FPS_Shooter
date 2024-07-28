@@ -356,6 +356,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   motions: []
+  cameraFovManager: {fileID: 1537672115}
   cameraShaker: {fileID: 1537672116}
   cameraShakeMagnitude: 1.6
   cameraShakeRoughness: 7
@@ -496,7 +497,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   preset: {fileID: 0}
-  holdAim: 0
+  holdAim: 1
   crosshairFollowRecoil: 0
   reloading: 0
   aiming: 0
@@ -517,6 +518,10 @@ MonoBehaviour:
   bulletTrail: {fileID: 5617826704567396366, guid: 60caffca5d1f9264bb6fdb5ac795f2ef,
     type: 3}
   bulletsLeft: 0
+  spread: 0
+  currentSpread: 0
+  resizeSpeed: 20
+  OnAimFinish: 0
 --- !u!114 &1700024202281320435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -912,11 +917,16 @@ PrefabInstance:
     - target: {fileID: 615417547136062387, guid: 356072c59c08c884f99372bb1e3e9a3e,
         type: 3}
       propertyPath: Crosshair
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4109144165991475854, guid: 356072c59c08c884f99372bb1e3e9a3e,
         type: 3}
       propertyPath: parts.center
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4109144165991475854, guid: 356072c59c08c884f99372bb1e3e9a3e,
+        type: 3}
+      propertyPath: showAimCrosshair
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4844194783670129284, guid: 356072c59c08c884f99372bb1e3e9a3e,
