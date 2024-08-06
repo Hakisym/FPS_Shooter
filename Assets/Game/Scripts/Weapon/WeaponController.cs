@@ -65,6 +65,7 @@ public class WeaponController : MonoBehaviour
     [SerializeField] private float resizeSpeed = 3f;
 
     public Action OnFire;
+    public Action OnAimStart;
     public Action OnAimFinish;
     public Action OnAimCancel;
 

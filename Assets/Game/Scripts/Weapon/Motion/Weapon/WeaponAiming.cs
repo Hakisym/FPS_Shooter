@@ -42,6 +42,7 @@ public class WeaponAiming : WeaponMotionBase
 
             timeElapsed += Time.deltaTime;
 
+            if (!wasAiming) wc.OnAimStart?.Invoke();
             wasAiming = true;
         }
         else

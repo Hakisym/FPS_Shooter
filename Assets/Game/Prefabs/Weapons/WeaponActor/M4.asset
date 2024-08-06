@@ -45,11 +45,11 @@ MonoBehaviour:
     staticRecoilPosition: {x: 0, y: 0, z: -0.3}
     staticRecoilRotation: {x: -1, y: 2, z: -10}
     staticRecoilPositionAim: {x: 0, y: 0, z: -0.2}
-    staticRecoilRotationAim: {x: -3, y: 0, z: 0}
+    staticRecoilRotationAim: {x: 0, y: 0, z: 0}
     recoilPosition: {x: 0.01, y: 0.01, z: 0}
     recoilRotation: {x: -25, y: 15, z: 15}
     recoilPositionAim: {x: 0, y: 0, z: 0}
-    recoilRotationAim: {x: 0, y: 1, z: 1}
+    recoilRotationAim: {x: 0, y: 0, z: 0}
     positionalRecoilSpeed: 10
     rotationalRecoilSpeed: 10
     positionalReturnSpeed: 35
@@ -58,8 +58,8 @@ MonoBehaviour:
     type: 0
     rotationSpeed: 10
     returnSpeed: 5
-    recoilRotation: {x: 0.5, y: 0.2, z: 0}
-    recoilRotationAiming: {x: 0.5, y: 0.2, z: 0}
+    recoilRotation: {x: 1, y: 0.5, z: 0}
+    recoilRotationAiming: {x: 1, y: 0.5, z: 0}
     recoilX:
       serializedVersion: 2
       m_Curve:
@@ -131,7 +131,7 @@ MonoBehaviour:
     hotizontalRecoil: 0.1
     verticalRecoil: 0.4
   cameraRecoil: 0
-  cameraShake: 0.05
+  cameraShake: 0
   cameraFadeoutTime: 0.2
   bulletCasting: {fileID: 8360084055759571751, guid: 47e2dad834f38dc43a2622d3db1e283b,
     type: 3}

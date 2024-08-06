@@ -23,18 +23,18 @@ public class CrossHair : MonoBehaviour
         public bool topPart, downPart, leftPart, rightPart, center;
     }
 
-    private bool canShow;
+    private bool canShow = true;
 
     public void GetReference(WeaponController wc)
     {
         this.weaponController = wc;
-        wc.OnAimFinish += () => { canShow = false; };
+        wc.OnAimStart += () => { canShow = false; };
         wc.OnAimCancel += () => { canShow = true; };
     }
 
     private void OnGUI()
     {
-        if ((!canShow && !showAimCrosshair) || !enableCrosshair) return;
+        if ((!canShow && !showAimCrosshair) || !enableCrosshair || !weaponController.preset) return;
 
         Texture2D texture = new Texture2D(1, 1);
         texture.SetPixel(0, 0, Color.white);
