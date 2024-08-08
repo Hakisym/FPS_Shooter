@@ -41,13 +41,13 @@ public class CrossHair : MonoBehaviour
         texture.wrapMode = TextureWrapMode.Repeat;
         texture.Apply();
 
-        if (parts.downPart) GUI.DrawTexture(new Rect(Screen.width / 2 - width / 2, (Screen.height / 2 - size / 2) + weaponController.currentSpread / 2, width, size), texture);
+        if (parts.downPart) GUI.DrawTexture(new Rect(Screen.width / 2 - width / 2, Screen.height / 2 + weaponController.currentSpread / 2, width, size), texture);
 
-        if (parts.topPart) GUI.DrawTexture(new Rect(Screen.width / 2 - width / 2, (Screen.height / 2 - size / 2) - weaponController.currentSpread / 2, width, size), texture);
+        if (parts.topPart) GUI.DrawTexture(new Rect(Screen.width / 2 - width / 2, Screen.height / 2 - weaponController.currentSpread / 2, width, -size), texture);
 
-        if (parts.rightPart) GUI.DrawTexture(new Rect((Screen.width / 2 - size / 2) + weaponController.currentSpread / 2, Screen.height / 2 - width / 2, size, width), texture);
+        if (parts.rightPart) GUI.DrawTexture(new Rect(Screen.width / 2 + weaponController.currentSpread / 2, Screen.height / 2 - width / 2, size, width), texture);
 
-        if (parts.leftPart) GUI.DrawTexture(new Rect((Screen.width / 2 - size / 2) - weaponController.currentSpread / 2, Screen.height / 2 - width / 2, size, width), texture);
+        if (parts.leftPart) GUI.DrawTexture(new Rect(Screen.width / 2 - weaponController.currentSpread / 2, Screen.height / 2 - width / 2, -size, width), texture);
 
         if (parts.center)
         {

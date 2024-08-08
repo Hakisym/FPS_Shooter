@@ -131,8 +131,8 @@ MonoBehaviour:
     yRecoilAmount: 5
     hotizontalRecoil: 0
     verticalRecoil: 0
-  cameraRecoil: 0
-  cameraShake: 0.05
+  cameraRecoil: 1
+  cameraShake: 0
   cameraFadeoutTime: 0.2
   bulletCasting: {fileID: 8360084055759571751, guid: 5776f6e05d8dd124194ee2239343602c,
     type: 3}
