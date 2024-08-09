@@ -34,21 +34,21 @@ MonoBehaviour:
     pelletsPerBullet: 8
     timeBetweenShots: 0
     chamberTime: 0.3
-    defaultSpread: 150
-    crouchSpread: 100
-    walkSpread: 200
-    runSpread: 300
-    jumpSpread: 400
+    defaultSpread: 100
+    crouchSpread: 50
+    walkSpread: 100
+    runSpread: 100
+    jumpSpread: 100
     bulletSpreadOneShot: 10
     bulletSpreadResizeSpeed: 5
     aimSpreadMultiplier: 0.5
   weaponRecoilParameters:
-    staticRecoilPosition: {x: 0, y: 0, z: -0.5}
+    staticRecoilPosition: {x: 0, y: 0, z: -1}
     staticRecoilRotation: {x: 0, y: 0, z: 0}
     staticRecoilPositionAim: {x: 0, y: 0, z: -0.3}
     staticRecoilRotationAim: {x: 0, y: 0, z: 0}
     recoilPosition: {x: 0, y: 0, z: 0}
-    recoilRotation: {x: -70, y: 1, z: 2}
+    recoilRotation: {x: -35, y: 1, z: 2}
     recoilPositionAim: {x: 0, y: 0, z: 0}
     recoilRotationAim: {x: 0, y: 0, z: 0}
     positionalRecoilSpeed: 10

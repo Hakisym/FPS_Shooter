@@ -43,11 +43,11 @@ MonoBehaviour:
     bulletSpreadResizeSpeed: 5
     aimSpreadMultiplier: 0
   weaponRecoilParameters:
-    staticRecoilPosition: {x: 0, y: 0, z: -0.5}
-    staticRecoilRotation: {x: -70, y: 0, z: 0}
+    staticRecoilPosition: {x: 0, y: 0.4, z: -1}
+    staticRecoilRotation: {x: -180, y: 0, z: 0}
     staticRecoilPositionAim: {x: 0, y: 0, z: -0.3}
     staticRecoilRotationAim: {x: 0, y: 0, z: 0}
-    recoilPosition: {x: 0.2, y: 0.2, z: 0}
+    recoilPosition: {x: 0.2, y: 0, z: 0}
     recoilRotation: {x: 0, y: 15, z: 15}
     recoilPositionAim: {x: 0, y: 0, z: 0}
     recoilRotationAim: {x: 0, y: 0, z: 0}
