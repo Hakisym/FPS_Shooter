@@ -131,8 +131,8 @@ MonoBehaviour:
     hotizontalRecoil: 0.1
     verticalRecoil: 0.4
   cameraRecoil: 0
-  cameraShake: 0.03
-  cameraFadeoutTime: 0.2
+  cameraShake: 0
+  cameraFadeoutTime: 0
   bulletCasting: {fileID: 8360084055759571751, guid: 47e2dad834f38dc43a2622d3db1e283b,
     type: 3}
   soundClips:

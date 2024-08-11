@@ -59,8 +59,8 @@ MonoBehaviour:
     type: 0
     rotationSpeed: 10
     returnSpeed: 5
-    recoilRotation: {x: 5, y: 0.2, z: 0}
-    recoilRotationAiming: {x: 5, y: 0.2, z: 0}
+    recoilRotation: {x: 10, y: 0.2, z: 0}
+    recoilRotationAiming: {x: 10, y: 0.2, z: 0}
     recoilX:
       serializedVersion: 2
       m_Curve:
@@ -131,9 +131,9 @@ MonoBehaviour:
     yRecoilAmount: 5
     hotizontalRecoil: 0
     verticalRecoil: 0
-  cameraRecoil: 5
+  cameraRecoil: 0
   cameraShake: 0
-  cameraFadeoutTime: 0.2
+  cameraFadeoutTime: 0
   bulletCasting: {fileID: 8360084055759571751, guid: b793b2554a90b294a92a12df231b670d,
     type: 3}
   soundClips:

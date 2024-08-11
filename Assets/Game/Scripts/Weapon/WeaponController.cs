@@ -64,10 +64,13 @@ public class WeaponController : MonoBehaviour
     private float bulletSpread;
     [SerializeField] private float resizeSpeed = 3f;
 
-    public Action OnFire;
+    public Action OnStartShoot;
+    public Action OnEndShoot;
+    public Action OnShooting;
     public Action OnAimStart;
     public Action OnAimFinish;
     public Action OnAimCancel;
+    private bool wasShooting;
 
     private void Awake()
     {
@@ -141,6 +144,14 @@ public class WeaponController : MonoBehaviour
             bulletsShot = preset.gunStats.bulletsPerTap;
             pelletsShot = preset.gunStats.pelletsPerBullet;
             Shoot();
+
+            if (!wasShooting) OnStartShoot?.Invoke();
+            wasShooting = true;
+        }
+        else if (!shooting || !canShoot)
+        {
+            if (wasShooting) OnEndShoot?.Invoke();
+            wasShooting = false;
         }
 
         if (reloading || bulletsLeft <= 0 || inventory.switching)
@@ -154,7 +165,7 @@ public class WeaponController : MonoBehaviour
     {
         readyToShoot = false;
 
-        OnFire?.Invoke();
+        OnShooting?.Invoke();
 
         FireOneShot();
 

@@ -11,11 +11,15 @@ public class CameraRecoil : CameraMotionBase
 
     private WeaponController wc;
     private PlayerLook pl;
-    private Vector3 currentRotation;
+    public Vector3 currentRotation;
     private Vector3 currentRecoil;
     public Vector3 resultCameraRotation;
     private Vector3 resultRecoilRotation;
     private float evaluationProgress, evaluationProgressX;
+
+    private bool shooting;
+    public bool canReturn;
+    public Vector3 returnValue;
 
     private void Awake()
     {
@@ -23,16 +27,25 @@ public class CameraRecoil : CameraMotionBase
         pl = GetComponentInParent<PlayerLook>();
     }
 
+    private void Start()
+    {
+        wc.OnStartShoot += () => {
+            shooting = true;
+        };
+        wc.OnEndShoot += () => { shooting = false; };
+    }
+
     private void Update()
     {
         if (!wc.preset) return;
 
-        if (!wc.shooting || !wc.canShoot)
+        if (!shooting)
         {
             evaluationProgress = 0;
             evaluationProgressX = 0;
-            //Return interpolation
-            //currentRotation = Vector3.Lerp(currentRotation, Vector3.zero, wc.preset.cameraRecoilParameters.returnSpeed * Time.deltaTime);
+
+            if (canReturn)
+                currentRotation = Vector3.Lerp(currentRotation, returnValue, wc.preset.cameraRecoilParameters.returnSpeed * Time.deltaTime);
         }
     }
 
@@ -86,7 +99,7 @@ public class CameraRecoil : CameraMotionBase
             pl.AddLookValue(new Vector2(vertical, Random.Range(-horizontal, horizontal)) * multiplier);
         }
 
-        //Recoil shake
+        //Camera shake
         currentRecoil += new Vector3(recoilAmount.x, Random.Range(-recoilAmount.y, recoilAmount.y), Random.Range(-recoilAmount.z, recoilAmount.z)) * multiplier * shakeMultiplier;
     }
 }
