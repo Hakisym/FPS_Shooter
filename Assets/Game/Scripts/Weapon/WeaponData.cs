@@ -17,7 +17,6 @@ public class WeaponData : ScriptableObject
     public CameraRecoilParameters cameraRecoilParameters;
 
     [Header("Camera")]
-    public float cameraRecoil;
     public float cameraShake;
     public float cameraFadeoutTime;
 
@@ -60,7 +59,6 @@ public class WeaponData : ScriptableObject
     [System.Serializable]
     public class CameraRecoilParameters
     {
-        public RecoilType type;
         public float rotationSpeed, returnSpeed;
 
         [Header("Procedural Recoil")]
@@ -71,10 +69,6 @@ public class WeaponData : ScriptableObject
         public AnimationCurve recoilX;
         public AnimationCurve recoilY;
         public float xRecoilAmount, yRecoilAmount;
-
-        [Header("Camera Recoil")]
-        public float hotizontalRecoil;
-        public float verticalRecoil;
     }
 
     [System.Serializable]

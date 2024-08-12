@@ -18,9 +18,8 @@ public class PlayerLook : MonoBehaviour
     public CameraRecoil cameraRecoil;
     public WeaponController weaponController;
 
-    private Vector3 lastRotation;
-    private float cameraRotationX;
-    private float cameraRotationY;
+    public float cameraRotationX;
+    public float cameraRotationY;
 
     private void Start()
     {
@@ -31,21 +30,6 @@ public class PlayerLook : MonoBehaviour
         UIManager.instance.pauseMenu.OnPausedStateChanged += (bool paused) => this.controllable = !paused;
 
         mainCamera = Camera.main;
-
-        weaponController.OnStartShoot += () => {
-            lastRotation = new Vector3(cameraRotationX, cameraRotationY, 0);
-        };
-        weaponController.OnEndShoot += () => {
-            Vector3 currentRotation = new Vector3(cameraRotationX, cameraRotationY, 0);
-            Vector3 rot = currentRotation - lastRotation;
-
-            if (rot.x > 0) cameraRecoil.canReturn = false;
-            else
-            {
-                cameraRecoil.canReturn = true;
-                cameraRecoil.returnValue = cameraRecoil.currentRotation - rot;
-            }   
-        };
     }
 
     private void Update()
@@ -69,10 +53,8 @@ public class PlayerLook : MonoBehaviour
 
     private void LookRotate()
     {
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity + addedLookValue.y;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity + addedLookValue.x;
-
-        addedLookValue = Vector2.zero;
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
         yRotation += mouseX;
         xRotation -= mouseY;
@@ -95,10 +77,5 @@ public class PlayerLook : MonoBehaviour
         // Rotate player and camera
         transform.localRotation = Quaternion.Euler(cameraRotation);
         playerBody.localRotation = Quaternion.Euler(playerRotation);
-    }
-
-    public void AddLookValue(Vector2 value)
-    {
-        addedLookValue += value;
     }
 }

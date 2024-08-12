@@ -4317,6 +4317,21 @@ PrefabInstance:
       propertyPath: weaponController
       value: 
       objectReference: {fileID: 416566915}
+    - target: {fileID: 8233358823089170085, guid: d9297b61db9b0834895c5ff7d261dea0,
+        type: 3}
+      propertyPath: recoilReturnSpeed
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8233358823089170085, guid: d9297b61db9b0834895c5ff7d261dea0,
+        type: 3}
+      propertyPath: recoilKickDuration
+      value: 0.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 8233358823089170085, guid: d9297b61db9b0834895c5ff7d261dea0,
+        type: 3}
+      propertyPath: recoilReturnDuration
+      value: 0.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9297b61db9b0834895c5ff7d261dea0, type: 3}
 --- !u!33 &2797017065676947698

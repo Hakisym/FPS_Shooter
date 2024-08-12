@@ -96,7 +96,7 @@ public class ThirdPersonController : MonoBehaviour
                 Destroy(child.gameObject);
         };
 
-        wc.OnShooting += () =>
+        wc.OnFire += () =>
         {
             animator.SetTrigger("Fire");
             gunAnim.Play("Fire");

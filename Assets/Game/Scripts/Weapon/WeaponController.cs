@@ -12,12 +12,13 @@ public class WeaponController : MonoBehaviour
 
     [Header("Gun states")]
     [SerializeField] bool holdAim;
-    [SerializeField] bool crosshairFollowRecoil;
     [HideInInspector] public bool reloading, aiming;
-    [HideInInspector] public bool canShoot;
+    public bool canShoot;
     [HideInInspector] public bool shootState { get => !readyToShoot; }
     [HideInInspector] public bool shooting;
-    private bool readyToShoot;
+    public bool readyToShoot;
+    private bool wasShooting;
+    public bool IsShooting;
 
     [Header("Reference")]
     private Transform muzzlePoint;
@@ -29,7 +30,6 @@ public class WeaponController : MonoBehaviour
     public Animator animator;
     [Space(5)]
     public CameraRecoil cameraRecoil;
-    public RecoilPoint recoilPoint;
     public Actor Actor { get; set; }
     private CharacterManager characterManager;
     private Inventory inventory;
@@ -66,11 +66,10 @@ public class WeaponController : MonoBehaviour
 
     public Action OnStartShoot;
     public Action OnEndShoot;
-    public Action OnShooting;
+    public Action OnFire;
     public Action OnAimStart;
     public Action OnAimFinish;
     public Action OnAimCancel;
-    private bool wasShooting;
 
     private void Awake()
     {
@@ -92,7 +91,7 @@ public class WeaponController : MonoBehaviour
         readyToShoot = true;
         canShoot = true;
         prefabHolder = FindObjectOfType<PoolManager>().poolHolder;
-        UIManager.instance.pauseMenu.OnPausedStateChanged += (bool paused) => this.readyToShoot = !paused;
+        UIManager.instance.pauseMenu.OnPausedStateChanged += (bool paused) => this.canShoot = !paused;
 
         //disable aim on sprint
         pm.OnSprint.AddListener(() => aiming = false);
@@ -103,6 +102,19 @@ public class WeaponController : MonoBehaviour
     {
         MyInput();
         UpdateSpread();
+
+        if (canShoot && !readyToShoot)
+        {
+            if (!wasShooting) OnStartShoot?.Invoke();
+            wasShooting = true;
+            IsShooting = true;
+        }
+        else
+        {
+            if (wasShooting) OnEndShoot?.Invoke();
+            wasShooting = false;
+            IsShooting = false;
+        }
     }
 
     private void FixedUpdate()
@@ -144,14 +156,6 @@ public class WeaponController : MonoBehaviour
             bulletsShot = preset.gunStats.bulletsPerTap;
             pelletsShot = preset.gunStats.pelletsPerBullet;
             Shoot();
-
-            if (!wasShooting) OnStartShoot?.Invoke();
-            wasShooting = true;
-        }
-        else if (!shooting || !canShoot)
-        {
-            if (wasShooting) OnEndShoot?.Invoke();
-            wasShooting = false;
         }
 
         if (reloading || bulletsLeft <= 0 || inventory.switching)
@@ -165,7 +169,7 @@ public class WeaponController : MonoBehaviour
     {
         readyToShoot = false;
 
-        OnShooting?.Invoke();
+        OnFire?.Invoke();
 
         FireOneShot();
 
@@ -186,7 +190,7 @@ public class WeaponController : MonoBehaviour
         characterManager.cameraManager.ShakeCameras(preset.cameraShake,preset.cameraFadeoutTime);
 
         //Recoil
-        cameraRecoil.ApplyRecoil(preset.cameraRecoilParameters.verticalRecoil, preset.cameraRecoilParameters.hotizontalRecoil, preset.cameraRecoil, aiming);
+        cameraRecoil.ApplyRecoil();
         weaponRecoil.Fire();
 
         //play shoot sound
@@ -218,9 +222,7 @@ public class WeaponController : MonoBehaviour
     {
         Vector3 _spread = HenryUtilities.GetSpreadDirection(spread / 2, playerCam);
 
-        Vector3 dir;
-        if (!crosshairFollowRecoil) dir = (playerCam.transform.forward + _spread).normalized;
-        else dir = aiming ? (playerCam.transform.forward + _spread).normalized : (recoilPoint.transform.forward + _spread).normalized;
+        Vector3 dir = (playerCam.transform.forward + _spread).normalized;
 
         RaycastHit hit;
         Vector3 bulletDir;
@@ -296,7 +298,10 @@ public class WeaponController : MonoBehaviour
             FireOneShot();
     }
 
-    private void ResetShoot() => readyToShoot = true;
+    private void ResetShoot()
+    {
+        readyToShoot = true;
+    }
 
     private void Reload()
     {
