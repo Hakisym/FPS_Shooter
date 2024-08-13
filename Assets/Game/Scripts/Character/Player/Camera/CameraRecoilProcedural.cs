@@ -7,66 +7,43 @@ using Random = UnityEngine.Random;
 public class CameraRecoilProcedural : CameraRecoil
 {
     public Vector3 currentRotation;
-
-    public Vector3 lastRotation;
     public bool canReturn;
-    public bool fire;
-
-    public float recoilKickDuration;
-    public float recoilReturnDuration;
-    public float timeElapsed = 0f;
-    public float timeElapsedReturn = 0f;
-
-    private Vector3 rot;
+    public float lerpDuration;
+    public Coroutine lerpCoroutine;
 
     private void Start()
     {
-        wc.OnFire += () => fire = true;
+        wc.OnEndShoot += () =>
+            lerpCoroutine = StartCoroutine(RecoilReturn(currentRotation));
     }
 
-    private void Update()
+    IEnumerator RecoilReturn(Vector3 startValue)
     {
-        if (!wc.preset) return;
+        float timeElapsed = 0;
 
-        if (fire)
+        while (timeElapsed < lerpDuration)
         {
+            currentRotation = Vector3.Lerp(startValue, Vector3.zero, timeElapsed / lerpDuration);
             timeElapsed += Time.deltaTime;
-            timeElapsed = Mathf.Clamp(timeElapsed, 0, recoilKickDuration);
-            float t = timeElapsed / recoilKickDuration;
 
-            rot = Vector3.Lerp(lastRotation, currentRotation, t);
-
-            if (t == 1)
-            {
-                fire = wc.IsShooting ? true : false;
-                lastRotation = currentRotation;
-                timeElapsed = 0;
-                timeElapsedReturn = recoilReturnDuration;
-            }
+            yield return null;
         }
 
-        //if (!fire)
-        //{
-        //    timeElapsedReturn -= Time.deltaTime;
-        //    timeElapsedReturn = Mathf.Clamp(timeElapsedReturn, 0, recoilReturnDuration);
-        //    float t = timeElapsedReturn / recoilReturnDuration;
+        currentRotation = Vector3.zero;
+    }
 
-        //    rot = Vector3.Lerp(Vector3.zero, currentRotation, t);
-
-        //    if (t == 0)
-        //    {
-        //        lastRotation = Vector3.zero;
-        //        currentRotation = Vector3.zero;
-        //        timeElapsed = 0;
-        //    }
-        //}
-
-        resultCameraRotation = rot;
+    private void FixedUpdate()
+    {
+        if (!wc.preset) return;
+        //Smooth rotate to current rotation
+        resultCameraRotation = Vector3.Slerp(resultCameraRotation, currentRotation, wc.preset.cameraRecoilParameters.rotationSpeed * Time.fixedDeltaTime);
     }
 
     //Recoil while using procedural pattern
     public override void ApplyRecoil()
     {
+        if (lerpCoroutine != null) StopCoroutine(lerpCoroutine);
+
         //Add random offset to current rotation when firing
         if (wc.aiming)
         {

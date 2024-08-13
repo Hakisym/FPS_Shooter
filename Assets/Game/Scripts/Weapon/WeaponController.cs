@@ -75,6 +75,7 @@ public class WeaponController : MonoBehaviour
     {
         characterManager = GetComponent<CharacterManager>();
         weaponHUD = GetComponentInChildren<PlayerHUD>();
+        cameraRecoil = GetComponentInChildren<CameraRecoil>();
 
         fireAudio.Equip(gameObject, null);
         fireTailAudio.Equip(gameObject, null);

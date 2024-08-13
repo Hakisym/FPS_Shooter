@@ -21,6 +21,11 @@ public class PlayerLook : MonoBehaviour
     public float cameraRotationX;
     public float cameraRotationY;
 
+    private void Awake()
+    {
+        cameraRecoil = GetComponentInChildren<CameraRecoil>();
+    }
+
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
