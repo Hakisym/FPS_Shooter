@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CameraRecoilCurve : CameraRecoil
 {
-    public Vector3 currentRotation;
     public float evaluationProgress, evaluationProgressX;
 
     private void Update()

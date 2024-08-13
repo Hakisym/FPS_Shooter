@@ -13,8 +13,8 @@ public class PlayerLook : MonoBehaviour
 
     private Camera mainCamera;
     private bool controllable;
-    private float xRotation = 0f;
-    private float yRotation = 0f;
+    public float xRotation = 0f;
+    public float yRotation = 0f;
     public CameraRecoil cameraRecoil;
     public WeaponController weaponController;
 
@@ -63,7 +63,20 @@ public class PlayerLook : MonoBehaviour
 
         yRotation += mouseX;
         xRotation -= mouseY;
-        //xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+
+        // Periodically reset yRotation to keep the value within reasonable bounds
+        if (yRotation > 360f || yRotation < -360f)
+        {
+            yRotation = 0f;
+        }
+
+        // Periodically reset xRotation to keep the value within reasonable bounds
+        if (xRotation > 360f || xRotation < -360f)
+        {
+            xRotation = 0f;
+            cameraRecoil.resultCameraRotation.x += 360f;
+            cameraRecoil.currentRotation.x += 360f;
+        }
 
         cameraRotationX = xRotation + cameraRecoil.resultCameraRotation.x;
         cameraRotationY = yRotation + cameraRecoil.resultCameraRotation.y;
@@ -83,4 +96,6 @@ public class PlayerLook : MonoBehaviour
         transform.localRotation = Quaternion.Euler(cameraRotation);
         playerBody.localRotation = Quaternion.Euler(playerRotation);
     }
+
+
 }

@@ -82,8 +82,10 @@ MonoBehaviour:
   aimMask:
     serializedVersion: 2
     m_Bits: 64
-  cameraRecoil: {fileID: 7916176192214243588}
-  weaponController: {fileID: 0}
+  xRotation: 0
+  yRotation: 0
+  cameraRecoil: {fileID: 0}
+  weaponController: {fileID: 1700024202281320399}
   cameraRotationX: 0
   cameraRotationY: 0
 --- !u!1 &1700024201428482310
@@ -135,7 +137,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprintingFOV: 0
   sprintingFOVOverlay: 10
-  aimingFOV: -10
+  aimingFOV: -5
   aimingFOVOverlay: -5
   cameraFovSmoothing: 10
   pm: {fileID: 1700024202281320435}
@@ -273,10 +275,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1700024201625776518}
   - component: {fileID: 1074407451}
-  - component: {fileID: 7916176192214243588}
   - component: {fileID: 1074407452}
   - component: {fileID: 754029303}
   - component: {fileID: 1074407453}
+  - component: {fileID: 121397113}
   m_Layer: 0
   m_Name: CameraPivot
   m_TagString: Untagged
@@ -320,19 +322,6 @@ MonoBehaviour:
   cameraShakeRoughness: 7
   cameraShakeFadeInTime: 0.2
   cameraShakeFadeOutTime: 2
---- !u!114 &7916176192214243588
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1700024201625776519}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8a58112c0ae02d48915177596b1a630, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  resultCameraRotation: {x: 0, y: 0, z: 0}
 --- !u!114 &1074407452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -340,7 +329,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1700024201625776519}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a3455e829c6fcc9438a9f43e2fb1448f, type: 3}
   m_Name: 
@@ -356,7 +345,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1700024201625776519}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: df475be63f78d6f4c920568e8b6b0842, type: 3}
   m_Name: 
@@ -379,6 +368,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   headBobAmplitude: 0.3
   headBobFrequency: 18
+--- !u!114 &121397113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1700024201625776519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be8e33ba039c74342ac938f348962ad9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resultCameraRotation: {x: 0, y: 0, z: 0}
+  currentRotation: {x: 0, y: 0, z: 0}
+  lerpDuration: 0.4
+  endValue: {x: 0, y: 0, z: 0}
 --- !u!1 &1700024202281320438
 GameObject:
   m_ObjectHideFlags: 0
@@ -454,7 +459,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   preset: {fileID: 0}
   holdAim: 1
-  crosshairFollowRecoil: 0
   reloading: 0
   aiming: 0
   canShoot: 0
@@ -467,8 +471,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2112
   animator: {fileID: 1700024203204091687}
-  cameraRecoil: {fileID: 7916176192214243588}
-  recoilPoint: {fileID: 0}
+  cameraRecoil: {fileID: 0}
   metalImpact: {fileID: 1709698631529194, guid: 72b8f08b2b4dbbc439ccbb6402928ad1,
     type: 3}
   bloodImpact: {fileID: 6898028267083706492, guid: 6243fad3610020f4c9307c7ba631a1f5,

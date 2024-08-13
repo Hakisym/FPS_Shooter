@@ -156,28 +156,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &121397106 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 580576727871508006, guid: d9297b61db9b0834895c5ff7d261dea0,
-    type: 3}
-  m_PrefabInstance: {fileID: 2276899963868191263}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &121397113
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 121397106}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be8e33ba039c74342ac938f348962ad9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  resultCameraRotation: {x: 0, y: 0, z: 0}
-  currentRotation: {x: 0, y: 0, z: 0}
-  canReturn: 0
-  lerpDuration: 0.4
 --- !u!1 &157457009
 GameObject:
   m_ObjectHideFlags: 0
@@ -488,18 +466,6 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
---- !u!114 &416566915 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 580576727178149998, guid: d9297b61db9b0834895c5ff7d261dea0,
-    type: 3}
-  m_PrefabInstance: {fileID: 2276899963868191263}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7cfca86db146ec846b5b550c0882fd48, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &471504100
 GameObject:
   m_ObjectHideFlags: 0
@@ -4264,31 +4230,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 580576727178149998, guid: d9297b61db9b0834895c5ff7d261dea0,
-        type: 3}
-      propertyPath: cameraRecoil
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 580576727848415756, guid: d9297b61db9b0834895c5ff7d261dea0,
-        type: 3}
-      propertyPath: field of view
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 580576728606297543, guid: d9297b61db9b0834895c5ff7d261dea0,
-        type: 3}
-      propertyPath: field of view
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 2276899963443801430, guid: d9297b61db9b0834895c5ff7d261dea0,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2276899965132429245, guid: d9297b61db9b0834895c5ff7d261dea0,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2276899965236523399, guid: d9297b61db9b0834895c5ff7d261dea0,
         type: 3}
       propertyPath: m_RootOrder
@@ -4349,39 +4290,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerActor
       objectReference: {fileID: 0}
-    - target: {fileID: 2276899965244308498, guid: d9297b61db9b0834895c5ff7d261dea0,
-        type: 3}
-      propertyPath: aimingFOV
-      value: -5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836941739325505756, guid: d9297b61db9b0834895c5ff7d261dea0,
-        type: 3}
-      propertyPath: cameraRecoil
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836941739325505756, guid: d9297b61db9b0834895c5ff7d261dea0,
-        type: 3}
-      propertyPath: weaponController
-      value: 
-      objectReference: {fileID: 416566915}
-    - target: {fileID: 8233358823089170085, guid: d9297b61db9b0834895c5ff7d261dea0,
-        type: 3}
-      propertyPath: recoilReturnSpeed
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8233358823089170085, guid: d9297b61db9b0834895c5ff7d261dea0,
-        type: 3}
-      propertyPath: recoilKickDuration
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8233358823089170085, guid: d9297b61db9b0834895c5ff7d261dea0,
-        type: 3}
-      propertyPath: recoilReturnDuration
-      value: 0.2
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 8233358823089170085, guid: d9297b61db9b0834895c5ff7d261dea0, type: 3}
-    - {fileID: 2276899963421981138, guid: d9297b61db9b0834895c5ff7d261dea0, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9297b61db9b0834895c5ff7d261dea0, type: 3}
 --- !u!33 &2797017065676947698
 MeshFilter:
