@@ -9,13 +9,13 @@ public class CameraRecoilProcedural : CameraRecoil
     public float lerpDuration;
     public Coroutine lerpCoroutine;
     public Vector3 endValue;
-    private Vector3 lastRotation;
-
-    private float startXInput;
-    private float endXInput;
-
-    private float startCamRot;
-    private float endCamRot;
+    public Vector3 lastRotation;
+    [Space]
+    public float startXInput;
+    public float endXInput;
+    [Space]
+    public float startCamRot;
+    public float endCamRot;
 
 
     private void Start()
@@ -37,6 +37,9 @@ public class CameraRecoilProcedural : CameraRecoil
 
             //return to the original fire point, compensate the mouse input
             float inputAmountX = endXInput - startXInput;
+            //do not compensate for negative pitch input
+            inputAmountX = inputAmountX < 0 ? 0f : inputAmountX;
+
             lerpCoroutine = StartCoroutine(RecoilReturn(currentRotation, endValue - inputAmountX * Vector3.right));
         };
     }

@@ -152,14 +152,14 @@ public class WeaponController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R) && !reloading && bulletsLeft < preset.gunStats.magazineSize && !inventory.switching) Reload();
 
-        if (readyToShoot && shooting && canShoot)
+        if (readyToShoot && shooting && canShoot && bulletsLeft > 0)
         {
             bulletsShot = preset.gunStats.bulletsPerTap;
             pelletsShot = preset.gunStats.pelletsPerBullet;
             Shoot();
         }
 
-        if (reloading || bulletsLeft <= 0 || inventory.switching)
+        if (reloading || inventory.switching)
             canShoot = false;
 
         if (Input.GetKeyDown(KeyCode.Backspace) && !reloading)

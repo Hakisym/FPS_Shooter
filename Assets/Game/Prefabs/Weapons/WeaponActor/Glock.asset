@@ -56,11 +56,10 @@ MonoBehaviour:
     positionalReturnSpeed: 35
     rotationalReturnSpeed: 35
   cameraRecoilParameters:
-    type: 0
     rotationSpeed: 10
     returnSpeed: 5
-    recoilRotation: {x: 0.6, y: 0.2, z: 0}
-    recoilRotationAiming: {x: 0.6, y: 0.2, z: 0}
+    recoilRotation: {x: 1, y: 0.2, z: 0}
+    recoilRotationAiming: {x: 1, y: 0.2, z: 0}
     recoilX:
       serializedVersion: 2
       m_Curve:
@@ -129,9 +128,6 @@ MonoBehaviour:
       m_RotationOrder: 4
     xRecoilAmount: 5
     yRecoilAmount: 5
-    hotizontalRecoil: 0
-    verticalRecoil: 0
-  cameraRecoil: 0
   cameraShake: 0
   cameraFadeoutTime: 0
   bulletCasting: {fileID: 8360084055759571751, guid: 5776f6e05d8dd124194ee2239343602c,
