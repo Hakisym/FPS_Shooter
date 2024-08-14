@@ -12,7 +12,7 @@ public class WeaponController : MonoBehaviour
 
     [Header("Gun states")]
     [SerializeField] bool holdAim;
-    [HideInInspector] public bool reloading, aiming;
+    [HideInInspector] public bool reloading, aiming ,chambering;
     public bool canShoot;
     [HideInInspector] public bool shootState { get => !readyToShoot; }
     [HideInInspector] public bool shooting;
@@ -103,8 +103,12 @@ public class WeaponController : MonoBehaviour
     {
         MyInput();
         UpdateSpread();
+        GunState();
+    }
 
-        if (canShoot && !readyToShoot)
+    private void GunState()
+    {
+        if (!readyToShoot)
         {
             if (!wasShooting) OnStartShoot?.Invoke();
             wasShooting = true;
@@ -152,14 +156,14 @@ public class WeaponController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R) && !reloading && bulletsLeft < preset.gunStats.magazineSize && !inventory.switching) Reload();
 
-        if (readyToShoot && shooting && canShoot && bulletsLeft > 0)
+        if (readyToShoot && shooting && canShoot)
         {
             bulletsShot = preset.gunStats.bulletsPerTap;
             pelletsShot = preset.gunStats.pelletsPerBullet;
             Shoot();
         }
 
-        if (reloading || inventory.switching)
+        if (reloading || inventory.switching || bulletsLeft <= 0 || chambering)
             canShoot = false;
 
         if (Input.GetKeyDown(KeyCode.Backspace) && !reloading)
@@ -178,7 +182,7 @@ public class WeaponController : MonoBehaviour
         muzzleVFX.Play();
 
         //bullet cast and gun animation
-        if (preset.gunStats.fireMode != ShootMode.BoltAction)
+        if (preset.gunStats.fireMode != ShootMode.PumpAction)
         {
             Instantiate(bulletCasting, castingPoint.position, castingPoint.rotation, prefabHolder);
             inventory.currentWeapon.animator.Play("Fire");
@@ -204,8 +208,8 @@ public class WeaponController : MonoBehaviour
         bulletsLeft--;
         bulletsShot--;
 
-        if (preset.gunStats.fireMode == ShootMode.BoltAction)
-            Invoke("BoldAction", preset.gunStats.chamberTime);
+        if (preset.gunStats.fireMode == ShootMode.PumpAction)
+            PumpAction();
 
         Invoke("ResetShoot", timeBetweenShooting);
 
@@ -213,10 +217,25 @@ public class WeaponController : MonoBehaviour
             Invoke("Shoot", preset.gunStats.timeBetweenShots);
     }
 
-    private void BoldAction()
+    private void PumpAction()
     {
+        chambering = true;
+        StartCoroutine(Pump());
+        
+        Invoke("PumpFinished", preset.gunStats.chamberTime);
+    }
+
+    IEnumerator Pump()
+    {
+        yield return new WaitForSeconds(preset.cameraRecoilParameters.returnDuration);
         Instantiate(bulletCasting, castingPoint.position, castingPoint.rotation, prefabHolder);
         inventory.currentWeapon.animator.Play("Fire");
+    }
+
+    private void PumpFinished()
+    {
+        canShoot = true;
+        chambering = false;
     }
 
     private void FireOneShot()

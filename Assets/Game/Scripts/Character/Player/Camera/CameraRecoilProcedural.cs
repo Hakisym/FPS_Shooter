@@ -6,7 +6,6 @@ using Random = UnityEngine.Random;
 
 public class CameraRecoilProcedural : CameraRecoil
 {
-    public float lerpDuration;
     public Coroutine lerpCoroutine;
     public Vector3 endValue;
     public Vector3 lastRotation;
@@ -17,14 +16,27 @@ public class CameraRecoilProcedural : CameraRecoil
     public float startCamRot;
     public float endCamRot;
 
+    public bool returnZero;
+
+    public override void Awake()
+    {
+        base.Awake();
+        returnZero = true;
+    }
 
     private void Start()
     {
         wc.OnStartShoot += () =>
         {
-            startXInput = pl.xRotation;
-            startCamRot = pl.cameraRotationX;
-            endValue = lastRotation;
+            //set a return value from original fire point
+            if (returnZero)
+            {
+                startXInput = pl.xRotation;
+                startCamRot = pl.cameraRotationX;
+
+                endValue = lastRotation;
+                returnZero = false;
+            }
         };
 
         wc.OnEndShoot += () =>
@@ -32,31 +44,39 @@ public class CameraRecoilProcedural : CameraRecoil
             endXInput = pl.xRotation;
             endCamRot = pl.cameraRotationX;
 
-            //dont return if the camera is lower than original fire point
-            if (endCamRot > startCamRot) return;
+            //return last fire point if the camera is lower than original fire point
+            if (endCamRot > startCamRot)
+            {
+                endValue = lastRotation;
+                lerpCoroutine = StartCoroutine(RecoilReturn(currentRotation, endValue));
+                return;
+            }
 
-            //return to the original fire point, compensate the mouse input
+            //compensate the mouse input
             float inputAmountX = endXInput - startXInput;
-            //do not compensate for negative pitch input
+            //don't compensate for over pitch input
             inputAmountX = inputAmountX < 0 ? 0f : inputAmountX;
 
             lerpCoroutine = StartCoroutine(RecoilReturn(currentRotation, endValue - inputAmountX * Vector3.right));
+
         };
     }
 
     IEnumerator RecoilReturn(Vector3 startValue,Vector3 endValue)
     {
         float timeElapsed = 0;
+        float duration = wc.preset.cameraRecoilParameters.returnDuration;
 
-        while (timeElapsed < lerpDuration)
+        while (timeElapsed < duration)
         {
-            currentRotation = Vector3.Lerp(startValue, endValue, timeElapsed / lerpDuration);
+            currentRotation = Vector3.Lerp(startValue, endValue, timeElapsed / duration);
             timeElapsed += Time.deltaTime;
 
             yield return null;
         }
-
+        //reset fire point
         currentRotation = endValue;
+        returnZero = true;
     }
 
     private void FixedUpdate()

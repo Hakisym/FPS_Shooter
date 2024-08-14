@@ -22,7 +22,7 @@ MonoBehaviour:
   gunStats:
     damage: 20
     magazineSize: 8
-    fireRate: 100
+    fireRate: 500
     reloadTime: 1.5
     adsTime: 0.3
     impactForce: 0
@@ -33,7 +33,7 @@ MonoBehaviour:
     bulletsPerTap: 1
     pelletsPerBullet: 8
     timeBetweenShots: 0
-    chamberTime: 0.3
+    chamberTime: 0.65
     defaultSpread: 100
     crouchSpread: 50
     walkSpread: 100
@@ -56,11 +56,11 @@ MonoBehaviour:
     positionalReturnSpeed: 35
     rotationalReturnSpeed: 35
   cameraRecoilParameters:
-    type: 0
-    rotationSpeed: 10
+    rotationSpeed: 30
     returnSpeed: 5
-    recoilRotation: {x: 10, y: 0.2, z: 0}
-    recoilRotationAiming: {x: 10, y: 0.2, z: 0}
+    returnDuration: 0.4
+    recoilRotation: {x: 15, y: 0.2, z: 0}
+    recoilRotationAiming: {x: 15, y: 0.2, z: 0}
     recoilX:
       serializedVersion: 2
       m_Curve:
@@ -129,9 +129,6 @@ MonoBehaviour:
       m_RotationOrder: 4
     xRecoilAmount: 5
     yRecoilAmount: 5
-    hotizontalRecoil: 0
-    verticalRecoil: 0
-  cameraRecoil: 0
   cameraShake: 0
   cameraFadeoutTime: 0
   bulletCasting: {fileID: 8360084055759571751, guid: b793b2554a90b294a92a12df231b670d,

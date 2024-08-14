@@ -59,7 +59,7 @@ public class WeaponData : ScriptableObject
     [System.Serializable]
     public class CameraRecoilParameters
     {
-        public float rotationSpeed, returnSpeed;
+        public float rotationSpeed, returnSpeed, returnDuration;
 
         [Header("Procedural Recoil")]
         public Vector3 recoilRotation;
@@ -120,7 +120,7 @@ public enum ShootMode
 {
     Semi,
     Auto,
-    BoltAction
+    PumpAction
 }
 
 

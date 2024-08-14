@@ -57,6 +57,7 @@ MonoBehaviour:
   cameraRecoilParameters:
     rotationSpeed: 10
     returnSpeed: 5
+    returnDuration: 0.4
     recoilRotation: {x: 1, y: 0.5, z: 0}
     recoilRotationAiming: {x: 1, y: 0.5, z: 0}
     recoilX:
