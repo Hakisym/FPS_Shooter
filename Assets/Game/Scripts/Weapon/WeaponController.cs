@@ -15,8 +15,8 @@ public class WeaponController : MonoBehaviour
     [HideInInspector] public bool reloading, aiming ,chambering;
     public bool canShoot;
     [HideInInspector] public bool shootState { get => !readyToShoot; }
-    [HideInInspector] public bool shooting;
-    public bool readyToShoot;
+    [SerializeField] bool shooting;
+    [SerializeField] bool readyToShoot;
     private bool wasShooting;
     public bool IsShooting;
 

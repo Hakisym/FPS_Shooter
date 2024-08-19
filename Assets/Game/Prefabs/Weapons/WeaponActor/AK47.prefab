@@ -242,7 +242,7 @@ MonoBehaviour:
   sprintBobingSpeed: 1.2
   sprintIntensity: 0.01
   aimBobbingSpeed: 0.8
-  aimIntensity: 0.2
+  aimIntensity: 0.1
 --- !u!114 &5960381454378284264
 MonoBehaviour:
   m_ObjectHideFlags: 0

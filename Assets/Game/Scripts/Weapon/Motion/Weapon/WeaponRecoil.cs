@@ -32,7 +32,8 @@ public class WeaponRecoil : WeaponMotionBase
                 Random.Range(-wid.preset.weaponRecoilParameters.recoilPositionAim.z, wid.preset.weaponRecoilParameters.recoilPositionAim.z));
 
             rotationalRecoil += wid.preset.weaponRecoilParameters.staticRecoilRotationAim + new Vector3(-wid.preset.weaponRecoilParameters.recoilRotationAim.x, 
-                Random.Range(-wid.preset.weaponRecoilParameters.recoilRotationAim.y, wid.preset.weaponRecoilParameters.recoilRotationAim.y));
+                Random.Range(-wid.preset.weaponRecoilParameters.recoilRotationAim.y, wid.preset.weaponRecoilParameters.recoilRotationAim.y),
+                Random.Range(-wid.preset.weaponRecoilParameters.recoilRotationAim.z, wid.preset.weaponRecoilParameters.recoilRotationAim.z));
         }
         //Recoil while not aiming
         else

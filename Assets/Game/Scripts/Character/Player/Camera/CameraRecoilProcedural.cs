@@ -79,11 +79,11 @@ public class CameraRecoilProcedural : CameraRecoil
         returnZero = true;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (!wc.preset) return;
         //Smooth rotate to current rotation
-        resultCameraRotation = Vector3.Slerp(resultCameraRotation, currentRotation, wc.preset.cameraRecoilParameters.rotationSpeed * Time.fixedDeltaTime);
+        resultCameraRotation = Vector3.Slerp(resultCameraRotation, currentRotation, wc.preset.cameraRecoilParameters.rotationSpeed * Time.deltaTime);
     }
 
     //Recoil while using procedural pattern
