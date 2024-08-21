@@ -44,13 +44,13 @@ MonoBehaviour:
     aimSpreadMultiplier: 0.5
   weaponRecoilParameters:
     staticRecoilPosition: {x: 0, y: 0, z: -1}
-    staticRecoilRotation: {x: 0, y: 0, z: 0}
+    staticRecoilRotation: {x: -35, y: 0, z: 0}
     staticRecoilPositionAim: {x: 0, y: 0, z: -0.3}
     staticRecoilRotationAim: {x: 0, y: 0, z: 0}
-    recoilPosition: {x: 0, y: 0, z: 0}
-    recoilRotation: {x: -35, y: 1, z: 2}
+    recoilPosition: {x: 0.05, y: 0.05, z: 0}
+    recoilRotation: {x: 10, y: 15, z: 15}
     recoilPositionAim: {x: 0, y: 0, z: 0}
-    recoilRotationAim: {x: 0, y: 0, z: 0}
+    recoilRotationAim: {x: 0, y: 0, z: 5}
     positionalRecoilSpeed: 10
     rotationalRecoilSpeed: 10
     positionalReturnSpeed: 35

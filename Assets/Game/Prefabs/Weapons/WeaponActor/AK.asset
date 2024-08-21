@@ -43,14 +43,14 @@ MonoBehaviour:
     bulletSpreadResizeSpeed: 5
     aimSpreadMultiplier: 0
   weaponRecoilParameters:
-    staticRecoilPosition: {x: 0, y: 0, z: -0.5}
-    staticRecoilRotation: {x: -1, y: 2, z: -10}
+    staticRecoilPosition: {x: 0, y: 0, z: -0.4}
+    staticRecoilRotation: {x: -10, y: 0, z: 0}
     staticRecoilPositionAim: {x: 0, y: 0, z: -0.2}
     staticRecoilRotationAim: {x: 0, y: 0, z: 0}
     recoilPosition: {x: 0.01, y: 0.01, z: 0}
-    recoilRotation: {x: -20, y: 15, z: 15}
+    recoilRotation: {x: 10, y: 5, z: 15}
     recoilPositionAim: {x: 0, y: 0, z: 0}
-    recoilRotationAim: {x: 0, y: 0, z: 0}
+    recoilRotationAim: {x: 0, y: 0, z: 5}
     positionalRecoilSpeed: 10
     rotationalRecoilSpeed: 10
     positionalReturnSpeed: 35
@@ -59,8 +59,8 @@ MonoBehaviour:
     rotationSpeed: 20
     returnSpeed: 5
     returnDuration: 0.4
-    recoilRotation: {x: 1, y: 0.7, z: 0}
-    recoilRotationAiming: {x: 1, y: 0.7, z: 0}
+    recoilRotation: {x: 1, y: 0.5, z: 0}
+    recoilRotationAiming: {x: 1, y: 0.5, z: 0}
     recoilX:
       serializedVersion: 2
       m_Curve:

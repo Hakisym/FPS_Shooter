@@ -7,6 +7,7 @@ public class WeaponRecoil : WeaponMotionBase
     private Vector3 rotationalRecoil;
     private Vector3 positionalRecoil;
     private Vector3 rot;
+    private Vector3 pos;
 
     private void FixedUpdate()
     {
@@ -15,9 +16,20 @@ public class WeaponRecoil : WeaponMotionBase
         positionalRecoil = Vector3.Lerp(positionalRecoil, Vector3.zero, wid.preset.weaponRecoilParameters.positionalReturnSpeed * Time.deltaTime);
 
         //Smooth lerp to current position
-        target.localPosition = Vector3.Slerp(target.localPosition, positionalRecoil, wid.preset.weaponRecoilParameters.positionalRecoilSpeed * Time.fixedDeltaTime);
+        //target.localPosition = Vector3.Slerp(target.localPosition, positionalRecoil, wid.preset.weaponRecoilParameters.positionalRecoilSpeed * Time.fixedDeltaTime);
+        pos = new Vector3(
+            Mathf.Lerp(pos.x, positionalRecoil.x, wid.preset.weaponRecoilParameters.rotationalRecoilSpeed * Time.fixedDeltaTime),
+            Mathf.Lerp(pos.y, positionalRecoil.y, wid.preset.weaponRecoilParameters.rotationalRecoilSpeed * Time.fixedDeltaTime),
+            Mathf.Lerp(pos.z, positionalRecoil.z, wid.preset.weaponRecoilParameters.rotationalRecoilSpeed * Time.fixedDeltaTime));
+
         //Smooth rotate to current rotation
-        rot = Vector3.Slerp(rot, rotationalRecoil, wid.preset.weaponRecoilParameters.rotationalRecoilSpeed * Time.fixedDeltaTime);
+        //rot = Vector3.Slerp(rot, rotationalRecoil, wid.preset.weaponRecoilParameters.rotationalRecoilSpeed * Time.fixedDeltaTime);
+        rot = new Vector3(
+            Mathf.Lerp(rot.x, rotationalRecoil.x, wid.preset.weaponRecoilParameters.rotationalRecoilSpeed * Time.fixedDeltaTime),
+            Mathf.Lerp(rot.y, rotationalRecoil.y, wid.preset.weaponRecoilParameters.rotationalRecoilSpeed * Time.fixedDeltaTime),
+            Mathf.Lerp(rot.z, rotationalRecoil.z, wid.preset.weaponRecoilParameters.rotationalRecoilSpeed * Time.fixedDeltaTime));
+
+        target.localPosition = pos;
         target.localRotation = Quaternion.Euler(rot);
     }
 
@@ -31,7 +43,7 @@ public class WeaponRecoil : WeaponMotionBase
                 Random.Range(-wid.preset.weaponRecoilParameters.recoilPositionAim.y, wid.preset.weaponRecoilParameters.recoilPositionAim.y),
                 Random.Range(-wid.preset.weaponRecoilParameters.recoilPositionAim.z, wid.preset.weaponRecoilParameters.recoilPositionAim.z));
 
-            rotationalRecoil += wid.preset.weaponRecoilParameters.staticRecoilRotationAim + new Vector3(-wid.preset.weaponRecoilParameters.recoilRotationAim.x, 
+            rotationalRecoil += wid.preset.weaponRecoilParameters.staticRecoilRotationAim + new Vector3(Random.Range(-wid.preset.weaponRecoilParameters.recoilRotationAim.x, 0),
                 Random.Range(-wid.preset.weaponRecoilParameters.recoilRotationAim.y, wid.preset.weaponRecoilParameters.recoilRotationAim.y),
                 Random.Range(-wid.preset.weaponRecoilParameters.recoilRotationAim.z, wid.preset.weaponRecoilParameters.recoilRotationAim.z));
         }
@@ -42,7 +54,7 @@ public class WeaponRecoil : WeaponMotionBase
                 Random.Range(-wid.preset.weaponRecoilParameters.recoilPosition.y, wid.preset.weaponRecoilParameters.recoilPosition.y),
                 Random.Range(-wid.preset.weaponRecoilParameters.recoilPositionAim.z, wid.preset.weaponRecoilParameters.recoilPosition.z));
 
-            rotationalRecoil += wid.preset.weaponRecoilParameters.staticRecoilRotation + new Vector3(wid.preset.weaponRecoilParameters.recoilRotation.x, 
+            rotationalRecoil += wid.preset.weaponRecoilParameters.staticRecoilRotation + new Vector3(Random.Range(-wid.preset.weaponRecoilParameters.recoilRotation.x, 0),
                 Random.Range(-wid.preset.weaponRecoilParameters.recoilRotation.y, wid.preset.weaponRecoilParameters.recoilRotation.y), 
                 Random.Range(-wid.preset.weaponRecoilParameters.recoilRotation.z, wid.preset.weaponRecoilParameters.recoilRotation.z));
         }
