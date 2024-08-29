@@ -1,17 +1,23 @@
+using FishNet.Connection;
+using FishNet.Object;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 using Random = UnityEngine.Random;
 
-public class ActorManager : MonoBehaviour
+public class ActorManager : NetworkBehaviour
 {
     public Actor actor { get; set; }
+    public GameObject networkPlayer { get; set; }
+    public CharacterManager characterManager { get; set; }
 
     public bool respawnable;
     public bool spawnOnAwake;
     public float spawnDelay;
     public Actor actorPrefab;
+    [SerializeField] GameObject playerPrefab;
 
     public bool randomizeName;
     public string randomNamePrefix;
@@ -21,19 +27,47 @@ public class ActorManager : MonoBehaviour
 
     public string ActorName { get; set; }
 
-    private void Start()
+    private void Awake()
     {
+        characterManager = GetComponent<CharacterManager>();
+
         if (!actorPrefab) actorPrefab = GetComponentInChildren<Actor>();
 
         if (randomizeName)
         {
             ActorName = randomNamePrefix + Random.Range(0, 1000);
         }
+    }
 
-        if (spawnOnAwake)
+    public override void OnStartNetwork()
+    {
+        base.OnStartNetwork();
+        if (base.Owner.IsLocalClient)
         {
-            foreach (Transform t in transform) t.gameObject.SetActive(false);
             SpawnActor();
+        }
+    }
+
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+        if (playerPrefab)
+        {
+            networkPlayer = Instantiate(playerPrefab);
+            ServerManager.Spawn(networkPlayer, base.Owner);
+        }
+    }
+
+    private void DestroyPlayerPrefab()
+    {
+        //disable controller
+        if (networkPlayer)
+        {
+            Destroy(networkPlayer);
+            //disable rig ik
+            networkPlayer.GetComponent<RigBuilder>().enabled = false;
+            //destroy third person actor
+            Destroy(networkPlayer.gameObject, 3f);
         }
     }
 

@@ -382,8 +382,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resultCameraRotation: {x: 0, y: 0, z: 0}
   currentRotation: {x: 0, y: 0, z: 0}
-  lerpDuration: 0.4
   endValue: {x: 0, y: 0, z: 0}
+  lastRotation: {x: 0, y: 0, z: 0}
+  startXInput: 0
+  endXInput: 0
+  startCamRot: 0
+  endCamRot: 0
+  returnZero: 0
 --- !u!1 &1700024202281320438
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,6 +466,7 @@ MonoBehaviour:
   holdAim: 1
   reloading: 0
   aiming: 0
+  chambering: 0
   canShoot: 0
   shooting: 0
   readyToShoot: 0
@@ -543,8 +549,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actorName: Player
   isLocallyMine: 1
-  tpc_prefab: {fileID: 386825433807013450, guid: 5bdfe9ced7f4aca4f8faac85e21d7bf4,
-    type: 3}
 --- !u!114 &1700024202281320432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -672,7 +676,7 @@ Camera:
   m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 14839
+    m_Bits: 80375
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

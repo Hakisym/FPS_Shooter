@@ -15,10 +15,6 @@ public class Actor : MonoBehaviour
 
     public bool isLocallyMine;
 
-    [SerializeField] ThirdPersonController tpc_prefab;
-
-    public ThirdPersonController tpc { get; set; }
-
     private void Awake()
     {
         actorManager = GetComponentInParent<ActorManager>();
@@ -27,11 +23,6 @@ public class Actor : MonoBehaviour
 
     private void Start()
     {
-        if (isLocallyMine && tpc_prefab)
-        {
-            tpc = Instantiate(tpc_prefab);
-            tpc.Setup(characterManager);
-        }
 
         onKill = ConfirmKill;
         if (actorManager.actor!=this) actorManager.actor = this;

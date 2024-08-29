@@ -59,22 +59,6 @@ public class HealthSystem : MonoBehaviour, IDamageable
 
         OnDead?.Invoke();
 
-        //disable collider and navmesh
-        Destroy(GetComponent<NavMeshAgent>());
-        GetComponent<Collider>().enabled = false;
-
-        //disable controller
-        ThirdPersonController tpc = Actor.tpc;
-        if (tpc)
-        {
-            Destroy(tpc);
-            //disable rig ik
-            tpc.GetComponent<RigBuilder>().enabled = false;
-            //destroy third person actor
-            Destroy(tpc.gameObject, destroyRagdollDelay);
-        }
-        else if (TryGetComponent<RigBuilder>(out var rig)) rig.enabled = false;
-
         //destroy actor after delay
         Destroy(gameObject, destroyDelay);
 

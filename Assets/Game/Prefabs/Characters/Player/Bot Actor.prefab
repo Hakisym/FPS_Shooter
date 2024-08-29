@@ -45,10 +45,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d0eae8a6613e884ea7d2deb1cc930b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 0
+  _addedNetworkObject: {fileID: 0}
+  _networkObjectCache: {fileID: 0}
   respawnable: 1
   spawnOnAwake: 1
   spawnDelay: 4
   actorPrefab: {fileID: 0}
+  playerPrefab: {fileID: 0}
   randomizeName: 1
   randomNamePrefix: Bot_
   kills: 0
