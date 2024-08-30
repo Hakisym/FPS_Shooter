@@ -11,7 +11,7 @@ public class CharacterManager : MonoBehaviour
     public Inventory inventory { get; set; }
     public CameraManager cameraManager { get; set; }
 
-    public Transform aimTarget { get; set; }
+    public Transform aimTarget;
 
     private void Awake()
     {
@@ -21,7 +21,5 @@ public class CharacterManager : MonoBehaviour
         damageable = GetComponent<IDamageable>();
         inventory = GetComponentInChildren<Inventory>();
         cameraManager = GetComponentInChildren<CameraManager>();
-
-        aimTarget = transform.Find("AimTarget");
     }
 }

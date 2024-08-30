@@ -22,8 +22,6 @@ public class ThirdPersonController : NetworkBehaviour
     private Transform castPoint;
 
     public Rig aimRig;
-    public MultiAimConstraint chestConstrain;
-    public MultiAimConstraint upperChestConstrain;
 
     public Transform handIk;
     public Transform aimTarget;
@@ -37,11 +35,12 @@ public class ThirdPersonController : NetworkBehaviour
     public Vector3 rightHandTargetPos;
     public Vector3 rightHandTargetAim;
     public Vector3 leftHandTargetPos;
-    private Vector3 _originalRigOffset;
 
     private Vector2 targetMove;
     private float _animationBlend;
     private float _fallTimeoutDelta;
+
+    public bool showLocalPlayer;
 
     public override void OnStartClient()
     {
@@ -52,7 +51,8 @@ public class ThirdPersonController : NetworkBehaviour
             Setup(characterManager);
             Initialize();
 
-            meshRenderer.enabled = false;
+            if(!showLocalPlayer)
+                meshRenderer.enabled = false;
         }
     }
 
@@ -63,7 +63,6 @@ public class ThirdPersonController : NetworkBehaviour
         animator = GetComponent<Animator>();
         ragdoll = GetComponent<Ragdoll>();
 
-        _originalRigOffset = chestConstrain.data.offset;
         rightHandTargetPos = rightHandTarget.localPosition;
     }
 
@@ -172,11 +171,6 @@ public class ThirdPersonController : NetworkBehaviour
             var _aimRigWeight = ikEnable ? 1 : 0;
             aimRig.weight = Mathf.Lerp(aimRig.weight, _aimRigWeight, Time.deltaTime * speedChangeRate);
 
-            // apply spine offset in aim pose
-            var _bodyRigOffset = ikEnable ? aimConstrainOffset : _originalRigOffset;
-            chestConstrain.data.offset = Vector3.Lerp(chestConstrain.data.offset, _bodyRigOffset, Time.deltaTime * speedChangeRate);
-            upperChestConstrain.data.offset = Vector3.Lerp(upperChestConstrain.data.offset, _bodyRigOffset, Time.deltaTime * speedChangeRate);
-
             // change hand ik position between hipfire and aiming
             var _handTargetPos = !wc.aiming ? rightHandTargetPos : rightHandTargetAim;
             rightHandTarget.localPosition = Vector3.Lerp(rightHandTarget.localPosition, _handTargetPos, Time.deltaTime * speedChangeRate);
@@ -198,16 +192,6 @@ public class ThirdPersonController : NetworkBehaviour
             // apply hand ik with smooth lerp
             var _aimRigWeight = ikEnable ? 1 : 0;
             aimRig.weight = Mathf.Lerp(aimRig.weight, _aimRigWeight, Time.deltaTime * speedChangeRate);
-
-            // apply spine offset in aim pose
-            var _bodyRigOffset = ikEnable ? aimConstrainOffset : _originalRigOffset;
-            chestConstrain.data.offset = Vector3.Lerp(chestConstrain.data.offset, _bodyRigOffset, Time.deltaTime * speedChangeRate);
-            upperChestConstrain.data.offset = Vector3.Lerp(upperChestConstrain.data.offset, _bodyRigOffset, Time.deltaTime * speedChangeRate);
-
-            // change hand ik position between hipfire and aiming
-            var _handTargetPos = !animator.GetBool("Aim") ? rightHandTargetPos : rightHandTargetAim;
-            rightHandTarget.localPosition = Vector3.Lerp(rightHandTarget.localPosition, _handTargetPos, Time.deltaTime * speedChangeRate);
-            leftHandTarget.localPosition = Vector3.Lerp(leftHandTarget.localPosition, leftHandTargetPos, Time.deltaTime * speedChangeRate);
         }
 
     }

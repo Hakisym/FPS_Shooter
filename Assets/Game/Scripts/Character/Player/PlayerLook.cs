@@ -42,18 +42,18 @@ public class PlayerLook : MonoBehaviour
         if (!controllable) return;
         LookRotate();
 
-        //aim raycast
-        Ray ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
-        RaycastHit hitInfo;
+        ////aim raycast
+        //Ray ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
+        //RaycastHit hitInfo;
 
-        if (Physics.Raycast(ray, out hitInfo, Mathf.Infinity, aimMask))
-        {
-            aimTarget.position = hitInfo.point;
-        }
-        else
-        {
-            aimTarget.position = ray.GetPoint(50);
-        }
+        //if (Physics.Raycast(ray, out hitInfo, Mathf.Infinity, aimMask))
+        //{
+        //    aimTarget.position = hitInfo.point;
+        //}
+        //else
+        //{
+        //    aimTarget.position = ray.GetPoint(50);
+        //}
     }
 
     private void LookRotate()
