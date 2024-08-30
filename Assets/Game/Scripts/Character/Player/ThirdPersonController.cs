@@ -84,38 +84,66 @@ public class ThirdPersonController : NetworkBehaviour
 
         pm.OnJump.AddListener(JumpManagement);
 
-        characterManager.inventory.OnEquipWeapon += (WeaponData wd) =>
-        {
-            animator.SetTrigger("ChangeWeapon");
+        characterManager.inventory.OnEquipWeapon.AddListener(EquipWeapon);
 
-            //reset current weapon
-            foreach (Transform child in handIk) 
-                Destroy(child.gameObject);
-            //create weapon in third person
-            var obj = Instantiate(wd.gunModel, handIk);
-            //setup weapon hand ik
-            obj.transform.localPosition = wd.ikHandPos;
-            rightHandTargetPos = wd.rightHandTarget;
-            rightHandTargetAim = wd.rightHandTargetAim;
-            leftHandTargetPos = wd.leftHandTarget;
+        characterManager.inventory.OnDropWeapon.AddListener(DropWeapon);
 
-            GunSetup(obj.transform, wd);
-        };
-
-        characterManager.inventory.OnDropWeapon += () =>
-        {
-            foreach (Transform child in handIk)
-                Destroy(child.gameObject);
-        };
-
-        wc.OnFire += () =>
-        {
-            animator.SetTrigger("Fire");
-            gunAnim.Play("Fire");
-            muzzleVFX.Play();
-            Instantiate(bulletCasting, castPoint.position, castPoint.rotation, prefabHolder);
-        };
+        wc.OnFire.AddListener(FireWeapon);
     }
+
+    private void FireWeapon()
+    {
+        animator.SetTrigger("Fire");
+        ServerRequestFire();
+    }
+
+    private void DropWeapon()
+    {
+        ServerRequestDrop();
+    }
+
+    private void EquipWeapon(WeaponData wd)
+    {
+        animator.SetTrigger("ChangeWeapon");
+        ServerRequestEquip(wd.thirdPersonData, wd.bulletCasting, wd.gunModel);
+    }
+
+    [ServerRpc] private void ServerRequestEquip(WeaponData.ThirdPersonData tpd, GameObject casting, GameObject gun) => ClientEquipWeapon(tpd, casting, gun);
+    [ServerRpc] private void ServerRequestDrop() => ClientDropWeapon();
+    [ServerRpc] private void ServerRequestFire() => ClientFireWeapon();
+
+    [ObserversRpc]
+    private void ClientEquipWeapon(WeaponData.ThirdPersonData tpd, GameObject casting, GameObject gun)
+    {
+        //reset current weapon
+        foreach (Transform child in handIk)
+            Destroy(child.gameObject);
+        //create weapon in third person
+        var obj = Instantiate(gun, handIk);
+        //setup weapon hand ik
+        obj.transform.localPosition = tpd.ikHandPos;
+        rightHandTargetPos = tpd.rightHandTarget;
+        rightHandTargetAim = tpd.rightHandTargetAim;
+        leftHandTargetPos = tpd.leftHandTarget;
+
+        GunSetup(obj.transform, casting);
+    }
+
+    [ObserversRpc]
+    private void ClientDropWeapon()
+    {
+        foreach (Transform child in handIk)
+            Destroy(child.gameObject);
+    }
+
+    [ObserversRpc]
+    private void ClientFireWeapon()
+    {
+        gunAnim.Play("Fire");
+        muzzleVFX.Play();
+        Instantiate(bulletCasting, castPoint.position, castPoint.rotation, prefabHolder);
+    }
+
 
     private void Update()
     {
@@ -166,6 +194,7 @@ public class ThirdPersonController : NetworkBehaviour
 
             // enable ik if aiming,idle or shooting
             bool ikEnable = wc.aiming || (move == Vector2.zero && wc.preset) || wc.shootState;
+            animator.SetBool("IkEnable", ikEnable);
 
             // apply hand ik with smooth lerp
             var _aimRigWeight = ikEnable ? 1 : 0;
@@ -187,7 +216,7 @@ public class ThirdPersonController : NetworkBehaviour
         else
         {
             // enable ik if aiming,idle or shooting
-            bool ikEnable = animator.GetBool("Aim") || (animator.GetFloat("Speed") == 0 && animator.GetInteger("Weapon")!=0) || animator.GetBool("Fire");
+            bool ikEnable = animator.GetBool("IkEnable");
 
             // apply hand ik with smooth lerp
             var _aimRigWeight = ikEnable ? 1 : 0;
@@ -216,11 +245,11 @@ public class ThirdPersonController : NetworkBehaviour
         if (animationEvent.animatorClipInfo.weight > 0.5f) { }
     }
 
-    private void GunSetup(Transform gun,WeaponData wd)
+    private void GunSetup(Transform gun, GameObject casting)
     {
         gunAnim = gun.GetComponent<Animator>();
         muzzleVFX = gun.Find("muzzle").GetComponentInChildren<ParticleSystem>();
         castPoint = gun.Find("castPoint");
-        bulletCasting = wd.bulletCasting;
+        bulletCasting = casting;
     }
 }

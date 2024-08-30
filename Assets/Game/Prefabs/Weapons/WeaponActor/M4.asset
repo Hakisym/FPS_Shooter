@@ -146,3 +146,8 @@ MonoBehaviour:
   rightHandTarget: {x: -0.022, y: 0.045, z: 0.114}
   rightHandTargetAim: {x: -0.023, y: 0.008, z: -0.033}
   leftHandTarget: {x: 0.0397, y: -0.25, z: -0.0355}
+  thirdPersonData:
+    ikHandPos: {x: 1, y: 0, z: 0}
+    rightHandTarget: {x: 0, y: 0, z: 0}
+    rightHandTargetAim: {x: 0, y: 0, z: 0}
+    leftHandTarget: {x: 0, y: 0, z: 0}

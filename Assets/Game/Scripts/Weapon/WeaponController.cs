@@ -66,7 +66,7 @@ public class WeaponController : MonoBehaviour
 
     public Action OnStartShoot;
     public Action OnEndShoot;
-    public Action OnFire;
+    public UnityEvent OnFire;
     public Action OnAimStart;
     public Action OnAimFinish;
     public Action OnAimCancel;

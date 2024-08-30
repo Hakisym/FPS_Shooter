@@ -27,13 +27,10 @@ public class WeaponData : ScriptableObject
     public AudioClips soundClips;
 
     [Header("Third Person")]
-    public Vector3 ikHandPos;
-    public Vector3 rightHandTarget;
-    public Vector3 rightHandTargetAim;
-    public Vector3 leftHandTarget;
+    public ThirdPersonData thirdPersonData;
 
     [System.Serializable]
-    public class WeaponRecoilParameters
+    public struct WeaponRecoilParameters
     {
         public Vector3 staticRecoilPosition;
         public Vector3 staticRecoilRotation;
@@ -57,7 +54,7 @@ public class WeaponData : ScriptableObject
     }
 
     [System.Serializable]
-    public class CameraRecoilParameters
+    public struct CameraRecoilParameters
     {
         public float rotationSpeed, returnSpeed, returnDuration;
 
@@ -72,7 +69,7 @@ public class WeaponData : ScriptableObject
     }
 
     [System.Serializable]
-    public class GunStats
+    public struct GunStats
     {
         [Header("General")]
         public int damage;
@@ -103,7 +100,7 @@ public class WeaponData : ScriptableObject
     }
 
     [System.Serializable]
-    public class AudioClips
+    public struct AudioClips
     {
         public AudioProfile shootSound;
         public AudioProfile fireTail;
@@ -113,6 +110,15 @@ public class WeaponData : ScriptableObject
         public AudioProfile reloadSoundOutOfAmmo;
         public AudioProfile emptyMagShoot;
         public AudioProfile aimSound;
+    }
+
+    [System.Serializable]
+    public struct ThirdPersonData
+    {
+        public Vector3 ikHandPos;
+        public Vector3 rightHandTarget;
+        public Vector3 rightHandTargetAim;
+        public Vector3 leftHandTarget;
     }
 }
 

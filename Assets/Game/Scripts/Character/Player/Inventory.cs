@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System;
+using UnityEngine.Events;
 
 public class Inventory : MonoBehaviour
 {
@@ -25,8 +26,8 @@ public class Inventory : MonoBehaviour
     public GameObject pickupPrefab;
     public WeaponController wc;
     public static Inventory instance;
-    public Action<WeaponData> OnEquipWeapon;
-    public Action OnDropWeapon;
+    public UnityEvent<WeaponData> OnEquipWeapon;
+    public UnityEvent OnDropWeapon;
 
     private void Awake()
     {
