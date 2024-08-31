@@ -1,3 +1,4 @@
+using FishNet.Component.Animating;
 using FishNet.Object;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,7 +9,9 @@ using UnityEngine.Animations.Rigging;
 public class ThirdPersonController : NetworkBehaviour
 {
     public Actor Actor { get; set; }
+    public WeaponDataCollection weaponPrefabs;
     private Animator animator;
+    private NetworkAnimator networkAnimator;
     private CharacterManager characterManager;
     private PlayerMovement pm;
     private WeaponController wc;
@@ -31,7 +34,6 @@ public class ThirdPersonController : NetworkBehaviour
     public float speedChangeRate;
     public float fallTimeout;
 
-    public Vector3 aimConstrainOffset;
     public Vector3 rightHandTargetPos;
     public Vector3 rightHandTargetAim;
     public Vector3 leftHandTargetPos;
@@ -61,6 +63,7 @@ public class ThirdPersonController : NetworkBehaviour
         meshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
 
         animator = GetComponent<Animator>();
+        networkAnimator = GetComponent<NetworkAnimator>();
         ragdoll = GetComponent<Ragdoll>();
 
         rightHandTargetPos = rightHandTarget.localPosition;
@@ -93,7 +96,7 @@ public class ThirdPersonController : NetworkBehaviour
 
     private void FireWeapon()
     {
-        animator.SetTrigger("Fire");
+        networkAnimator.SetTrigger("Fire");
         ServerRequestFire();
     }
 
@@ -104,29 +107,31 @@ public class ThirdPersonController : NetworkBehaviour
 
     private void EquipWeapon(WeaponData wd)
     {
-        animator.SetTrigger("ChangeWeapon");
-        ServerRequestEquip(wd.thirdPersonData, wd.bulletCasting, wd.gunModel);
+        networkAnimator.SetTrigger("ChangeWeapon");
+        ServerRequestEquip(wd.gunID);
     }
 
-    [ServerRpc] private void ServerRequestEquip(WeaponData.ThirdPersonData tpd, GameObject casting, GameObject gun) => ClientEquipWeapon(tpd, casting, gun);
+    [ServerRpc] private void ServerRequestEquip(int id) => ClientEquipWeapon(id);
     [ServerRpc] private void ServerRequestDrop() => ClientDropWeapon();
     [ServerRpc] private void ServerRequestFire() => ClientFireWeapon();
 
     [ObserversRpc]
-    private void ClientEquipWeapon(WeaponData.ThirdPersonData tpd, GameObject casting, GameObject gun)
+    private void ClientEquipWeapon(int id)
     {
+        WeaponData weapon = weaponPrefabs.GetWeaponData(id);
+
         //reset current weapon
         foreach (Transform child in handIk)
             Destroy(child.gameObject);
         //create weapon in third person
-        var obj = Instantiate(gun, handIk);
+        var obj = Instantiate(weapon.gunModel, handIk);
         //setup weapon hand ik
-        obj.transform.localPosition = tpd.ikHandPos;
-        rightHandTargetPos = tpd.rightHandTarget;
-        rightHandTargetAim = tpd.rightHandTargetAim;
-        leftHandTargetPos = tpd.leftHandTarget;
+        obj.transform.localPosition = weapon.thirdPersonData.ikHandPos;
+        rightHandTargetPos = weapon.thirdPersonData.rightHandTarget;
+        rightHandTargetAim = weapon.thirdPersonData.rightHandTargetAim;
+        leftHandTargetPos = weapon.thirdPersonData.leftHandTarget;
 
-        GunSetup(obj.transform, casting);
+        GunSetup(obj.transform, weapon.bulletCasting);
     }
 
     [ObserversRpc]
@@ -227,7 +232,7 @@ public class ThirdPersonController : NetworkBehaviour
 
     private void JumpManagement()
     {
-        animator.SetTrigger("Jump");
+        networkAnimator.SetTrigger("Jump");
     }
 
     public void Enable()
@@ -245,7 +250,7 @@ public class ThirdPersonController : NetworkBehaviour
         if (animationEvent.animatorClipInfo.weight > 0.5f) { }
     }
 
-    private void GunSetup(Transform gun, GameObject casting)
+    private void GunSetup(Transform gun,GameObject casting)
     {
         gunAnim = gun.GetComponent<Animator>();
         muzzleVFX = gun.Find("muzzle").GetComponentInChildren<ParticleSystem>();

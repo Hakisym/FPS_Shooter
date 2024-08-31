@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ccf1944ed416b9498c99836ead28bcb, type: 3}
   m_Name: AK
   m_EditorClassIdentifier: 
+  gunID: 2
   gunName: AK
   gunPrefab: {fileID: 573339908886308818, guid: 2295045d68a754b42a8f14265bea0cfc,
     type: 3}
@@ -143,7 +144,8 @@ MonoBehaviour:
     reloadSoundOutOfAmmo: {fileID: 0}
     emptyMagShoot: {fileID: 0}
     aimSound: {fileID: 0}
-  ikHandPos: {x: 0, y: 0, z: 0}
-  rightHandTarget: {x: -0.022, y: 0.045, z: 0.114}
-  rightHandTargetAim: {x: -0.023, y: 0.008, z: -0.033}
-  leftHandTarget: {x: 0.0397, y: -0.25, z: -0.0355}
+  thirdPersonData:
+    ikHandPos: {x: 0, y: 0, z: 0}
+    rightHandTarget: {x: -0.022, y: 0.045, z: 0.114}
+    rightHandTargetAim: {x: -0.023, y: 0.008, z: -0.033}
+    leftHandTarget: {x: 0.0397, y: -0.25, z: -0.0355}

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ccf1944ed416b9498c99836ead28bcb, type: 3}
   m_Name: Glock
   m_EditorClassIdentifier: 
+  gunID: 0
   gunName: Glock
   gunPrefab: {fileID: 573339908886308818, guid: d4f2a6b7b4bed544ea41c1c6b77aafd6,
     type: 3}
@@ -143,7 +144,8 @@ MonoBehaviour:
     reloadSoundOutOfAmmo: {fileID: 0}
     emptyMagShoot: {fileID: 0}
     aimSound: {fileID: 0}
-  ikHandPos: {x: 0.0158, y: -0.0237, z: 0}
-  rightHandTarget: {x: -0.022000005, y: -0.17, z: 0.11399998}
-  rightHandTargetAim: {x: -0.06, y: -0.18, z: -0.09}
-  leftHandTarget: {x: 0.05, y: -0.01, z: 0.04}
+  thirdPersonData:
+    ikHandPos: {x: 0.0158, y: -0.0237, z: 0}
+    rightHandTarget: {x: -0.022, y: -0.17, z: 0.114}
+    rightHandTargetAim: {x: -0.06, y: -0.18, z: -0.09}
+    leftHandTarget: {x: 0.05, y: -0.01, z: 0.04}

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ccf1944ed416b9498c99836ead28bcb, type: 3}
   m_Name: Shotgun
   m_EditorClassIdentifier: 
+  gunID: 3
   gunName: Pump Shotgun
   gunPrefab: {fileID: 573339908886308818, guid: 95796709b35b12948ac2ed1e5cfc488c,
     type: 3}
@@ -143,7 +144,8 @@ MonoBehaviour:
     reloadSoundOutOfAmmo: {fileID: 0}
     emptyMagShoot: {fileID: 0}
     aimSound: {fileID: 0}
-  ikHandPos: {x: 0, y: 0, z: 0}
-  rightHandTarget: {x: -0.022, y: 0.17, z: 0.114}
-  rightHandTargetAim: {x: -0.022999993, y: 0.14, z: 0.03}
-  leftHandTarget: {x: 0.0397, y: -0.4, z: -0.0355}
+  thirdPersonData:
+    ikHandPos: {x: 0, y: 0, z: 0}
+    rightHandTarget: {x: -0.022, y: 0.17, z: 0.114}
+    rightHandTargetAim: {x: -0.023, y: 0.14, z: 0.03}
+    leftHandTarget: {x: 0.0397, y: -0.4, z: -0.0355}

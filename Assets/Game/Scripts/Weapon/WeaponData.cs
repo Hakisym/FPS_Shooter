@@ -6,6 +6,7 @@ using UnityEngine;
 public class WeaponData : ScriptableObject
 {
     [Header("Gun Settings")]
+    public int gunID;
     public string gunName;
     public GameObject gunPrefab;
     public GameObject gunModel;

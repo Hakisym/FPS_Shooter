@@ -2726,6 +2726,7 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 2426411330794694873}
   _networkObjectCache: {fileID: 2426411330794694873}
+  weaponPrefabs: {fileID: 11400000, guid: 3354f1ed0af8fd845b93f2dd8ba60ce3, type: 2}
   aimRig: {fileID: 7180704490671543361}
   handIk: {fileID: 1309601123}
   aimTarget: {fileID: 8809919525891656583}
@@ -2733,11 +2734,10 @@ MonoBehaviour:
   leftHandTarget: {fileID: 1976722767}
   speedChangeRate: 5
   fallTimeout: 0.5
-  aimConstrainOffset: {x: 0, y: 0, z: 0}
   rightHandTargetPos: {x: 0, y: 0, z: 0}
   rightHandTargetAim: {x: 0, y: 0, z: 0}
   leftHandTargetPos: {x: 0, y: 0, z: 0}
-  showLocalPlayer: 1
+  showLocalPlayer: 0
 --- !u!114 &173570480
 MonoBehaviour:
   m_ObjectHideFlags: 0
