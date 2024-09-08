@@ -403,8 +403,6 @@ GameObject:
   - component: {fileID: 1700024202281320399}
   - component: {fileID: 1700024202281320435}
   - component: {fileID: 3755187150427722618}
-  - component: {fileID: 1700024202281320432}
-  - component: {fileID: 483432918}
   - component: {fileID: 5693298499012760513}
   - component: {fileID: 1700363308}
   m_Layer: 8
@@ -488,6 +486,9 @@ MonoBehaviour:
   spread: 0
   currentSpread: 0
   resizeSpeed: 20
+  OnFire:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1700024202281320435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -549,36 +550,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actorName: Player
   isLocallyMine: 1
---- !u!114 &1700024202281320432
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1700024202281320438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97ba3df7a3e28b5418e46122bb590a59, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerCam: {fileID: 1700024202367906406}
-  detectDistance: 5
-  whatIsInteractable:
-    serializedVersion: 2
-    m_Bits: 1024
---- !u!114 &483432918
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1700024202281320438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d2a1914f2dc63c46896b1d55dc6d0a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mass: 3
 --- !u!114 &5693298499012760513
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -840,6 +811,12 @@ MonoBehaviour:
   pickupPrefab: {fileID: 9079248475693088837, guid: e9bf0af180b868f41a895c9dd30d2ec5,
     type: 3}
   wc: {fileID: 1700024202281320399}
+  OnEquipWeapon:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDropWeapon:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &3723004859983206967
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,6 +15,9 @@ public class CameraManager : MonoBehaviour
     public float cameraShakeFadeInTime = 0.2f;
     public float cameraShakeFadeOutTime = 2f;
 
+    [Header("Camera Recoil")]
+    public CameraRecoil cameraRecoil;
+
     private void Awake()
     {
         motions = GetComponentsInChildren<CameraMotionBase>().ToList();

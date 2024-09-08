@@ -46,7 +46,7 @@ MonoBehaviour:
   weaponRecoilParameters:
     staticRecoilPosition: {x: 0, y: 0, z: -0.4}
     staticRecoilRotation: {x: -10, y: 0, z: 0}
-    staticRecoilPositionAim: {x: 0, y: 0, z: -0.2}
+    staticRecoilPositionAim: {x: 0, y: 0, z: -0.4}
     staticRecoilRotationAim: {x: 0, y: 0, z: 0}
     recoilPosition: {x: 0.01, y: 0.01, z: 0}
     recoilRotation: {x: 10, y: 5, z: 15}
@@ -135,7 +135,7 @@ MonoBehaviour:
   bulletCasting: {fileID: 8360084055759571751, guid: 47e2dad834f38dc43a2622d3db1e283b,
     type: 3}
   soundClips:
-    shootSound: {fileID: 11400000, guid: 0bd1582c85a4cd349b9c21e8c266087b, type: 2}
+    shootSound: {fileID: 11400000, guid: 36b46356fa393c0489820a3583c9f8d2, type: 2}
     fireTail: {fileID: 11400000, guid: e3058399fe37b4a4fa016a337f716379, type: 2}
     holsterSound: {fileID: 0}
     takeOutSound: {fileID: 0}

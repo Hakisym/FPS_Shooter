@@ -94,62 +94,6 @@ public class ThirdPersonController : NetworkBehaviour
         wc.OnFire.AddListener(FireWeapon);
     }
 
-    private void FireWeapon()
-    {
-        networkAnimator.SetTrigger("Fire");
-        ServerRequestFire();
-    }
-
-    private void DropWeapon()
-    {
-        ServerRequestDrop();
-    }
-
-    private void EquipWeapon(WeaponData wd)
-    {
-        networkAnimator.SetTrigger("ChangeWeapon");
-        ServerRequestEquip(wd.gunID);
-    }
-
-    [ServerRpc] private void ServerRequestEquip(int id) => ClientEquipWeapon(id);
-    [ServerRpc] private void ServerRequestDrop() => ClientDropWeapon();
-    [ServerRpc] private void ServerRequestFire() => ClientFireWeapon();
-
-    [ObserversRpc]
-    private void ClientEquipWeapon(int id)
-    {
-        WeaponData weapon = weaponPrefabs.GetWeaponData(id);
-
-        //reset current weapon
-        foreach (Transform child in handIk)
-            Destroy(child.gameObject);
-        //create weapon in third person
-        var obj = Instantiate(weapon.gunModel, handIk);
-        //setup weapon hand ik
-        obj.transform.localPosition = weapon.thirdPersonData.ikHandPos;
-        rightHandTargetPos = weapon.thirdPersonData.rightHandTarget;
-        rightHandTargetAim = weapon.thirdPersonData.rightHandTargetAim;
-        leftHandTargetPos = weapon.thirdPersonData.leftHandTarget;
-
-        GunSetup(obj.transform, weapon.bulletCasting);
-    }
-
-    [ObserversRpc]
-    private void ClientDropWeapon()
-    {
-        foreach (Transform child in handIk)
-            Destroy(child.gameObject);
-    }
-
-    [ObserversRpc]
-    private void ClientFireWeapon()
-    {
-        gunAnim.Play("Fire");
-        muzzleVFX.Play();
-        Instantiate(bulletCasting, castPoint.position, castPoint.rotation, prefabHolder);
-    }
-
-
     private void Update()
     {
         if (base.IsOwner)
@@ -233,6 +177,61 @@ public class ThirdPersonController : NetworkBehaviour
     private void JumpManagement()
     {
         networkAnimator.SetTrigger("Jump");
+    }
+
+    private void FireWeapon()
+    {
+        networkAnimator.SetTrigger("Fire");
+        ServerRequestFire();
+    }
+
+    private void DropWeapon()
+    {
+        ServerRequestDrop();
+    }
+
+    private void EquipWeapon(WeaponData wd)
+    {
+        networkAnimator.SetTrigger("ChangeWeapon");
+        ServerRequestEquip(wd.gunID);
+    }
+
+    [ServerRpc] private void ServerRequestEquip(int id) => ClientEquipWeapon(id);
+    [ServerRpc] private void ServerRequestDrop() => ClientDropWeapon();
+    [ServerRpc] private void ServerRequestFire() => ClientFireWeapon();
+
+    [ObserversRpc]
+    private void ClientEquipWeapon(int id)
+    {
+        WeaponData weapon = weaponPrefabs.GetWeaponData(id);
+
+        //reset current weapon
+        foreach (Transform child in handIk)
+            Destroy(child.gameObject);
+        //create weapon in third person
+        var obj = Instantiate(weapon.gunModel, handIk);
+        //setup weapon hand ik
+        obj.transform.localPosition = weapon.thirdPersonData.ikHandPos;
+        rightHandTargetPos = weapon.thirdPersonData.rightHandTarget;
+        rightHandTargetAim = weapon.thirdPersonData.rightHandTargetAim;
+        leftHandTargetPos = weapon.thirdPersonData.leftHandTarget;
+
+        GunSetup(obj.transform, weapon.bulletCasting);
+    }
+
+    [ObserversRpc]
+    private void ClientDropWeapon()
+    {
+        foreach (Transform child in handIk)
+            Destroy(child.gameObject);
+    }
+
+    [ObserversRpc]
+    private void ClientFireWeapon()
+    {
+        gunAnim.Play("Fire");
+        muzzleVFX.Play();
+        Instantiate(bulletCasting, castPoint.position, castPoint.rotation, prefabHolder);
     }
 
     public void Enable()

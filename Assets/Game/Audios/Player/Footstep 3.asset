@@ -21,15 +21,15 @@ MonoBehaviour:
   playOnAwake: 0
   loop: 0
   priority: 128
-  volume: 1
-  pitch: 0.6
+  volume: 0.4
+  pitch: 1
   stereoPan: 0
   spatialBlend: 1
   reverbZoneMix: 1
-  dopplerLevel: 5
+  dopplerLevel: 1
   spread: 0
   volumeRolloff: 2
   minDistance: 1
-  maxDistance: 15
-  dynamicPitch: 1
+  maxDistance: 20
+  dynamicPitch: 0
   pitchFactor: 0.2

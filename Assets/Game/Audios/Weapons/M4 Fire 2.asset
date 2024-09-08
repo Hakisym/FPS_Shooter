@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 818aebd1196e35f4da360903c60a8ae5, type: 3}
-  m_Name: M4 Fire
+  m_Name: M4 Fire 2
   m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: 36a259d4b96dd0740bdb6d06d13e2130, type: 3}
+  clip: {fileID: 8300000, guid: 651a5a75ed710cd40ad2871f8abb03eb, type: 3}
   output: {fileID: 0}
   mute: 0
   bypassEffects: 0

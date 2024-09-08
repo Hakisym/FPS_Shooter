@@ -23,20 +23,18 @@ public class WeaponController : MonoBehaviour
     [Header("Reference")]
     private Transform muzzlePoint;
     private Transform castingPoint;
-    [HideInInspector] public Transform prefabHolder;
+    private Transform prefabHolder;
     [Space(5)]
     public Camera playerCam;
     public LayerMask whatIsShootable;
     public Animator animator;
     [Space(5)]
-    public CameraRecoil cameraRecoil;
-    public Actor Actor { get; set; }
-    private CharacterManager characterManager;
+    private Actor actor;
     private Inventory inventory;
     private PlayerMovement pm;
-    private HealthSystem healthSystem;
     private WeaponRecoil weaponRecoil;
-    private PlayerHUD weaponHUD;
+    private CameraManager cameraManager;
+    private CameraRecoil cameraRecoil;
 
     [Header("Visuals")]
     public GameObject metalImpact;
@@ -55,8 +53,6 @@ public class WeaponController : MonoBehaviour
     private int bulletsShot;
     private int pelletsShot;
     private float timeBetweenShooting;
-    private float maxLifetime = 3.0f;
-    private List<Bullet> bullets = new List<Bullet>();
 
     //gun spread
     [HideInInspector] public float spread;
@@ -73,9 +69,11 @@ public class WeaponController : MonoBehaviour
 
     private void Awake()
     {
-        characterManager = GetComponent<CharacterManager>();
-        weaponHUD = GetComponentInChildren<PlayerHUD>();
-        cameraRecoil = GetComponentInChildren<CameraRecoil>();
+        inventory = GetComponentInChildren<Inventory>();
+        actor = GetComponent<Actor>();
+        pm = GetComponent<PlayerMovement>();
+        cameraManager = GetComponentInChildren<CameraManager>();
+        cameraRecoil = cameraManager.cameraRecoil;
 
         fireAudio.Equip(gameObject, null);
         fireTailAudio.Equip(gameObject, null);
@@ -84,11 +82,6 @@ public class WeaponController : MonoBehaviour
 
     private void Start()
     {
-        pm = characterManager.playerMovement;
-        Actor = characterManager.actor;
-        inventory = characterManager.inventory;
-        healthSystem = characterManager.damageable as HealthSystem;
-
         readyToShoot = true;
         canShoot = true;
         prefabHolder = FindObjectOfType<PoolManager>().poolHolder;
@@ -96,7 +89,7 @@ public class WeaponController : MonoBehaviour
 
         //disable aim on sprint
         pm.OnSprint.AddListener(() => aiming = false);
-        healthSystem.OnDead.AddListener(() => inventory.DropGun());
+        GetComponent<HealthSystem>().OnDead.AddListener(() => inventory.DropGun());
     }
 
     private void Update()
@@ -120,11 +113,6 @@ public class WeaponController : MonoBehaviour
             wasShooting = false;
             IsShooting = false;
         }
-    }
-
-    private void FixedUpdate()
-    {
-        UpdateBullets(Time.fixedDeltaTime);
     }
 
     public void GetWeaponData(WeaponIdentification wid)
@@ -192,7 +180,7 @@ public class WeaponController : MonoBehaviour
         bulletSpread += preset.gunStats.bulletSpreadOneShot;
 
         //cam shake
-        characterManager.cameraManager.ShakeCameras(preset.cameraShake,preset.cameraFadeoutTime);
+        cameraManager.ShakeCameras(preset.cameraShake,preset.cameraFadeoutTime);
 
         //Recoil
         cameraRecoil.ApplyRecoil();
@@ -269,17 +257,17 @@ public class WeaponController : MonoBehaviour
                     float damageMultiplier = isHeadShot ? 1.5f : 1f;
                     float damageResult = preset.gunStats.damage * damageMultiplier;
 
-                    damageable.TakeDamage(damageResult, Actor);
+                    damageable.TakeDamage(damageResult, actor);
 
-                    if (Actor.isLocallyMine)
+                    if (actor.isLocallyMine)
                         UIManager.instance.OnEnemyHit.Invoke(isHeadShot, hit.point);
                 }
 
                 //verify kill
                 if (!damageable.deadConfirmed && damageable.IsDead())
                 {
-                    if (Actor)
-                        Actor?.onKill?.Invoke(damageable.GetActor());
+                    if (actor)
+                        actor?.onKill?.Invoke(damageable.GetActor());
 
                     damageable.deadConfirmed = true;
                 }
@@ -296,8 +284,7 @@ public class WeaponController : MonoBehaviour
 
             //bullet tracer
             bulletDir = (hit.point - muzzlePoint.position).normalized;
-            var bullet = new Bullet(muzzlePoint.position, bulletDir * preset.gunStats.velocity, bulletTrail, prefabHolder);
-            bullets.Add(bullet);
+            //bulletManager.CreateBullet(muzzlePoint.position, bulletDir * preset.gunStats.velocity, preset.gunStats.bulletDrop);
         }
         else
         {
@@ -308,8 +295,7 @@ public class WeaponController : MonoBehaviour
             bool hasHit = Physics.Raycast(muzzlePoint.position, bulletDir, whatIsShootable);
 
             //render the bullet from the muzzle
-            var bullet = new Bullet(muzzlePoint.position, bulletDir * preset.gunStats.velocity, bulletTrail, prefabHolder);
-            bullets.Add(bullet);
+            //bulletManager.CreateBullet(muzzlePoint.position, bulletDir * preset.gunStats.velocity, preset.gunStats.bulletDrop);
         }
 
         pelletsShot--;
@@ -340,54 +326,6 @@ public class WeaponController : MonoBehaviour
 
         canShoot =true;
         reloading = false;
-    }
-
-    private void UpdateBullets(float deltaTime)
-    {
-        SimulateBullets(deltaTime);
-        DestroyBullets();
-    }
-
-    private void DestroyBullets()
-    {
-        bullets.RemoveAll(bullet =>
-        {
-            if (bullet.time >= maxLifetime)
-            {
-                //Call event on destroy
-                bullet.OnDestroy();
-                return true;
-            }
-            return false;
-        });
-    }
-
-    private void SimulateBullets(float deltaTime)
-    {
-        bullets.ForEach(bullet =>
-        {
-            Vector3 p0 = bullet.GetPosition(preset.gunStats.bulletDrop);
-            bullet.time += deltaTime;
-            Vector3 p1 = bullet.GetPosition(preset.gunStats.bulletDrop);
-            RaycastSegment(p0, p1, bullet);
-        });
-    }
-
-    private void RaycastSegment(Vector3 start,Vector3 end,Bullet bullet)
-    {
-        Vector3 direction = end - start;
-        float distance = direction.magnitude;
-        //Raycast
-        RaycastHit hit;
-        if (Physics.Raycast(start, direction, out hit, distance, whatIsShootable))
-        {
-            bullet.UpdateTracer(hit.point);
-            bullet.time = maxLifetime;
-        }
-        else
-        {
-            bullet.UpdateTracer(end);
-        }
     }
 
     private void UpdateSpread()

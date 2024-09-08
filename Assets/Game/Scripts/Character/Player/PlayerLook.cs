@@ -70,13 +70,13 @@ public class PlayerLook : MonoBehaviour
             yRotation = 0f;
         }
 
-        // Periodically reset xRotation to keep the value within reasonable bounds
-        if (xRotation > 360f || xRotation < -360f)
-        {
-            xRotation = 0f;
-            cameraRecoil.resultCameraRotation.x += 360f;
-            cameraRecoil.currentRotation.x += 360f;
-        }
+        //// Periodically reset xRotation to keep the value within reasonable bounds
+        //if (xRotation > 360f || xRotation < -360f)
+        //{
+        //    xRotation = 0f;
+        //    cameraRecoil.resultCameraRotation.x += 360f;
+        //    cameraRecoil.currentRotation.x += 360f;
+        //}
 
         cameraRotationX = xRotation + cameraRecoil.resultCameraRotation.x;
         cameraRotationY = yRotation + cameraRecoil.resultCameraRotation.y;

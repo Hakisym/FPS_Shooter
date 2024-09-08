@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 818aebd1196e35f4da360903c60a8ae5, type: 3}
   m_Name: FootstepRun
   m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: 288f33d73e4860344bc8001f9467dbf3, type: 3}
+  clip: {fileID: 8300000, guid: 10a76b85a1c93c9459de25ff89859b1e, type: 3}
   output: {fileID: 0}
   mute: 0
   bypassEffects: 0
@@ -21,15 +21,15 @@ MonoBehaviour:
   playOnAwake: 0
   loop: 0
   priority: 128
-  volume: 1
-  pitch: 0.8
+  volume: 0.8
+  pitch: 1
   stereoPan: 0
   spatialBlend: 1
   reverbZoneMix: 1
-  dopplerLevel: 5
+  dopplerLevel: 1
   spread: 0
   volumeRolloff: 2
   minDistance: 1
-  maxDistance: 15
+  maxDistance: 20
   dynamicPitch: 0
   pitchFactor: 0.2
