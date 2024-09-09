@@ -13,12 +13,11 @@ public class WeaponController : MonoBehaviour
     [Header("Gun states")]
     [SerializeField] bool holdAim;
     [HideInInspector] public bool reloading, aiming ,chambering;
-    public bool canShoot;
+    [HideInInspector] public bool canShoot;
     [HideInInspector] public bool shootState { get => !readyToShoot; }
-    [SerializeField] bool shooting;
-    [SerializeField] bool readyToShoot;
+    private bool shooting;
+    private bool readyToShoot;
     private bool wasShooting;
-    public bool IsShooting;
 
     [Header("Reference")]
     private Transform muzzlePoint;
@@ -46,8 +45,7 @@ public class WeaponController : MonoBehaviour
     [Header("Sounds")]
     public Audio fireAudio = new Audio(); 
     public Audio fireTailAudio = new Audio(); 
-    public Audio reloadAudio = new Audio(); 
-    private AudioProfile currentFireAudio;
+    public Audio reloadAudio = new Audio();
 
     [HideInInspector] public int bulletsLeft;
     private int bulletsShot;
@@ -60,6 +58,7 @@ public class WeaponController : MonoBehaviour
     private float bulletSpread;
     [SerializeField] private float resizeSpeed = 3f;
 
+    //events
     public Action OnStartShoot;
     public Action OnEndShoot;
     public UnityEvent OnFire;
@@ -105,13 +104,11 @@ public class WeaponController : MonoBehaviour
         {
             if (!wasShooting) OnStartShoot?.Invoke();
             wasShooting = true;
-            IsShooting = true;
         }
         else
         {
             if (wasShooting) OnEndShoot?.Invoke();
             wasShooting = false;
-            IsShooting = false;
         }
     }
 
@@ -126,7 +123,6 @@ public class WeaponController : MonoBehaviour
         bulletCasting = preset.bulletCasting;
 
         weaponRecoil = wid.GetComponentInChildren<WeaponRecoil>();
-        currentFireAudio = preset.soundClips.shootSound;
 
         bulletsLeft = preset.gunStats.magazineSize;
         timeBetweenShooting = 60f / preset.gunStats.fireRate;
@@ -187,8 +183,7 @@ public class WeaponController : MonoBehaviour
         weaponRecoil.Fire();
 
         //play shoot sound
-        fireAudio.Update(currentFireAudio);
-        fireAudio.PlayOneShot(currentFireAudio);
+        fireAudio.PlayOneShot(preset.soundClips.shootSound);
 
         fireTailAudio.Stop();
         fireTailAudio.PlayOneShot(preset.soundClips.fireTail);
@@ -233,9 +228,7 @@ public class WeaponController : MonoBehaviour
         Vector3 dir = (playerCam.transform.forward + _spread).normalized;
 
         RaycastHit hit;
-        Vector3 bulletDir;
         Ray ray = new Ray(playerCam.transform.position, dir);
-
 
         // Hitscan shoot
         if (Physics.Raycast(ray, out hit, preset.gunStats.range, whatIsShootable))
@@ -281,22 +274,10 @@ public class WeaponController : MonoBehaviour
             //bullet impact
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Environment"))
                 PoolManager.instance.SpawnGameObject(PoolTag.BulletImpact, hit.point, Quaternion.LookRotation(hit.normal));
-
-            //bullet tracer
-            bulletDir = (hit.point - muzzlePoint.position).normalized;
-            //bulletManager.CreateBullet(muzzlePoint.position, bulletDir * preset.gunStats.velocity, preset.gunStats.bulletDrop);
         }
-        else
-        {
-            //get ray point from distance
-            bulletDir = (ray.GetPoint(50) - muzzlePoint.position).normalized;
 
-            //check obstacle between muzzle and hit point
-            bool hasHit = Physics.Raycast(muzzlePoint.position, bulletDir, whatIsShootable);
-
-            //render the bullet from the muzzle
-            //bulletManager.CreateBullet(muzzlePoint.position, bulletDir * preset.gunStats.velocity, preset.gunStats.bulletDrop);
-        }
+        //Vector3 bulletDir = hit.collider ? (hit.point - muzzlePoint.position).normalized : (ray.GetPoint(50) - muzzlePoint.position).normalized;
+        //bulletManager.CreateBullet(muzzlePoint.position, bulletDir * preset.gunStats.velocity, preset.gunStats.bulletDrop);
 
         pelletsShot--;
 

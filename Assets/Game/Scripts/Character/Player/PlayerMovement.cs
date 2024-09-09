@@ -25,11 +25,11 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask groundMask;
     [Space]
     [Header("Move State")]
-    public Vector3 velocity;
-    public bool isGrounded;
-    public bool isSprinting;
-    public bool isCrouching;
-    public bool canMove;
+    [HideInInspector] public Vector3 velocity;
+    [HideInInspector] public bool isGrounded;
+    [HideInInspector] public bool isSprinting;
+    [HideInInspector] public bool isCrouching;
+    [HideInInspector] public bool canMove;
     [Space]
     [Header("Crouch")]
     public Transform cameraHolder;
@@ -61,7 +61,6 @@ public class PlayerMovement : MonoBehaviour
     private Audio footstepsAudio = new Audio();
     private float stepCycle;
     private float nextStep;
-    private float lastInterval;
 
     private void Awake()
     {
@@ -209,7 +208,7 @@ public class PlayerMovement : MonoBehaviour
     private void ProgressStepCycle()
     {
         //stop if not grounded
-        if (!isGrounded) return;
+        if (!isGrounded || !canMove) return;
 
         AudioProfile footstepSFX;
         float stepInterval;
@@ -230,10 +229,6 @@ public class PlayerMovement : MonoBehaviour
             footstepSFX = footstepWalk;
             stepInterval = stepIntervalWalk;
         }
-
-        //play sprint footstep instantly
-        if (lastInterval != stepInterval && stepInterval == stepIntervalSprint) nextStep -= stepInterval;
-        lastInterval = stepInterval;
 
         //check if taking input
         if (velocity.sqrMagnitude > 0 && (Input.GetAxisRaw("Horizontal") != 0) || Input.GetAxisRaw("Vertical") != 0)

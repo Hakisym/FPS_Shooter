@@ -1848,6 +1848,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1074407451, guid: 697ef857e7c44a44aaf2aa0f3ea4867e, type: 3}
+      propertyPath: cameraRecoil
+      value: 
+      objectReference: {fileID: 2082757226}
     - target: {fileID: 1700024202281320437, guid: 697ef857e7c44a44aaf2aa0f3ea4867e,
         type: 3}
       propertyPath: m_RootOrder
@@ -1910,6 +1914,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3755187150427722618, guid: 697ef857e7c44a44aaf2aa0f3ea4867e, type: 3}
+    - {fileID: 1700363308, guid: 697ef857e7c44a44aaf2aa0f3ea4867e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 697ef857e7c44a44aaf2aa0f3ea4867e, type: 3}
 --- !u!1 &2027074418
 GameObject:
@@ -2682,6 +2687,18 @@ LightProbeGroup:
   - {x: -1, y: 0.845877, z: -8.393072}
   - {x: 13.178067, y: 0.845877, z: -8.393072}
   m_Dering: 1
+--- !u!114 &2082757226 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 121397113, guid: 697ef857e7c44a44aaf2aa0f3ea4867e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1943030214}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be8e33ba039c74342ac938f348962ad9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2093618370
 PrefabInstance:
   m_ObjectHideFlags: 0

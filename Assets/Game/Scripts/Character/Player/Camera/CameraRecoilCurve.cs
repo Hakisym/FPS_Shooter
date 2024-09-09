@@ -9,7 +9,7 @@ public class CameraRecoilCurve : CameraRecoil
     private void Update()
     {
         if (!wc.preset) return;
-        if (wc.IsShooting) return;
+        if (wc.shootState) return;
 
         if (evaluationProgress > 0)
         {
