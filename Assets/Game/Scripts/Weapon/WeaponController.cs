@@ -34,6 +34,7 @@ public class WeaponController : MonoBehaviour
     private WeaponRecoil weaponRecoil;
     private CameraManager cameraManager;
     private CameraRecoil cameraRecoil;
+    private PlayerHUD hud;
 
     [Header("Visuals")]
     public GameObject metalImpact;
@@ -73,6 +74,7 @@ public class WeaponController : MonoBehaviour
         pm = GetComponent<PlayerMovement>();
         cameraManager = GetComponentInChildren<CameraManager>();
         cameraRecoil = cameraManager.cameraRecoil;
+        hud = GetComponentInChildren<PlayerHUD>();
 
         fireAudio.Equip(gameObject, null);
         fireTailAudio.Equip(gameObject, null);
@@ -88,7 +90,7 @@ public class WeaponController : MonoBehaviour
 
         //disable aim on sprint
         pm.OnSprint.AddListener(() => aiming = false);
-        GetComponent<HealthSystem>().OnDead.AddListener(() => inventory.DropGun());
+        GetComponent<HealthSystem>()?.OnDead.AddListener(() => inventory.DropGun());
     }
 
     private void Update()
@@ -96,6 +98,18 @@ public class WeaponController : MonoBehaviour
         MyInput();
         UpdateSpread();
         GunState();
+        DisplayHud();
+        DisplayCrosshair();
+    }
+
+    private void DisplayCrosshair()
+    {
+        hud.crosshair.DisplayCrosshair(currentSpread, !aiming && preset);
+    }
+
+    private void DisplayHud()
+    {
+        hud.weaponHUD.SetAmmoValue(bulletsLeft,preset);
     }
 
     private void GunState()
@@ -253,7 +267,7 @@ public class WeaponController : MonoBehaviour
                     damageable.TakeDamage(damageResult, actor);
 
                     if (actor.isLocallyMine)
-                        UIManager.instance.OnEnemyHit.Invoke(isHeadShot, hit.point);
+                        UIManager.instance.hitMarker.Show(isHeadShot, hit.point);
                 }
 
                 //verify kill

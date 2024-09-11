@@ -12,7 +12,7 @@ public class PlayerLook : MonoBehaviour
     public Vector2 addedLookValue { get; set; }
 
     private Camera mainCamera;
-    private bool controllable;
+    private bool canLook;
     public float xRotation = 0f;
     public float yRotation = 0f;
     public CameraRecoil cameraRecoil;
@@ -31,15 +31,15 @@ public class PlayerLook : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        controllable = true;
-        UIManager.instance.pauseMenu.OnPausedStateChanged += (bool paused) => this.controllable = !paused;
+        canLook = true;
+        UIManager.instance.pauseMenu.OnPausedStateChanged += (bool paused) => this.canLook = !paused;
 
         mainCamera = Camera.main;
     }
 
     private void Update()
     {
-        if (!controllable) return;
+        if (!canLook) return;
         LookRotate();
 
         ////aim raycast

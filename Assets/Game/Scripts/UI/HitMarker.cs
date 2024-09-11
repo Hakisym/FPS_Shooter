@@ -12,9 +12,9 @@ public class HitMarker : MonoBehaviour
     public Vector3 killMarkerSize;
 
 
-    public void Show(bool enableHUD, bool enableSFX, bool critical,Vector3 position)
+    public void Show(bool critical,Vector3 position)
     {
-        if (enableHUD)
+        if (UIManager.instance.HitMarker)
         {
             Vector3 pos = Camera.main.WorldToScreenPoint(position);
 
@@ -26,7 +26,8 @@ public class HitMarker : MonoBehaviour
             hitMarker.GetComponent<Animator>().Play("Hit", 0, 0f);
         }
 
-        if (enableSFX) SoundManager.instance.PlaySound(hitSoundEffect, .08f, .15f, true, 0);
+        if (UIManager.instance.HitMarkerSFX) 
+            SoundManager.instance.PlaySound(hitSoundEffect, .08f, .15f, true, 0);
 
     }
 }

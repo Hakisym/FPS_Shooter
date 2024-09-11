@@ -50,7 +50,7 @@ public class HealthSystem : MonoBehaviour, IDamageable
                 Die();
         }
 
-        if (Actor != null && Actor.isLocallyMine) UIManager.instance.OnReceiveDamage();
+        if (Actor != null && Actor.isLocallyMine) UIManager.instance.damageIndicator.Show();
     }
 
     private void Die()

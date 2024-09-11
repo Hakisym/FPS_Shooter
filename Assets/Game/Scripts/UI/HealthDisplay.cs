@@ -5,16 +5,10 @@ using TMPro;
 
 public class HealthDisplay : MonoBehaviour
 {
-    public TextMeshProUGUI healthReserve;
-    private HealthSystem healthSystem;
+    [SerializeField] TMP_Text healthText;
 
-    private void Update()
+    public void SetHealthValue(float value)
     {
-        healthReserve.text = healthSystem.currentHealth.ToString();
-    }
-
-    public void GetReference(HealthSystem ph)
-    {
-        this.healthSystem = ph;
+        healthText.text = value.ToString();
     }
 }

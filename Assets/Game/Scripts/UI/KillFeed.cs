@@ -16,6 +16,8 @@ public class KillFeed : MonoBehaviour
 
     public void Show(Actor killer, Actor victim)
     {
+        if (!UIManager.instance.KillFeed) return;
+
         int kills = killer.actorManager.kills;
         counter.text = "TOTAL KILLS " + kills;
         tag.text = "YOU KILLED " + victim.actorName;

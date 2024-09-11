@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class CrossHair : MonoBehaviour
 {
-    private WeaponController weaponController;
-
     [Tooltip(" How much space it takes from your screen"), SerializeField]
     private float size = 10f;
 
@@ -24,30 +22,36 @@ public class CrossHair : MonoBehaviour
     }
 
     private bool canShow = true;
-
-    public void GetReference(WeaponController wc)
+    private float spread;
+    public void DisplayCrosshair(float _spread, bool show)
     {
-        this.weaponController = wc;
-        wc.OnAimStart += () => { canShow = false; };
-        wc.OnAimCancel += () => { canShow = true; };
+        if (show)
+        {
+            spread = _spread;
+            if (!canShow) canShow = true;
+        }
+        else
+        {
+            if (canShow) canShow = false;
+        }
     }
 
     private void OnGUI()
     {
-        if ((!canShow && !showAimCrosshair) || !enableCrosshair || !weaponController.preset) return;
+        if ((!canShow && !showAimCrosshair) || !enableCrosshair) return;
 
         Texture2D texture = new Texture2D(1, 1);
         texture.SetPixel(0, 0, Color.white);
         texture.wrapMode = TextureWrapMode.Repeat;
         texture.Apply();
 
-        if (parts.downPart) GUI.DrawTexture(new Rect(Screen.width / 2 - width / 2, Screen.height / 2 + weaponController.currentSpread / 2, width, size), texture);
+        if (parts.downPart) GUI.DrawTexture(new Rect(Screen.width / 2 - width / 2, Screen.height / 2 + spread / 2, width, size), texture);
 
-        if (parts.topPart) GUI.DrawTexture(new Rect(Screen.width / 2 - width / 2, Screen.height / 2 - weaponController.currentSpread / 2, width, -size), texture);
+        if (parts.topPart) GUI.DrawTexture(new Rect(Screen.width / 2 - width / 2, Screen.height / 2 - spread / 2, width, -size), texture);
 
-        if (parts.rightPart) GUI.DrawTexture(new Rect(Screen.width / 2 + weaponController.currentSpread / 2, Screen.height / 2 - width / 2, size, width), texture);
+        if (parts.rightPart) GUI.DrawTexture(new Rect(Screen.width / 2 + spread / 2, Screen.height / 2 - width / 2, size, width), texture);
 
-        if (parts.leftPart) GUI.DrawTexture(new Rect(Screen.width / 2 - weaponController.currentSpread / 2, Screen.height / 2 - width / 2, -size, width), texture);
+        if (parts.leftPart) GUI.DrawTexture(new Rect(Screen.width / 2 - spread / 2, Screen.height / 2 - width / 2, -size, width), texture);
 
         if (parts.center)
         {

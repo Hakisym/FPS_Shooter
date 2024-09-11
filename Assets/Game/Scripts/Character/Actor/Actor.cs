@@ -34,7 +34,7 @@ public class Actor : MonoBehaviour
 
         if (isLocallyMine)
         {
-            UIManager.instance.OnEnemyKill?.Invoke(this, victim);
+            UIManager.instance.killFeed.Show(this, victim);
         }
     }
 

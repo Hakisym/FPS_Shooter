@@ -5,20 +5,18 @@ using UnityEngine;
 
 public class WeaponHUD : MonoBehaviour
 {
-    public TextMeshProUGUI ammoReserve;
-    public TextMeshProUGUI ammoAmount;
-    private WeaponController weaponController;
+    [SerializeField] TMP_Text ammoReserve;
 
-    void Update()
+    public void SetAmmoValue(int value,bool show = true)
     {
-        if (!weaponController.preset) return;
-
-        ammoReserve.text = weaponController.bulletsLeft.ToString();
-        ammoAmount.text = weaponController.preset.gunStats.magazineSize.ToString();
-    }
-
-    public void GetReference(WeaponController wc)
-    {
-        this.weaponController = wc;
+        if (show)
+        {
+            ammoReserve.text = value.ToString();
+            if(!gameObject.activeSelf) gameObject.SetActive(true);
+        }
+        else
+        {
+            if (gameObject.activeSelf) gameObject.SetActive(false);
+        }
     }
 }

@@ -60,8 +60,8 @@ MonoBehaviour:
     rotationSpeed: 50
     returnSpeed: 5
     returnDuration: 0.4
-    recoilRotation: {x: 8, y: 0.2, z: 0}
-    recoilRotationAiming: {x: 8, y: 0.2, z: 0}
+    recoilRotation: {x: 5, y: 0.2, z: 0}
+    recoilRotationAiming: {x: 5, y: 0.2, z: 0}
     recoilX:
       serializedVersion: 2
       m_Curve:
