@@ -55,7 +55,7 @@ public class HealthSystem : MonoBehaviour, IDamageable
 
     private void Die()
     {
-        if (Actor.actorManager && Actor.actorManager.respawnable) Actor.ConfirmDeath();
+        if (Actor.actorManager) Actor.ConfirmDeath();
 
         OnDead?.Invoke();
 
@@ -72,7 +72,7 @@ public class HealthSystem : MonoBehaviour, IDamageable
 
     private void Respawn()
     {
-        if (Actor.actorManager && Actor.actorManager.respawnable) Actor.actorManager.Respawn();
+        if (Actor.actorManager) Actor.actorManager.Respawn();
 
         if (Actor.isLocallyMine) deathcamera.Enable(Actor,ragdoll);
         if (Actor.isLocallyMine) ragdoll.GetComponent<ThirdPersonController>().Enable();

@@ -9,7 +9,7 @@ public class Actor : MonoBehaviour
 
     public ActorManager actorManager { get; set; }
 
-    public CharacterManager characterManager { get; set; }
+    public NetworkCharacter characterManager { get; set; }
 
     public Action<Actor> onKill;
 
@@ -18,14 +18,12 @@ public class Actor : MonoBehaviour
     private void Awake()
     {
         actorManager = GetComponentInParent<ActorManager>();
-        characterManager = GetComponent<CharacterManager>();
+        characterManager = GetComponent<NetworkCharacter>();
     }
 
     private void Start()
     {
-
         onKill = ConfirmKill;
-        if (actorManager.actor!=this) actorManager.actor = this;
     }
 
     private void ConfirmKill(Actor victim)

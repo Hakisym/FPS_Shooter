@@ -8,11 +8,10 @@ using UnityEngine.Animations.Rigging;
 
 public class ThirdPersonController : NetworkBehaviour
 {
-    public Actor Actor { get; set; }
     public WeaponDataCollection weaponPrefabs;
     private Animator animator;
     private NetworkAnimator networkAnimator;
-    private CharacterManager characterManager;
+    private NetworkCharacter characterManager;
     private PlayerMovement pm;
     private WeaponController wc;
     private SkinnedMeshRenderer meshRenderer;
@@ -49,7 +48,7 @@ public class ThirdPersonController : NetworkBehaviour
         base.OnStartClient();
         if (base.IsOwner)
         {
-            characterManager = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterManager>();
+            characterManager = GetComponentInParent<NetworkCharacter>();
             Setup(characterManager);
             Initialize();
 
@@ -69,16 +68,15 @@ public class ThirdPersonController : NetworkBehaviour
         rightHandTargetPos = rightHandTarget.localPosition;
     }
 
-    public void Setup(CharacterManager _characterManager)
+    public void Setup(NetworkCharacter _characterManager)
     {
         characterManager = _characterManager;
-        Actor = _characterManager.actor;
         pm = _characterManager.playerMovement;
         wc = _characterManager.weaponController;
 
         //setup ragdoll
-        HealthSystem healthSystem = (HealthSystem)characterManager.damageable;
-        healthSystem.ragdoll = this.ragdoll;
+        //HealthSystem healthSystem = (HealthSystem)characterManager.damageable;
+        //healthSystem.ragdoll = this.ragdoll;
     }
 
     private void Initialize()

@@ -323,6 +323,7 @@ MonoBehaviour:
   cameraShakeRoughness: 7
   cameraShakeFadeInTime: 0.2
   cameraShakeFadeOutTime: 2
+  cameraRecoil: {fileID: 121397113}
 --- !u!114 &1074407452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -402,9 +403,6 @@ GameObject:
   - component: {fileID: 1700024202281320436}
   - component: {fileID: 1700024202281320399}
   - component: {fileID: 1700024202281320435}
-  - component: {fileID: 3755187150427722618}
-  - component: {fileID: 5693298499012760513}
-  - component: {fileID: 1700363308}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -466,16 +464,11 @@ MonoBehaviour:
   aiming: 0
   chambering: 0
   canShoot: 0
-  shooting: 0
-  readyToShoot: 0
-  IsShooting: 0
-  prefabHolder: {fileID: 0}
   playerCam: {fileID: 1700024202367906406}
   whatIsShootable:
     serializedVersion: 2
     m_Bits: 2112
   animator: {fileID: 1700024203204091687}
-  cameraRecoil: {fileID: 0}
   metalImpact: {fileID: 1709698631529194, guid: 72b8f08b2b4dbbc439ccbb6402928ad1,
     type: 3}
   bloodImpact: {fileID: 6898028267083706492, guid: 6243fad3610020f4c9307c7ba631a1f5,
@@ -536,53 +529,6 @@ MonoBehaviour:
   OnSprint:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &3755187150427722618
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1700024202281320438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53c973365e6dc9349a594398081b9828, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  actorName: Player
-  isLocallyMine: 1
---- !u!114 &5693298499012760513
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1700024202281320438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8dcda5808aa2c9c4c82b6ff41dc57b17, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
-  destroyDelay: 0
-  destroyRagdollDelay: 3
-  dead: 0
-  OnDead:
-    m_PersistentCalls:
-      m_Calls: []
-  ragdoll: {fileID: 0}
---- !u!114 &1700363308
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1700024202281320438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26725ac5164e8cb45a02b20592dbf1b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aimTarget: {fileID: 6063389377180028688}
 --- !u!1 &1700024202367906408
 GameObject:
   m_ObjectHideFlags: 0
@@ -855,21 +801,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1700024202281320437}
     m_Modifications:
-    - target: {fileID: 615417547136062387, guid: 356072c59c08c884f99372bb1e3e9a3e,
-        type: 3}
-      propertyPath: Crosshair
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4109144165991475854, guid: 356072c59c08c884f99372bb1e3e9a3e,
-        type: 3}
-      propertyPath: parts.center
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4109144165991475854, guid: 356072c59c08c884f99372bb1e3e9a3e,
-        type: 3}
-      propertyPath: showAimCrosshair
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4844194783670129284, guid: 356072c59c08c884f99372bb1e3e9a3e,
         type: 3}
       propertyPath: m_Pivot.x
@@ -913,21 +844,6 @@ PrefabInstance:
     - target: {fileID: 4844194783670129284, guid: 356072c59c08c884f99372bb1e3e9a3e,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4844194783670129284, guid: 356072c59c08c884f99372bb1e3e9a3e,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4844194783670129284, guid: 356072c59c08c884f99372bb1e3e9a3e,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4844194783670129284, guid: 356072c59c08c884f99372bb1e3e9a3e,
-        type: 3}
-      propertyPath: m_LocalScale.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4844194783670129284, guid: 356072c59c08c884f99372bb1e3e9a3e,
@@ -995,25 +911,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerHUD
       objectReference: {fileID: 0}
-    - target: {fileID: 8596486037718537695, guid: 356072c59c08c884f99372bb1e3e9a3e,
-        type: 3}
-      propertyPath: healthReserve
-      value: 
-      objectReference: {fileID: 4537586513857935103}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 356072c59c08c884f99372bb1e3e9a3e, type: 3}
---- !u!114 &4537586513857935103 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2282403816654800215, guid: 356072c59c08c884f99372bb1e3e9a3e,
-    type: 3}
-  m_PrefabInstance: {fileID: 2401549763128226728}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &7092621531693130028 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4844194783670129284, guid: 356072c59c08c884f99372bb1e3e9a3e,

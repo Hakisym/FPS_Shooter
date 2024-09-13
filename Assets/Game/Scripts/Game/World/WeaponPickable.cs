@@ -15,8 +15,9 @@ public class WeaponPickable : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player") && canInteract)
-            if (Inventory.instance.PickupWeapon(weaponData))
-                Destroy(gameObject);
+            if(other.GetComponentInChildren<Inventory>()!=null)
+                if (other.GetComponentInChildren<Inventory>().PickupWeapon(weaponData))
+                    Destroy(gameObject);
     }
 
     private void OnTriggerExit(Collider other)

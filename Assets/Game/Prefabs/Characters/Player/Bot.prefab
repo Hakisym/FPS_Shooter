@@ -76,8 +76,6 @@ GameObject:
   - component: {fileID: 1208876087026693881}
   - component: {fileID: 5456706104095327113}
   - component: {fileID: 7532666886135989329}
-  - component: {fileID: 8930937290183775953}
-  - component: {fileID: 7694178704335535296}
   m_Layer: 7
   m_Name: Bot
   m_TagString: Untagged
@@ -169,41 +167,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.6, y: 1.8, z: 0.6}
   m_Center: {x: 0, y: 0.9, z: 0}
---- !u!114 &8930937290183775953
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 523627908920130813}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8dcda5808aa2c9c4c82b6ff41dc57b17, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
-  destroyDelay: 3
-  destroyRagdollDelay: 0
-  dead: 0
-  OnDead:
-    m_PersistentCalls:
-      m_Calls: []
-  ragdoll: {fileID: 0}
---- !u!114 &7694178704335535296
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 523627908920130813}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53c973365e6dc9349a594398081b9828, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  actorName: 
-  isLocallyMine: 0
-  tpc_prefab: {fileID: 0}
 --- !u!1 &552332879952153221
 GameObject:
   m_ObjectHideFlags: 0
