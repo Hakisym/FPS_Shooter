@@ -25,14 +25,8 @@ public class Inventory : MonoBehaviour
     [Header("Reference")]
     public GameObject pickupPrefab;
     public WeaponController wc;
-    public static Inventory instance;
     public UnityEvent<WeaponData> OnEquipWeapon;
     public UnityEvent OnDropWeapon;
-
-    private void Awake()
-    {
-        instance = this;
-    }
 
     private void Start()
     {

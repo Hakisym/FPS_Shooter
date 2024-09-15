@@ -1,9 +1,7 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using Random = UnityEngine.Random;
 
 public class WeaponController : MonoBehaviour
 {
@@ -66,6 +64,7 @@ public class WeaponController : MonoBehaviour
     public Action OnAimStart;
     public Action OnAimFinish;
     public Action OnAimCancel;
+    public Action<WeaponData> OnWeaponChange;
 
     private void Awake()
     {
@@ -140,6 +139,8 @@ public class WeaponController : MonoBehaviour
 
         bulletsLeft = preset.gunStats.magazineSize;
         timeBetweenShooting = 60f / preset.gunStats.fireRate;
+
+        OnWeaponChange?.Invoke(wid.preset);
     }
 
     private void MyInput()
@@ -193,7 +194,7 @@ public class WeaponController : MonoBehaviour
         cameraManager.ShakeCameras(preset.cameraShake,preset.cameraFadeoutTime);
 
         //Recoil
-        cameraRecoil.ApplyRecoil();
+        cameraRecoil.ApplyRecoil(aiming);
         weaponRecoil.Fire();
 
         //play shoot sound

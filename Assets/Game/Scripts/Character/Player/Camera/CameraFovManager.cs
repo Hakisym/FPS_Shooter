@@ -12,7 +12,6 @@ public class CameraFovManager : MonoBehaviour
     public float cameraFovSmoothing = 5f;
     [Space]
     public PlayerMovement pm;
-    public WeaponController wc;
 
     private Camera mainCamera;
     private Camera weaponCamera;
