@@ -10,14 +10,11 @@ public class WeaponSprinting : WeaponMotionBase
 
     private Vector3 originalPosition;
     private Quaternion originalRotation;
-    private PlayerMovement pm;
     private float multiplier = 1f;
 
     // Start is called before the first frame update
     void Start()
     {
-        pm = wc.GetComponent<PlayerMovement>();
-
         originalPosition = target.localPosition;
         originalRotation = target.localRotation;
     }
@@ -39,7 +36,7 @@ public class WeaponSprinting : WeaponMotionBase
             finalPosition = originalPosition;
             finalRotation = originalRotation;
         }
-        var curMpr = wc.aiming ? multiplier * 3f : multiplier;
+        var curMpr = wid.aimState ? multiplier * 3f : multiplier;
 
         //Smooth interpolate
         target.localPosition = Vector3.Slerp(target.localPosition, finalPosition, Time.deltaTime * sprintSpeed * curMpr);

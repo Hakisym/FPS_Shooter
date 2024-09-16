@@ -48,6 +48,8 @@ public class Audio
 
     public void PlayOneShot(AudioProfile profile)
     {
+        if (!profile) return;
+
         Equip(target, profile);
         Update(profile);
         RandomizePitch();

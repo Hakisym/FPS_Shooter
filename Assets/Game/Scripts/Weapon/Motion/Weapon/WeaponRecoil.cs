@@ -37,7 +37,7 @@ public class WeaponRecoil : WeaponMotionBase
     {
         //Add random offset to current position & rotation when firing
         //Recoil while aiming
-        if (wc.aiming)
+        if (wid.aimState)
         {
             positionalRecoil += wid.preset.weaponRecoilParameters.staticRecoilPositionAim + new Vector3(Random.Range(-wid.preset.weaponRecoilParameters.recoilPositionAim.x, wid.preset.weaponRecoilParameters.recoilPositionAim.x),
                 Random.Range(-wid.preset.weaponRecoilParameters.recoilPositionAim.y, wid.preset.weaponRecoilParameters.recoilPositionAim.y),

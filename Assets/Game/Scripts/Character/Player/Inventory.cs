@@ -25,6 +25,7 @@ public class Inventory : MonoBehaviour
     [Header("Reference")]
     public GameObject pickupPrefab;
     public WeaponController wc;
+    public PlayerMovement pm;
     public UnityEvent<WeaponData> OnEquipWeapon;
     public UnityEvent OnDropWeapon;
 
@@ -154,7 +155,7 @@ public class Inventory : MonoBehaviour
         //create new gun
         var weaponGO = Instantiate(weaponSO.gunPrefab, this.transform);
         var newWeapon = weaponGO.GetComponent<WeaponIdentification>();
-        newWeapon.Initialize(this);
+        newWeapon.Initialize(wc,pm);
         //add to inventory and hide it
         weapons.Add(newWeapon);
         newWeapon.gameObject.SetActive(false);

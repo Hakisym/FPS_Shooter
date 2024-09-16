@@ -10,14 +10,11 @@ public class WeaponCrouch : WeaponMotionBase
 
     private Vector3 originalPosition;
     private Quaternion originalRotation;
-    private PlayerMovement pm;
     private float multiplier = 1f;
 
     // Start is called before the first frame update
     void Start()
     {
-        pm = wc.GetComponent<PlayerMovement>();
-
         originalPosition = target.localPosition;
         originalRotation = target.localRotation;
     }
@@ -29,7 +26,7 @@ public class WeaponCrouch : WeaponMotionBase
         Quaternion finalRotation;
 
         //Update transform to aim position & rotation
-        if (pm.isCrouching && !wc.aiming)
+        if (pm.isCrouching && !wid.aimState)
         {
             finalPosition = crouchPosition;
             finalRotation = Quaternion.Euler(crouchRotation);

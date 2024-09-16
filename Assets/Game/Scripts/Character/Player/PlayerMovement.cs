@@ -13,51 +13,51 @@ public class PlayerMovement : MonoBehaviour
     public float walkSpeed = 5f;
     public float sprintSpeed = 6f;
     public float crouchSpeed = 2f;
-    public float gravity = -9.81f;
-    public float jumpHeight = 3f;
-    public float stepIntervalWalk = 5;
-    public float stepIntervalSprint = 4;
-    public float stepIntervalCrouch = 3;
+    [SerializeField] float gravity = -9.81f;
+    [SerializeField] float jumpHeight = 3f;
+    [SerializeField] float stepIntervalWalk = 5;
+    [SerializeField] float stepIntervalSprint = 4;
+    [SerializeField] float stepIntervalCrouch = 3;
+    public float currentSpeed { get => speed; }
+    private float speed;
     [Space]
     [Header("Ground Check")]
-    public Transform groundCheck;
-    public float groundDistance = 0.4f;
-    public LayerMask groundMask;
+    [SerializeField] Transform groundCheck;
+    [SerializeField] float groundDistance = 0.4f;
+    [SerializeField] LayerMask groundMask;
     [Space]
     [Header("Move State")]
-    [HideInInspector] public Vector3 velocity;
+    [HideInInspector] private Vector3 velocity;
     [HideInInspector] public bool isGrounded;
     [HideInInspector] public bool isSprinting;
     [HideInInspector] public bool isCrouching;
     [HideInInspector] public bool canMove;
     [Space]
     [Header("Crouch")]
-    public Transform cameraHolder;
-    public float crouchHeight;
+    [SerializeField] Transform cameraHolder;
+    [SerializeField] float crouchHeight;
+    private float originalHeight;
     [Space]
     [Header("Sounds")]
-    public AudioProfile footstepWalk;
-    public AudioProfile footstepSprint;
-    public AudioProfile footstepCrouch;
+    [SerializeField] AudioProfile footstepWalk;
+    [SerializeField] AudioProfile footstepSprint;
+    [SerializeField] AudioProfile footstepCrouch;
     [Space]
     [Header("Reference")]
-    public Animator animator;
-    public WeaponController wc;
+    [SerializeField] Animator animator;
+    [SerializeField] WeaponController wc;
 
+    //jump & sprint
     public UnityEvent OnJump;
     public UnityEvent OnLand;
-    public UnityEvent OnSprint;
+    public Action<bool> OnSprintStateChange;
     private bool previouslyGrounded;
 
-    public float currentSpeed { get => speed; }
+    //input
     public float moveVel { get => moveDirection.sqrMagnitude; }
-
     private Vector3 moveDirection;
-    private float originalHeight;
-    private float speed;
-    private float mouseX;
-    private float mouseY;
 
+    //footstep
     private Audio footstepsAudio = new Audio();
     private float stepCycle;
     private float nextStep;
@@ -127,18 +127,29 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Move input
-        mouseX = Input.GetAxis("Horizontal");
-        mouseY = Input.GetAxis("Vertical");
+        float mouseX = Input.GetAxisRaw("Horizontal");
+        float mouseY = Input.GetAxisRaw("Vertical");
         moveDirection = transform.right * mouseX + transform.forward * mouseY;
         // Clamp movement
         moveDirection = Vector3.ClampMagnitude(moveDirection, 1f);
 
         // Sprint input
-        if (Input.GetKeyDown(KeyCode.LeftShift) && isGrounded && mouseY > 0)
+        bool sprinting = Input.GetKey(KeyCode.LeftShift);
+        if (sprinting && isGrounded && mouseY > 0 && !wc.shootState)
         {
-            if (!isSprinting) OnSprint?.Invoke();
-            isSprinting = !isSprinting;
+            if (!isSprinting)
+            {
+                OnSprintStateChange?.Invoke(true);
+            }
+            isSprinting = true;
         }
+        else
+        {
+            if (isSprinting) OnSprintStateChange?.Invoke(false);
+            isSprinting = false;
+        }
+
+        if (wc.aiming && isSprinting) isSprinting = false;
 
         // Crouch input
         if (Input.GetKeyDown(KeyCode.LeftControl) && isGrounded && !isSprinting)
@@ -166,7 +177,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Sprint()
     {
-        if (Input.GetAxisRaw("Vertical") < 1 || wc.shootState || Input.GetMouseButtonDown(1)) isSprinting = false;
+        //if (Input.GetAxisRaw("Vertical") < 1 || wc.shootState || Input.GetMouseButtonDown(1)) isSprinting = false;
     }
 
     private void HandleVelocity()

@@ -142,7 +142,6 @@ MonoBehaviour:
   aimingFOVOverlay: -5
   cameraFovSmoothing: 10
   pm: {fileID: 1700024202281320435}
-  wc: {fileID: 1700024202281320399}
 --- !u!114 &1537672116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -475,11 +474,8 @@ MonoBehaviour:
     type: 3}
   bulletTrail: {fileID: 5617826704567396366, guid: 60caffca5d1f9264bb6fdb5ac795f2ef,
     type: 3}
-  bulletsLeft: 0
-  spread: 0
-  currentSpread: 0
   resizeSpeed: 20
-  OnFire:
+  OnShoot:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &1700024202281320435
@@ -508,7 +504,6 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 64
-  velocity: {x: 0, y: 0, z: 0}
   isGrounded: 0
   isSprinting: 0
   isCrouching: 0
@@ -757,6 +752,7 @@ MonoBehaviour:
   pickupPrefab: {fileID: 9079248475693088837, guid: e9bf0af180b868f41a895c9dd30d2ec5,
     type: 3}
   wc: {fileID: 1700024202281320399}
+  pm: {fileID: 1700024202281320435}
   OnEquipWeapon:
     m_PersistentCalls:
       m_Calls: []

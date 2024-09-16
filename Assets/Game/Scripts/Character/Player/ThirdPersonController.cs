@@ -89,7 +89,7 @@ public class ThirdPersonController : NetworkBehaviour
 
         characterManager.inventory.OnDropWeapon.AddListener(DropWeapon);
 
-        wc.OnFire.AddListener(FireWeapon);
+        wc.OnShoot.AddListener(FireWeapon);
     }
 
     private void Update()

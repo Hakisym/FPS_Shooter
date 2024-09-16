@@ -10,11 +10,17 @@ public class WeaponIdentification : MonoBehaviour
     public Animator animator;
     public WeaponMotionBase[] motions;
 
-    public void Initialize(Inventory inventory)
+    public bool aimState;
+    public float aimValue;
+
+    public void Initialize(WeaponController wc, PlayerMovement pm)
     {
+        wc.OnAimStateChange += (bool isAiming) => aimState = isAiming;
+        wc.OnAimValueUpdate += (float t) => aimValue = t;
+
         foreach (var motion in motions)
         {
-            motion.SetUp(this, inventory);
+            motion.Setup(this, pm);
         }
     }
 }

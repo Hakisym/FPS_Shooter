@@ -22,9 +22,9 @@ public class WeaponController : MonoBehaviour
     private Transform castingPoint;
     private Transform prefabHolder;
     [Space(5)]
-    public Camera playerCam;
-    public LayerMask whatIsShootable;
-    public Animator animator;
+    [SerializeField] Camera playerCam;
+    [SerializeField] LayerMask whatIsShootable;
+    [SerializeField] Animator animator;
     [Space(5)]
     private Actor actor;
     private Inventory inventory;
@@ -35,36 +35,40 @@ public class WeaponController : MonoBehaviour
     private PlayerHUD hud;
 
     [Header("Visuals")]
-    public GameObject metalImpact;
-    public GameObject bloodImpact;
-    public GameObject bulletTrail;
+    [SerializeField] GameObject metalImpact;
+    [SerializeField] GameObject bloodImpact;
+    [SerializeField] GameObject bulletTrail;
     private GameObject bulletCasting;
     private ParticleSystem muzzleVFX;
 
     [Header("Sounds")]
-    public Audio fireAudio = new Audio(); 
-    public Audio fireTailAudio = new Audio(); 
-    public Audio reloadAudio = new Audio();
+    private Audio fireAudio = new Audio();
+    private Audio fireTailAudio = new Audio();
+    private Audio weaponAudio = new Audio();
 
-    [HideInInspector] public int bulletsLeft;
+    private int bulletsLeft;
     private int bulletsShot;
     private int pelletsShot;
     private float timeBetweenShooting;
 
     //gun spread
-    [HideInInspector] public float spread;
-    [HideInInspector] public float currentSpread;
+    private float spread;
+    private float currentSpread;
     private float bulletSpread;
-    [SerializeField] private float resizeSpeed = 3f;
+    [SerializeField] float resizeSpeed = 3f;
 
     //events
     public Action OnStartShoot;
     public Action OnEndShoot;
-    public UnityEvent OnFire;
-    public Action OnAimStart;
-    public Action OnAimFinish;
-    public Action OnAimCancel;
+    public UnityEvent OnShoot;
+    public Action<bool> OnAimStateChange;
+    public Action<float> OnAimValueUpdate;
     public Action<WeaponData> OnWeaponChange;
+
+    //gun aim
+    private bool wasAiming;
+    private float timeElapsed;
+    private float aimTime;
 
     private void Awake()
     {
@@ -77,7 +81,7 @@ public class WeaponController : MonoBehaviour
 
         fireAudio.Equip(gameObject, null);
         fireTailAudio.Equip(gameObject, null);
-        reloadAudio.Equip(gameObject, null);
+        weaponAudio.Equip(gameObject, null);
     }
 
     private void Start()
@@ -87,8 +91,6 @@ public class WeaponController : MonoBehaviour
         prefabHolder = FindObjectOfType<PoolManager>().poolHolder;
         UIManager.instance.pauseMenu.OnPausedStateChanged += (bool paused) => this.canShoot = !paused;
 
-        //disable aim on sprint
-        pm.OnSprint.AddListener(() => aiming = false);
         GetComponent<HealthSystem>()?.OnDead.AddListener(() => inventory.DropGun());
     }
 
@@ -97,18 +99,45 @@ public class WeaponController : MonoBehaviour
         MyInput();
         UpdateSpread();
         GunState();
+        AimState();
         DisplayHud();
         DisplayCrosshair();
     }
 
-    private void DisplayCrosshair()
+    private void AimState()
     {
-        hud.crosshair.DisplayCrosshair(currentSpread, !aiming && preset);
-    }
+        if (!preset) return;
 
-    private void DisplayHud()
-    {
-        hud.weaponHUD.SetAmmoValue(bulletsLeft,preset);
+        //Update aim percentage
+        if (aiming)
+        {
+            timeElapsed += Time.deltaTime;
+
+            if (!wasAiming)
+            {
+                OnAimStateChange?.Invoke(true);
+                weaponAudio.PlayOneShot(preset.soundClips.aimSound);
+            }
+            wasAiming = true;
+        }
+        else
+        {
+            timeElapsed -= Time.deltaTime;
+
+            if (wasAiming) OnAimStateChange?.Invoke(false);
+            wasAiming = false;
+        }
+
+        float aimDuration = preset.gunStats.adsTime;
+
+        //clamp ads time
+        timeElapsed = Mathf.Clamp(timeElapsed, 0, aimDuration);
+        //ads gradually over time
+        aimTime = timeElapsed / aimDuration;
+
+        cameraManager.cameraFovManager.UpdateAimFov(aimTime);
+        UpdateAimSpread(aimTime);
+        OnAimValueUpdate?.Invoke(aimTime);
     }
 
     private void GunState()
@@ -150,7 +179,10 @@ public class WeaponController : MonoBehaviour
         if(preset.gunStats.fireMode == ShootMode.Auto) shooting = Input.GetKey(KeyCode.Mouse0);
         else shooting = Input.GetKeyDown(KeyCode.Mouse0);
 
-        if (holdAim) aiming = Input.GetMouseButton(1) && !pm.isSprinting;
+        if (holdAim)
+        {
+            aiming = Input.GetMouseButton(1);
+        }
         else if (Input.GetMouseButtonDown(1)) aiming = !aiming;
 
         if (Input.GetKeyDown(KeyCode.R) && !reloading && bulletsLeft < preset.gunStats.magazineSize && !inventory.switching) Reload();
@@ -173,7 +205,7 @@ public class WeaponController : MonoBehaviour
     {
         readyToShoot = false;
 
-        OnFire?.Invoke();
+        OnShoot?.Invoke();
 
         FireOneShot();
 
@@ -311,7 +343,7 @@ public class WeaponController : MonoBehaviour
         animator.SetTrigger("reloading");
 
         //play reload sound
-        reloadAudio.PlayOneShot(preset.soundClips.reloadSoundAmmoLeft);
+        weaponAudio.PlayOneShot(preset.soundClips.reloadSoundAmmoLeft);
 
         Invoke("ReloadFinished", preset.gunStats.reloadTime);
     }
@@ -347,9 +379,24 @@ public class WeaponController : MonoBehaviour
         currentSpread = Mathf.Lerp(currentSpread, locomotionSpread + bulletSpread, resizeSpeed * Time.deltaTime);
     }
 
-    public void UpdateAimSpread(float t)
+    private void UpdateAimSpread(float t)
     {
         spread = Mathf.Lerp(currentSpread / 1000, currentSpread / 1000 * preset.gunStats.aimSpreadMultiplier, t);
+    }
+
+    private void DisplayCrosshair()
+    {
+        hud.crosshair.DisplayCrosshair(currentSpread, !aiming && preset);
+    }
+
+    private void DisplayHud()
+    {
+        hud.weaponHUD.SetAmmoValue(bulletsLeft, preset);
+    }
+
+    public float GetAimPercentage()
+    {
+        return aimTime;
     }
 
     public void CanShoot() => canShoot = true;

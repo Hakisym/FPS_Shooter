@@ -14,8 +14,6 @@ public class WeaponBobbing : WeaponMotionBase
     public float aimBobbingSpeed = 0.8f;
     public float aimIntensity = 0.2f;
 
-    private PlayerMovement pm;
-
     private Vector3 originalPosition;
     private float sinTime;
     private Vector3 velocity = Vector3.zero;
@@ -24,7 +22,6 @@ public class WeaponBobbing : WeaponMotionBase
 
     private void Start()
     {
-        pm = wc.GetComponent<PlayerMovement>();
         originalPosition = target.localPosition;
     }
 
@@ -39,7 +36,7 @@ public class WeaponBobbing : WeaponMotionBase
             bobbingIntensity = effectIntensity + sprintIntensity;
             bobbingSpeed = effectSpeed * sprintBobingSpeed;
         }
-        else if (wc.aiming || pm.isCrouching)
+        else if (wid.aimState || pm.isCrouching)
         {
             bobbingSpeed = effectSpeed * aimBobbingSpeed;
         }
@@ -53,8 +50,8 @@ public class WeaponBobbing : WeaponMotionBase
         float idleMultiplier = inputVector.sqrMagnitude > 0f && pm.isGrounded ? 1f : 0f;
 
         // Calculate bobbing position with a Mobius pattern
-        float sinAmountY = Mathf.Sin(sinTime) * bobbingIntensity * (wc.aiming ? aimIntensity : 1f) * idleMultiplier;
-        float sinAmountX = Mathf.Sin(sinTime/2) * bobbingIntensity * (wc.aiming ? aimIntensity : 1f) * idleMultiplier;
+        float sinAmountY = Mathf.Sin(sinTime) * bobbingIntensity * (wid.aimState ? aimIntensity : 1f) * idleMultiplier;
+        float sinAmountX = Mathf.Sin(sinTime/2) * bobbingIntensity * (wid.aimState ? aimIntensity : 1f) * idleMultiplier;
 
         Vector3 finalPosition = originalPosition + Vector3.up * sinAmountY + Vector3.right * sinAmountX;
 

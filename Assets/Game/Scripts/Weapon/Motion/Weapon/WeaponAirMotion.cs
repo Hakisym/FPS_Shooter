@@ -11,9 +11,6 @@ public class WeaponAirMotion : WeaponMotionBase
     public float returnSpeed = 10f;
     public float smoothTime = 12f;
 
-    [Space]
-    private PlayerMovement pm;
-
     private Quaternion originalRotation;
     private Vector3 currentPosition;
     private Vector3 currentRotation;
@@ -22,7 +19,6 @@ public class WeaponAirMotion : WeaponMotionBase
 
     private void Start()
     {
-        pm = wc.GetComponent<PlayerMovement>();
         pm.OnJump.AddListener(Jump);
         pm.OnLand.AddListener(Land);
 
@@ -44,7 +40,7 @@ public class WeaponAirMotion : WeaponMotionBase
 
     private void Jump()
     {
-        float multiplier = wc.aiming ? 1 : 0.7f;
+        float multiplier = wid.aimState ? 1 : 0.7f;
 
         // Set the jump intensity
         currentPosition += jumpPosition * multiplier;
@@ -53,7 +49,7 @@ public class WeaponAirMotion : WeaponMotionBase
 
     private void Land()
     {
-        float multiplier = wc.aiming ? 1 : 0.7f;
+        float multiplier = wid.aimState ? 1 : 0.7f;
 
         // Set the jump intensity
         currentPosition += landPosition * multiplier;

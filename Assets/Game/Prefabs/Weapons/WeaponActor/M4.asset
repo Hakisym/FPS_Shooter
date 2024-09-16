@@ -34,12 +34,12 @@ MonoBehaviour:
     pelletsPerBullet: 0
     timeBetweenShots: 0
     chamberTime: 0
-    defaultSpread: 12
-    crouchSpread: 8
-    walkSpread: 50
-    runSpread: 80
-    jumpSpread: 100
-    bulletSpreadOneShot: 10
+    defaultSpread: 100
+    crouchSpread: 60
+    walkSpread: 120
+    runSpread: 150
+    jumpSpread: 200
+    bulletSpreadOneShot: 50
     bulletSpreadResizeSpeed: 5
     aimSpreadMultiplier: 0
   weaponRecoilParameters:

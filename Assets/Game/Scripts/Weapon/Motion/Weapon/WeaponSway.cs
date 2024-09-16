@@ -40,7 +40,7 @@ public class WeaponSway : WeaponMotionBase
 
     private void Update()
     {
-        currentAimMultiplier = wc.aiming ? aimMultiplier : 1f;
+        currentAimMultiplier = wid.aimState ? aimMultiplier : 1f;
 
         CheckInput();
         UpdatePositionsway();
