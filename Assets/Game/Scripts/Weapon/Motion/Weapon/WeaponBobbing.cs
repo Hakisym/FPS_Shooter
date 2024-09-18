@@ -14,29 +14,22 @@ public class WeaponBobbing : WeaponMotionBase
     public float aimBobbingSpeed = 0.8f;
     public float aimIntensity = 0.2f;
 
-    private Vector3 originalPosition;
     private float sinTime;
     private Vector3 velocity = Vector3.zero;
     private float bobbingSpeed;
     private float bobbingIntensity;
 
-    private void Start()
-    {
-        originalPosition = target.localPosition;
-    }
-
     private void Update()
     {
-        Vector3 inputVector = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
-
         bobbingIntensity = effectIntensity;
+
         // Change bobbing speed with aiming & moving
-        if (pm.isSprinting)
+        if (stateProvider.CurrentMoveState == MoveState.Sprinting)
         {
             bobbingIntensity = effectIntensity + sprintIntensity;
             bobbingSpeed = effectSpeed * sprintBobingSpeed;
         }
-        else if (wid.aimState || pm.isCrouching)
+        else if (stateProvider.IsAiming || stateProvider.CurrentMoveState == MoveState.Crouching)
         {
             bobbingSpeed = effectSpeed * aimBobbingSpeed;
         }
@@ -44,14 +37,15 @@ public class WeaponBobbing : WeaponMotionBase
         {
             bobbingSpeed = effectSpeed;
         }
+
         sinTime += Time.deltaTime * bobbingSpeed;
 
         // Movement & air multiplier for return animation
-        float idleMultiplier = inputVector.sqrMagnitude > 0f && pm.isGrounded ? 1f : 0f;
+        float idleMultiplier = stateProvider.CurrentMoveState != MoveState.Idle && stateProvider.CurrentMoveState != MoveState.InAir ? 1f : 0f;
 
         // Calculate bobbing position with a Mobius pattern
-        float sinAmountY = Mathf.Sin(sinTime) * bobbingIntensity * (wid.aimState ? aimIntensity : 1f) * idleMultiplier;
-        float sinAmountX = Mathf.Sin(sinTime/2) * bobbingIntensity * (wid.aimState ? aimIntensity : 1f) * idleMultiplier;
+        float sinAmountY = Mathf.Sin(sinTime) * bobbingIntensity * (stateProvider.IsAiming ? aimIntensity : 1f) * idleMultiplier;
+        float sinAmountX = Mathf.Sin(sinTime/2) * bobbingIntensity * (stateProvider.IsAiming ? aimIntensity : 1f) * idleMultiplier;
 
         Vector3 finalPosition = originalPosition + Vector3.up * sinAmountY + Vector3.right * sinAmountX;
 

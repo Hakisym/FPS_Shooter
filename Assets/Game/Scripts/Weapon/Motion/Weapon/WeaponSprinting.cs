@@ -8,16 +8,8 @@ public class WeaponSprinting : WeaponMotionBase
     public Vector3 sprintRotation;
     public float sprintSpeed;
 
-    private Vector3 originalPosition;
-    private Quaternion originalRotation;
     private float multiplier = 1f;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        originalPosition = target.localPosition;
-        originalRotation = target.localRotation;
-    }
 
     // Update is called once per frame
     void Update()
@@ -26,7 +18,7 @@ public class WeaponSprinting : WeaponMotionBase
         Quaternion finalRotation;
 
         //Update transform to aim position & rotation
-        if (pm.isSprinting)
+        if (stateProvider.CurrentMoveState == MoveState.Sprinting)
         {
             finalPosition = sprintPosition;
             finalRotation = Quaternion.Euler(sprintRotation);
@@ -36,7 +28,7 @@ public class WeaponSprinting : WeaponMotionBase
             finalPosition = originalPosition;
             finalRotation = originalRotation;
         }
-        var curMpr = wid.aimState ? multiplier * 3f : multiplier;
+        var curMpr = stateProvider.IsAiming ? multiplier * 3f : multiplier;
 
         //Smooth interpolate
         target.localPosition = Vector3.Slerp(target.localPosition, finalPosition, Time.deltaTime * sprintSpeed * curMpr);

@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class WeaponMotionBase : MonoBehaviour
 {
-    protected WeaponIdentification wid;
-    protected PlayerMovement pm;
+    protected IWeaponStateProvider stateProvider;
+    protected Vector3 originalPosition;
+    protected Quaternion originalRotation;
     public Transform target;
 
-    public void Setup(WeaponIdentification wid, PlayerMovement pm)
+    public virtual void Setup(IWeaponStateProvider provider)
     {
-        this.wid = wid;
-        this.pm = pm;
+        this.stateProvider = provider;
+        originalPosition = target.localPosition;
+        originalRotation = target.localRotation;
     }
 }

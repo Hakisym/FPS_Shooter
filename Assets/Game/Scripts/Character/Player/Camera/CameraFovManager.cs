@@ -32,7 +32,7 @@ public class CameraFovManager : MonoBehaviour
 
     void Update()
     {
-        if (pm.isSprinting)
+        if (pm.moveState == MoveState.Sprinting)
         {
             currentMainFov = originalMainFov + sprintingFOV;
             currentWeaponFov = originalWeaponFov + sprintingFOVOverlay;

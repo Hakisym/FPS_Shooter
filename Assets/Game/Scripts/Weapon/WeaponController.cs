@@ -61,14 +61,12 @@ public class WeaponController : MonoBehaviour
     public Action OnStartShoot;
     public Action OnEndShoot;
     public UnityEvent OnShoot;
-    public Action<bool> OnAimStateChange;
-    public Action<float> OnAimValueUpdate;
     public Action<WeaponData> OnWeaponChange;
 
     //gun aim
     private bool wasAiming;
     private float timeElapsed;
-    private float aimTime;
+    public float aimValue { get; private set; }
 
     private void Awake()
     {
@@ -114,17 +112,13 @@ public class WeaponController : MonoBehaviour
             timeElapsed += Time.deltaTime;
 
             if (!wasAiming)
-            {
-                OnAimStateChange?.Invoke(true);
                 weaponAudio.PlayOneShot(preset.soundClips.aimSound);
-            }
             wasAiming = true;
         }
         else
         {
             timeElapsed -= Time.deltaTime;
 
-            if (wasAiming) OnAimStateChange?.Invoke(false);
             wasAiming = false;
         }
 
@@ -133,11 +127,10 @@ public class WeaponController : MonoBehaviour
         //clamp ads time
         timeElapsed = Mathf.Clamp(timeElapsed, 0, aimDuration);
         //ads gradually over time
-        aimTime = timeElapsed / aimDuration;
+        aimValue = timeElapsed / aimDuration;
 
-        cameraManager.cameraFovManager.UpdateAimFov(aimTime);
-        UpdateAimSpread(aimTime);
-        OnAimValueUpdate?.Invoke(aimTime);
+        cameraManager.cameraFovManager.UpdateAimFov(aimValue);
+        UpdateAimSpread(aimValue);
     }
 
     private void GunState()
@@ -363,14 +356,11 @@ public class WeaponController : MonoBehaviour
         float locomotionSpread = 0;
 
         // Manage different sizes
-        if (pm.isGrounded)
-        {
-            if (pm.currentSpeed == pm.crouchSpeed) locomotionSpread = preset.gunStats.crouchSpread;
-            else if (pm.moveVel < 0.2f) locomotionSpread = preset.gunStats.defaultSpread;
-            else if (pm.currentSpeed == pm.walkSpeed) locomotionSpread = preset.gunStats.walkSpread;
-            else if (pm.currentSpeed == pm.sprintSpeed) locomotionSpread = preset.gunStats.runSpread;
-        }
-        else locomotionSpread = preset.gunStats.jumpSpread;
+        if (pm.moveState == MoveState.InAir) locomotionSpread = preset.gunStats.jumpSpread;
+        else if(pm.moveState == MoveState.Crouching) locomotionSpread = preset.gunStats.crouchSpread;
+        else if (pm.moveState == MoveState.Idle) locomotionSpread = preset.gunStats.defaultSpread;
+        else if (pm.moveState == MoveState.Walking) locomotionSpread = preset.gunStats.walkSpread;
+        else if (pm.moveState == MoveState.Sprinting) locomotionSpread = preset.gunStats.runSpread;
 
         //if (weaponController.aiming) locomotionSpread *= weaponController.preset.gunStats.aimSpreadMultiplier;
 
@@ -396,7 +386,7 @@ public class WeaponController : MonoBehaviour
 
     public float GetAimPercentage()
     {
-        return aimTime;
+        return aimValue;
     }
 
     public void CanShoot() => canShoot = true;

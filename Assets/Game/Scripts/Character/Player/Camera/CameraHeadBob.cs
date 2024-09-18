@@ -8,18 +8,16 @@ public class CameraHeadBob : CameraMotionBase
     public float headBobFrequency;
 
     private PlayerMovement pm;
-    private CharacterController characterController;
     private float angle;
 
     private void Awake()
     {
         pm = GetComponentInParent<PlayerMovement>();
-        characterController = pm.GetComponent<CharacterController>();
     }
 
     private void Update()
     {
-        float multiplier = characterController.velocity.magnitude / pm.sprintSpeed;
+        float multiplier = pm.currentSpeed / pm.GetMaximumSpeed();
 
         angle += Time.deltaTime * headBobFrequency * multiplier;
 
@@ -27,7 +25,7 @@ public class CameraHeadBob : CameraMotionBase
         float distanceX = headBobAmplitude * Mathf.Cos(angle) / 100f * multiplier;
 
 
-        if (characterController.velocity.magnitude <= 0 || !pm.isGrounded)
+        if (pm.moveState == MoveState.Idle || pm.moveState == MoveState.InAir)
         {
             targetPosition = Vector3.Lerp(targetPosition, Vector3.zero, Time.deltaTime * 2f);
             targetRotation = Vector3.Lerp(targetRotation, Vector3.zero, Time.deltaTime * 2f);

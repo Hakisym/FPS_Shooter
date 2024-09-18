@@ -10,16 +10,15 @@ public class PlayerMovement : MonoBehaviour
     public CharacterController controller;
     [Space]
     [Header("Move Stats")]
-    public float walkSpeed = 5f;
-    public float sprintSpeed = 6f;
-    public float crouchSpeed = 2f;
+    [SerializeField] float walkSpeed = 5f;
+    [SerializeField] float sprintSpeed = 6f;
+    [SerializeField] float crouchSpeed = 2f;
     [SerializeField] float gravity = -9.81f;
     [SerializeField] float jumpHeight = 3f;
     [SerializeField] float stepIntervalWalk = 5;
     [SerializeField] float stepIntervalSprint = 4;
     [SerializeField] float stepIntervalCrouch = 3;
-    public float currentSpeed { get => speed; }
-    private float speed;
+    public float currentSpeed { get; private set; }
     [Space]
     [Header("Ground Check")]
     [SerializeField] Transform groundCheck;
@@ -32,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector] public bool isSprinting;
     [HideInInspector] public bool isCrouching;
     [HideInInspector] public bool canMove;
+    public MoveState moveState;
     [Space]
     [Header("Crouch")]
     [SerializeField] Transform cameraHolder;
@@ -50,11 +50,9 @@ public class PlayerMovement : MonoBehaviour
     //jump & sprint
     public UnityEvent OnJump;
     public UnityEvent OnLand;
-    public Action<bool> OnSprintStateChange;
     private bool previouslyGrounded;
 
     //input
-    public float moveVel { get => moveDirection.sqrMagnitude; }
     private Vector3 moveDirection;
 
     //footstep
@@ -88,9 +86,32 @@ public class PlayerMovement : MonoBehaviour
 
         HandleVelocity();
 
+        HandleMoveState();
+
         Move();
 
         HandleMotionEvent();
+    }
+
+    private void HandleMoveState()
+    {
+        if (!isGrounded)
+        {
+            moveState = MoveState.InAir;
+        }else if(moveDirection == Vector3.zero)
+        {
+            moveState = MoveState.Idle;
+        }else if (isSprinting)
+        {
+            moveState = MoveState.Sprinting;
+        }else if (isCrouching)
+        {
+            moveState = MoveState.Crouching;
+        }
+        else
+        {
+            moveState = MoveState.Walking;
+        }
     }
 
     private void FixedUpdate()
@@ -136,18 +157,9 @@ public class PlayerMovement : MonoBehaviour
         // Sprint input
         bool sprinting = Input.GetKey(KeyCode.LeftShift);
         if (sprinting && isGrounded && mouseY > 0 && !wc.shootState)
-        {
-            if (!isSprinting)
-            {
-                OnSprintStateChange?.Invoke(true);
-            }
             isSprinting = true;
-        }
         else
-        {
-            if (isSprinting) OnSprintStateChange?.Invoke(false);
             isSprinting = false;
-        }
 
         if (wc.aiming && isSprinting) isSprinting = false;
 
@@ -185,22 +197,26 @@ public class PlayerMovement : MonoBehaviour
         // Check velocity
         if (isSprinting)
         {
-            speed = sprintSpeed;
+            currentSpeed = sprintSpeed;
         }
-        else if (isCrouching || wc.aiming)
+        else if ((isCrouching || wc.aiming) && moveDirection != Vector3.zero)
         {
-            speed = crouchSpeed;
+            currentSpeed = crouchSpeed;
+        }
+        else if (moveDirection != Vector3.zero)
+        {
+            currentSpeed = walkSpeed;
         }
         else
         {
-            speed = walkSpeed;
+            currentSpeed = 0f;
         }
     }
 
     private void Move()
     {
         // Move
-        controller.Move(moveDirection * speed * Time.deltaTime);
+        controller.Move(moveDirection * currentSpeed * Time.deltaTime);
     }
 
     private void Jump()
@@ -259,4 +275,16 @@ public class PlayerMovement : MonoBehaviour
         footstepsAudio.Update(footstepSFX);
         footstepsAudio.PlayOneShot(footstepSFX);
     }
+
+    public float GetMaximumSpeed() => sprintSpeed;
+
+}
+
+public enum MoveState
+{
+    Idle,
+    Walking,
+    Sprinting,
+    Crouching,
+    InAir
 }

@@ -23,24 +23,19 @@ public class WeaponSway : WeaponMotionBase
     private float currentAimMultiplier;
     private bool controllable;
 
-    private Vector3 initialPosition;
-    private Quaternion initialRotation;
-
     private float inputX;
     private float inputY;
 
-    private void Start()
+    public override void Setup(IWeaponStateProvider provider)
     {
-        initialPosition = target.localPosition;
-        initialRotation = target.localRotation;
-
+        base.Setup(provider);
         controllable = true;
         UIManager.instance.pauseMenu.OnPausedStateChanged += (bool paused) => this.controllable = !paused;
     }
 
     private void Update()
     {
-        currentAimMultiplier = wid.aimState ? aimMultiplier : 1f;
+        currentAimMultiplier = stateProvider.IsAiming ? aimMultiplier : 1f;
 
         CheckInput();
         UpdatePositionsway();
@@ -61,7 +56,7 @@ public class WeaponSway : WeaponMotionBase
         float moveX = Mathf.Clamp(inputX * amount * currentAimMultiplier, -maxAmount, maxAmount);
         float moveY = Mathf.Clamp(inputY * amount * currentAimMultiplier, -maxAmount, maxAmount);
 
-        Vector3 finalPosition = initialPosition + new Vector3(moveX, moveY, 0);
+        Vector3 finalPosition = originalPosition + new Vector3(moveX, moveY, 0);
 
         target.localPosition = Vector3.Lerp(target.localPosition, finalPosition, smoothAmount * Time.deltaTime);
     }
@@ -76,7 +71,7 @@ public class WeaponSway : WeaponMotionBase
         Quaternion rotY = rotationY ? Quaternion.AngleAxis(-tiltX, Vector3.up) : Quaternion.identity;
         Quaternion rotZ = rotationZ ? Quaternion.AngleAxis(-tiltX, Vector3.forward) : Quaternion.identity;
 
-        Quaternion finalRotation = initialRotation * rotX * rotY * rotZ;
+        Quaternion finalRotation = originalRotation * rotX * rotY * rotZ;
 
         // Rotate towards target rotation
         target.localRotation = Quaternion.Slerp(target.localRotation, finalRotation, smoothRotation * Time.deltaTime);

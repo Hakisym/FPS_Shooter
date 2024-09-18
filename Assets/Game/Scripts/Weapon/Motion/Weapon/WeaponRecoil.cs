@@ -8,26 +8,33 @@ public class WeaponRecoil : WeaponMotionBase
     private Vector3 positionalRecoil;
     private Vector3 rot;
     private Vector3 pos;
+    private WeaponData preset;
+
+    public override void Setup(IWeaponStateProvider provider)
+    {
+        base.Setup(provider);
+        preset = stateProvider.Preset;
+    }
 
     private void FixedUpdate()
     {
         //Return interpolation
-        rotationalRecoil = Vector3.Lerp(rotationalRecoil, Vector3.zero, wid.preset.weaponRecoilParameters.rotationalReturnSpeed * Time.deltaTime);
-        positionalRecoil = Vector3.Lerp(positionalRecoil, Vector3.zero, wid.preset.weaponRecoilParameters.positionalReturnSpeed * Time.deltaTime);
+        rotationalRecoil = Vector3.Lerp(rotationalRecoil, Vector3.zero, preset.weaponRecoilParameters.rotationalReturnSpeed * Time.deltaTime);
+        positionalRecoil = Vector3.Lerp(positionalRecoil, Vector3.zero, preset.weaponRecoilParameters.positionalReturnSpeed * Time.deltaTime);
 
         //Smooth lerp to current position
         //target.localPosition = Vector3.Slerp(target.localPosition, positionalRecoil, wid.preset.weaponRecoilParameters.positionalRecoilSpeed * Time.fixedDeltaTime);
         pos = new Vector3(
-            Mathf.Lerp(pos.x, positionalRecoil.x, wid.preset.weaponRecoilParameters.rotationalRecoilSpeed * Time.fixedDeltaTime),
-            Mathf.Lerp(pos.y, positionalRecoil.y, wid.preset.weaponRecoilParameters.rotationalRecoilSpeed * Time.fixedDeltaTime),
-            Mathf.Lerp(pos.z, positionalRecoil.z, wid.preset.weaponRecoilParameters.rotationalRecoilSpeed * Time.fixedDeltaTime));
+            Mathf.Lerp(pos.x, positionalRecoil.x, preset.weaponRecoilParameters.rotationalRecoilSpeed * Time.fixedDeltaTime),
+            Mathf.Lerp(pos.y, positionalRecoil.y, preset.weaponRecoilParameters.rotationalRecoilSpeed * Time.fixedDeltaTime),
+            Mathf.Lerp(pos.z, positionalRecoil.z, preset.weaponRecoilParameters.rotationalRecoilSpeed * Time.fixedDeltaTime));
 
         //Smooth rotate to current rotation
         //rot = Vector3.Slerp(rot, rotationalRecoil, wid.preset.weaponRecoilParameters.rotationalRecoilSpeed * Time.fixedDeltaTime);
         rot = new Vector3(
-            Mathf.Lerp(rot.x, rotationalRecoil.x, wid.preset.weaponRecoilParameters.rotationalRecoilSpeed * Time.fixedDeltaTime),
-            Mathf.Lerp(rot.y, rotationalRecoil.y, wid.preset.weaponRecoilParameters.rotationalRecoilSpeed * Time.fixedDeltaTime),
-            Mathf.Lerp(rot.z, rotationalRecoil.z, wid.preset.weaponRecoilParameters.rotationalRecoilSpeed * Time.fixedDeltaTime));
+            Mathf.Lerp(rot.x, rotationalRecoil.x, preset.weaponRecoilParameters.rotationalRecoilSpeed * Time.fixedDeltaTime),
+            Mathf.Lerp(rot.y, rotationalRecoil.y, preset.weaponRecoilParameters.rotationalRecoilSpeed * Time.fixedDeltaTime),
+            Mathf.Lerp(rot.z, rotationalRecoil.z, preset.weaponRecoilParameters.rotationalRecoilSpeed * Time.fixedDeltaTime));
 
         target.localPosition = pos;
         target.localRotation = Quaternion.Euler(rot);
@@ -37,26 +44,26 @@ public class WeaponRecoil : WeaponMotionBase
     {
         //Add random offset to current position & rotation when firing
         //Recoil while aiming
-        if (wid.aimState)
+        if (stateProvider.IsAiming)
         {
-            positionalRecoil += wid.preset.weaponRecoilParameters.staticRecoilPositionAim + new Vector3(Random.Range(-wid.preset.weaponRecoilParameters.recoilPositionAim.x, wid.preset.weaponRecoilParameters.recoilPositionAim.x),
-                Random.Range(-wid.preset.weaponRecoilParameters.recoilPositionAim.y, wid.preset.weaponRecoilParameters.recoilPositionAim.y),
-                Random.Range(-wid.preset.weaponRecoilParameters.recoilPositionAim.z, wid.preset.weaponRecoilParameters.recoilPositionAim.z));
+            positionalRecoil += preset.weaponRecoilParameters.staticRecoilPositionAim + new Vector3(Random.Range(-preset.weaponRecoilParameters.recoilPositionAim.x, preset.weaponRecoilParameters.recoilPositionAim.x),
+                Random.Range(-preset.weaponRecoilParameters.recoilPositionAim.y, preset.weaponRecoilParameters.recoilPositionAim.y),
+                Random.Range(-preset.weaponRecoilParameters.recoilPositionAim.z, preset.weaponRecoilParameters.recoilPositionAim.z));
 
-            rotationalRecoil += wid.preset.weaponRecoilParameters.staticRecoilRotationAim + new Vector3(Random.Range(-wid.preset.weaponRecoilParameters.recoilRotationAim.x, 0),
-                Random.Range(-wid.preset.weaponRecoilParameters.recoilRotationAim.y, wid.preset.weaponRecoilParameters.recoilRotationAim.y),
-                Random.Range(-wid.preset.weaponRecoilParameters.recoilRotationAim.z, wid.preset.weaponRecoilParameters.recoilRotationAim.z));
+            rotationalRecoil += preset.weaponRecoilParameters.staticRecoilRotationAim + new Vector3(Random.Range(-preset.weaponRecoilParameters.recoilRotationAim.x, 0),
+                Random.Range(-preset.weaponRecoilParameters.recoilRotationAim.y, preset.weaponRecoilParameters.recoilRotationAim.y),
+                Random.Range(-preset.weaponRecoilParameters.recoilRotationAim.z, preset.weaponRecoilParameters.recoilRotationAim.z));
         }
         //Recoil while not aiming
         else
         {
-            positionalRecoil += wid.preset.weaponRecoilParameters.staticRecoilPosition + new Vector3(Random.Range(-wid.preset.weaponRecoilParameters.recoilPosition.x, wid.preset.weaponRecoilParameters.recoilPosition.x),
-                Random.Range(-wid.preset.weaponRecoilParameters.recoilPosition.y, wid.preset.weaponRecoilParameters.recoilPosition.y),
-                Random.Range(-wid.preset.weaponRecoilParameters.recoilPositionAim.z, wid.preset.weaponRecoilParameters.recoilPosition.z));
+            positionalRecoil += preset.weaponRecoilParameters.staticRecoilPosition + new Vector3(Random.Range(-preset.weaponRecoilParameters.recoilPosition.x, preset.weaponRecoilParameters.recoilPosition.x),
+                Random.Range(-preset.weaponRecoilParameters.recoilPosition.y, preset.weaponRecoilParameters.recoilPosition.y),
+                Random.Range(-preset.weaponRecoilParameters.recoilPositionAim.z, preset.weaponRecoilParameters.recoilPosition.z));
 
-            rotationalRecoil += wid.preset.weaponRecoilParameters.staticRecoilRotation + new Vector3(Random.Range(-wid.preset.weaponRecoilParameters.recoilRotation.x, 0),
-                Random.Range(-wid.preset.weaponRecoilParameters.recoilRotation.y, wid.preset.weaponRecoilParameters.recoilRotation.y), 
-                Random.Range(-wid.preset.weaponRecoilParameters.recoilRotation.z, wid.preset.weaponRecoilParameters.recoilRotation.z));
+            rotationalRecoil += preset.weaponRecoilParameters.staticRecoilRotation + new Vector3(Random.Range(-preset.weaponRecoilParameters.recoilRotation.x, 0),
+                Random.Range(-preset.weaponRecoilParameters.recoilRotation.y, preset.weaponRecoilParameters.recoilRotation.y), 
+                Random.Range(-preset.weaponRecoilParameters.recoilRotation.z, preset.weaponRecoilParameters.recoilRotation.z));
         }
     }
 }

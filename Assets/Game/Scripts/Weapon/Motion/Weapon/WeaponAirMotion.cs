@@ -11,18 +11,16 @@ public class WeaponAirMotion : WeaponMotionBase
     public float returnSpeed = 10f;
     public float smoothTime = 12f;
 
-    private Quaternion originalRotation;
     private Vector3 currentPosition;
     private Vector3 currentRotation;
     private Vector3 finalPosition;
     private Vector3 finalRotation;
 
-    private void Start()
+    public override void Setup(IWeaponStateProvider provider)
     {
-        pm.OnJump.AddListener(Jump);
-        pm.OnLand.AddListener(Land);
-
-        originalRotation = target.localRotation;
+        base.Setup(provider);
+        provider.OnJump += Jump;
+        provider.OnLand += Land;
     }
 
     private void Update()
@@ -40,7 +38,7 @@ public class WeaponAirMotion : WeaponMotionBase
 
     private void Jump()
     {
-        float multiplier = wid.aimState ? 1 : 0.7f;
+        float multiplier = stateProvider.IsAiming ? 1 : 0.7f;
 
         // Set the jump intensity
         currentPosition += jumpPosition * multiplier;
@@ -49,10 +47,16 @@ public class WeaponAirMotion : WeaponMotionBase
 
     private void Land()
     {
-        float multiplier = wid.aimState ? 1 : 0.7f;
+        float multiplier = stateProvider.IsAiming ? 1 : 0.7f;
 
         // Set the jump intensity
         currentPosition += landPosition * multiplier;
         currentRotation += landRotation * multiplier;
+    }
+
+    private void OnDestroy()
+    {
+        stateProvider.OnJump -= Jump;
+        stateProvider.OnLand -= Land;
     }
 }

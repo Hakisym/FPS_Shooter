@@ -33,8 +33,8 @@ public class CameraRecoilProcedural : CameraRecoil
 
     private void OnDisable()
     {
-        wc.OnStartShoot += OnStartShoot;
-        wc.OnEndShoot += OnEndShoot;
+        wc.OnStartShoot -= OnStartShoot;
+        wc.OnEndShoot -= OnEndShoot;
     }
 
     void OnStartShoot()

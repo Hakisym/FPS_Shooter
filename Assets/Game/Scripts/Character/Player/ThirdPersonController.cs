@@ -101,10 +101,8 @@ public class ThirdPersonController : NetworkBehaviour
             float inputRawY = Input.GetAxisRaw("Vertical");
             Vector2 move = new Vector2(inputRawX, inputRawY);
 
-            //reset speed when no input
-            var targetSpeed = move == Vector2.zero ? 0 : pm.currentSpeed;
             //smooth the speed curve
-            _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * speedChangeRate);
+            _animationBlend = Mathf.Lerp(_animationBlend, pm.currentSpeed, Time.deltaTime * speedChangeRate);
             if (_animationBlend < 0.01f) _animationBlend = 0f;
             animator.SetFloat("Speed", _animationBlend);
 
@@ -114,10 +112,11 @@ public class ThirdPersonController : NetworkBehaviour
             animator.SetFloat("Horizontal", targetMove.x);
             animator.SetFloat("Vertical", targetMove.y);
 
-            animator.SetBool("Crouching", pm.isCrouching);
-            animator.SetBool("Grounded", pm.isGrounded);
+            animator.SetBool("Crouching", pm.moveState == MoveState.Crouching);
+            bool isGrounded = pm.moveState != MoveState.InAir;
+            animator.SetBool("Grounded", isGrounded);
 
-            if (pm.isGrounded)
+            if (isGrounded)
             {
                 //reset fall time
                 _fallTimeoutDelta = fallTimeout;
@@ -140,7 +139,7 @@ public class ThirdPersonController : NetworkBehaviour
             animator.SetBool("Aim", wc.aiming);
 
             // enable ik if aiming,idle or shooting
-            bool ikEnable = wc.aiming || (move == Vector2.zero && wc.preset) || wc.shootState;
+            bool ikEnable = wc.aiming || (pm.moveState == MoveState.Idle && wc.preset) || wc.shootState;
             animator.SetBool("IkEnable", ikEnable);
 
             // apply hand ik with smooth lerp

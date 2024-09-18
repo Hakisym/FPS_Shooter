@@ -57,11 +57,11 @@ MonoBehaviour:
     positionalReturnSpeed: 35
     rotationalReturnSpeed: 35
   cameraRecoilParameters:
-    rotationSpeed: 50
+    rotationSpeed: 25
     returnSpeed: 5
     returnDuration: 0.4
-    recoilRotation: {x: 5, y: 0.2, z: 0}
-    recoilRotationAiming: {x: 5, y: 0.2, z: 0}
+    recoilRotation: {x: 10, y: 0.2, z: 0}
+    recoilRotationAiming: {x: 10, y: 0.2, z: 0}
     recoilX:
       serializedVersion: 2
       m_Curve:
