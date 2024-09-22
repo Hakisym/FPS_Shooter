@@ -16,7 +16,6 @@ public class PlayerLook : MonoBehaviour
     public float xRotation = 0f;
     public float yRotation = 0f;
     public CameraRecoil cameraRecoil;
-    public WeaponController weaponController;
 
     public float cameraRotationX;
     public float cameraRotationY;

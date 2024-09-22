@@ -15,13 +15,9 @@ public class WeaponIdentification : MonoBehaviour, IWeaponStateProvider
     private PlayerMovement pm;
 
     public bool IsAiming => wc.aiming;
-
     public float AimValue => wc.aimValue;
-
     public MoveState CurrentMoveState => pm.moveState;
-
     public WeaponData Preset => preset;
-
     public event Action OnJump;
     public event Action OnLand;
 

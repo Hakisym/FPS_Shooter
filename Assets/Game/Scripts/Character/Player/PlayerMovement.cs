@@ -98,15 +98,17 @@ public class PlayerMovement : MonoBehaviour
         if (!isGrounded)
         {
             moveState = MoveState.InAir;
-        }else if(moveDirection == Vector3.zero)
+        }
+        else if (isCrouching)
+        {
+            moveState = MoveState.Crouching;
+        }
+        else if(moveDirection == Vector3.zero)
         {
             moveState = MoveState.Idle;
         }else if (isSprinting)
         {
             moveState = MoveState.Sprinting;
-        }else if (isCrouching)
-        {
-            moveState = MoveState.Crouching;
         }
         else
         {

@@ -1,10 +1,8 @@
 using FishNet.Component.Animating;
 using FishNet.Object;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
+using UnityEngine.Rendering;
 
 public class ThirdPersonController : NetworkBehaviour
 {
@@ -52,8 +50,8 @@ public class ThirdPersonController : NetworkBehaviour
             Setup(characterManager);
             Initialize();
 
-            if(!showLocalPlayer)
-                meshRenderer.enabled = false;
+            if (!showLocalPlayer)
+                meshRenderer.shadowCastingMode = ShadowCastingMode.ShadowsOnly;
         }
     }
 
@@ -206,14 +204,22 @@ public class ThirdPersonController : NetworkBehaviour
         foreach (Transform child in handIk)
             Destroy(child.gameObject);
         //create weapon in third person
-        var obj = Instantiate(weapon.gunModel, handIk);
+        var gun = Instantiate(weapon.gunModel, handIk);
         //setup weapon hand ik
-        obj.transform.localPosition = weapon.thirdPersonData.ikHandPos;
+        gun.transform.localPosition = weapon.thirdPersonData.ikHandPos;
         rightHandTargetPos = weapon.thirdPersonData.rightHandTarget;
         rightHandTargetAim = weapon.thirdPersonData.rightHandTargetAim;
         leftHandTargetPos = weapon.thirdPersonData.leftHandTarget;
 
-        GunSetup(obj.transform, weapon.bulletCasting);
+        GunSetup(gun.transform, weapon.bulletCasting);
+
+        if (IsOwner)
+        {
+            foreach (var mesh in gun.GetComponentsInChildren<MeshRenderer>())
+            {
+                mesh.shadowCastingMode = ShadowCastingMode.ShadowsOnly;
+            }
+        }
     }
 
     [ObserversRpc]
@@ -223,7 +229,7 @@ public class ThirdPersonController : NetworkBehaviour
             Destroy(child.gameObject);
     }
 
-    [ObserversRpc]
+    [ObserversRpc(ExcludeOwner =true)]
     private void ClientFireWeapon()
     {
         gunAnim.Play("Fire");

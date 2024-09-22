@@ -62,11 +62,15 @@ public class WeaponController : MonoBehaviour
     public Action OnEndShoot;
     public UnityEvent OnShoot;
     public Action<WeaponData> OnWeaponChange;
+    public Action<float,Ray> OnRaycastShoot;
 
     //gun aim
     private bool wasAiming;
     private float timeElapsed;
     public float aimValue { get; private set; }
+
+    //network
+    [SerializeField] bool isOffline = true;
 
     private void Awake()
     {
@@ -270,54 +274,61 @@ public class WeaponController : MonoBehaviour
         RaycastHit hit;
         Ray ray = new Ray(playerCam.transform.position, dir);
 
-        // Hitscan shoot
-        if (Physics.Raycast(ray, out hit, preset.gunStats.range, whatIsShootable))
+        if (isOffline)
         {
-            //damageable group
-            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("EnemyHit"))
+            // Hitscan shoot
+            if (Physics.Raycast(ray, out hit, preset.gunStats.range, whatIsShootable))
             {
-                //decal
-                Instantiate(bloodImpact, hit.point, Quaternion.LookRotation(hit.normal), prefabHolder);
-
-                //check damageable
-                IDamageable damageable = hit.collider.GetComponentInParent<IDamageable>();
-                bool isAlive = damageable != null ? !damageable.IsDead() : false;
-
-                //deal damage
-                if (isAlive)
+                //damageable group
+                if (hit.collider.gameObject.layer == LayerMask.NameToLayer("EnemyHit"))
                 {
-                    bool isHeadShot = hit.collider.CompareTag("Head");
-                    float damageMultiplier = isHeadShot ? 1.5f : 1f;
-                    float damageResult = preset.gunStats.damage * damageMultiplier;
+                    //decal
+                    Instantiate(bloodImpact, hit.point, Quaternion.LookRotation(hit.normal), prefabHolder);
 
-                    damageable.TakeDamage(damageResult, actor);
+                    //check damageable
+                    IDamageable damageable = hit.collider.GetComponentInParent<IDamageable>();
+                    bool isAlive = damageable != null ? !damageable.IsDead() : false;
 
-                    if (actor.isLocallyMine)
-                        UIManager.instance.hitMarker.Show(isHeadShot, hit.point);
+                    //deal damage
+                    if (isAlive)
+                    {
+                        bool isHeadShot = hit.collider.CompareTag("Head");
+                        float damageMultiplier = isHeadShot ? 1.5f : 1f;
+                        float damageResult = preset.gunStats.damage * damageMultiplier;
+
+                        damageable.TakeDamage(damageResult, actor);
+
+                        if (actor.isLocallyMine)
+                            UIManager.instance.hitMarker.Show(isHeadShot, hit.point);
+                    }
+
+                    //verify kill
+                    if (!damageable.deadConfirmed && damageable.IsDead())
+                    {
+                        if (actor)
+                            actor?.onKill?.Invoke(damageable.GetActor());
+
+                        damageable.deadConfirmed = true;
+                    }
+
+                    if (hit.rigidbody)
+                    {
+                        hit.rigidbody.AddForceAtPosition(-hit.normal * preset.gunStats.impactForce, hit.point, ForceMode.Impulse);
+                    }
                 }
 
-                //verify kill
-                if (!damageable.deadConfirmed && damageable.IsDead())
-                {
-                    if (actor)
-                        actor?.onKill?.Invoke(damageable.GetActor());
-
-                    damageable.deadConfirmed = true;
-                }
-
-                if (hit.rigidbody)
-                {
-                    hit.rigidbody.AddForceAtPosition(-hit.normal * preset.gunStats.impactForce, hit.point, ForceMode.Impulse);
-                }
+                //bullet impact
+                if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Environment"))
+                    PoolManager.instance.SpawnGameObject(PoolTag.BulletImpact, hit.point, Quaternion.LookRotation(hit.normal));
             }
 
-            //bullet impact
-            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Environment"))
-                PoolManager.instance.SpawnGameObject(PoolTag.BulletImpact, hit.point, Quaternion.LookRotation(hit.normal));
+            //Vector3 bulletDir = hit.collider ? (hit.point - muzzlePoint.position).normalized : (ray.GetPoint(50) - muzzlePoint.position).normalized;
+            //bulletManager.CreateBullet(muzzlePoint.position, bulletDir * preset.gunStats.velocity, preset.gunStats.bulletDrop);
         }
-
-        //Vector3 bulletDir = hit.collider ? (hit.point - muzzlePoint.position).normalized : (ray.GetPoint(50) - muzzlePoint.position).normalized;
-        //bulletManager.CreateBullet(muzzlePoint.position, bulletDir * preset.gunStats.velocity, preset.gunStats.bulletDrop);
+        else
+        {
+            OnRaycastShoot?.Invoke(preset.gunStats.damage,ray);
+        }
 
         pelletsShot--;
 
