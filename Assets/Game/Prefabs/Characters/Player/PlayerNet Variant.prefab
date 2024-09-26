@@ -124,6 +124,11 @@ PrefabInstance:
       propertyPath: speedChangeRate
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 386825433807013450, guid: 5bdfe9ced7f4aca4f8faac85e21d7bf4,
+        type: 3}
+      propertyPath: showLocalPlayerModel
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1663644738284254309, guid: 5bdfe9ced7f4aca4f8faac85e21d7bf4,
         type: 3}
       propertyPath: _componentIndexCache
@@ -436,7 +441,7 @@ MonoBehaviour:
   inventory: {fileID: 7720198670439369542}
   cameraManager: {fileID: 8985830008546835579}
   aimTarget: {fileID: 2923232306867067760}
-  playerMask:
+  weaponHitLayers:
     serializedVersion: 2
     m_Bits: 65536
 --- !u!114 &4247490212376893940

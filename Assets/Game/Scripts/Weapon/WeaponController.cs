@@ -62,7 +62,7 @@ public class WeaponController : MonoBehaviour
     public Action OnEndShoot;
     public UnityEvent OnShoot;
     public Action<WeaponData> OnWeaponChange;
-    public Action<float,Ray> OnRaycastShoot;
+    public Action<float,Vector3,Vector3,float> OnRaycastShoot;
 
     //gun aim
     private bool wasAiming;
@@ -327,7 +327,7 @@ public class WeaponController : MonoBehaviour
         }
         else
         {
-            OnRaycastShoot?.Invoke(preset.gunStats.damage,ray);
+            OnRaycastShoot?.Invoke(preset.gunStats.damage, playerCam.transform.position, dir, preset.gunStats.range);
         }
 
         pelletsShot--;

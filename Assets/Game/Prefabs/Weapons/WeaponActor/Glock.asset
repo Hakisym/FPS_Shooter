@@ -29,7 +29,7 @@ MonoBehaviour:
     impactForce: 30
     velocity: 300
     bulletDrop: 0
-    range: 50
+    range: 450
     fireMode: 0
     bulletsPerTap: 1
     pelletsPerBullet: 1

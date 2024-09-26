@@ -1,3 +1,4 @@
+using FishNet.Connection;
 using FishNet.Object;
 using System;
 using System.Collections;
@@ -15,29 +16,55 @@ public class NetworkCharacter : NetworkBehaviour
     public Transform aimTarget;
 
     //network raycast
-    [SerializeField] LayerMask playerMask;
+    [SerializeField] LayerMask weaponHitLayers;
 
 
     private void OnEnable()
     {
-        weaponController.OnRaycastShoot += ShootRPCSender;
+        weaponController.OnRaycastShoot = ShootRPCSender;
     }
 
-    private void ShootRPCSender(float damage, Ray ray)
+    private void ShootRPCSender(float damage, Vector3 position, Vector3 direction, float range)
     {
-        ServerShootRPC(damage, ray);
+        ServerShootRPC(damage, position, direction, range);
     }
 
     [ServerRpc]
-    private void ServerShootRPC(float damage, Ray ray)
+    private void ServerShootRPC(float damage, Vector3 origin, Vector3 dir, float range, NetworkConnection conn = null)
     {
+        //Will be set to true again if bullet penetrated through something
+        bool continueLoop = true;
+
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, playerMask))
+        Vector3 pos = origin;
+
+        float remainingDistance = range;
+
+        int tries = 0;
+
+        while (tries < 10 && Physics.Raycast(pos, dir, out hit, remainingDistance, weaponHitLayers))
         {
-            if (hit.transform.root.GetComponent<PlayerHealth>())
+            Debug.DrawRay(pos, dir * hit.distance, Color.red, 1f);
+            //Add
+            tries++;
+            //Distract distance
+            remainingDistance -= hit.distance;
+            // Set new position slightly forward from the hit point to avoid hitting the same spot
+            pos = hit.point + dir * 0.01f;
+            if (continueLoop)
             {
-                hit.transform.root.GetComponent<PlayerHealth>().health.Value -= damage;
+                #region Damage
+                //Check if we hit a player
+                if (hit.collider.GetComponentInParent<PlayerHealth>())
+                {
+                    //Check if we hit ourselves
+                    if (hit.transform.root.GetComponent<NetworkObject>().OwnerId == conn.ClientId) continue;
+                    //Set Loop to false
+                    continueLoop = false;
+                    hit.collider.GetComponentInParent<PlayerHealth>().health.Value -= damage;
+                }
+                #endregion
             }
         }
-}
+    }
 }

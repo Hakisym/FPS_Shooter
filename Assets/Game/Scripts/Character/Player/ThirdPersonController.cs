@@ -39,7 +39,7 @@ public class ThirdPersonController : NetworkBehaviour
     private float _animationBlend;
     private float _fallTimeoutDelta;
 
-    public bool showLocalPlayer;
+    public bool showLocalPlayerModel;
 
     public override void OnStartClient()
     {
@@ -50,7 +50,7 @@ public class ThirdPersonController : NetworkBehaviour
             Setup(characterManager);
             Initialize();
 
-            if (!showLocalPlayer)
+            if (!showLocalPlayerModel)
                 meshRenderer.shadowCastingMode = ShadowCastingMode.ShadowsOnly;
         }
     }
@@ -213,7 +213,7 @@ public class ThirdPersonController : NetworkBehaviour
 
         GunSetup(gun.transform, weapon.bulletCasting);
 
-        if (IsOwner)
+        if (IsOwner && !showLocalPlayerModel)
         {
             foreach (var mesh in gun.GetComponentsInChildren<MeshRenderer>())
             {
