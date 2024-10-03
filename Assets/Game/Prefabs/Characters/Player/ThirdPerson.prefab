@@ -54,7 +54,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1309601122}
-  m_LocalRotation: {x: -0.4304593, y: -0.4304593, z: 0.56098557, w: 0.56098557}
+  m_LocalRotation: {x: 0.29444307, y: 0.48755968, z: -0.5435251, w: -0.61657864}
   m_LocalPosition: {x: 0.0145, y: -0.0864, z: -0.0415}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -739,7 +739,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.00460345, y: 0.58201575, z: 0.0027768342}
+  m_ConnectedAnchor: {x: 0.03998404, y: 1.6079358, z: 0.012482912}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: 1}
   m_TwistLimitSpring:
@@ -882,7 +882,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: -1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.16651656, y: 0.40544805, z: -0.049157158}
+  m_ConnectedAnchor: {x: -0.12986706, y: 1.4352425, z: -0.02515718}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: 1}
   m_TwistLimitSpring:
@@ -1264,7 +1264,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 0, z: 0}
+  m_ConnectedAnchor: {x: -0.00019777194, y: 0.16163112, z: 0.0005166766}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: 1}
   m_TwistLimitSpring:
@@ -1651,7 +1651,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.16118696, y: 0.39177048, z: -0.05734574}
+  m_ConnectedAnchor: {x: 0.19545785, y: 1.4141126, z: -0.062048238}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: -1}
   m_TwistLimitSpring:
@@ -2804,17 +2804,11 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 2426411330794694873}
   _networkObjectCache: {fileID: 2426411330794694873}
   weaponPrefabs: {fileID: 11400000, guid: 3354f1ed0af8fd845b93f2dd8ba60ce3, type: 2}
-  aimRig: {fileID: 7180704490671543361}
-  handIk: {fileID: 1309601123}
-  aimTarget: {fileID: 8809919525891656583}
-  rightHandTarget: {fileID: 1612430998046065380}
-  leftHandTarget: {fileID: 1976722767}
+  weaponHolder: {fileID: 1309601123}
   speedChangeRate: 5
   fallTimeout: 0.5
-  rightHandTargetPos: {x: 0, y: 0, z: 0}
-  rightHandTargetAim: {x: 0, y: 0, z: 0}
-  leftHandTargetPos: {x: 0, y: 0, z: 0}
-  showLocalPlayer: 0
+  showLocalPlayerModel: 0
+  armsRotation: 8
 --- !u!114 &173570480
 MonoBehaviour:
   m_ObjectHideFlags: 0

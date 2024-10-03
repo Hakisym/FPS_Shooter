@@ -59,6 +59,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7720198671630592917}
     m_Modifications:
+    - target: {fileID: 173570480, guid: 5bdfe9ced7f4aca4f8faac85e21d7bf4, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1908320267, guid: 5bdfe9ced7f4aca4f8faac85e21d7bf4, type: 3}
+      propertyPath: m_Weight
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 99319857862382041, guid: 5bdfe9ced7f4aca4f8faac85e21d7bf4,
         type: 3}
       propertyPath: m_RootOrder
@@ -193,6 +201,11 @@ PrefabInstance:
         type: 3}
       propertyPath: _componentIndexCache
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7180704490671543361, guid: 5bdfe9ced7f4aca4f8faac85e21d7bf4,
+        type: 3}
+      propertyPath: m_Weight
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5bdfe9ced7f4aca4f8faac85e21d7bf4, type: 3}
@@ -381,6 +394,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fdcded947e9d8847af1877ab2da9a2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!20 &7720198670737745414 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 1700024202367906406, guid: 697ef857e7c44a44aaf2aa0f3ea4867e,
+    type: 3}
+  m_PrefabInstance: {fileID: 8985830009619911776}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &7720198671630592915 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1700024202281320435, guid: 697ef857e7c44a44aaf2aa0f3ea4867e,
@@ -438,6 +457,7 @@ MonoBehaviour:
   actor: {fileID: 0}
   weaponController: {fileID: 7720198671630592943}
   playerMovement: {fileID: 7720198671630592915}
+  playerCam: {fileID: 7720198670737745414}
   inventory: {fileID: 7720198670439369542}
   cameraManager: {fileID: 8985830008546835579}
   aimTarget: {fileID: 2923232306867067760}

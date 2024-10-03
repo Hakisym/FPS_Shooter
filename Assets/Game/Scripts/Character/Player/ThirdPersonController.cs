@@ -12,6 +12,7 @@ public class ThirdPersonController : NetworkBehaviour
     private NetworkCharacter characterManager;
     private PlayerMovement pm;
     private WeaponController wc;
+    private Camera playerCam;
     private SkinnedMeshRenderer meshRenderer;
     private Ragdoll ragdoll;
 
@@ -21,25 +22,19 @@ public class ThirdPersonController : NetworkBehaviour
     private ParticleSystem muzzleVFX;
     private Transform castPoint;
 
-    public Rig aimRig;
-
-    public Transform handIk;
-    public Transform aimTarget;
-    public Transform rightHandTarget;
-    public Transform leftHandTarget;
+    public Transform weaponHolder;
 
     public float speedChangeRate;
     public float fallTimeout;
-
-    public Vector3 rightHandTargetPos;
-    public Vector3 rightHandTargetAim;
-    public Vector3 leftHandTargetPos;
 
     private Vector2 targetMove;
     private float _animationBlend;
     private float _fallTimeoutDelta;
 
     public bool showLocalPlayerModel;
+    private Transform spine;
+    private Transform chest;
+    public float armsRotation = 8f;
 
     public override void OnStartClient()
     {
@@ -63,7 +58,8 @@ public class ThirdPersonController : NetworkBehaviour
         networkAnimator = GetComponent<NetworkAnimator>();
         ragdoll = GetComponent<Ragdoll>();
 
-        rightHandTargetPos = rightHandTarget.localPosition;
+        spine = animator.GetBoneTransform(HumanBodyBones.Spine);
+        chest = animator.GetBoneTransform(HumanBodyBones.Chest);
     }
 
     public void Setup(NetworkCharacter _characterManager)
@@ -71,6 +67,7 @@ public class ThirdPersonController : NetworkBehaviour
         characterManager = _characterManager;
         pm = _characterManager.playerMovement;
         wc = _characterManager.weaponController;
+        playerCam = _characterManager.playerCam;
 
         //setup ragdoll
         //HealthSystem healthSystem = (HealthSystem)characterManager.damageable;
@@ -133,38 +130,18 @@ public class ThirdPersonController : NetworkBehaviour
                 }
             }
 
-            animator.SetInteger("Weapon", (wc.preset) ? 1 : 0);
+            animator.SetInteger("Weapon", (wc.preset) ? wc.preset.type == WeaponType.Long ? 1 : 2 : 0);
             animator.SetBool("Aim", wc.aiming);
-
-            // enable ik if aiming,idle or shooting
-            bool ikEnable = wc.aiming || (pm.moveState == MoveState.Idle && wc.preset) || wc.shootState;
-            animator.SetBool("IkEnable", ikEnable);
-
-            // apply hand ik with smooth lerp
-            var _aimRigWeight = ikEnable ? 1 : 0;
-            aimRig.weight = Mathf.Lerp(aimRig.weight, _aimRigWeight, Time.deltaTime * speedChangeRate);
-
-            // change hand ik position between hipfire and aiming
-            var _handTargetPos = !wc.aiming ? rightHandTargetPos : rightHandTargetAim;
-            rightHandTarget.localPosition = Vector3.Lerp(rightHandTarget.localPosition, _handTargetPos, Time.deltaTime * speedChangeRate);
-            leftHandTarget.localPosition = Vector3.Lerp(leftHandTarget.localPosition, leftHandTargetPos, Time.deltaTime * speedChangeRate);
 
             if (characterManager == null) return;
 
             //sync position and rotation
             transform.position = characterManager.transform.position;
             transform.rotation = characterManager.transform.rotation;
-
-            aimTarget.position = characterManager.aimTarget.position;
         }
         else
         {
-            // enable ik if aiming,idle or shooting
-            bool ikEnable = animator.GetBool("IkEnable");
-
-            // apply hand ik with smooth lerp
-            var _aimRigWeight = ikEnable ? 1 : 0;
-            aimRig.weight = Mathf.Lerp(aimRig.weight, _aimRigWeight, Time.deltaTime * speedChangeRate);
+            
         }
 
     }
@@ -201,15 +178,10 @@ public class ThirdPersonController : NetworkBehaviour
         WeaponData weapon = weaponPrefabs.GetWeaponData(id);
 
         //reset current weapon
-        foreach (Transform child in handIk)
+        foreach (Transform child in weaponHolder)
             Destroy(child.gameObject);
         //create weapon in third person
-        var gun = Instantiate(weapon.gunModel, handIk);
-        //setup weapon hand ik
-        gun.transform.localPosition = weapon.thirdPersonData.ikHandPos;
-        rightHandTargetPos = weapon.thirdPersonData.rightHandTarget;
-        rightHandTargetAim = weapon.thirdPersonData.rightHandTargetAim;
-        leftHandTargetPos = weapon.thirdPersonData.leftHandTarget;
+        var gun = Instantiate(weapon.gunModel, weaponHolder);
 
         GunSetup(gun.transform, weapon.bulletCasting);
 
@@ -225,7 +197,7 @@ public class ThirdPersonController : NetworkBehaviour
     [ObserversRpc]
     private void ClientDropWeapon()
     {
-        foreach (Transform child in handIk)
+        foreach (Transform child in weaponHolder)
             Destroy(child.gameObject);
     }
 
@@ -258,5 +230,26 @@ public class ThirdPersonController : NetworkBehaviour
         muzzleVFX = gun.Find("muzzle").GetComponentInChildren<ParticleSystem>();
         castPoint = gun.Find("castPoint");
         bulletCasting = casting;
+    }
+
+    public void OnAnimatorIK(int layerIndex)
+    {
+        if (wc && wc.preset)
+        {
+            // Keep upper body orientation regardless strafe direction.
+            float xCamRot = Quaternion.LookRotation(playerCam.transform.forward).eulerAngles.x;
+            Quaternion targetRot = Quaternion.AngleAxis(xCamRot + armsRotation, this.transform.right);
+
+            if (wc.preset.type == WeaponType.Long)
+            {
+                // Correction for long weapons.
+                targetRot *= Quaternion.AngleAxis(9f, this.transform.right);
+                targetRot *= Quaternion.AngleAxis(20f, this.transform.up);
+            }
+
+            targetRot *= spine.rotation;
+            // Set upper body vertical orientation.
+            animator.SetBoneLocalRotation(HumanBodyBones.Chest, Quaternion.Inverse(spine.rotation) * targetRot);
+        }
     }
 }

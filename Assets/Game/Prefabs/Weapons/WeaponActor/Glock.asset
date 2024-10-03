@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Glock
   m_EditorClassIdentifier: 
   gunID: 0
+  type: 1
   gunName: Glock
   gunPrefab: {fileID: 573339908886308818, guid: d4f2a6b7b4bed544ea41c1c6b77aafd6,
     type: 3}

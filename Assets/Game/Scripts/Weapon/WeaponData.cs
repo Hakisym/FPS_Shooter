@@ -7,6 +7,7 @@ public class WeaponData : ScriptableObject
 {
     [Header("Gun Settings")]
     public int gunID;
+    public WeaponType type;
     public string gunName;
     public GameObject gunPrefab;
     public GameObject gunModel;
@@ -128,6 +129,12 @@ public enum ShootMode
     Semi,
     Auto,
     PumpAction
+}
+
+public enum WeaponType
+{
+    Long,
+    Short
 }
 
 

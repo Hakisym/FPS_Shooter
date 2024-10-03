@@ -10,6 +10,7 @@ public class NetworkCharacter : NetworkBehaviour
     public Actor actor;
     public WeaponController weaponController;
     public PlayerMovement playerMovement;
+    public Camera playerCam;
     public IDamageable damageable;
     public Inventory inventory;
     public CameraManager cameraManager;

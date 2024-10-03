@@ -79,14 +79,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mouseSensitivity: 1
   playerBody: {fileID: 1700024202281320437}
-  aimTarget: {fileID: 6063389377180028688}
-  aimMask:
-    serializedVersion: 2
-    m_Bits: 64
+  xClampValue: 90
   xRotation: 0
   yRotation: 0
-  cameraRecoil: {fileID: 0}
-  weaponController: {fileID: 1700024202281320399}
   cameraRotationX: 0
   cameraRotationY: 0
 --- !u!1 &1700024201428482310
@@ -478,6 +473,7 @@ MonoBehaviour:
   OnShoot:
     m_PersistentCalls:
       m_Calls: []
+  isOffline: 1
 --- !u!114 &1700024202281320435
 MonoBehaviour:
   m_ObjectHideFlags: 0

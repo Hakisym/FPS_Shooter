@@ -6,19 +6,15 @@ public class PlayerLook : MonoBehaviour
 {
     public float mouseSensitivity = 100f;
     public Transform playerBody;
+    public float xClampValue;
 
-    public Transform aimTarget;
-    public LayerMask aimMask;
-    public Vector2 addedLookValue { get; set; }
-
-    private Camera mainCamera;
     private bool canLook;
-    public float xRotation = 0f;
-    public float yRotation = 0f;
-    public CameraRecoil cameraRecoil;
+    [HideInInspector] public float xRotation;
+    [HideInInspector] public float yRotation;
+    private CameraRecoil cameraRecoil;
 
-    public float cameraRotationX;
-    public float cameraRotationY;
+    [HideInInspector] public float cameraRotationX;
+    [HideInInspector] public float cameraRotationY;
 
     private void Awake()
     {
@@ -32,27 +28,12 @@ public class PlayerLook : MonoBehaviour
 
         canLook = true;
         UIManager.instance.pauseMenu.OnPausedStateChanged += (bool paused) => this.canLook = !paused;
-
-        mainCamera = Camera.main;
     }
 
     private void Update()
     {
         if (!canLook) return;
         LookRotate();
-
-        ////aim raycast
-        //Ray ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
-        //RaycastHit hitInfo;
-
-        //if (Physics.Raycast(ray, out hitInfo, Mathf.Infinity, aimMask))
-        //{
-        //    aimTarget.position = hitInfo.point;
-        //}
-        //else
-        //{
-        //    aimTarget.position = ray.GetPoint(50);
-        //}
     }
 
     private void LookRotate()
@@ -81,7 +62,7 @@ public class PlayerLook : MonoBehaviour
         cameraRotationY = yRotation + cameraRecoil.resultCameraRotation.y;
 
         // Clamp pitch
-        if (cameraRotationX < -90f || cameraRotationX > 90f)
+        if (cameraRotationX < -xClampValue || cameraRotationX > xClampValue)
         {
             yRotation -= mouseX;
             xRotation += mouseY;
@@ -95,6 +76,4 @@ public class PlayerLook : MonoBehaviour
         transform.localRotation = Quaternion.Euler(cameraRotation);
         playerBody.localRotation = Quaternion.Euler(playerRotation);
     }
-
-
 }
