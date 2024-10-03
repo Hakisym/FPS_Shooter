@@ -2103,7 +2103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAiming: 1
-  useLongWeapons: 1
+  useLongWeapons: 0
   animator: {fileID: 1845588992}
   armsRotation: 8
   target: {fileID: 2103349186}

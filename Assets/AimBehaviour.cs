@@ -35,17 +35,17 @@ public class AimBehaviour : MonoBehaviour
 	{
 		if (isAiming)
 		{
-			// Orientate upper body where camera  is targeting.
-			//Quaternion targetRot = Quaternion.Euler(0, transform.eulerAngles.y, 0);
-			//targetRot *= Quaternion.Euler(initialRootRotation);
-			//targetRot *= Quaternion.Euler(initialHipsRotation);
-			//targetRot *= Quaternion.Euler(initialSpineRotation);
-			// Set upper body horizontal orientation.
-			//animator.SetBoneLocalRotation(HumanBodyBones.Spine, Quaternion.Inverse(hips.rotation) * targetRot);
+            // Orientate upper body where camera  is targeting.
+            Quaternion targetRot = Quaternion.Euler(0, transform.eulerAngles.y, 0);
+            targetRot *= Quaternion.Euler(initialRootRotation);
+            targetRot *= Quaternion.Euler(initialHipsRotation);
+            targetRot *= Quaternion.Euler(initialSpineRotation);
+            // Set upper body horizontal orientation.
+            animator.SetBoneLocalRotation(HumanBodyBones.Spine, Quaternion.Inverse(hips.rotation) * targetRot);
 
-			// Keep upper body orientation regardless strafe direction.
-			float xCamRot = Quaternion.LookRotation(target.transform.forward).eulerAngles.x;
-			Quaternion targetRot = Quaternion.AngleAxis(xCamRot + armsRotation, this.transform.right);
+            // Keep upper body orientation regardless strafe direction.
+            float xCamRot = Quaternion.LookRotation(target.transform.forward).eulerAngles.x;
+			targetRot = Quaternion.AngleAxis(xCamRot + armsRotation, this.transform.right);
 
             if (useLongWeapons)
             {
@@ -55,9 +55,9 @@ public class AimBehaviour : MonoBehaviour
             }
 
 			targetRot *= spine.rotation;
-			//targetRot *= Quaternion.Euler(initialChestRotation);
-			// Set upper body vertical orientation.
-			animator.SetBoneLocalRotation(HumanBodyBones.Chest, Quaternion.Inverse(spine.rotation) * targetRot);
+            targetRot *= Quaternion.Euler(initialChestRotation);
+            // Set upper body vertical orientation.
+            animator.SetBoneLocalRotation(HumanBodyBones.Chest, Quaternion.Inverse(spine.rotation) * targetRot);
 		}
 	}
 }
