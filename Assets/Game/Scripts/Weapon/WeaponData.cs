@@ -28,9 +28,6 @@ public class WeaponData : ScriptableObject
     [Header("Audio")]
     public AudioClips soundClips;
 
-    [Header("Third Person")]
-    public ThirdPersonData thirdPersonData;
-
     [System.Serializable]
     public struct WeaponRecoilParameters
     {
@@ -112,15 +109,6 @@ public class WeaponData : ScriptableObject
         public AudioProfile reloadSoundOutOfAmmo;
         public AudioProfile emptyMagShoot;
         public AudioProfile aimSound;
-    }
-
-    [System.Serializable]
-    public struct ThirdPersonData
-    {
-        public Vector3 ikHandPos;
-        public Vector3 rightHandTarget;
-        public Vector3 rightHandTargetAim;
-        public Vector3 leftHandTarget;
     }
 }
 

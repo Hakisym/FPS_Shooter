@@ -1,5 +1,6 @@
 using FishNet.Connection;
 using FishNet.Object;
+using FishNet.Object.Synchronizing;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,15 +15,46 @@ public class NetworkCharacter : NetworkBehaviour
     public IDamageable damageable;
     public Inventory inventory;
     public CameraManager cameraManager;
-    public Transform aimTarget;
+    public ThirdPersonController thirdPerson;
 
     //network raycast
     [SerializeField] LayerMask weaponHitLayers;
 
+    //network syncvar
+    private readonly SyncVar<int> syncedMoveState = new SyncVar<int>();     // SyncVar to synchronize the move state
+    private readonly SyncVar<int> syncedGunId = new SyncVar<int>(-1);       // SyncVar to synchronize the active gun ID
 
     private void OnEnable()
     {
         weaponController.OnRaycastShoot = ShootRPCSender;
+    }
+
+    private void Update()
+    {
+        if (base.IsOwner)
+        {
+            if (weaponController.preset != null && weaponController.preset.gunID != syncedGunId.Value)
+            {
+                SetGunId(weaponController.preset.gunID);
+            }
+
+            if (((int)playerMovement.moveState) != syncedMoveState.Value)
+            {
+                SetMoveState(((int)playerMovement.moveState));
+            }
+        }
+        else
+        {
+            if (weaponController.preset?.gunID != syncedGunId.Value && syncedGunId.Value != -1)
+            {
+                weaponController.preset = thirdPerson.weaponPrefabs.GetWeaponData(syncedGunId.Value);
+            }
+
+            if (((int)playerMovement.moveState) != syncedMoveState.Value)
+            {
+                playerMovement.moveState = (MoveState)syncedMoveState.Value;
+            }
+        }
     }
 
     private void ShootRPCSender(float damage, Vector3 position, Vector3 direction, float range)
@@ -68,4 +100,7 @@ public class NetworkCharacter : NetworkBehaviour
             }
         }
     }
+
+    [ServerRpc] private void SetMoveState(int value) => syncedMoveState.Value = value;
+    [ServerRpc] private void SetGunId(int value) => syncedGunId.Value = value;
 }

@@ -10,7 +10,7 @@ public class ThirdPersonController : NetworkBehaviour
     public WeaponDataCollection weaponPrefabs;
     private Animator animator;
     private NetworkAnimator networkAnimator;
-    private NetworkCharacter characterManager;
+    [SerializeField] NetworkCharacter characterManager;
     private PlayerMovement pm;
     private WeaponController wc;
     private Camera playerCam;
@@ -35,6 +35,8 @@ public class ThirdPersonController : NetworkBehaviour
     public bool showLocalPlayerModel;
     //IK
     public float armsRotation = 8f;
+    public float minVerticalAngle = -60;
+    public float maxVerticalAngle = 70;
     private Transform hips, spine, chest;                          // Avatar bone transforms.
     private Vector3 initialRootRotation;                           // Initial root bone local rotation.
     private Vector3 initialHipsRotation;                           // Initial hips rotation related to the root bone.
@@ -46,10 +48,7 @@ public class ThirdPersonController : NetworkBehaviour
         base.OnStartClient();
         if (base.IsOwner)
         {
-            characterManager = GetComponentInParent<NetworkCharacter>();
-            Setup(characterManager);
             Initialize();
-
             if (!showLocalPlayerModel)
                 meshRenderer.shadowCastingMode = ShadowCastingMode.ShadowsOnly;
         }
@@ -58,10 +57,12 @@ public class ThirdPersonController : NetworkBehaviour
     private void Awake()
     {
         meshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
-
         animator = GetComponent<Animator>();
         networkAnimator = GetComponent<NetworkAnimator>();
         ragdoll = GetComponent<Ragdoll>();
+
+        Setup(characterManager);
+        prefabHolder = FindObjectOfType<PoolManager>().poolHolder;
 
         hips = animator.GetBoneTransform(HumanBodyBones.Hips);
         spine = animator.GetBoneTransform(HumanBodyBones.Spine);
@@ -73,6 +74,7 @@ public class ThirdPersonController : NetworkBehaviour
         initialHipsRotation = hips.localEulerAngles;
         initialSpineRotation = spine.localEulerAngles;
         initialChestRotation = chest.localEulerAngles;
+
     }
 
     public void Setup(NetworkCharacter _characterManager)
@@ -89,14 +91,9 @@ public class ThirdPersonController : NetworkBehaviour
 
     private void Initialize()
     {
-        prefabHolder = FindObjectOfType<PoolManager>().poolHolder;
-
         pm.OnJump.AddListener(JumpManagement);
-
         characterManager.inventory.OnEquipWeapon.AddListener(EquipWeapon);
-
         characterManager.inventory.OnDropWeapon.AddListener(DropWeapon);
-
         wc.OnShoot.AddListener(FireWeapon);
     }
 
@@ -104,7 +101,6 @@ public class ThirdPersonController : NetworkBehaviour
     {
         if (base.IsOwner)
         {
-
             float inputRawX = Input.GetAxisRaw("Horizontal");
             float inputRawY = Input.GetAxisRaw("Vertical");
             Vector2 move = new Vector2(inputRawX, inputRawY);
@@ -147,16 +143,7 @@ public class ThirdPersonController : NetworkBehaviour
             animator.SetBool("Aim", wc.aiming);
 
             if (characterManager == null) return;
-
-            //sync position and rotation
-            transform.position = characterManager.transform.position;
-            transform.rotation = characterManager.transform.rotation;
         }
-        else
-        {
-            
-        }
-
     }
 
     private void JumpManagement()
@@ -247,31 +234,36 @@ public class ThirdPersonController : NetworkBehaviour
 
     public void OnAnimatorIK(int layerIndex)
     {
-        if (wc && wc.preset)
+        // Orientate upper body where camera  is targeting.
+        Quaternion targetRot = Quaternion.Euler(0, transform.eulerAngles.y, 0);
+        targetRot *= Quaternion.Euler(initialRootRotation);
+        targetRot *= Quaternion.Euler(initialHipsRotation);
+        targetRot *= Quaternion.Euler(initialSpineRotation);
+        // Set upper body horizontal orientation.
+        animator.SetBoneLocalRotation(HumanBodyBones.Spine, Quaternion.Inverse(hips.rotation) * targetRot);
+
+        // Keep upper body orientation regardless strafe direction.
+        float xCamRot = Quaternion.LookRotation(playerCam.transform.forward).eulerAngles.x;
+
+        // Convert angle to the range of -180 to 180 degrees to handle the wrap-around issue
+        if (xCamRot > 180f) xCamRot -= 360f;
+        // Clamp it
+        xCamRot = Mathf.Clamp(xCamRot, minVerticalAngle, maxVerticalAngle);
+        // Convert it back to the 0-360 range:
+        if (xCamRot < 0f) xCamRot += 360f;
+
+        targetRot = Quaternion.AngleAxis(xCamRot + armsRotation, this.transform.right);
+
+        if (wc.preset && wc.preset.type == WeaponType.Long && pm.moveState != MoveState.Sprinting)
         {
-            // Orientate upper body where camera  is targeting.
-            Quaternion targetRot = Quaternion.Euler(0, transform.eulerAngles.y, 0);
-            targetRot *= Quaternion.Euler(initialRootRotation);
-            targetRot *= Quaternion.Euler(initialHipsRotation);
-            targetRot *= Quaternion.Euler(initialSpineRotation);
-            // Set upper body horizontal orientation.
-            animator.SetBoneLocalRotation(HumanBodyBones.Spine, Quaternion.Inverse(hips.rotation) * targetRot);
-
-            // Keep upper body orientation regardless strafe direction.
-            float xCamRot = Quaternion.LookRotation(playerCam.transform.forward).eulerAngles.x;
-            targetRot = Quaternion.AngleAxis(xCamRot + armsRotation, this.transform.right);
-
-            if (wc.preset.type == WeaponType.Long && pm.moveState != MoveState.Sprinting)
-            {
-                // Correction for long weapons.
-                targetRot *= Quaternion.AngleAxis(9f, this.transform.right);
-                targetRot *= Quaternion.AngleAxis(20f, this.transform.up);
-            }
-
-            targetRot *= spine.rotation;
-            targetRot *= Quaternion.Euler(initialChestRotation);
-            // Set upper body vertical orientation.
-            animator.SetBoneLocalRotation(HumanBodyBones.Chest, Quaternion.Inverse(spine.rotation) * targetRot);
+            // Correction for long weapons.
+            targetRot *= Quaternion.AngleAxis(9f, this.transform.right);
+            targetRot *= Quaternion.AngleAxis(20f, this.transform.up);
         }
+
+        targetRot *= spine.rotation;
+        targetRot *= Quaternion.Euler(initialChestRotation);
+        // Set upper body vertical orientation.
+        animator.SetBoneLocalRotation(HumanBodyBones.Chest, Quaternion.Inverse(spine.rotation) * targetRot);
     }
 }
