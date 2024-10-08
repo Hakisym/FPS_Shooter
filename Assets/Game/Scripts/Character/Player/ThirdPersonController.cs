@@ -42,6 +42,8 @@ public class ThirdPersonController : NetworkBehaviour
     private Vector3 initialHipsRotation;                           // Initial hips rotation related to the root bone.
     private Vector3 initialSpineRotation;                          // Initial spine rotation related to the hips bone.
     private Vector3 initialChestRotation;                          // Initial chest rotation related to the spine bone.
+    private Vector3 castRelativeOrigin;
+    private float distToHand;
 
     public override void OnStartClient()
     {
@@ -75,6 +77,10 @@ public class ThirdPersonController : NetworkBehaviour
         initialSpineRotation = spine.localEulerAngles;
         initialChestRotation = chest.localEulerAngles;
 
+        Transform neck = animator.GetBoneTransform(HumanBodyBones.Neck);
+        castRelativeOrigin = neck.position - this.transform.position;
+        Transform rightHand = animator.GetBoneTransform(HumanBodyBones.RightHand);
+        distToHand = (rightHand.position - neck.position).magnitude * 1.5f;
     }
 
     public void Setup(NetworkCharacter _characterManager)
@@ -141,8 +147,6 @@ public class ThirdPersonController : NetworkBehaviour
 
             animator.SetInteger("Weapon", (wc.preset) ? wc.preset.type == WeaponType.Long ? 1 : 2 : 0);
             animator.SetBool("Aim", wc.aiming);
-
-            if (characterManager == null) return;
         }
     }
 
@@ -234,6 +238,8 @@ public class ThirdPersonController : NetworkBehaviour
 
     public void OnAnimatorIK(int layerIndex)
     {
+        Debug.DrawRay(this.transform.position + castRelativeOrigin, playerCam.transform.forward * distToHand, Color.red);
+
         // Orientate upper body where camera  is targeting.
         Quaternion targetRot = Quaternion.Euler(0, transform.eulerAngles.y, 0);
         targetRot *= Quaternion.Euler(initialRootRotation);

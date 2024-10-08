@@ -27,15 +27,30 @@ public class NetworkCharacter : NetworkBehaviour
     private void OnEnable()
     {
         weaponController.OnRaycastShoot = ShootRPCSender;
+        syncedGunId.OnChange += OnGunChange;
+    }
+
+    private void OnGunChange(int prev, int next, bool asServer)
+    {
+        if (!asServer && !base.IsOwner)
+        {
+            weaponController.preset = next == -1 ? thirdPerson.weaponPrefabs.GetWeaponData(next) : null;
+        }
     }
 
     private void Update()
     {
         if (base.IsOwner)
         {
-            if (weaponController.preset != null && weaponController.preset.gunID != syncedGunId.Value)
+            if (weaponController.preset != null)
             {
-                SetGunId(weaponController.preset.gunID);
+                if (weaponController.preset.gunID != syncedGunId.Value)
+                    SetGunId(weaponController.preset.gunID);
+            }
+            else
+            {
+                if (syncedGunId.Value != -1)
+                    SetGunId(-1);
             }
 
             if (((int)playerMovement.moveState) != syncedMoveState.Value)
@@ -45,11 +60,6 @@ public class NetworkCharacter : NetworkBehaviour
         }
         else
         {
-            if (weaponController.preset?.gunID != syncedGunId.Value && syncedGunId.Value != -1)
-            {
-                weaponController.preset = thirdPerson.weaponPrefabs.GetWeaponData(syncedGunId.Value);
-            }
-
             if (((int)playerMovement.moveState) != syncedMoveState.Value)
             {
                 playerMovement.moveState = (MoveState)syncedMoveState.Value;
