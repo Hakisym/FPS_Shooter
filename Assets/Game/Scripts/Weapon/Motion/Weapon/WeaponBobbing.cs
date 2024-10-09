@@ -10,23 +10,24 @@ public class WeaponBobbing : WeaponMotionBase
 
     [Space]
     public float sprintBobingSpeed = 1.5f;
-    public float sprintIntensity = 0.03f;
+    public float sprintIntensityX = 0.03f;
+    public float sprintIntensityY = 0.03f;
     public float aimBobbingSpeed = 0.8f;
-    public float aimIntensity = 0.2f;
 
     private float sinTime;
     private Vector3 velocity = Vector3.zero;
-    private float bobbingSpeed;
-    private float bobbingIntensity;
 
     private void Update()
     {
-        bobbingIntensity = effectIntensity;
+        float bobbingIntensityX = effectIntensity;
+        float bobbingIntensityY = effectIntensity;
+        float bobbingSpeed;
 
         // Change bobbing speed with aiming & moving
         if (stateProvider.CurrentMoveState == MoveState.Sprinting)
         {
-            bobbingIntensity = effectIntensity + sprintIntensity;
+            bobbingIntensityX += sprintIntensityX;
+            bobbingIntensityY += sprintIntensityY;
             bobbingSpeed = effectSpeed * sprintBobingSpeed;
         }
         else if (stateProvider.IsAiming || stateProvider.CurrentMoveState == MoveState.Crouching)
@@ -44,8 +45,8 @@ public class WeaponBobbing : WeaponMotionBase
         float idleMultiplier = stateProvider.CurrentMoveState != MoveState.Idle && stateProvider.CurrentMoveState != MoveState.InAir ? 1f : 0f;
 
         // Calculate bobbing position with a Mobius pattern
-        float sinAmountY = Mathf.Sin(sinTime) * bobbingIntensity * (stateProvider.IsAiming ? aimIntensity : 1f) * idleMultiplier;
-        float sinAmountX = Mathf.Sin(sinTime/2) * bobbingIntensity * (stateProvider.IsAiming ? aimIntensity : 1f) * idleMultiplier;
+        float sinAmountY = Mathf.Sin(sinTime) * bobbingIntensityX * (stateProvider.IsAiming ? 0.05f : 1f) * idleMultiplier;
+        float sinAmountX = Mathf.Sin(sinTime/2) * bobbingIntensityY * (stateProvider.IsAiming ? 0.05f : 1f) * idleMultiplier;
 
         Vector3 finalPosition = originalPosition + Vector3.up * sinAmountY + Vector3.right * sinAmountX;
 

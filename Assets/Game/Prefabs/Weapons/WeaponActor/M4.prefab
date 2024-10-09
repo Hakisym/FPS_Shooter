@@ -179,9 +179,9 @@ MonoBehaviour:
   effectSpeed: 13
   smoothTime: 0.1
   sprintBobingSpeed: 1.2
-  sprintIntensity: 0.01
+  sprintIntensityX: 0.01
+  sprintIntensityY: 0.02
   aimBobbingSpeed: 0.8
-  aimIntensity: 0.1
 --- !u!114 &5960381454378284264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,7 +222,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 559509382328221341}
-  sprintPosition: {x: -0.1, y: -0.035, z: -0.1}
+  sprintPosition: {x: -0.15, y: -0.05, z: -0.1}
   sprintRotation: {x: 12.2, y: -40, z: 20}
   sprintSpeed: 8
 --- !u!114 &9156924631484324447

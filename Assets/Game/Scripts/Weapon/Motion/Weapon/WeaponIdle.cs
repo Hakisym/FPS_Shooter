@@ -13,7 +13,7 @@ public class WeaponIdle : WeaponMotionBase
 
     public void Update()
     {
-        float multiplier = stateProvider.IsAiming ? 0.1f : 1f;
+        float multiplier = stateProvider.IsAiming ? 0.05f : 1f;
 
         time.x += Time.deltaTime * speed.x;
         time.y += Time.deltaTime * speed.y;
