@@ -74,7 +74,7 @@ public class HealthSystem : MonoBehaviour, IDamageable
     {
         if (Actor.actorManager) Actor.actorManager.Respawn();
 
-        if (Actor.isLocallyMine) deathcamera.Enable(Actor,ragdoll);
+        //if (Actor.isLocallyMine) deathcamera.Enable(Actor,ragdoll);
         if (Actor.isLocallyMine) ragdoll.GetComponent<ThirdPersonController>().Enable();
 
     }

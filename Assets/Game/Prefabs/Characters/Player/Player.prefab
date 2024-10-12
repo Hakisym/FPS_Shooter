@@ -461,7 +461,7 @@ MonoBehaviour:
   playerCam: {fileID: 1700024202367906406}
   whatIsShootable:
     serializedVersion: 2
-    m_Bits: 2112
+    m_Bits: 67649
   animator: {fileID: 1700024203204091687}
   metalImpact: {fileID: 1709698631529194, guid: 72b8f08b2b4dbbc439ccbb6402928ad1,
     type: 3}

@@ -17,9 +17,6 @@ public class NetworkCharacter : NetworkBehaviour
     public CameraManager cameraManager;
     public ThirdPersonController thirdPerson;
 
-    //network raycast
-    [SerializeField] LayerMask weaponHitLayers;
-
     //network syncvar
     private readonly SyncVar<int> syncedMoveState = new SyncVar<int>();     // SyncVar to synchronize the move state
     private readonly SyncVar<int> syncedGunId = new SyncVar<int>(-1);       // SyncVar to synchronize the active gun ID
@@ -85,9 +82,10 @@ public class NetworkCharacter : NetworkBehaviour
 
         int tries = 0;
 
-        while (tries < 10 && Physics.Raycast(pos, dir, out hit, remainingDistance, weaponHitLayers))
+        while (tries < 10 && Physics.Raycast(pos, dir, out hit, remainingDistance, weaponController.whatIsShootable))
         {
-            Debug.DrawRay(pos, dir * hit.distance, Color.red, 1f);
+            if (continueLoop) Debug.DrawRay(pos, dir * hit.distance, Color.red, 1f);
+
             //Add
             tries++;
             //Distract distance
@@ -96,19 +94,40 @@ public class NetworkCharacter : NetworkBehaviour
             pos = hit.point + dir * 0.01f;
             if (continueLoop)
             {
+                //Check if we hit ourselves
+                if (hit.transform.root.GetComponent<NetworkObject>()?.OwnerId == conn.ClientId) continue;
+
+                //Set Loop to false
+                continueLoop = false;
                 #region Damage
                 //Check if we hit a player
                 if (hit.collider.GetComponentInParent<PlayerHealth>())
                 {
-                    //Check if we hit ourselves
-                    if (hit.transform.root.GetComponent<NetworkObject>().OwnerId == conn.ClientId) continue;
-                    //Set Loop to false
-                    continueLoop = false;
-                    hit.collider.GetComponentInParent<PlayerHealth>().health.Value -= damage;
+                    //Apply local damage
+                    hit.collider.GetComponentInParent<PlayerHealth>().ServerApplyDamage(damage);
+                    //Since we hit a player, show the hitmarker
+                    DisplayHitmarker(conn, hit.point);
+                    //Tell other players we hit something
+                    WeaponRaycastHit(hit.point, hit.normal, hit.collider.tag);
                 }
                 #endregion
+                else
+                {
+                    //Tell other players we hit something
+                    WeaponRaycastHit(hit.point, hit.normal, hit.collider.tag);
+                }
             }
         }
+    }
+
+    [TargetRpc] private void DisplayHitmarker(NetworkConnection conn, Vector3 pos) => UIManager.instance.hitMarker.Show(false, pos);
+
+    [ObserversRpc] private void WeaponRaycastHit(Vector3 pos,Vector3 normal,string material)
+    {
+        if (material == "PlayerCollider")
+            Instantiate(weaponController.bloodImpact, pos, Quaternion.LookRotation(normal));
+        else
+            PoolManager.instance.SpawnGameObject(PoolTag.BulletImpact, pos, Quaternion.LookRotation(normal));
     }
 
     [ServerRpc] private void SetMoveState(int value) => syncedMoveState.Value = value;

@@ -23,7 +23,7 @@ public class WeaponController : MonoBehaviour
     private Transform prefabHolder;
     [Space(5)]
     [SerializeField] Camera playerCam;
-    [SerializeField] LayerMask whatIsShootable;
+    public LayerMask whatIsShootable;
     [SerializeField] Animator animator;
     [Space(5)]
     private Actor actor;
@@ -35,9 +35,9 @@ public class WeaponController : MonoBehaviour
     private PlayerHUD hud;
 
     [Header("Visuals")]
-    [SerializeField] GameObject metalImpact;
-    [SerializeField] GameObject bloodImpact;
-    [SerializeField] GameObject bulletTrail;
+    public GameObject metalImpact;
+    public GameObject bloodImpact;
+    public GameObject bulletTrail;
     private GameObject bulletCasting;
     private ParticleSystem muzzleVFX;
 

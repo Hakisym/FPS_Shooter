@@ -19,11 +19,12 @@ public class ActorManager : NetworkBehaviour
 
     public void Respawn()
     {
-        Invoke(nameof(SpawnActor), spawnDelay);
+        Invoke(nameof(Spawn), spawnDelay);
     }
 
-    private void SpawnActor()
+    private void Spawn()
     {
         actor = Instantiate(actorPrefab,transform);
+        base.Spawn(actor, Owner);
     }
 }

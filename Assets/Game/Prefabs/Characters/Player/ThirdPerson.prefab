@@ -103,7 +103,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5635027897075941022}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: Geometry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -346,7 +346,7 @@ GameObject:
   - component: {fileID: 8758010321577568424}
   m_Layer: 16
   m_Name: Head
-  m_TagString: Head
+  m_TagString: PlayerCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -808,7 +808,7 @@ GameObject:
   - component: {fileID: 614982125548865430}
   m_Layer: 16
   m_Name: Chest
-  m_TagString: Untagged
+  m_TagString: PlayerCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -978,7 +978,7 @@ GameObject:
   - component: {fileID: 4372543815991698356}
   m_Layer: 16
   m_Name: Left_Shoulder
-  m_TagString: Untagged
+  m_TagString: PlayerCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1105,7 +1105,7 @@ GameObject:
   - component: {fileID: 3432536867003089368}
   m_Layer: 16
   m_Name: Skeleton
-  m_TagString: Untagged
+  m_TagString: PlayerCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1137,7 +1137,7 @@ GameObject:
   - component: {fileID: 1324755818790759674}
   m_Layer: 16
   m_Name: Right_Hand
-  m_TagString: Untagged
+  m_TagString: PlayerCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1177,7 +1177,7 @@ GameObject:
   - component: {fileID: 4112643338614952710}
   m_Layer: 16
   m_Name: Right_UpperArm
-  m_TagString: Untagged
+  m_TagString: PlayerCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1380,7 +1380,7 @@ GameObject:
   - component: {fileID: 2689961399644566402}
   m_Layer: 16
   m_Name: Right_Shoulder
-  m_TagString: Untagged
+  m_TagString: PlayerCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1442,7 +1442,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7314210672329903546}
   - component: {fileID: 8345812393086884101}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: Armature_Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1598,7 +1598,7 @@ GameObject:
   - component: {fileID: 5083661186647699996}
   m_Layer: 16
   m_Name: UpperChest
-  m_TagString: Untagged
+  m_TagString: PlayerCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1729,7 +1729,7 @@ GameObject:
   - component: {fileID: 1658419434087219129}
   m_Layer: 16
   m_Name: Right_UpperLeg
-  m_TagString: Untagged
+  m_TagString: PlayerCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1837,7 +1837,7 @@ GameObject:
   - component: {fileID: 4208474715962046946}
   m_Layer: 16
   m_Name: Right_ThumbProximal
-  m_TagString: Untagged
+  m_TagString: PlayerCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1901,7 +1901,7 @@ GameObject:
   - component: {fileID: 395378512609240180}
   m_Layer: 16
   m_Name: Right_PinkyProximal
-  m_TagString: Untagged
+  m_TagString: PlayerCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2003,7 +2003,7 @@ GameObject:
   - component: {fileID: 954880866233707170}
   m_Layer: 16
   m_Name: Hips
-  m_TagString: Untagged
+  m_TagString: PlayerCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2097,7 +2097,7 @@ GameObject:
   - component: {fileID: 4757888277250526952}
   m_Layer: 16
   m_Name: Right_IndexProximal
-  m_TagString: Untagged
+  m_TagString: PlayerCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2129,7 +2129,7 @@ GameObject:
   - component: {fileID: 7456919420554860642}
   m_Layer: 16
   m_Name: Right_MiddleProximal
-  m_TagString: Untagged
+  m_TagString: PlayerCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2260,7 +2260,7 @@ GameObject:
   - component: {fileID: 4515631215367649496}
   - component: {fileID: 2426411330794694873}
   - component: {fileID: 3999459965322016170}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: ThirdPerson
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2335,7 +2335,7 @@ MonoBehaviour:
   weaponPrefabs: {fileID: 11400000, guid: 3354f1ed0af8fd845b93f2dd8ba60ce3, type: 2}
   characterManager: {fileID: 0}
   weaponHolder: {fileID: 1309601123}
-  speedChangeRate: 5
+  speedChangeRate: 10
   fallTimeout: 0.5
   showLocalPlayerModel: 0
   armsRotation: 17
@@ -2471,7 +2471,7 @@ GameObject:
   - component: {fileID: 1503167086186934953}
   m_Layer: 16
   m_Name: Right_LowerArm
-  m_TagString: Untagged
+  m_TagString: PlayerCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2674,7 +2674,7 @@ GameObject:
   - component: {fileID: 8017613659650502801}
   m_Layer: 16
   m_Name: Right_RingProximal
-  m_TagString: Untagged
+  m_TagString: PlayerCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2884,7 +2884,7 @@ GameObject:
   - component: {fileID: 771584722199228952}
   m_Layer: 16
   m_Name: Left_UpperLeg
-  m_TagString: Untagged
+  m_TagString: PlayerCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3024,7 +3024,7 @@ GameObject:
   - component: {fileID: 625844148335124892}
   m_Layer: 16
   m_Name: Spine
-  m_TagString: Untagged
+  m_TagString: PlayerCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3184,7 +3184,7 @@ GameObject:
   - component: {fileID: 7240150194900314387}
   m_Layer: 16
   m_Name: Neck
-  m_TagString: Untagged
+  m_TagString: PlayerCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

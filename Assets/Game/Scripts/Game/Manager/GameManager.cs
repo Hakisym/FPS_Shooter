@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
     [SerializeField] DeathCamera deathCamera;
 
     public DeathCamera DeathCamera { get; private set; }
 
     private void Awake()
     {
-        if (deathCamera) 
-        DeathCamera = Instantiate(deathCamera);
+        instance = this;
+        if (deathCamera) DeathCamera = Instantiate(deathCamera);
     }
 }

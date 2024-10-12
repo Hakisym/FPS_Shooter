@@ -132,4 +132,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lookDistance: 5
-  lookOffset: {x: 0, y: 1, z: 0}
+  lookOffset: {x: 0, y: 1.5, z: -2}

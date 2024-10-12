@@ -4,9 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - CinemachineTarget
+  - PlayerCollider
   - Enemy
   - Head
-  - CinemachineTarget
   layers:
   - Default
   - TransparentFX
@@ -14,17 +15,17 @@ TagManager:
   - 
   - Water
   - UI
-  - Environment
-  - Enemy
-  - Player
-  - Weapon
+  - 
+  - 
+  - PlayerRoot
+  - WeaponRender
   - Interactable
-  - EnemyHit
+  - 
   - WeaponPickup
   - WeaponGraphics
   - Post-Processing
   - Post-Processing Overlay
-  - Third Person
+  - PlayerColliders
   - 
   - 
   - 

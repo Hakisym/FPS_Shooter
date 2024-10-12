@@ -73,7 +73,8 @@ MonoBehaviour:
   _networkBehaviours:
   - {fileID: 9045672344911566869}
   <SerializedRootNetworkBehaviour>k__BackingField: {fileID: 0}
-  <NestedRootNetworkBehaviours>k__BackingField: []
+  <NestedRootNetworkBehaviours>k__BackingField:
+  - {fileID: 9199462270752259745}
   SerializedTransformProperties:
     Position: {x: 0, y: 0, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
@@ -108,11 +109,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2276899965236523399}
     m_Modifications:
-    - target: {fileID: 2097463226572110278, guid: ecaba5530c40c0a4386cc3a519e5625f,
-        type: 3}
-      propertyPath: _addedNetworkObject
-      value: 
-      objectReference: {fileID: 655591592789739856}
     - target: {fileID: 4212228718078462281, guid: ecaba5530c40c0a4386cc3a519e5625f,
         type: 3}
       propertyPath: <IsNested>k__BackingField
@@ -178,11 +174,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerNet Variant
       objectReference: {fileID: 0}
-    - target: {fileID: 7890278109439980043, guid: ecaba5530c40c0a4386cc3a519e5625f,
+    - target: {fileID: 8169166212034024988, guid: ecaba5530c40c0a4386cc3a519e5625f,
         type: 3}
-      propertyPath: _addedNetworkObject
-      value: 
-      objectReference: {fileID: 655591592789739856}
+      propertyPath: <IsNested>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ecaba5530c40c0a4386cc3a519e5625f, type: 3}
 --- !u!4 &7338084096475218728 stripped
@@ -191,3 +187,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1077973648962398397}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &9199462270752259745 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8169166212034024988, guid: ecaba5530c40c0a4386cc3a519e5625f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1077973648962398397}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

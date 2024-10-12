@@ -21,22 +21,10 @@ public class DeathCamera : MonoBehaviour
         Disable();
     }
 
-    private void Update()
+    public void Enable(Transform player)
     {
-        if (target)
-        {
-            transform.LookAt(target);
-        }
-    }
-
-    public void Enable(Actor self,Ragdoll ragdoll)
-    {
-        Vector3 insideUnitSpherePosition = Random.insideUnitSphere * lookDistance;
-        insideUnitSpherePosition.y = 0;
-
-        transform.position = self.transform.position + insideUnitSpherePosition + lookOffset;
-
-        target = ragdoll.transform.GetComponentInChildren<Rigidbody>().transform;
+        transform.position = player.position + player.forward * lookOffset.z + Vector3.up * lookOffset.y;
+        transform.rotation = Quaternion.LookRotation(player.forward);
 
         Camera.enabled = true;
         AudioListener.enabled = true;

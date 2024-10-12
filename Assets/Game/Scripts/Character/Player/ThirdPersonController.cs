@@ -45,10 +45,10 @@ public class ThirdPersonController : NetworkBehaviour
     private Vector3 castRelativeOrigin;
     private float distToHand;
 
-    public override void OnStartClient()
+    public override void OnStartNetwork()
     {
-        base.OnStartClient();
-        if (base.IsOwner)
+        base.OnStartNetwork();
+        if (base.Owner.IsLocalClient)
         {
             Initialize();
             if (!showLocalPlayerModel)
