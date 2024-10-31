@@ -17,6 +17,7 @@ public class UIManager : MonoBehaviour
     public HitMarker hitMarker;
     public KillFeed killFeed;
     public DamageIndicator damageIndicator;
+    public RespawnPanel respawnPanel;
 
     public static UIManager instance;
 

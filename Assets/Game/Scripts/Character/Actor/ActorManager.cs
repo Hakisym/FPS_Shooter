@@ -1,11 +1,6 @@
 using FishNet.Connection;
 using FishNet.Object;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Animations.Rigging;
-using Random = UnityEngine.Random;
 
 public class ActorManager : NetworkBehaviour
 {
@@ -20,7 +15,11 @@ public class ActorManager : NetworkBehaviour
     public void Respawn()
     {
         Invoke(nameof(Spawn), spawnDelay);
+        DisplayRespawnTime(LocalConnection, spawnDelay);
     }
+
+    [TargetRpc]
+    private void DisplayRespawnTime(NetworkConnection conn, float time) => UIManager.instance.respawnPanel.StartRespawnTime(time);
 
     private void Spawn()
     {

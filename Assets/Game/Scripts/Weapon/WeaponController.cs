@@ -280,7 +280,7 @@ public class WeaponController : MonoBehaviour
             if (Physics.Raycast(ray, out hit, preset.gunStats.range, whatIsShootable))
             {
                 //damageable group
-                if (hit.collider.gameObject.layer == LayerMask.NameToLayer("EnemyHit"))
+                if (hit.collider.gameObject.layer == LayerMask.NameToLayer("PlayerColliders"))
                 {
                     //decal
                     Instantiate(bloodImpact, hit.point, Quaternion.LookRotation(hit.normal), prefabHolder);
@@ -316,10 +316,11 @@ public class WeaponController : MonoBehaviour
                         hit.rigidbody.AddForceAtPosition(-hit.normal * preset.gunStats.impactForce, hit.point, ForceMode.Impulse);
                     }
                 }
-
-                //bullet impact
-                if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Environment"))
+                else
+                {   //bullet impact
                     PoolManager.instance.SpawnGameObject(PoolTag.BulletImpact, hit.point, Quaternion.LookRotation(hit.normal));
+                }
+                    
             }
 
             //Vector3 bulletDir = hit.collider ? (hit.point - muzzlePoint.position).normalized : (ray.GetPoint(50) - muzzlePoint.position).normalized;
