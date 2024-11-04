@@ -267,7 +267,7 @@ public class WeaponController : MonoBehaviour
 
     private void FireOneShot()
     {
-        Vector3 _spread = HenryUtilities.GetSpreadDirection(spread / 2, playerCam);
+        Vector3 _spread = HenryUtilities.GetSpreadDirection(spread, playerCam);
 
         Vector3 dir = (playerCam.transform.forward + _spread).normalized;
 
@@ -384,6 +384,16 @@ public class WeaponController : MonoBehaviour
     private void UpdateAimSpread(float t)
     {
         spread = Mathf.Lerp(currentSpread / 1000, currentSpread / 1000 * preset.gunStats.aimSpreadMultiplier, t);
+
+        Vector3 spread1 = playerCam.transform.InverseTransformDirection(new Vector3(-spread, spread, 0));
+        Vector3 spread2 = playerCam.transform.InverseTransformDirection(new Vector3(-spread, -spread, 0));
+        Vector3 spread3 = playerCam.transform.InverseTransformDirection(new Vector3(spread, spread, 0));
+        Vector3 spread4 = playerCam.transform.InverseTransformDirection(new Vector3(spread, -spread, 0));
+
+        Debug.DrawRay(playerCam.transform.position, (playerCam.transform.forward + spread1) * 50f);
+        Debug.DrawRay(playerCam.transform.position, (playerCam.transform.forward + spread2) * 50f);
+        Debug.DrawRay(playerCam.transform.position, (playerCam.transform.forward + spread3) * 50f);
+        Debug.DrawRay(playerCam.transform.position, (playerCam.transform.forward + spread4) * 50f);
     }
 
     private void DisplayCrosshair()

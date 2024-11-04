@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: M4
   m_EditorClassIdentifier: 
   gunID: 1
+  type: 0
   gunName: M4
   gunPrefab: {fileID: 573339908886308818, guid: b661e1dd3c074fc4c8e87590b42b1c5e,
     type: 3}
@@ -39,7 +40,7 @@ MonoBehaviour:
     walkSpread: 120
     runSpread: 150
     jumpSpread: 200
-    bulletSpreadOneShot: 50
+    bulletSpreadOneShot: 0
     bulletSpreadResizeSpeed: 5
     aimSpreadMultiplier: 0
   weaponRecoilParameters:
@@ -56,7 +57,7 @@ MonoBehaviour:
     positionalReturnSpeed: 35
     rotationalReturnSpeed: 35
   cameraRecoilParameters:
-    rotationSpeed: 20
+    rotationSpeed: 0
     returnSpeed: 5
     returnDuration: 0.4
     recoilRotation: {x: 0.5, y: 0.5, z: 0}
@@ -143,8 +144,3 @@ MonoBehaviour:
     reloadSoundOutOfAmmo: {fileID: 0}
     emptyMagShoot: {fileID: 0}
     aimSound: {fileID: 0}
-  thirdPersonData:
-    ikHandPos: {x: 0, y: 0, z: 0}
-    rightHandTarget: {x: -0.022, y: 0.045, z: 0.114}
-    rightHandTargetAim: {x: -0.023, y: 0.008, z: -0.033}
-    leftHandTarget: {x: 0.0397, y: -0.25, z: -0.0355}

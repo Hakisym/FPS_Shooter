@@ -10,6 +10,7 @@ public class CrossHair : MonoBehaviour
     [Tooltip(" Thickness of the crosshair  "), SerializeField]
     private float width = 2f;
 
+    [SerializeField] private float spreadRatio = 1f;
     [HideInInspector] public bool enableCrosshair;
     public bool showAimCrosshair;
 
@@ -45,13 +46,15 @@ public class CrossHair : MonoBehaviour
         texture.wrapMode = TextureWrapMode.Repeat;
         texture.Apply();
 
-        if (parts.downPart) GUI.DrawTexture(new Rect(Screen.width / 2 - width / 2, Screen.height / 2 + spread / 2, width, size), texture);
+        float scaledSpread = spread * Screen.width / 2560 * spreadRatio;
 
-        if (parts.topPart) GUI.DrawTexture(new Rect(Screen.width / 2 - width / 2, Screen.height / 2 - spread / 2, width, -size), texture);
+        if (parts.downPart) GUI.DrawTexture(ResizeGUI(new Rect(Screen.width / 2 - width / 2, Screen.height / 2 + scaledSpread, width, size)), texture);
 
-        if (parts.rightPart) GUI.DrawTexture(new Rect(Screen.width / 2 + spread / 2, Screen.height / 2 - width / 2, size, width), texture);
+        if (parts.topPart) GUI.DrawTexture(ResizeGUI(new Rect(Screen.width / 2 - width / 2, Screen.height / 2 - scaledSpread, width, -size)), texture);
 
-        if (parts.leftPart) GUI.DrawTexture(new Rect(Screen.width / 2 - spread / 2, Screen.height / 2 - width / 2, -size, width), texture);
+        if (parts.rightPart) GUI.DrawTexture(ResizeGUI(new Rect(Screen.width / 2 + scaledSpread, Screen.height / 2 - width / 2, size, width)), texture);
+
+        if (parts.leftPart) GUI.DrawTexture(ResizeGUI(new Rect(Screen.width / 2 - scaledSpread, Screen.height / 2 - width / 2, -size, width)), texture);
 
         if (parts.center)
         {
@@ -61,5 +64,17 @@ public class CrossHair : MonoBehaviour
 
             GUI.DrawTexture(circleRect, texture);
         }
+    }
+
+    Rect ResizeGUI(Rect _rect)
+    {
+        float FilScreenWidth = _rect.width / 2560;
+        float rectWidth = FilScreenWidth * Screen.width;
+        float FilScreenHeight = _rect.height / 1440;
+        float rectHeight = FilScreenHeight * Screen.height;
+        float rectX = (_rect.x / 2560) * Screen.width;
+        float rectY = (_rect.y / 1440) * Screen.height;
+
+        return new Rect(_rect.x, _rect.y, rectWidth, rectHeight);
     }
 }
