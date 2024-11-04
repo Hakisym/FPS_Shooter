@@ -42,7 +42,7 @@ public class WeaponBobbing : WeaponMotionBase
         sinTime += Time.deltaTime * bobbingSpeed;
 
         // Movement & air multiplier for return animation
-        float idleMultiplier = stateProvider.CurrentMoveState != MoveState.Idle && stateProvider.CurrentMoveState != MoveState.InAir ? 1f : 0f;
+        float idleMultiplier = !stateProvider.isVelocityZero && stateProvider.CurrentMoveState != MoveState.InAir ? 1f : 0f;
 
         // Calculate bobbing position with a Mobius pattern
         float sinAmountY = Mathf.Sin(sinTime) * bobbingIntensityX * (stateProvider.IsAiming ? 0.05f : 1f) * idleMultiplier;

@@ -26,11 +26,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] LayerMask groundMask;
     [Space]
     [Header("Move State")]
-    [HideInInspector] private Vector3 velocity;
     [HideInInspector] public bool isGrounded;
-    [HideInInspector] public bool isSprinting;
-    [HideInInspector] public bool isCrouching;
     [HideInInspector] public bool canMove;
+    [HideInInspector] public bool isVelocityZero { get { return controller.velocity == Vector3.zero; } }
+    [HideInInspector] private Vector3 velocity;
+    [HideInInspector] private bool isSprinting;
+    [HideInInspector] private bool isCrouching;
     public MoveState moveState;
     [Space]
     [Header("Crouch")]
@@ -260,7 +261,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //check if taking input
-        if (velocity.sqrMagnitude > 0 && (Input.GetAxisRaw("Horizontal") != 0) || Input.GetAxisRaw("Vertical") != 0)
+        if (isGrounded && moveDirection != Vector3.zero)
         {
             //update step cycle
             stepCycle += 10 * Time.fixedDeltaTime;

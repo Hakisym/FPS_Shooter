@@ -40,8 +40,8 @@ MonoBehaviour:
     walkSpread: 120
     runSpread: 150
     jumpSpread: 200
-    bulletSpreadOneShot: 0
-    bulletSpreadResizeSpeed: 5
+    bulletSpreadOneShot: 50
+    bulletSpreadResizeSpeed: 10
     aimSpreadMultiplier: 0
   weaponRecoilParameters:
     staticRecoilPosition: {x: 0, y: 0, z: -0.4}
@@ -57,7 +57,7 @@ MonoBehaviour:
     positionalReturnSpeed: 35
     rotationalReturnSpeed: 35
   cameraRecoilParameters:
-    rotationSpeed: 0
+    rotationSpeed: 20
     returnSpeed: 5
     returnDuration: 0.4
     recoilRotation: {x: 0.5, y: 0.5, z: 0}

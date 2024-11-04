@@ -9,6 +9,7 @@ public interface IWeaponStateProvider
     bool IsAiming { get; }
     float AimValue { get; }
     MoveState CurrentMoveState { get; }
+    bool isVelocityZero { get; }
 
     event Action OnJump;
     event Action OnLand;
