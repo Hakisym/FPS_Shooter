@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class WeaponCasting : MonoBehaviour
 {
+    public Rigidbody rb;
+
     [Header("Force X")]
     public float minimumXForce;
     public float maximumXForce;
@@ -28,17 +30,19 @@ public class WeaponCasting : MonoBehaviour
     public float speed = 2500.0f;
 
     //Launch the casing at start
-    private void Awake()
+    public void Initialize(Vector3 velocity)
     {
+        rb.velocity = velocity;
+
         //Random rotation of the casing
-        GetComponent<Rigidbody>().AddRelativeTorque(
+        rb.AddRelativeTorque(
             Random.Range(minimumRotation, maximumRotation), //X Axis
             Random.Range(minimumRotation, maximumRotation), //Y Axis
             Random.Range(minimumRotation, maximumRotation)  //Z Axis
             * Time.deltaTime);
 
         //Random direction the casing will be ejected in
-        GetComponent<Rigidbody>().AddRelativeForce(
+        rb.AddRelativeForce(
             Random.Range(minimumXForce, maximumXForce), //X Axis
             Random.Range(minimumYForce, maximumYForce),  //Y Axis
             Random.Range(minimumZForce, maximumZForce)); //Z Axis

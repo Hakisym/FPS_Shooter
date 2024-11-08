@@ -159,12 +159,10 @@ public class PlayerMovement : MonoBehaviour
 
         // Sprint input
         bool sprinting = Input.GetKey(KeyCode.LeftShift);
-        if (sprinting && isGrounded && mouseY > 0 && !wc.shootState)
+        if (sprinting && isGrounded && mouseY > 0 && !wc.shootState && !wc.reloading && !wc.aiming)
             isSprinting = true;
         else
             isSprinting = false;
-
-        if (wc.aiming && isSprinting) isSprinting = false;
 
         // Crouch input
         if (Input.GetKeyDown(KeyCode.LeftControl) && isGrounded && !isSprinting)

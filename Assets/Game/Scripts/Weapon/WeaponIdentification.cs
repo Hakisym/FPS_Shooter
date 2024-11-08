@@ -21,16 +21,15 @@ public class WeaponIdentification : MonoBehaviour, IWeaponStateProvider
 
     public bool isVelocityZero => pm.isVelocityZero;
 
-    public event Action OnJump;
-    public event Action OnLand;
+    public Action<bool> OnPlayerLeaveGround { get; set; }
 
     public void Initialize(WeaponController weaponController, PlayerMovement playerMovement)
     {
         wc = weaponController;
         pm = playerMovement;
 
-        pm.OnJump.AddListener(() => OnJump?.Invoke());   // Forward the jump event
-        pm.OnLand.AddListener(() => OnLand?.Invoke());   // Forward the land event
+        pm.OnJump.AddListener(() => OnPlayerLeaveGround(true));   // Forward the jump event
+        pm.OnLand.AddListener(() => OnPlayerLeaveGround(false));   // Forward the land event
 
         foreach (var motion in motions)
         {

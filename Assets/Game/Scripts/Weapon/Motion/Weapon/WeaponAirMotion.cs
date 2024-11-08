@@ -19,8 +19,13 @@ public class WeaponAirMotion : WeaponMotionBase
     public override void Setup(IWeaponStateProvider provider)
     {
         base.Setup(provider);
-        provider.OnJump += Jump;
-        provider.OnLand += Land;
+        provider.OnPlayerLeaveGround += (inAir) =>
+        {
+            if (inAir)
+                Jump();
+            else
+                Land();
+        };
     }
 
     private void Update()
@@ -52,11 +57,5 @@ public class WeaponAirMotion : WeaponMotionBase
         // Set the jump intensity
         currentPosition += landPosition * multiplier;
         currentRotation += landRotation * multiplier;
-    }
-
-    private void OnDestroy()
-    {
-        stateProvider.OnJump -= Jump;
-        stateProvider.OnLand -= Land;
     }
 }

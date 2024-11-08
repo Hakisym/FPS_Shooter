@@ -11,6 +11,5 @@ public interface IWeaponStateProvider
     MoveState CurrentMoveState { get; }
     bool isVelocityZero { get; }
 
-    event Action OnJump;
-    event Action OnLand;
+    Action<bool> OnPlayerLeaveGround { get; set; }
 }

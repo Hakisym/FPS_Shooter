@@ -242,6 +242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aec72eb75d21574f9cebd2eb5655bf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 8360084054929323127}
   minimumXForce: 30
   maximumXForce: 60
   minimumYForce: 0

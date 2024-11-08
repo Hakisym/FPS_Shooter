@@ -212,7 +212,9 @@ public class WeaponController : MonoBehaviour
         //bullet cast and gun animation
         if (preset.gunStats.fireMode != ShootMode.PumpAction)
         {
-            Instantiate(bulletCasting, castingPoint.position, castingPoint.rotation, prefabHolder);
+            var shell = Instantiate(bulletCasting, castingPoint.position, castingPoint.rotation, prefabHolder);
+            var casting = shell.GetComponent<WeaponCasting>();
+            casting.Initialize(pm.controller.velocity);
             inventory.currentWeapon.animator.Play("Fire");
         }
 
