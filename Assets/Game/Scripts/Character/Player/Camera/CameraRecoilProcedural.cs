@@ -6,15 +6,19 @@ using Random = UnityEngine.Random;
 
 public class CameraRecoilProcedural : CameraRecoil
 {
-    public Coroutine lerpCoroutine;
-    public Vector3 endValue;
-    public Vector3 lastRotation;
-    [Space]
-    public float startXInput;
-    public float endXInput;
-    [Space]
-    public float startCamRot;
-    public float endCamRot;
+    private Coroutine lerpCoroutine;
+    private Vector3 endValue;
+    private Vector3 lastRotation;
+
+    private float startXInput;
+    private float endXInput;
+
+    private float startCamRot;
+    private float endCamRot;
+
+    public float cameraRecoilX;
+    public float cameraRecoilY;
+    private Vector3 lastCameraRotation;
 
     public bool returnZero;
 
@@ -42,8 +46,8 @@ public class CameraRecoilProcedural : CameraRecoil
         //set a return value from original fire point
         if (returnZero)
         {
-            startXInput = pl.xRotation;
-            startCamRot = pl.cameraRotationX;
+            startXInput = pl.xInput;
+            startCamRot = pl.xRotation;
 
             endValue = lastRotation;
             returnZero = false;
@@ -52,8 +56,8 @@ public class CameraRecoilProcedural : CameraRecoil
 
     void OnEndShoot()
     {
-        endXInput = pl.xRotation;
-        endCamRot = pl.cameraRotationX;
+        endXInput = pl.xInput;
+        endCamRot = pl.xRotation;
 
         //return last fire point if the camera is lower than original fire point
         if (endCamRot > startCamRot)
@@ -93,6 +97,10 @@ public class CameraRecoilProcedural : CameraRecoil
         if (!currentPreset) return;
         //Smooth rotate to current rotation
         resultCameraRotation = Vector3.Slerp(resultCameraRotation, currentRotation, currentPreset.cameraRecoilParameters.rotationSpeed * Time.deltaTime);
+
+        cameraRecoilX = resultCameraRotation.x - lastCameraRotation.x;
+        cameraRecoilY = resultCameraRotation.y - lastCameraRotation.y;
+        lastCameraRotation = resultCameraRotation;
     }
 
     //Recoil while using procedural pattern

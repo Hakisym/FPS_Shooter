@@ -9,16 +9,14 @@ public class PlayerLook : MonoBehaviour
     public float xClampValue;
 
     private bool canLook;
-    [HideInInspector] public float xRotation;
+    public float xRotation;
     [HideInInspector] public float yRotation;
-    private CameraRecoil cameraRecoil;
-
-    [HideInInspector] public float cameraRotationX;
-    [HideInInspector] public float cameraRotationY;
+    private CameraRecoilProcedural cameraRecoil;
+    public float xInput;
 
     private void Awake()
     {
-        cameraRecoil = GetComponentInChildren<CameraRecoil>();
+        cameraRecoil = GetComponentInChildren<CameraRecoilProcedural>();
     }
 
     private void Start()
@@ -41,39 +39,33 @@ public class PlayerLook : MonoBehaviour
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
-        yRotation += mouseX;
+        xInput -= mouseY;
         xRotation -= mouseY;
+        yRotation += mouseX;
 
-        // Periodically reset yRotation to keep the value within reasonable bounds
-        if (yRotation > 360f || yRotation < -360f)
-        {
-            yRotation = 0f;
-        }
+        ResetAngularFloat(ref xInput);
+        ResetAngularFloat(ref yRotation);
 
-        //// Periodically reset xRotation to keep the value within reasonable bounds
-        //if (xRotation > 360f || xRotation < -360f)
-        //{
-        //    xRotation = 0f;
-        //    cameraRecoil.resultCameraRotation.x += 360f;
-        //    cameraRecoil.currentRotation.x += 360f;
-        //}
-
-        cameraRotationX = xRotation + cameraRecoil.resultCameraRotation.x;
-        cameraRotationY = yRotation + cameraRecoil.resultCameraRotation.y;
+        xRotation += cameraRecoil.cameraRecoilX;
+        yRotation += cameraRecoil.cameraRecoilY;
 
         // Clamp pitch
-        if (cameraRotationX < -xClampValue || cameraRotationX > xClampValue)
-        {
-            yRotation -= mouseX;
-            xRotation += mouseY;
-            return;
-        }
+        xRotation = Mathf.Clamp(xRotation, -xClampValue, xClampValue);
 
-        Vector3 cameraRotation = new Vector3(cameraRotationX, 0, 0);
-        Vector3 playerRotation = new Vector3(0, cameraRotationY, 0);
+        Vector3 cameraRotation = new Vector3(xRotation, 0, 0);
+        Vector3 playerRotation = new Vector3(0, yRotation, 0);
 
         // Rotate player and camera
         transform.localRotation = Quaternion.Euler(cameraRotation);
         playerBody.localRotation = Quaternion.Euler(playerRotation);
+    }
+
+    // Periodically reset yRotation to keep the value within reasonable bounds
+    private void ResetAngularFloat(ref float value)
+    {
+        if (value > 360f || value < -360f)
+        {
+            value = 0f;
+        }
     }
 }
