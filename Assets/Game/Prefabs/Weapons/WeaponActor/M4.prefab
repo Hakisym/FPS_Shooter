@@ -224,7 +224,7 @@ MonoBehaviour:
   target: {fileID: 559509382328221341}
   sprintPosition: {x: -0.15, y: -0.05, z: -0.1}
   sprintRotation: {x: 12.2, y: -40, z: 20}
-  sprintSpeed: 8
+  sprintSpeed: 12
 --- !u!114 &9156924631484324447
 MonoBehaviour:
   m_ObjectHideFlags: 0
